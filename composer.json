@@ -1,43 +1,17 @@
 {
-  "name": "wpdeveloper/notificationx",
+  "name": "surfalert/surfalert",
+  "description": "SurfAlert - The best Social Proof & FOMO Marketing Solution to grow your business.",
   "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
   "authors": [
     {
-      "name": "Md. Alimuzzaman Alim",
-      "email": "alim@wpdeveloper.com"
+      "name": "surf lab",
+      "email": "your@email.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/WPDevelopers/lib-settings"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/WPDevelopers/lib-utility"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/WPDevelopers/query-builder"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/priyomukul/wp-notice"
-    }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "wpdeveloper/lib-settings": "dev-master",
-    "wpdeveloper/query-builder": "dev-main",
-    "priyomukul/wp-notice": "v2.x-dev"
-  },
   "autoload": {
-    "exclude-from-classmap": [
-        "blocks/controls"
-    ],
-    "classmap": [
-      "includes",
-      "blocks"
-    ]
+    "psr-4": {
+      "SurfAlert\\": "includes/"
+    }
   }
 }

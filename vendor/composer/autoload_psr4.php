@@ -6,6 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WPDeveloper\\QueryBuilder\\' => array($vendorDir . '/wpdeveloper/query-builder/src'),
-    'PriyoMukul\\WPNotice\\' => array($vendorDir . '/priyomukul/wp-notice/src'),
+    'SurfAlert\\' => array($baseDir . '/includes'),
 );

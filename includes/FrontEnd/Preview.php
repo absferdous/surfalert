@@ -3,14 +3,14 @@
 /**
  * Admin Class File.
  *
- * @package NotificationX\Admin
+ * @package SurfAlert\Admin
  */
 
-namespace NotificationX\FrontEnd;
+namespace SurfAlert\FrontEnd;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
 
 /**
  * Preview Class, this class is responsible for all Preview Actions
@@ -30,9 +30,9 @@ class Preview {
         add_action('wp_head', [$this, 'header_scripts']);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
-        add_filter('nx_before_enqueue_scripts', [$this, 'enqueue_scripts']);
-        add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
-        add_filter('nx_metabox_config', [$this, 'content_heading']);
+        add_filter('sa_before_enqueue_scripts', [$this, 'enqueue_scripts']);
+        add_filter('sa_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
+        add_filter('sa_metabox_config', [$this, 'content_heading']);
 
         if ($this->is_preview()) {
             show_admin_bar(false);
@@ -101,9 +101,9 @@ class Preview {
             $args['settings'] = FrontEnd::get_instance()->get_settings();
 
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
-            wp_enqueue_style('notificationx-public');
-            wp_enqueue_script('notificationx-public');
-            do_action('notificationx_scripts', $this->notificationXArr);
+            wp_enqueue_style('surfalert-public');
+            wp_enqueue_script('surfalert-public');
+            do_action('surfalert_scripts', $this->notificationXArr);
 
             add_filter('show_admin_bar', '__return_false');
 
@@ -116,27 +116,27 @@ class Preview {
         if ($this->is_preview()) {
 ?>
             <style>
-                .notificationx-woo-shortcode-inline-wrapper > * {
+                .surfalert-woo-shortcode-inline-wrapper > * {
                     display: inline-block;
                     /* background: rgb(255 255 0 / 20%);
                     color: red; */
                     font-weight: 600;
                 }
-                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:first-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child, 
-                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:first-child {
+                .surfalert-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:first-child,
+                .surfalert-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:first-child, 
+                .surfalert-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:first-child {
                     color: #61BD6D;
                 }
-                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:last-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:last-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:last-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.tutor_inline_conv-theme-seven span:last-child,
-                .notificationx-woo-shortcode-inline-wrapper > div.learndash_inline_conv-theme-seven span:last-child{
+                .surfalert-woo-shortcode-inline-wrapper > div.woo_inline_conv-theme-seven span:last-child,
+                .surfalert-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_conv-theme-seven span:last-child,
+                .surfalert-woo-shortcode-inline-wrapper > div.edd_inline_conv-theme-seven span:last-child,
+                .surfalert-woo-shortcode-inline-wrapper > div.tutor_inline_conv-theme-seven span:last-child,
+                .surfalert-woo-shortcode-inline-wrapper > div.learndash_inline_conv-theme-seven span:last-child{
                     color: #E25042;
                 }
 
-                .notificationx-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span,
-                .notificationx-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_stock-theme-one span {
+                .surfalert-woo-shortcode-inline-wrapper > div.woo_inline_stock-theme-one span,
+                .surfalert-woo-shortcode-inline-wrapper > div.woocommerce_sales_inline_stock-theme-one span {
                     color: #E25042;
                 }
             </style>
@@ -169,9 +169,9 @@ class Preview {
     public function preview_entry($settings) {
         $source = !empty($settings['source']) ? $settings['source'] : '';
         $type = !empty($settings['type']) ? $settings['type'] : '';
-        $nx_id = !empty($settings['nx_id']) ? $settings['nx_id'] : '';
+        $sa_id = !empty($settings['sa_id']) ? $settings['sa_id'] : '';
         $defaults = [
-            'nx_id'                => $nx_id,
+            'sa_id'                => $sa_id,
             'active_installs'      => rand(50, 70),
             'active_installs_text' => 'Try It Out',
             'all_time'             => rand(50, 70),
@@ -181,9 +181,9 @@ class Preview {
             'author_profile'       => 'https://profiles.wordpress.org/wpdevteam/',
             'amount'               => rand(50, 70),
             'avatar'               => [
-                'src' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'src' => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             ],
-            'picture'           => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+            'picture'           => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
             'city'              => 'Dhaka',
             'city_country'      => 'Dhaka, Bangladesh',
             'content'           => 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -199,15 +199,15 @@ class Preview {
             'first_name'        => 'John',
             '_first_name'       => 'John',
             'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
-            'ga_title'          => 'NotificationX',
+            'ga_title'          => 'SurfAlert',
             'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
             'icons'             => array(
-                '1x' => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
-                '2x' => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+                '1x' => "https://ps.w.org/surfalert/assets/icon-128x128.gif?rev=2783824",
+                '2x' => "https://ps.w.org/surfalert/assets/icon-256x256.gif?rev=2783824",
             ),
             'id'         => 5,
             'image_data' => array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'url'     => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             ),
@@ -226,15 +226,15 @@ class Preview {
             'names'             => 'John Doe',
             'none'              => '',
             'num_ratings'       => 2974,
-            'nx_id'             => '60',
+            'sa_id'             => '60',
             'order_id'          => 5815,
             'place_id'          => 'ChIJ0cpDbNvBVTcRGX9JNhhpC8I',
             'place_name'        => 'WPDeveloper',
-            'plugin_name'       => 'NotificationX',
+            'plugin_name'       => 'SurfAlert',
             'plugin_name_text'  => 'try it out',
             'plugin_review'     => 'Lorem Ipsum is simply dummy text...',
             'place_review'      => 'Lorem Ipsum is simply dummy text...',
-            'plugin_theme_name' => 'NotificationX',
+            'plugin_theme_name' => 'SurfAlert',
             'post_link'         => '#',
             'product_id'        => 168,
             'product_title'     => 'Assorted Coffee',
@@ -275,9 +275,9 @@ class Preview {
             'post_title'        => 'Hello World',
             'sales_count'       => rand(50, 70),
             'donation_count'       => rand(50, 70),
-            '1day'              => __('In last 1 day', 'notificationx'),
-            '7days'             => __('In last 7 days', 'notificationx'),
-            '30days'            => __('In last 30 days', 'notificationx'),
+            '1day'              => __('In last 1 day', 'surfalert'),
+            '7days'             => __('In last 7 days', 'surfalert'),
+            '30days'            => __('In last 30 days', 'surfalert'),
             'post_comment'      => 'Lorem Ipsum is simply dummy text...',
             // 'select_a_tag'      => 'Jhon',
 
@@ -295,24 +295,24 @@ class Preview {
 
         $defaults['image_data'] = FrontEnd::get_instance()->apply_defaults((array) FrontEnd::get_instance()->get_image_url($defaults, $settings), $defaults['image_data']);
 
-        $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
-        $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
-        $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
+        $defaults  = apply_filters("sa_preview_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("sa_preview_entry_$source", $defaults, $settings);
+        $_defaults = apply_filters("sa_fallback_data_$source", $defaults, $defaults, $settings);
+        $_defaults = apply_filters('sa_fallback_data', $_defaults, $_defaults, $settings);
         $defaults  = FrontEnd::get_instance()->apply_defaults($defaults, $_defaults);
-        $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
-        $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
+        $defaults  = apply_filters("sa_filtered_entry_$type", $defaults, $settings);
+        $defaults  = apply_filters("sa_filtered_entry_$source", $defaults, $settings);
         // $defaults  = $this->link_url($defaults, $settings);
         if (strpos($settings['theme'], 'maps_theme') !== false && 'maps_image' === $settings['show_notification_image']) {
             $defaults['image_data'] = array(
-                'url'     => NOTIFICATIONX_ASSETS . 'admin/images/map.jpg',
+                'url'     => SURFALERT_ASSETS . 'admin/images/map.jpg',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             );
         }
         if ('gravatar' === $settings['show_notification_image']) {
             $defaults['image_data'] = array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'url'     => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             );
@@ -324,7 +324,7 @@ class Preview {
     }
 
     public function get_settings(){
-        $settings = base64_decode($_POST['nx-preview']);
+        $settings = base64_decode($_POST['sa-preview']);
         $settings = json_decode($settings, true);
         return $settings;
     }
@@ -340,7 +340,7 @@ class Preview {
             $settings['global_queue']  = false;
             $settings['_global_queue'] = true;
         }
-        $settings['nx_id'] = rand();
+        $settings['sa_id'] = rand();
         $settings['is_preview'] = true;
         if (empty($settings['theme']) && !empty($settings['themes'])) {
             $settings['theme'] = $settings['themes'];
@@ -352,31 +352,31 @@ class Preview {
             $settings['notification-template'] = array_map( 'esc_html', $settings['notification-template'] );
         }
 
-        $settings = apply_filters("nx_get_post_{$settings['source']}", $settings);
-        $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
-        $settings = apply_filters('nx_get_post', $settings);
+        $settings = apply_filters("sa_get_post_{$settings['source']}", $settings);
+        $settings = apply_filters("sa_preview_settings_{$settings['source']}", $settings);
+        $settings = apply_filters('sa_get_post', $settings);
         return $settings;
     }
 
     public function content_heading($tabs) {
-        $urls = apply_filters('nx_preview_url', [
+        $urls = apply_filters('sa_preview_url', [
             'default'    => trailingslashit(home_url()),
         ]);
 
         $tabs['config']['content_heading']['talk_to_support'] = apply_filters('talk_to_support', [
-            'text'    => __('Talk to Support', 'notificationx'),
-            'classes' => 'nx-talk-to-support',
+            'text'    => __('Talk to Support', 'surfalert'),
+            'classes' => 'sa-talk-to-support',
             'type'    => 'button',
             'name'    => 'talk_to_support',
             'target'  => '_blank',
-            'href'    => esc_url('https://notificationx.com/support/?support=chat'),
+            'href'    => esc_url('https://surfalert.com/support/?support=chat'),
         ]);
-        $tabs['config']['content_heading']['preview'] = apply_filters('nx_content_heading_preview', [
-            'label'  => __('Preview', 'notificationx'),
+        $tabs['config']['content_heading']['preview'] = apply_filters('sa_content_heading_preview', [
+            'label'  => __('Preview', 'surfalert'),
             'type'   => 'preview-modal',
             'name'   => 'preview',
             'urls'   => $urls,
-            'errors' => apply_filters('nx_content_heading_preview_errors', []),
+            'errors' => apply_filters('sa_content_heading_preview_errors', []),
             'rules'       => Rules::logicalRule([
                 Rules::includes('themes', ['woo_inline_stock-theme-two', 'tutor_inline_conv-theme-eight', 'flashing_tab_theme-1','flashing_tab_theme-2' ,'flashing_tab_theme-3' , 'flashing_tab_theme-4','woocommerce_sales_inline_stock-theme-two','learnpress_inline_conv-theme-eight'], true),
                 Rules::is('type', 'notification_bar', true),
@@ -394,7 +394,7 @@ class Preview {
                 return;
             }
 
-            remove_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10);
+            remove_filter('sa_inline_notifications_data', [$this, 'inline_notifications_data'], 10);
 
             $source = !empty($settings['source']) ? $settings['source'] : '';
             $type   = !empty($settings['type']) ? $settings['type'] : '';
@@ -402,7 +402,7 @@ class Preview {
             $settings['inline_location'][] = 'woocommerce_before_add_to_cart_form';
 
             $defaults = [
-                "nx_id"           => rand(),
+                "sa_id"           => rand(),
                 "entry_id"        => 78,
                 "order_id"        => 96,
                 "product_id"      => $id,
@@ -432,13 +432,13 @@ class Preview {
             ];
 
 
-            $_defaults = apply_filters("nx_fallback_data_$source", $defaults, $defaults, $settings);
-            $_defaults = apply_filters('nx_fallback_data', $_defaults, $_defaults, $settings);
+            $_defaults = apply_filters("sa_fallback_data_$source", $defaults, $defaults, $settings);
+            $_defaults = apply_filters('sa_fallback_data', $_defaults, $_defaults, $settings);
             $defaults  = FrontEnd::get_instance()->apply_defaults($defaults, $_defaults);
-            $defaults  = apply_filters("nx_preview_entry_$type", $defaults, $settings);
-            $defaults  = apply_filters("nx_preview_entry_$source", $defaults, $settings);
-            $defaults  = apply_filters("nx_filtered_entry_$type", $defaults, $settings);
-            $defaults  = apply_filters("nx_filtered_entry_$source", $defaults, $settings);
+            $defaults  = apply_filters("sa_preview_entry_$type", $defaults, $settings);
+            $defaults  = apply_filters("sa_preview_entry_$source", $defaults, $settings);
+            $defaults  = apply_filters("sa_filtered_entry_$type", $defaults, $settings);
+            $defaults  = apply_filters("sa_filtered_entry_$source", $defaults, $settings);
 
             return [
                 'shortcode' => [
@@ -455,10 +455,10 @@ class Preview {
 
     public function is_preview() {
         $is_preview = false;
-        if (!empty($_POST['nx-preview'])) {
+        if (!empty($_POST['sa-preview'])) {
             $is_preview = true;
         }
-        $is_preview = apply_filters('nx_is_preview',$is_preview);
+        $is_preview = apply_filters('sa_is_preview',$is_preview);
         return $is_preview;
     }
 }

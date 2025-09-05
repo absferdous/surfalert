@@ -1,16 +1,16 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Admin;
-use NotificationX\Admin\Cron;
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\FrontEnd\FrontEnd;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Admin\Admin;
+use SurfAlert\Admin\Cron;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\FrontEnd\FrontEnd;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 
 /**
  * @method static PostType get_instance($args = null)
@@ -28,15 +28,15 @@ class PostType {
      *
      * @since    1.0.0
      * @access   public
-     * @var string the post type of notificationx.
+     * @var string the post type of surfalert.
      */
-    public $type = 'notificationx';
+    public $type = 'surfalert';
     public $context = 'normal';
     public $active_items;
     public $enabled_source;
-    public $_edit_link = 'admin.php?page=nx-edit&post=%d';
+    public $_edit_link = 'admin.php?page=sa-edit&post=%d';
     public $format = [
-        'nx_id'        => '%d',
+        'sa_id'        => '%d',
         'type'         => '%s',
         'source'       => '%s',
         'theme'        => '%s',
@@ -58,24 +58,24 @@ class PostType {
         // add_action('init', array($this, 'register'));
         add_action( 'admin_menu', [ $this, 'menu' ], 15 );
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
-        add_filter( 'nx_get_post', [ $this, 'get_theme_preview_image' ] );
-        add_filter( 'nx_get_post', [ $this, 'responsive_size_backward_comp' ] );
-        add_filter( 'nx_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
-        add_filter( 'nx_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
-        // add_image_size( '_nx_notification_thumb', 100, 100, true );
-        add_filter( 'nx_save_post', [ $this, 'maximize_notification_size' ], 10, 3 );
-        add_filter( 'nx_get_post', [ $this, 'get_maximize_notification_size' ], 10, 3 );
+        add_filter( 'sa_get_post', [ $this, 'get_theme_preview_image' ] );
+        add_filter( 'sa_get_post', [ $this, 'responsive_size_backward_comp' ] );
+        add_filter( 'sa_get_post', [ $this, 'async_select_get_label' ], 10, 2 );
+        add_filter( 'sa_save_post', [ $this, 'async_select_remove_label' ], 10, 3 );
+        // add_image_size( '_sa_notification_thumb', 100, 100, true );
+        add_filter( 'sa_save_post', [ $this, 'maximize_notification_size' ], 10, 3 );
+        add_filter( 'sa_get_post', [ $this, 'get_maximize_notification_size' ], 10, 3 );
     }
 
     /**
      * This method is reponsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
     public function menu() {
-        add_submenu_page( 'nx-admin', __( 'Add New', 'notificationx' ), __( 'Add New', 'notificationx' ), 'edit_notificationx', 'nx-edit', [ Admin::get_instance(), 'views' ], 20 );
-        // add_submenu_page('nx-admin', 'Edit', 'Edit', 'edit_notificationx', 'nx-edit', [Admin::get_instance(), 'views'], 20);
+        add_submenu_page( 'sa-admin', __( 'Add New', 'surfalert' ), __( 'Add New', 'surfalert' ), 'edit_surfalert', 'sa-edit', [ Admin::get_instance(), 'views' ], 20 );
+        // add_submenu_page('sa-admin', 'Edit', 'Edit', 'edit_surfalert', 'sa-edit', [Admin::get_instance(), 'views'], 20);
     }
 
     /**
@@ -85,7 +85,7 @@ class PostType {
      * @return void
      */
     function admin_enqueue_scripts( $hook ) {
-        if ( $hook !== 'toplevel_page_nx-admin' && $hook !== 'notificationx_page_nx-edit' && $hook !== 'notificationx_page_nx-settings' && $hook !== 'notificationx_page_nx-analytics' && $hook !== 'notificationx_page_nx-dashboard' && $hook !== 'notificationx_page_nx-builder' ) {
+        if ( $hook !== 'toplevel_page_sa-admin' && $hook !== 'surfalert_page_sa-edit' && $hook !== 'surfalert_page_sa-settings' && $hook !== 'surfalert_page_sa-analytics' && $hook !== 'surfalert_page_sa-dashboard' && $hook !== 'surfalert_page_sa-builder' ) {
             return;
         }
         // @todo not sure why did it. maybe remove.
@@ -96,16 +96,16 @@ class PostType {
         $d = include Helper::file( 'admin/js/admin.asset.php' );
 
         wp_enqueue_script(
-            'notificationx-admin',
+            'surfalert-admin',
             Helper::file( 'admin/js/admin.js', true ),
             $d['dependencies'],
             $d['version'],
             true
         );
-        wp_localize_script( 'notificationx-admin', 'notificationxTabs', $tabs );
-        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
-        wp_set_script_translations( 'notificationx-admin', 'notificationx' );
-        do_action( 'notificationx_admin_scripts' );
+        wp_localize_script( 'surfalert-admin', 'surfalertTabs', $tabs );
+        wp_enqueue_style( 'surfalert-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        wp_set_script_translations( 'surfalert-admin', 'surfalert' );
+        do_action( 'surfalert_admin_scripts' );
 
         // removing emoji support
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -115,31 +115,31 @@ class PostType {
 
     public function get_localize_scripts() {
         $global_fields = GlobalFields::get_instance()->tabs();
-        $tabs = NotificationX::get_instance()->normalize( $global_fields );
+        $tabs = SurfAlert::get_instance()->normalize( $global_fields );
 
-        $tabs['createRedirect']               = ! current_user_can( 'edit_notificationx' );
-        $tabs['analyticsRedirect']            = ! ( current_user_can( 'read_notificationx_analytics' ) && Settings::get_instance()->get( 'settings.enable_analytics', true ) );
-        $tabs['quick_build']                  = NotificationX::get_instance()->normalize( QuickBuild::get_instance()->tabs($global_fields) );
+        $tabs['createRedirect']               = ! current_user_can( 'edit_surfalert' );
+        $tabs['analyticsRedirect']            = ! ( current_user_can( 'read_surfalert_analytics' ) && Settings::get_instance()->get( 'settings.enable_analytics', true ) );
+        $tabs['quick_build']                  = SurfAlert::get_instance()->normalize( QuickBuild::get_instance()->tabs($global_fields) );
         $tabs['rest']                         = REST::get_instance()->rest_data();
         $tabs['current_page']                 = 'add-nx';
         $tabs['analytics']                    = Analytics::get_instance()->get_total_count();
         $tabs['settings']                     = Settings::get_instance()->get_form_data();
-        $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
+        $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_surfalert_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
-        $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
+        $tabs['sa_feedback_shared']           = get_option('sa_feedback_shared',false);
         $tabs['scan_data']                    = [ 
-            'nx_scan_count' => get_option('nx_scan_count',0),
-            'scans_used'    => __('%1$s of %2$s free scans used', 'notificationx'),
-            'scan_date'     => get_option('nx_scan_date'),
+            'sa_scan_count' => get_option('sa_scan_count',0),
+            'scans_used'    => __('%1$s of %2$s free scans used', 'surfalert'),
+            'scan_date'     => get_option('sa_scan_date'),
         ];
         $tabs['assets']                       = [
-            'admin'  => NOTIFICATIONX_ADMIN_URL,
-            'public' => NOTIFICATIONX_PUBLIC_URL,
-            'common' => NOTIFICATIONX_COMMON_URL,
+            'admin'  => SURFALERT_ADMIN_URL,
+            'public' => SURFALERT_PUBLIC_URL,
+            'common' => SURFALERT_COMMON_URL,
         ];
 
-        $tabs = apply_filters( 'nx_builder_configs', $tabs );
+        $tabs = apply_filters( 'sa_builder_configs', $tabs );
         return $tabs;
     }
 
@@ -179,32 +179,32 @@ class PostType {
             $post['updated_at'] = $data['updated_at'];
         }
 
-        $nx_id = isset( $data['nx_id'] ) ? $data['nx_id'] : 0;
+        $sa_id = isset( $data['sa_id'] ) ? $data['sa_id'] : 0;
 
-        $post = apply_filters( "nx_save_post_{$data['source']}", $post, $data, $nx_id );
-        $post = apply_filters( 'nx_save_post', $post, $data, $nx_id );
+        $post = apply_filters( "sa_save_post_{$data['source']}", $post, $data, $sa_id );
+        $post = apply_filters( 'sa_save_post', $post, $data, $sa_id );
 
-        if ( ! empty( $nx_id ) ) {
+        if ( ! empty( $sa_id ) ) {
             if ( empty( $post['updated_at'] ) ) {
                 $post['updated_at'] = Helper::mysql_time();
             }
-            if ( $this->update_post( $post, $nx_id ) === false ) {
+            if ( $this->update_post( $post, $sa_id ) === false ) {
                 $results['status'] = 'error';
             }
         } else {
-            $nx_id = $this->insert_post( $post );
+            $sa_id = $this->insert_post( $post );
         }
-        $data['nx_id']         = $nx_id;
-        $post['nx_id']         = $nx_id;
-        $post['data']['nx_id'] = $nx_id;
+        $data['sa_id']         = $sa_id;
+        $post['sa_id']         = $sa_id;
+        $post['data']['sa_id'] = $sa_id;
         // return $GLOBALS['wpdb']->last_query;
 
-        $data = apply_filters( "nx_get_post_{$data['source']}", $data );
-        $data = apply_filters( 'nx_get_post', $data );
-        do_action( "nx_saved_post_{$data['source']}", $post, $data, $nx_id );
-        do_action( 'nx_saved_post', $post, $data, $nx_id );
+        $data = apply_filters( "sa_get_post_{$data['source']}", $data );
+        $data = apply_filters( 'sa_get_post', $data );
+        do_action( "sa_saved_post_{$data['source']}", $post, $data, $sa_id );
+        do_action( 'sa_saved_post', $post, $data, $sa_id );
 
-        $results['nx_id'] = $nx_id;
+        $results['sa_id'] = $sa_id;
         return $data;
     }
 
@@ -215,7 +215,7 @@ class PostType {
      * @return bool
      */
     public function update_status( $data ) {
-        $is_enabled = $this->is_enabled( $data['nx_id'] );
+        $is_enabled = $this->is_enabled( $data['sa_id'] );
         if ( $is_enabled == $data['enabled'] ) {
             return true;
         }
@@ -226,16 +226,16 @@ class PostType {
             ];
             if ( $data['enabled'] == false ) {
                 // clear cron when disabled.
-                Cron::get_instance()->clear_schedule( $data['nx_id'] );
+                Cron::get_instance()->clear_schedule( $data['sa_id'] );
             }
             else {
                 $extension = ExtensionFactory::get_instance()->get($data['source']);
                 if (!empty($extension) && !empty($extension->cron_schedule)) {
-                    Cron::get_instance()->set_cron($data['nx_id'], $extension->cron_schedule);
+                    Cron::get_instance()->set_cron($data['sa_id'], $extension->cron_schedule);
                 }
             }
             $this->update_enabled_source( $data );
-            return $this->update_post( $post, $data['nx_id'] );
+            return $this->update_post( $post, $data['sa_id'] );
         }
         else if ( isset( $data['source'] ) && !$this->can_enable( $data['source'] ) ) {
             return $this->can_enable( $data['source'], true );
@@ -249,10 +249,10 @@ class PostType {
      * @param int $post_id
      * @return void
      */
-    public function update_meta( $nx_id, $key, $value ) {
-        $post                 = Database::get_instance()->get_post( Database::$table_posts, $nx_id, 'data, updated_at' );
+    public function update_meta( $sa_id, $key, $value ) {
+        $post                 = Database::get_instance()->get_post( Database::$table_posts, $sa_id, 'data, updated_at' );
         $post['data'][ $key ] = $value;
-        return $this->update_post( $post, $nx_id );
+        return $this->update_post( $post, $sa_id );
     }
 
     public function get_active_items() {
@@ -269,11 +269,11 @@ class PostType {
                 [
                     'enabled' => true,
                 ],
-                'nx_id, source, type'
+                'sa_id, source, type'
             );
             if ( is_array( $enabled_source ) ) {
                 foreach ( $enabled_source as $post ) {
-                    $this->enabled_source[ $post['source'] ][] = $post['nx_id'];
+                    $this->enabled_source[ $post['source'] ][] = $post['sa_id'];
                 }
             }
         }
@@ -281,24 +281,24 @@ class PostType {
     }
 
     public function update_enabled_source( $post ) {
-        if ( empty( $post['source'] ) || empty( $post['nx_id'] ) ) {
+        if ( empty( $post['source'] ) || empty( $post['sa_id'] ) ) {
             return;
         }
         if ( ! empty( $this->enabled_source[ $post['source'] ] ) ) {
             foreach ( $this->enabled_source as $source => $ids ) {
                 if ( $post['enabled'] ) {
-                    if ( ! in_array( $post['nx_id'], $ids ) ) {
-                        $this->enabled_source[ $source ][] = $post['nx_id'];
+                    if ( ! in_array( $post['sa_id'], $ids ) ) {
+                        $this->enabled_source[ $source ][] = $post['sa_id'];
                     }
                 } else {
-                    if ( $key = array_search( $post['nx_id'], $ids ) ) {
+                    if ( $key = array_search( $post['sa_id'], $ids ) ) {
                         unset( $this->enabled_source[ $source ][ $key ] );
                     }
                 }
             }
         } else {
             if ( $post['enabled'] ) {
-                $this->enabled_source[ $post['source'] ][] = $post['nx_id'];
+                $this->enabled_source[ $post['source'] ][] = $post['sa_id'];
             }
         }
     }
@@ -337,11 +337,11 @@ class PostType {
         }
 
         $ext = ExtensionFactory::get_instance()->get( $source );
-        if ( $ext && $ext->is_pro && ! NotificationX::is_pro() ) {
+        if ( $ext && $ext->is_pro && ! SurfAlert::is_pro() ) {
             $return = false;
         }
         
-        return apply_filters('nx_can_enable', $return, $source, $rest);
+        return apply_filters('sa_can_enable', $return, $source, $rest);
     }
 
     // Wrapper function for Database functions.
@@ -361,7 +361,7 @@ class PostType {
 
     public function get_post( $post_id, $select = '*' ) {
         $posts = $this->get_posts([
-            'nx_id' => intval( $post_id ),
+            'sa_id' => intval( $post_id ),
             ], $select
         );
 
@@ -380,12 +380,12 @@ class PostType {
             }
             // @todo maybe remove if there is another better way.
             if ( '*' === $select ) {
-                $value = NotificationX::get_instance()->normalize_post( $value );
+                $value = SurfAlert::get_instance()->normalize_post( $value );
             }
             if ( ! empty( $value['source'] ) ) {
-                $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
+                $value = apply_filters( "sa_get_post_{$value['source']}", $value, $this->context );
             }
-            $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
+            $posts[ $key ] = apply_filters( 'sa_get_post', $value, $this->context );
             $source                          = $value['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
@@ -398,7 +398,7 @@ class PostType {
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
             }
         }
-        $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
+        $posts = apply_filters( 'sa_get_posts', $posts, $this->context );
         return $posts;
     }
 
@@ -413,20 +413,20 @@ class PostType {
             }
             // @todo maybe remove if there is another better way.
             if ( '*' === $select ) {
-                $value = NotificationX::get_instance()->normalize_post( $value );
+                $value = SurfAlert::get_instance()->normalize_post( $value );
             }
             if ( ! empty( $value['source'] ) ) {
-                $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
+                $value = apply_filters( "sa_get_post_{$value['source']}", $value, $this->context );
             }
-            $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
+            $posts[ $key ] = apply_filters( 'sa_get_post', $value, $this->context );
         }
-        $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
+        $posts = apply_filters( 'sa_get_posts', $posts, $this->context );
         return $posts;
     }
 
-    public function get_posts_by_ids( $nx_ids, $source = '', $select = '*' ) {
-        $nx_ids = array_map( 'absint', $nx_ids );
-        $wheres = [ 'nx_id' => [ 'IN', $nx_ids ] ];
+    public function get_posts_by_ids( $sa_ids, $source = '', $select = '*' ) {
+        $sa_ids = array_map( 'absint', $sa_ids );
+        $wheres = [ 'sa_id' => [ 'IN', $sa_ids ] ];
         if ( ! empty( $source ) ) {
             $wheres['source'] = $source;
         }
@@ -435,7 +435,7 @@ class PostType {
     }
 
     public function get_post_with_analytics( $wheres = [], $extra_query = '' ) {
-        $posts = $this->get_posts( $wheres, 'a.*, SUM(b.clicks) AS clicks, SUM(b.views) AS views', Database::$table_stats, 'a.nx_id', 'LEFT JOIN', $extra_query );
+        $posts = $this->get_posts( $wheres, 'a.*, SUM(b.clicks) AS clicks, SUM(b.views) AS views', Database::$table_stats, 'a.sa_id', 'LEFT JOIN', $extra_query );
         foreach ( $posts as $key => $post ) {
             $source                          = $post['source'];
             $posts[ $key ]['can_regenerate'] = false;
@@ -460,9 +460,9 @@ class PostType {
         $post    = $this->get_post( $post_id );
         $results = Database::get_instance()->delete_post( Database::$table_posts, $post_id );
         Entries::get_instance()->delete_entries( $post_id );
-        Database::get_instance()->delete_posts( Database::$table_stats, [ 'nx_id' => $post_id ] );
+        Database::get_instance()->delete_posts( Database::$table_stats, [ 'sa_id' => $post_id ] );
 
-        do_action( 'nx_delete_post', $post_id, $post );
+        do_action( 'sa_delete_post', $post_id, $post );
         return $results;
     }
 
@@ -478,10 +478,10 @@ class PostType {
                     $url = $themes[ $theme ]['source'];
                 }
             }
-            $post['preview'] = apply_filters( "nx_theme_preview_{$post['source']}", $url, $post );
+            $post['preview'] = apply_filters( "sa_theme_preview_{$post['source']}", $url, $post );
         }
         // Disable animation options if NX Pro not exists
-        if ( !NotificationX::is_pro() ) {
+        if ( !SurfAlert::is_pro() ) {
             $post['animation_notification_show']     = 'default';
             $post['animation_notification_hide']     = 'default';
         }
@@ -489,8 +489,8 @@ class PostType {
         return $post;
     }
 
-    public function get_edit_link( $nx_id ) {
-        return admin_url( "admin.php?page=nx-edit&id=$nx_id" );
+    public function get_edit_link( $sa_id ) {
+        return admin_url( "admin.php?page=sa-edit&id=$sa_id" );
     }
 
     public function responsive_size_backward_comp($post){
@@ -543,13 +543,13 @@ class PostType {
      *
      * @param array $post The post data array.
      * @param array $data The data array.
-     * @param int $nx_id The notification ID.
+     * @param int $sa_id The notification ID.
      * @return array The modified post data array.
      */
-    public function async_select_remove_label($post, $data, $nx_id)
+    public function async_select_remove_label($post, $data, $sa_id)
     {
         // Get the notification instance
-        $notification = NotificationX::get_instance();
+        $notification = SurfAlert::get_instance();
 
         // Loop through the select async fields
         foreach ($this->get_select_async_fields() as $field_name) {
@@ -589,11 +589,11 @@ class PostType {
      *
      * @param array $post The existing post data, which will be modified with the updated sizes.
      * @param array $data The data array.
-     * @param int $nx_id The unique ID of the notification being processed.
+     * @param int $sa_id The unique ID of the notification being processed.
      *
      * @return array The modified post data with updated notification sizes.
     */
-    public function maximize_notification_size($post, $data, $nx_id)
+    public function maximize_notification_size($post, $data, $sa_id)
     {
         if (!empty($data['size']) && is_array($data['size'])) {
             foreach (['mobile', 'desktop', 'tablet'] as $device) {

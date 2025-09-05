@@ -1,15 +1,15 @@
 <?php
 
-namespace NotificationX\Core\Rest;
+namespace SurfAlert\Core\Rest;
 
 use FluentForm\Framework\Database\Query\Expression;
-use NotificationX\Core\Database;
-use NotificationX\Core\PostType;
-use NotificationX\Core\REST;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\REST;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -20,9 +20,9 @@ use WP_Error;
  */
 class Posts extends WP_REST_Controller {
     /**
-     * Instance of NotificationX
+     * Instance of SurfAlert
      *
-     * @var NotificationX
+     * @var SurfAlert
      */
     use GetInstance;
 
@@ -42,7 +42,7 @@ class Posts extends WP_REST_Controller {
      * @param string $post_type Post type.
      */
     public function __construct() {
-        $this->namespace = 'notificationx/v1';
+        $this->namespace = 'surfalert/v1';
         $this->rest_base = 'nx';
         add_action('rest_api_init', [$this, 'register_routes']);
     }
@@ -86,7 +86,7 @@ class Posts extends WP_REST_Controller {
             array(
                 'args' => array(
                     'id' => array(
-                        'description' => __('Unique identifier for the object.', 'notificationx'),
+                        'description' => __('Unique identifier for the object.', 'surfalert'),
                         'type'        => 'integer',
                     ),
                 ),
@@ -110,7 +110,7 @@ class Posts extends WP_REST_Controller {
                         'force' => array(
                             'type'        => 'boolean',
                             'default'     => false,
-                            'description' => __('Whether to bypass Trash and force deletion.', 'notificationx'),
+                            'description' => __('Whether to bypass Trash and force deletion.', 'surfalert'),
                         ),
                     ),
                 ),
@@ -128,7 +128,7 @@ class Posts extends WP_REST_Controller {
      * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
      */
     public function get_items_permissions_check($request) {
-        return current_user_can('read_notificationx');
+        return current_user_can('read_surfalert');
     }
 
     /**
@@ -142,9 +142,9 @@ class Posts extends WP_REST_Controller {
     public function get_item_permissions_check($request) {
         $params = $request->get_params();
         if( !empty( $params['source'] ) ) {
-            return current_user_can('read_notificationx');
+            return current_user_can('read_surfalert');
         }
-        return current_user_can('read_notificationx');
+        return current_user_can('read_surfalert');
     }
 
 
@@ -156,9 +156,9 @@ class Posts extends WP_REST_Controller {
        $search_keyword = !empty($params['s']) ? $params['s'] : '';
        $start_from     = ($page - 1) * $per_page;
        $query = Database::get_instance()->query()
-                ->from('nx_posts a')
-                ->join('nx_stats b', 'b.nx_id', '=', 'a.nx_id')
-                ->group_by('a.nx_id')
+                ->from('sa_posts a')
+                ->join('sa_stats b', 'b.sa_id', '=', 'a.sa_id')
+                ->group_by('a.sa_id')
                 ->order_by('a.updated_at', 'DESC')
                 ->select('a.*, SUM(b.clicks) clicks, SUM(b.views) views');
         if ($status !== 'all') {
@@ -167,7 +167,7 @@ class Posts extends WP_REST_Controller {
         if( $search_keyword ) {
             $query->where(function($query) use ($search_keyword) {
                 $query->where('title', 'LIKE', '%' . $search_keyword . '%')
-                      ->orWhere( 'a.nx_id', 'LIKE', '%'. $search_keyword . '%' );
+                      ->orWhere( 'a.sa_id', 'LIKE', '%'. $search_keyword . '%' );
             });
         }
         
@@ -215,12 +215,12 @@ class Posts extends WP_REST_Controller {
         if (!empty($request['id'])) {
             return new WP_Error(
                 'rest_post_exists',
-                __('Cannot create existing post.', 'notificationx'),
+                __('Cannot create existing post.', 'surfalert'),
                 array('status' => 400)
             );
         }
 
-        return current_user_can('edit_notificationx');
+        return current_user_can('edit_surfalert');
     }
 
     /**
@@ -232,10 +232,10 @@ class Posts extends WP_REST_Controller {
      * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
      */
     public function create_item($request) {
-        if (!empty($request['nx_id'])) {
+        if (!empty($request['sa_id'])) {
             return new WP_Error(
                 'rest_post_exists',
-                __('Cannot create existing post.', 'notificationx'),
+                __('Cannot create existing post.', 'surfalert'),
                 array('status' => 400)
             );
         }
@@ -261,9 +261,9 @@ class Posts extends WP_REST_Controller {
     public function update_item_permissions_check($request) {
         $params = $request->get_params();
         if( !empty( $params['source'] ) ) {
-            return current_user_can('edit_notificationx');
+            return current_user_can('edit_surfalert');
         }
-        return current_user_can('edit_notificationx');
+        return current_user_can('edit_surfalert');
     }
 
     /**
@@ -295,7 +295,7 @@ class Posts extends WP_REST_Controller {
         //         array('status' => rest_authorization_required_code())
         //     );
         // }
-        return current_user_can('edit_notificationx');
+        return current_user_can('edit_surfalert');
     }
 
     /**

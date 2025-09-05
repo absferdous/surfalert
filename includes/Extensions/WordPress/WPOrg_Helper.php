@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationX\Extensions\WordPress;
+namespace SurfAlert\Extensions\WordPress;
 
 class WPOrg_Helper {
 
@@ -144,7 +144,7 @@ class WPOrg_Helper {
         $finder        = new \DomXPath( $dom );
         $nodes         = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' review ')]");
 		
-		$conditioned_filter = apply_filters( 'nx_wp_reviews_rating_condition', 3 );
+		$conditioned_filter = apply_filters( 'sa_wp_reviews_rating_condition', 3 );
 		
         foreach ( $nodes as $node ) {
             $raw_review = $node->ownerDocument->saveXML( $node );

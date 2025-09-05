@@ -3,15 +3,15 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Helper;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+use SurfAlert\Core\Helper;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -38,7 +38,7 @@ class NotificationBar extends Types {
     public function __construct() {
         parent::__construct();
         $this->id = 'notification_bar';
-        add_action('nx_show_on_exclude', [$this, 'show_on_exclude'], 10, 4);
+        add_action('sa_show_on_exclude', [$this, 'show_on_exclude'], 10, 4);
     }
     
 
@@ -60,7 +60,7 @@ class NotificationBar extends Types {
 
         // 1. Bar Reappearance settings
         if (!empty($settings['bar_reappearance'])) {
-            $cookie_name = 'nx_bar_' . $settings['nx_id'];
+            $cookie_name = 'sa_bar_' . $settings['sa_id'];
 
             // Check if the bar should be permanently hidden for this user
             if ($settings['bar_reappearance'] === 'dont_show_welcomebar' && isset($_COOKIE[$cookie_name])) {
@@ -160,7 +160,7 @@ class NotificationBar extends Types {
 
         // 3. Country Targeting
         if ( !empty($settings['country_targeting']) && is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
-            $visitor_country = Helper::nx_get_visitor_country_code();
+            $visitor_country = Helper::sa_get_visitor_country_code();
             // If we couldn't determine the country or it's not in the target list
            $countryValues       = array_column( $settings['country_targeting'], 'value' );
            $normalizedCountries = array_map('strtoupper', $countryValues);
@@ -213,7 +213,7 @@ class NotificationBar extends Types {
          if (empty($params['inputValue'])) {
             return [];
         }
-        return array_values(GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country($params['inputValue'])));
+        return array_values(GlobalFields::get_instance()->normalize_fields(Helper::sa_get_all_country($params['inputValue'])));
     }
 
 
@@ -224,7 +224,7 @@ class NotificationBar extends Types {
      */
     public function init() {
         parent::init();
-        $this->title = __('Notification Bar', 'notificationx');
+        $this->title = __('Notification Bar', 'surfalert');
     }
 
 

@@ -2,16 +2,16 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
-use NotificationX\NotificationX;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
+use SurfAlert\SurfAlert;
 
 /**
  * Extension Abstract for all Extension.
@@ -42,138 +42,138 @@ class ELearning extends Types {
     public function __construct(){
         parent::__construct();
         $this->id = 'elearning';
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
     public function init()
     {
         parent::init();
-        $this->title = __('eLearning', 'notificationx');
+        $this->title = __('eLearning', 'surfalert');
         $this->themes = [
             'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-1.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-1.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone' , 'notificationx'),
-                    'second_param'        => __('just enrolled', 'notificationx'),
+                    'custom_first_param'  => __('Someone' , 'surfalert'),
+                    'second_param'        => __('just enrolled', 'surfalert'),
                     'third_param'         => 'tag_course_title',
-                    'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Course' , 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                 ],
             ],
             'theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-2.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-2.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone' , 'notificationx'),
-                    'second_param'        => __('recently enrolled' , 'notificationx'),
+                    'custom_first_param'  => __('Someone' , 'surfalert'),
+                    'second_param'        => __('recently enrolled' , 'surfalert'),
                     'third_param'         => 'tag_course_title',
-                    'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Course' , 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                 ],
             ],
             'theme-three' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-3.jpg',
+                'source'   => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-3.jpg',
                 'image_shape' => 'square',
                 'template' => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone' , 'notificationx'),
-                    'second_param'        => __('recently enrolled' , 'notificationx'),
+                    'custom_first_param'  => __('Someone' , 'surfalert'),
+                    'second_param'        => __('recently enrolled' , 'surfalert'),
                     'third_param'         => 'tag_course_title',
-                    'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Course' , 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                 ],
             ],
             'theme-four' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-4.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-4.png',
                 'image_shape' => 'circle',
             ),
             'theme-five' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-5.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-5.png',
                 'image_shape' => 'circle',
             ),
             'conv-theme-six' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-6.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-6.png',
                 'image_shape' => 'circle',
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-7.png',
                 'image_shape' => 'rounded',
             ),
             'conv-theme-eight' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-8.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-8.png',
                 'image_shape' => 'circle',
             ),
             'conv-theme-nine' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-9.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/elearning-theme-9.png',
                 'image_shape' => 'circle',
             ),
             'maps_theme' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/elearning/maps-theme.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/elearning/maps-theme.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
         ];
         $this->res_themes = [
             'res-theme-one' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-1.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-1.png',
                 '_template' => 'elearning_template_new',
                 'is_pro'    => true,
             ),
             'res-theme-two' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-2.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-2.png',
                 '_template' => 'elearning_template_new',
                 'is_pro'    => true,
             ),
             'res-theme-three' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-3.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-3.png',
                 '_template' => 'elearning_template_new',
                 'is_pro'    => true,
             ),
             'res-theme-four' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-4.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-4.png',
                 '_template' => 'elearning_template_new',
                 'is_pro'    => true,
             ),
             'elearning-res-theme-five' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-5.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-5.png',
                 '_template' => 'elearning_template_new',
                 'is_pro'    => true,
             ),
             'elearning-res-theme-six' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-6.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-6.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ),
             'elearning-res-theme-seven' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-7.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-7.png',
                 '_template' => 'elearning_template_sales_count',
                 'is_pro'    => true,
             ),
             'elearning-res-theme-eight' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-8.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-8.png',
                 '_template' => 'elearning_template_sales_count',
                 'is_pro'    => true,
             ),
             'res-theme-nine' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-9.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-9.png',
                 '_template' => 'elearning_template_sales_count',
                 'is_pro'    => true,
             ),
             'elearning-res-theme-ten' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-10.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_elearning/elearning-res-theme-10.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ),
@@ -182,10 +182,10 @@ class ELearning extends Types {
             'elearning_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_course_title'       => __('Course Title', 'notificationx'),
+                    'tag_course_title'       => __('Course Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time'       => __('Definite Time', 'notificationx'),
+                    'tag_time'       => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'elearning_theme-one',
@@ -198,10 +198,10 @@ class ELearning extends Types {
             'elearning_template_sales_count' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_course_title' => __('Course Title', 'notificationx'),
+                    'tag_course_title' => __('Course Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    // 'tag_time' => __('Definite Time', 'notificationx'),
+                    // 'tag_time' => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'elearning_conv-theme-seven',
@@ -214,14 +214,14 @@ class ELearning extends Types {
 
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter('nx_content_fields', [$this, 'content_fields']);
+        add_filter('sa_link_types', [$this, 'link_types']);
+        add_filter('sa_content_fields', [$this, 'content_fields']);
     }
 
     /**
@@ -232,24 +232,24 @@ class ELearning extends Types {
         $content_fields = &$fields['content']['fields'];
         $content_fields['ld_product_control'] = array(
             'name'     => 'ld_product_control',
-            'label'    => __('Show Notification Of', 'notificationx'),
+            'label'    => __('Show Notification Of', 'surfalert'),
             'type'     => 'select',
             'priority' => 200,
             'default'  => 'none',
             'options'  => GlobalFields::get_instance()->normalize_fields(array(
-                'none'      => __('All', 'notificationx'),
-                'ld_course' => __('By Course', 'notificationx'),
+                'none'      => __('All', 'surfalert'),
+                'ld_course' => __('By Course', 'surfalert'),
             )),
             'rules'       => Rules::is('type', $this->id),
         );
 
         $content_fields['ld_course_list'] = array(
             'name'     => 'ld_course_list',
-            'label'    => __('Select Course', 'notificationx'),
+            'label'    => __('Select Course', 'surfalert'),
             'type'     => 'select-async',
             'multiple' => true,
             'priority' => 201,
-            'options'  => apply_filters('nx_elearning_course_list', [
+            'options'  => apply_filters('sa_elearning_course_list', [
                 [
                     'label'    => "Type for more result...",
                     'value'    => null,
@@ -261,7 +261,7 @@ class ELearning extends Types {
                 Rules::is('ld_product_control', 'ld_course'),
             ]),
             'ajax'   => [
-                'api'  => "/notificationx/v1/get-data",
+                'api'  => "/surfalert/v1/get-data",
                 'data' => [
                     'type'   => "@type",
                     'source' => "@source",
@@ -282,7 +282,7 @@ class ELearning extends Types {
      */
     public function link_types($options) {
         $_options = GlobalFields::get_instance()->normalize_fields([
-            'course_page' => __('Course Page', 'notificationx'),
+            'course_page' => __('Course Page', 'surfalert'),
         ], 'type', $this->id);
 
         return array_merge($options, $_options);

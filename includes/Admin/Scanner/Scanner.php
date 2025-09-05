@@ -1,13 +1,13 @@
 <?php
-namespace NotificationX\Admin\Scanner;
+namespace SurfAlert\Admin\Scanner;
 
-use NotificationX\Admin\Entries;
-use NotificationX\Core\Database;
-use NotificationX\Core\Helper;
-use NotificationX\Core\Limiter;
-use NotificationX\Core\PostType;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Limiter;
+use SurfAlert\Core\PostType;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -15,19 +15,19 @@ use WP_REST_Response;
 class Scanner 
 {
     use GetInstance;
-    private static $_namespace = 'notificationx';
+    private static $_namespace = 'surfalert';
     private static $_version   = 1;
     private static $_apiBase   = "";
     private static $is_pro     = false;
     public function __construct() 
     {
         add_action('rest_api_init', [$this, 'rest_init']);
-        if( NotificationX::is_pro() ) {
+        if( SurfAlert::is_pro() ) {
             self::$is_pro = true;
         }
         self::$_apiBase = (defined('NX_DEBUG') && NX_DEBUG) 
-        ? 'https://notificationx-api.test/cookie-scanner/v1' 
-        : 'https://api.notificationx.com/cookie-scanner/v1';
+        ? 'https://surfalert-api.test/cookie-scanner/v1' 
+        : 'https://api.surfalert.com/cookie-scanner/v1';
     }
 
     public static function _namespace()
@@ -40,7 +40,7 @@ class Scanner
      * 
      * - /scan: Initiates a new scan based on the provided URL.
      * - /scan/status: Retrieves the status of a scan using the provided scan ID.
-     * - /scan/history: Fetches the scan history based on the notification ID (nx_id).
+     * - /scan/history: Fetches the scan history based on the notification ID (sa_id).
      * 
      * @return void
      */
@@ -102,23 +102,23 @@ class Scanner
     public function check_scan_status(WP_REST_Request $request)
     {
         $scanId = $request->get_param('scan_id');
-        $nx_id = $request->get_param('nx_id');
+        $sa_id = $request->get_param('sa_id');
 
         // Retrieve the scan status from the database (implement this function as needed)
         $status = $this->get_scan_status($scanId);
 
         // Handle invalid scan ID
         if ($status === null && empty( $scanId )) {
-            $data = [ 'status' => 'failed', 'message' => __('Invalid scan ID','notificationx') ];
+            $data = [ 'status' => 'failed', 'message' => __('Invalid scan ID','surfalert') ];
             return new WP_REST_Response(['data' => $data ], 404);
         }
 
         // Process the scan result if the status is 'completed'
         if (!empty($status['status']) && $status['status'] === 'completed') {
             // Update scan count to the options
-            $pre_count = get_option('nx_scan_count', 0);
-            update_option('nx_scan_count', $pre_count + 1);
-            update_option('nx_scan_date',  Helper::nx_get_current_datetime() );
+            $pre_count = get_option('sa_scan_count', 0);
+            update_option('sa_scan_count', $pre_count + 1);
+            update_option('sa_scan_date',  Helper::sa_get_current_datetime() );
 
             $cookies = $status['result'];  // Extract scanned cookies
             $stats   = $status['stats'];   // Extract scan statistics
@@ -127,7 +127,7 @@ class Scanner
             $cookieData    = $this->categorizeCookiesAndCount($cookies);
             $categoryCount = $cookieData['category_count'];
             $categorized   = $cookieData['categorized'];
-            $data          = [ 'last_scan_date' => Helper::nx_get_current_datetime(), 'status' => 'completed', 'stats' => $stats, 'cookies' => $cookies, 'category_count' => $categoryCount, 'categorized' => $categorized ];
+            $data          = [ 'last_scan_date' => Helper::sa_get_current_datetime(), 'status' => 'completed', 'stats' => $stats, 'cookies' => $cookies, 'category_count' => $categoryCount, 'categorized' => $categorized ];
             return new WP_REST_Response(['data' => $data], 200);
 
             // Prepare stats entry with the category count
@@ -137,7 +137,7 @@ class Scanner
             if (!empty($stats) && is_array($stats)) {
                 $stats['categorized'] = $categorized;
             }
-            if( empty( $nx_id ) ) {
+            if( empty( $sa_id ) ) {
                 return new WP_REST_Response(['data' => $status], 200);
             }
             
@@ -148,7 +148,7 @@ class Scanner
                 // Prepare cookies entry
                 if (!empty($cookies) && is_array($cookies)) {
                     $entriesToInsert[] = [
-                        'nx_id'      => $nx_id,
+                        'sa_id'      => $sa_id,
                         'source'     => 'gdpr_notification',
                         'entry_key'  => $scanId . '_cookies',
                         'data'       => $cookies,
@@ -159,7 +159,7 @@ class Scanner
                 // Prepare stats entry
                 if (!empty($stats) && is_array($stats)) {
                     $entriesToInsert[] = [
-                        'nx_id'      => $nx_id,
+                        'sa_id'      => $sa_id,
                         'source'     => 'gdpr_notification',
                         'entry_key'  => $scanId . '_stats',
                         'data'       => $stats,
@@ -172,17 +172,17 @@ class Scanner
                     // Check if an entry already exists
                     $isExists = Database::get_instance()->get_posts(
                         Database::$table_entries, 'count(*)', [
-                            'nx_id'     => $nx_id,
+                            'sa_id'     => $sa_id,
                             'source'    => 'gdpr_notification',
                             'entry_key' => $entry['entry_key'],
                         ]
                     );
 
                     if (empty($isExists[0]['count(*)'])) {
-                        $post = PostType::get_instance()->get_post($nx_id);
-                        $canEntry = apply_filters("nx_can_entry_gdpr_notification", true, $entry, $post);
+                        $post = PostType::get_instance()->get_post($sa_id);
+                        $canEntry = apply_filters("sa_can_entry_gdpr_notification", true, $entry, $post);
                         if ($canEntry) {
-                            Limiter::get_instance()->remove($nx_id, 1);
+                            Limiter::get_instance()->remove($sa_id, 1);
                             Entries::get_instance()->insert_entry($entry);
                         }
                     }

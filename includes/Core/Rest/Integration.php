@@ -1,13 +1,13 @@
 <?php
 
-namespace NotificationX\Core\Rest;
+namespace SurfAlert\Core\Rest;
 
-use NotificationX\Core\PostType;
-use NotificationX\Core\REST;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\REST;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -18,9 +18,9 @@ use WP_Error;
  */
 class Integration {
     /**
-     * Instance of NotificationX
+     * Instance of SurfAlert
      *
-     * @var NotificationX
+     * @var SurfAlert
      */
     use GetInstance;
 
@@ -35,7 +35,7 @@ class Integration {
      * @param string $post_type Post type.
      */
     public function __construct() {
-        $this->namespace = 'notificationx/v1';
+        $this->namespace = 'surfalert/v1';
         $this->rest_base = 'notification';
         add_action('rest_api_init', [$this, 'register_routes']);
     }
@@ -67,12 +67,12 @@ class Integration {
                     'args' => array(
                         'id' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'description' => __('Unique identifier for the object.', 'surfalert'),
                             'type'        => 'integer',
                         ),
                         'api_key' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'description' => __('Unique identifier for the site.', 'surfalert'),
                             'type'        => 'string',
                         ),
                     ),
@@ -84,12 +84,12 @@ class Integration {
                     'args' => array(
                         'id' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'description' => __('Unique identifier for the object.', 'surfalert'),
                             'type'        => 'integer',
                         ),
                         'api_key' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'description' => __('Unique identifier for the site.', 'surfalert'),
                             'type'        => 'string',
                         ),
                     ),
@@ -98,7 +98,7 @@ class Integration {
         );
         // OLD Fallback for Zapier
         register_rest_route(
-            "notificationx",
+            "surfalert",
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
             array(
                 array(
@@ -108,12 +108,12 @@ class Integration {
                     'args' => array(
                         'id' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'description' => __('Unique identifier for the object.', 'surfalert'),
                             'type'        => 'integer',
                         ),
                         'api_key' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'description' => __('Unique identifier for the site.', 'surfalert'),
                             'type'        => 'string',
                         ),
                     ),
@@ -125,12 +125,12 @@ class Integration {
                     'args' => array(
                         'id' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the object.', 'notificationx'),
+                            'description' => __('Unique identifier for the object.', 'surfalert'),
                             'type'        => 'integer',
                         ),
                         'api_key' => array(
                             'required' => true,
-                            'description' => __('Unique identifier for the site.', 'notificationx'),
+                            'description' => __('Unique identifier for the site.', 'surfalert'),
                             'type'        => 'string',
                         ),
                     ),
@@ -145,14 +145,14 @@ class Integration {
         $error     = [];
 
 		if( $api_key === md5( home_url( '', 'http' ) ) || $api_key === md5( home_url( '', 'https' ) ) ) {
-            $notificationx = PostType::get_instance()->get_post( $id );
-            if( $notificationx ) {
+            $surfalert = PostType::get_instance()->get_post( $id );
+            if( $surfalert ) {
                 return wp_send_json( true );
             }
-            $error['message'] = __( 'There is no notification created with this id:' . $id, 'notificationx' );
+            $error['message'] = __( 'There is no notification created with this id:' . $id, 'surfalert' );
             return wp_send_json_error( $error, 401 );
 		} else {
-			$error['message'] = __( 'Error: API Key Invalid!', 'notificationx' );
+			$error['message'] = __( 'Error: API Key Invalid!', 'surfalert' );
 			return wp_send_json_error( $error, 401 );
 		}
     }
@@ -170,10 +170,10 @@ class Integration {
         );
 
         if ( ! isset( $request['api_key'] ) ) {
-            $response_data['error'] = __('Error: You should provide an API key.', 'notificationx');
+            $response_data['error'] = __('Error: You should provide an API key.', 'surfalert');
         } else {
             if( md5( home_url( '', 'http' ) ) != $request['api_key'] && md5( home_url( '', 'https' ) ) != $request['api_key'] ) {
-                $response_data['error'] = __('Error: Invalid API key.', 'notificationx');
+                $response_data['error'] = __('Error: Invalid API key.', 'surfalert');
             }
         }
 
@@ -185,13 +185,13 @@ class Integration {
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
                 if($post['source']){
-                    do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
+                    do_action( "sa_api_response_success_{$post['source']}", $response_data['data'] );
                 }
             }
-            do_action( 'nx_api_response_success', $response_data['data'] );
+            do_action( 'sa_api_response_success', $response_data['data'] );
         }
 
-        return apply_filters( 'nx_api_response', $response_data );
+        return apply_filters( 'sa_api_response', $response_data );
     }
 
     /**
@@ -211,7 +211,7 @@ class Integration {
             return $ext->connect($params);
         }
         else{
-            $result = apply_filters("nx_api_connect_$source", null, $params);
+            $result = apply_filters("sa_api_connect_$source", null, $params);
             if($result){
                 return $result;
             }
@@ -220,6 +220,6 @@ class Integration {
     }
 
     public function settings_permission( $request ) {
-        return current_user_can('edit_notificationx_settings');
+        return current_user_can('edit_surfalert_settings');
     }
 }

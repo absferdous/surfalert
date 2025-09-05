@@ -3,16 +3,16 @@
 /**
  * CF7 Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\NJF;
+namespace SurfAlert\Extensions\NJF;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * NinjaForms Extension
@@ -29,7 +29,7 @@ class NinjaForms extends Extension {
     public $priority        = 15;
     public $id              = 'njf';
     public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $doc_link        = 'https://surfalert.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
     public $module          = 'modules_njf';
     public $module_priority = 10;
@@ -44,8 +44,8 @@ class NinjaForms extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Ninja Forms', 'notificationx');
-        $this->module_title = __('Ninja Forms', 'notificationx');
+        $this->title = __('Ninja Forms', 'surfalert');
+        $this->module_title = __('Ninja Forms', 'surfalert');
     }
 
     public function init() {
@@ -56,7 +56,7 @@ class NinjaForms extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_form_list', [$this, 'nx_form_list'], 9);
+        add_filter('sa_form_list', [$this, 'sa_form_list'], 9);
 
     }
 
@@ -68,13 +68,13 @@ class NinjaForms extends Extension {
     public function admin_actions() {
         parent::admin_actions();
 
-        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
@@ -87,10 +87,10 @@ class NinjaForms extends Extension {
             $url = admin_url('plugin-install.php?s=ninja+forms&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'Ninja Forms', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'Ninja Forms', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -100,7 +100,7 @@ class NinjaForms extends Extension {
         return $messages;
     }
 
-    public function nx_form_list($forms) {
+    public function sa_form_list($forms) {
         $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
         return array_merge($forms, $_forms);
     }
@@ -122,8 +122,8 @@ class NinjaForms extends Extension {
         return $forms;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -147,7 +147,7 @@ class NinjaForms extends Extension {
                         if (!empty($submission)) {
                             $key = $this->key($form_list[1]);
                             $entries[] = [
-                                'nx_id'      => $data['nx_id'],
+                                'sa_id'      => $data['sa_id'],
                                 'source'    => $this->id,
                                 'entry_key' => $key,
                                 'data'      => $submission,
@@ -403,14 +403,14 @@ class NinjaForms extends Extension {
     public function doc() {
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>', 'surfalert'),
         'https://wordpress.org/plugins/ninja-forms/',
-        'https://notificationx.com/docs/ninja-forms/',
+        'https://surfalert.com/docs/ninja-forms/',
         'https://www.youtube.com/watch?v=Ibv84iGcBHE',
-        'https://notificationx.com/integrations/ninja-forms/',
-        'https://notificationx.com/blog/wordpress-contact-forms/'
+        'https://surfalert.com/integrations/ninja-forms/',
+        'https://surfalert.com/blog/wordpress-contact-forms/'
         );
     }
 }

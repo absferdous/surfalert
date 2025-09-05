@@ -2,11 +2,11 @@
 /**
  * Reviews Types
  *
- * @package NotificationX\Types
+ * @package SurfAlert\Types
  */
 
-namespace NotificationX\Types\Traits;
-use NotificationX\Core\Rules;
+namespace SurfAlert\Types\Traits;
+use SurfAlert\Core\Rules;
 
 trait Conversions {
 

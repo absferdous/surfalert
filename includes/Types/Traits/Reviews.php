@@ -2,12 +2,12 @@
 /**
  * Reviews Types
  *
- * @package NotificationX\Types
+ * @package SurfAlert\Types
  */
 
-namespace NotificationX\Types\Traits;
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
+namespace SurfAlert\Types\Traits;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
 
 trait Reviews {
 
@@ -19,7 +19,7 @@ trait Reviews {
      */
     public function link_types($options) {
         $_options = GlobalFields::get_instance()->normalize_fields([
-            'review_page' => __('Product Page', 'notificationx'),
+            'review_page' => __('Product Page', 'surfalert'),
         ], 'type', $this->id);
 
         return array_merge($options, $_options);
@@ -33,11 +33,11 @@ trait Reviews {
      */
     public function review_templates($template) {
         $template["review_fourth_param"] = [
-            // 'label'     => __("Review Fourth Parameter", 'notificationx'),
+            // 'label'     => __("Review Fourth Parameter", 'surfalert'),
             'name'      => "review_fourth_param",                            // changed name from "conversion_size"
             'type'      => "text",
             'priority'  => 27,
-            'default'   => __('About', 'notificationx'),
+            'default'   => __('About', 'surfalert'),
             'rules' => Rules::includes('themes', 'reviews_review_saying'),
         ];
         return $template;
@@ -76,10 +76,10 @@ trait Reviews {
             if ($settings['themes'] == 'reviews_review-comment-3' || $settings['themes'] == 'reviews_review-comment-3') {
                 $trim_length = 80;
             }
-            $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
+            $sa_trimmed_length = apply_filters('sa_text_trim_length', $trim_length, $settings);
             $review_content = $saved_data['content'];
-            if (strlen($review_content) > $nx_trimmed_length) {
-                $review_content = substr($review_content, 0, $nx_trimmed_length) . '...';
+            if (strlen($review_content) > $sa_trimmed_length) {
+                $review_content = substr($review_content, 0, $sa_trimmed_length) . '...';
             }
             if ($settings['themes'] == 'reviews_review-comment-2') { // || $settings['theme'] == 'comments_theme-six-free'
                 $review_content = '" ' . $review_content . ' "';
@@ -94,7 +94,7 @@ trait Reviews {
     
     public function preview_entry($entry, $settings){
         $entry = array_merge($entry, [
-            "title"             => _x("NotificationX", 'nx_preview', 'notificationx'),
+            "title"             => _x("SurfAlert", 'sa_preview', 'surfalert'),
         ]);
         return $entry;
     }

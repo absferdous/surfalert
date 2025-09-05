@@ -1,11 +1,11 @@
 <?php
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\Core\Database;
-use NotificationX\Core\PostType;
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
 
 /**
  * @method static ImportExport get_instance($args = null)
@@ -14,9 +14,9 @@ class ImportExport{
     use GetInstance;
 
     public function __construct(){
-        add_filter('nx_settings_tab_miscellaneous', [$this, 'settings_tab_help']);
+        add_filter('sa_settings_tab_miscellaneous', [$this, 'settings_tab_help']);
         add_filter('upload_mimes', [$this, 'cc_mime_types']);
-        add_filter('nx_settings', [$this, 'save_settings']);
+        add_filter('sa_settings', [$this, 'save_settings']);
     }
 
     public function save_settings($settings) {
@@ -47,29 +47,29 @@ class ImportExport{
         $tabs['fields']['import-section'] = array(
             'name'     => 'import-section',
             'type'     => "section",
-            'label'    => __('Import/Export', 'notificationx'),
+            'label'    => __('Import/Export', 'surfalert'),
             'priority' => 30,
             'fields'   => array(
                 'export-notification' => [
                     'name'     => "export-notification",
                     'type'     => 'checkbox',
-                    'label'    => __('Export Notifications', 'notificationx'),
+                    'label'    => __('Export Notifications', 'surfalert'),
                     'default'  => 0,
                     'priority' => 10,
                 ],
                 'export-analytics' => [
                     'name'     => "export-analytics",
                     'type'     => 'checkbox',
-                    'label'    => __('Analytics', 'notificationx'),
+                    'label'    => __('Analytics', 'surfalert'),
                     'default'  => 0,
                     'priority' => 15,
                     'rules'    => Rules::is( 'export-notification', true ),
-                    // 'description' => __('Click, if you want to disable powered by text from notification', 'notificationx'),
+                    // 'description' => __('Click, if you want to disable powered by text from notification', 'surfalert'),
                 ],
                 'export-status' => array(
                     'name'     => 'export-status',
                     'type'     => 'select',
-                    'label'    => __('Status', 'notificationx'),
+                    'label'    => __('Status', 'surfalert'),
                     'priority' => 20,
                     'rules'    => Rules::is( 'export-notification', true ),
                     'default'  => ['all'],
@@ -82,17 +82,17 @@ class ImportExport{
                 'export-settings' => [
                     'name'     => "export-settings",
                     'type'     => 'checkbox',
-                    'label'    => __('Export Settings', 'notificationx'),
+                    'label'    => __('Export Settings', 'surfalert'),
                     'default'  => 0,
                     'priority' => 30,
                 ],
                 'run_export' => array(
                     'name'     => 'run_export',
-                    // 'label'    => __('Import', 'notificationx'),
+                    // 'label'    => __('Import', 'surfalert'),
                     'text'    => [
-                        'normal'  => __('Export', 'notificationx'),
-                        'saved'   => __('Export', 'notificationx'),
-                        'loading' => __('Exporting...', 'notificationx'),
+                        'normal'  => __('Export', 'surfalert'),
+                        'saved'   => __('Export', 'surfalert'),
+                        'loading' => __('Exporting...', 'surfalert'),
                     ],
                     'type'     => 'button',
                     'priority' => 40,
@@ -103,7 +103,7 @@ class ImportExport{
                     ], 'or'),
                     'ajax'     => [
                         'on'   => 'click',
-                        'api'  => '/notificationx/v1/export',
+                        'api'  => '/surfalert/v1/export',
                         'data' => [
                             'export-notification' => '@export-notification',
                             'export-settings'     => '@export-settings',
@@ -111,7 +111,7 @@ class ImportExport{
                             'export-status'       => '@export-status',
                         ],
                         'swal' => [
-                            'text'      => __('Export completed successfully.', 'notificationx'),
+                            'text'      => __('Export completed successfully.', 'surfalert'),
                             'icon'      => 'success',
                             'autoClose' => 2000
                         ],
@@ -121,30 +121,30 @@ class ImportExport{
                 'import' => array(
                     'name'         => 'import',
                     'type'         => 'jsonuploader',
-                    'label'        => __('Import (*.json)', 'notificationx'),
-                    'reset'        => __('Change', 'notificationx'),
+                    'label'        => __('Import (*.json)', 'surfalert'),
+                    'reset'        => __('Change', 'surfalert'),
                     'priority'     => 60,
                     'notImage'     => true,
                 ),
                 'run_import' => array(
                     'name'     => 'run_import',
-                    // 'label'    => __('Import', 'notificationx'),
+                    // 'label'    => __('Import', 'surfalert'),
                     'text'    => [
-                        'normal'  => __('Import', 'notificationx'),
-                        'saved'   => __('Import', 'notificationx'),
-                        'loading' => __('Importing...', 'notificationx'),
+                        'normal'  => __('Import', 'surfalert'),
+                        'saved'   => __('Import', 'surfalert'),
+                        'loading' => __('Importing...', 'surfalert'),
                     ],
                     'type'     => 'button',
                     'priority' => 70,
                     'rules'    => Rules::is( 'import', null, true ),
                     'ajax'     => [
                         'on'   => 'click',
-                        'api'  => '/notificationx/v1/import',
+                        'api'  => '/surfalert/v1/import',
                         'data' => [
                             'import'   => '@import',
                         ],
                         'swal' => [
-                            'text'      => __('Import completed successfully.', 'notificationx'),
+                            'text'      => __('Import completed successfully.', 'surfalert'),
                             'icon'      => 'success',
                             'autoClose' => 2000
                         ],
@@ -172,11 +172,11 @@ class ImportExport{
                 if(!empty($data['notifications'])){
                     $analytics = [];
                     if(!empty($data['analytics'])){
-                        $analytics = $this->group_stats_by_nx_id($data['analytics']);
+                        $analytics = $this->group_stats_by_sa_id($data['analytics']);
                     }
                     foreach ($data['notifications'] as $key => $post) {
-                        $nx_id = $post['nx_id'];
-                        unset($post['nx_id']);
+                        $sa_id = $post['sa_id'];
+                        unset($post['sa_id']);
                         unset($post['id']);
 
                         if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
@@ -200,14 +200,14 @@ class ImportExport{
 
 
                         $notification = PostType::get_instance()->save_post($post); //, ['no_hooks' => true]
-                        $nx_id_new    = $notification['nx_id'];
+                        $sa_id_new    = $notification['sa_id'];
 
-                        if(!empty($analytics[$nx_id])){
-                            foreach ($analytics[$nx_id] as $key => $value) {
-                                $value['nx_id'] = $nx_id_new;
-                                $analytics[$nx_id][$key] = $value;
+                        if(!empty($analytics[$sa_id])){
+                            foreach ($analytics[$sa_id] as $key => $value) {
+                                $value['sa_id'] = $sa_id_new;
+                                $analytics[$sa_id][$key] = $value;
                             }
-                            // Database::get_instance()->insert_posts(Database::$table_stats, array_values($analytics[$nx_id]));
+                            // Database::get_instance()->insert_posts(Database::$table_stats, array_values($analytics[$sa_id]));
                         }
                     }
                     if(!empty($analytics)){
@@ -242,12 +242,12 @@ class ImportExport{
         $params = $request->get_params();
         $export = [];
         if(!empty($params['export-settings'])){
-            $file_name = 'nx-settings-export.json';
+            $file_name = 'sa-settings-export.json';
             $export['settings'] = Settings::get_instance()->get('settings');
         }
         if(!empty($params['export-notification'])){
             $where = [];
-            $file_name = 'nx-notification-export.json';
+            $file_name = 'sa-notification-export.json';
             if(!empty($params['export-status']) && ($params['export-status'] == 'enabled' || $params['export-status'] == 'disabled')){
                 $where = [
                     'enabled' => $params['export-status'] == 'enabled',
@@ -255,7 +255,7 @@ class ImportExport{
             }
             if(!empty($params['export-notification-ids']) && is_array($params['export-notification-ids'])){
                 $where = [
-                    'nx_id' => [
+                    'sa_id' => [
                         'IN',
                         $params['export-notification-ids'],
                     ],
@@ -263,9 +263,9 @@ class ImportExport{
             }
             $export['notifications'] = PostType::get_instance()->get_posts($where);
             if(!empty($params['export-analytics']) && !empty($export['notifications'])){
-                $nx_ids = array_column($export['notifications'], 'nx_id');
+                $sa_ids = array_column($export['notifications'], 'sa_id');
                 $export['analytics'] = Database::get_instance()->get_posts(Database::$table_stats, '*', [
-                    'nx_id' => [ 'IN', $nx_ids ],
+                    'sa_id' => [ 'IN', $sa_ids ],
                 ]);
             }
 
@@ -282,7 +282,7 @@ class ImportExport{
             }
         }
         if(!empty($params['export-settings']) && !empty($params['export-notification'])){
-            $file_name = 'nx-export.json';
+            $file_name = 'sa-export.json';
         }
         return [
             'success' => true,
@@ -299,12 +299,12 @@ class ImportExport{
         ];
     }
 
-    public function group_stats_by_nx_id($stats){
+    public function group_stats_by_sa_id($stats){
         $new_stats = [];
         if(!empty($stats)){
             foreach ($stats as $key => $value) {
                 unset($value['stat_id']);
-                $new_stats[$value['nx_id']][] = $value;
+                $new_stats[$value['sa_id']][] = $value;
             }
         }
 

@@ -2,13 +2,13 @@
 /**
  * Vimeo Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Vimeo;
+namespace SurfAlert\Extensions\Vimeo;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * Vimeo Extension
@@ -24,9 +24,9 @@ class Vimeo extends Extension {
 
     public $priority        = 10;
     public $id              = 'vimeo';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://surfalert.com/docs/google-reviews-with-surfalert/';
     public $types           = 'video';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/vimeo.png';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/vimeo.png';
     public $show_on_module  = false;
     public $show_on_type     = false;
 
@@ -39,7 +39,7 @@ class Vimeo extends Extension {
     
     public function init_extension()
     {
-        $this->title = __('Vimeo', 'notificationx');
+        $this->title = __('Vimeo', 'surfalert');
     }
 
 }

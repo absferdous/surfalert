@@ -2,15 +2,15 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions;
+namespace SurfAlert\Extensions;
 
 use Exception;
-use NotificationX\Core\Database;
-use NotificationX\GetInstance;
-use NotificationX\Core\Modules;
+use SurfAlert\Core\Database;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Modules;
 
 /**
  * ExtensionFactory Class
@@ -29,54 +29,54 @@ class ExtensionFactory {
 	public $types = [];
 	public $extensions = [];
 	public $extension_classes = [
-			'woo_inline'                      => 'NotificationX\Extensions\WooCommerce\WooInline',
-			'edd_inline'                      => 'NotificationX\Extensions\EDD\EDDInline',
-			'tutor_inline'                    => 'NotificationX\Extensions\Tutor\TutorInline',
-			'learndash_inline'                => 'NotificationX\Extensions\LearnDash\LearnDashInline',
-			'learnpress_inline'               => 'NotificationX\Extensions\LearnPress\LearnPressInline',
-			'cf7'                             => 'NotificationX\Extensions\CF7\CF7',
-			'convertkit'                      => 'NotificationX\Extensions\ConvertKit\ConvertKit',
-			'custom_notification'             => 'NotificationX\Extensions\CustomNotification\CustomNotification',
-			'custom_notification_conversions' => 'NotificationX\Extensions\CustomNotification\CustomNotificationConversions',
-			'announcements'                   => 'NotificationX\Extensions\OfferAnnouncement\Announcements',
-			'edd'                             => 'NotificationX\Extensions\EDD\EDD',
-			'envato'                          => 'NotificationX\Extensions\Envato\Envato',
-			'freemius_conversions'            => 'NotificationX\Extensions\Freemius\FreemiusConversions',
-			'freemius_reviews'                => 'NotificationX\Extensions\Freemius\FreemiusReviews',
-			'freemius_stats'                  => 'NotificationX\Extensions\Freemius\FreemiusStats',
-			'grvf'                            => 'NotificationX\Extensions\GRVF\GravityForms',
-			'give'                            => 'NotificationX\Extensions\Give\Give',
-			'google'                          => 'NotificationX\Extensions\Google_Analytics\Google_Analytics',
-			'google_reviews'                  => 'NotificationX\Extensions\Google\GoogleReviews',
-			'learndash'                       => 'NotificationX\Extensions\LearnDash\LearnDash',
-			'learnpress'                      => 'NotificationX\Extensions\LearnPress\LearnPress',
-			'mailchimp'                       => 'NotificationX\Extensions\MailChimp\MailChimp',
-			'njf'                             => 'NotificationX\Extensions\NJF\NinjaForms',
-			'press_bar'                       => 'NotificationX\Extensions\PressBar\PressBar',
-			'tutor'                           => 'NotificationX\Extensions\Tutor\Tutor',
-			'wpf'                             => 'NotificationX\Extensions\WPF\WPForms',
-			'reviewx'                         => 'NotificationX\Extensions\ReviewX\ReviewX',
-			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',
-			'woocommerce_sales'               => 'NotificationX\Extensions\WooCommerce\WooCommerceSales',
-			'woocommerce_sales_reviews'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesReviews',
-			'woocommerce_sales_inline'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesInline',
-			'woo_reviews'                     => 'NotificationX\Extensions\WooCommerce\WooReviews',
-			'wp_comments'                     => 'NotificationX\Extensions\WordPress\WPComments',
-			'wp_reviews'                      => 'NotificationX\Extensions\WordPress\WPOrgReview',
-			'wp_stats'                        => 'NotificationX\Extensions\WordPress\WPOrgStats',
-			'zapier_conversions'              => 'NotificationX\Extensions\Zapier\ZapierConversions',
-			'zapier_email_subscription'       => 'NotificationX\Extensions\Zapier\ZapierEmailSubscription',
-			'zapier_reviews'                  => 'NotificationX\Extensions\Zapier\ZapierReviews',
-			'elementor_form'                  => 'NotificationX\Extensions\Elementor\From',
-			'flashing_tab'                    => 'NotificationX\Extensions\FlashingTab\FlashingTab',
-			'fluentform'                      => 'NotificationX\Extensions\FluentForm\FluentForm',
-			'youtube'                         => 'NotificationX\Extensions\Google\YouTube',
-			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
-			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
-			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
-			'ActiveCampaign'				  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
-			'gdpr_notification'				  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
-			'ccpa_notification'				  => 'NotificationX\Extensions\CCPA\CCPA_Notification',
+			'woo_inline'                      => 'SurfAlert\Extensions\WooCommerce\WooInline',
+			'edd_inline'                      => 'SurfAlert\Extensions\EDD\EDDInline',
+			'tutor_inline'                    => 'SurfAlert\Extensions\Tutor\TutorInline',
+			'learndash_inline'                => 'SurfAlert\Extensions\LearnDash\LearnDashInline',
+			'learnpress_inline'               => 'SurfAlert\Extensions\LearnPress\LearnPressInline',
+			'cf7'                             => 'SurfAlert\Extensions\CF7\CF7',
+			'convertkit'                      => 'SurfAlert\Extensions\ConvertKit\ConvertKit',
+			'custom_notification'             => 'SurfAlert\Extensions\CustomNotification\CustomNotification',
+			'custom_notification_conversions' => 'SurfAlert\Extensions\CustomNotification\CustomNotificationConversions',
+			'announcements'                   => 'SurfAlert\Extensions\OfferAnnouncement\Announcements',
+			'edd'                             => 'SurfAlert\Extensions\EDD\EDD',
+			'envato'                          => 'SurfAlert\Extensions\Envato\Envato',
+			'freemius_conversions'            => 'SurfAlert\Extensions\Freemius\FreemiusConversions',
+			'freemius_reviews'                => 'SurfAlert\Extensions\Freemius\FreemiusReviews',
+			'freemius_stats'                  => 'SurfAlert\Extensions\Freemius\FreemiusStats',
+			'grvf'                            => 'SurfAlert\Extensions\GRVF\GravityForms',
+			'give'                            => 'SurfAlert\Extensions\Give\Give',
+			'google'                          => 'SurfAlert\Extensions\Google_Analytics\Google_Analytics',
+			'google_reviews'                  => 'SurfAlert\Extensions\Google\GoogleReviews',
+			'learndash'                       => 'SurfAlert\Extensions\LearnDash\LearnDash',
+			'learnpress'                      => 'SurfAlert\Extensions\LearnPress\LearnPress',
+			'mailchimp'                       => 'SurfAlert\Extensions\MailChimp\MailChimp',
+			'njf'                             => 'SurfAlert\Extensions\NJF\NinjaForms',
+			'press_bar'                       => 'SurfAlert\Extensions\PressBar\PressBar',
+			'tutor'                           => 'SurfAlert\Extensions\Tutor\Tutor',
+			'wpf'                             => 'SurfAlert\Extensions\WPF\WPForms',
+			'reviewx'                         => 'SurfAlert\Extensions\ReviewX\ReviewX',
+			'woocommerce'                     => 'SurfAlert\Extensions\WooCommerce\WooCommerce',
+			'woocommerce_sales'               => 'SurfAlert\Extensions\WooCommerce\WooCommerceSales',
+			'woocommerce_sales_reviews'       => 'SurfAlert\Extensions\WooCommerce\WooCommerceSalesReviews',
+			'woocommerce_sales_inline'       => 'SurfAlert\Extensions\WooCommerce\WooCommerceSalesInline',
+			'woo_reviews'                     => 'SurfAlert\Extensions\WooCommerce\WooReviews',
+			'wp_comments'                     => 'SurfAlert\Extensions\WordPress\WPComments',
+			'wp_reviews'                      => 'SurfAlert\Extensions\WordPress\WPOrgReview',
+			'wp_stats'                        => 'SurfAlert\Extensions\WordPress\WPOrgStats',
+			'zapier_conversions'              => 'SurfAlert\Extensions\Zapier\ZapierConversions',
+			'zapier_email_subscription'       => 'SurfAlert\Extensions\Zapier\ZapierEmailSubscription',
+			'zapier_reviews'                  => 'SurfAlert\Extensions\Zapier\ZapierReviews',
+			'elementor_form'                  => 'SurfAlert\Extensions\Elementor\From',
+			'flashing_tab'                    => 'SurfAlert\Extensions\FlashingTab\FlashingTab',
+			'fluentform'                      => 'SurfAlert\Extensions\FluentForm\FluentForm',
+			'youtube'                         => 'SurfAlert\Extensions\Google\YouTube',
+			'vimeo'                           => 'SurfAlert\Extensions\Vimeo\Vimeo',
+			'wistia'                          => 'SurfAlert\Extensions\Wistia\Wistia',
+			'surecart'                        => 'SurfAlert\Extensions\SureCart\SureCart',
+			'ActiveCampaign'				  => 'SurfAlert\Extensions\ActiveCampaign\ActiveCampaign',
+			'gdpr_notification'				  => 'SurfAlert\Extensions\GDPR\GDPR_Notification',
+			'ccpa_notification'				  => 'SurfAlert\Extensions\CCPA\CCPA_Notification',
 		];
 
 	/**
@@ -88,7 +88,7 @@ class ExtensionFactory {
 	}
 
 	public function register_extensions(){
-		$this->extension_classes = apply_filters( 'nx_extension_classes', $this->extension_classes );
+		$this->extension_classes = apply_filters( 'sa_extension_classes', $this->extension_classes );
 		foreach ($this->extension_classes as $extension) {
 			// initializing extension.
 			if(class_exists($extension)){
@@ -117,7 +117,7 @@ class ExtensionFactory {
 	 * Get Extensions data
 	 *
 	 * @param Extension $extension The notifications type.
-	 * @param array     $args Settings arguments for notificationx.
+	 * @param array     $args Settings arguments for surfalert.
 	 * @return array
 	 */
 	public static function getExtension( Extension $extension, $args = array() ){

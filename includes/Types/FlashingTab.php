@@ -3,13 +3,13 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
 
 /**
  * Extension Abstract for all Extension.
@@ -33,24 +33,24 @@ class FlashingTab extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        // nx_comment_colored_themes
+        // sa_comment_colored_themes
         parent::__construct();
     }
 
     public function init()
     {
         parent::init();
-        $this->title = __('Flashing Tab', 'notificationx');
-        $this->dashboard_title = __('Flashing Tab', 'notificationx');
+        $this->title = __('Flashing Tab', 'surfalert');
+        $this->dashboard_title = __('Flashing Tab', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/flashing-tab/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/flashing-tab/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Revive lost visitors and convert them into customers with captivating Flashing Tab alerts.</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-SurfAlert.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 

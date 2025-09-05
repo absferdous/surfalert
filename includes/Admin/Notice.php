@@ -2,12 +2,12 @@
 /**
  * Notice Class File.
  *
- * @package NotificationX\Admin
+ * @package SurfAlert\Admin
  */
 
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\CoreInstaller;
+use SurfAlert\CoreInstaller;
 
 class Notice {
     /**
@@ -29,7 +29,7 @@ class Notice {
      * @var array
      */
     const ADMIN_UPDATE_NOTICE_KEY = 'wpdeveloper_notices_seen';
-    public $text_domain           = 'notificationx';
+    public $text_domain           = 'surfalert';
     /**
      * All Data
      *
@@ -466,7 +466,7 @@ class Notice {
         if ( empty( $plugin_slug ) ) {
             return;
         }
-        echo '<button data-slug="' . esc_attr( $plugin_slug ) . '" id="plugin-install-core-' . esc_attr( $this->plugin_name ) . '" class="button button-primary">' . esc_html__( 'Install Now!', 'notificationx' ) . '</button>';
+        echo '<button data-slug="' . esc_attr( $plugin_slug ) . '" id="plugin-install-core-' . esc_attr( $this->plugin_name ) . '" class="button button-primary">' . esc_html__( 'Install Now!', 'surfalert' ) . '</button>';
     }
     /**
      * This methods is responsible for get notice image.
@@ -478,7 +478,7 @@ class Notice {
         $output = '';
         if ( isset( $this->data['thumbnail'] ) && isset( $this->data['thumbnail'][ $msg_for ] ) ) {
             $output      = '<div class="wpdeveloper-notice-thumbnail">';
-                $output .= '<img src="' . esc_url( $this->data['thumbnail'][ $msg_for ] ) . '" alt="NotificationX">';
+                $output .= '<img src="' . esc_url( $this->data['thumbnail'][ $msg_for ] ) . '" alt="SurfAlert">';
             $output     .= '</div>';
         }
         echo wp_kses_post( $output );
@@ -902,7 +902,7 @@ class Notice {
                     var self = $(this);
                     e.preventDefault();
                     self.addClass('install-now updating-message');
-                    self.text('<?php echo esc_html__( 'Installing...', 'notificationx' ); ?>');
+                    self.text('<?php echo esc_html__( 'Installing...', 'surfalert' ); ?>');
 
                     $.ajax({
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
@@ -914,7 +914,7 @@ class Notice {
                             file : '<?php echo esc_html( $plugin_file ); ?>'
                         },
                         success: function(response) {
-                            self.text('<?php echo esc_html__( 'Installed', 'notificationx' ); ?>');
+                            self.text('<?php echo esc_html__( 'Installed', 'surfalert' ); ?>');
                             <?php if ( ! empty( $page_slug ) ) : ?>
                                 window.location.href = '<?php echo admin_url( "admin.php?page={$page_slug}" ); ?>';
                             <?php endif; ?>

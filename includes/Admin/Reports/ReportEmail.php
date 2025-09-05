@@ -1,9 +1,9 @@
 <?php
-namespace NotificationX\Admin\Reports;
+namespace SurfAlert\Admin\Reports;
 
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Helper as NotificationX_Helper;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Helper as NotificationX_Helper;
+use SurfAlert\GetInstance;
 
 /**
  * This class is responsible for sending weekly email with reports
@@ -55,16 +55,16 @@ class ReportEmail {
             if( ! empty( $email ) ) {
                 $is_send = $this->send_email_weekly( $request->get_param('reporting_frequency'), true, $email );
                 if( $is_send && ! is_wp_error( $is_send ) ) {
-                    return [ 'message' => __( 'Successfully Sent an Email', 'notificationx' ) ];
+                    return [ 'message' => __( 'Successfully Sent an Email', 'surfalert' ) ];
                 } else if ( is_wp_error( $is_send ) ) {
                     return $is_send;
                 } else {
-                    new \WP_Error('nx_unknown_reason', __( 'Email cannot be sent for some reason.', 'notificationx' ) );
+                    new \WP_Error('sa_unknown_reason', __( 'Email cannot be sent for some reason.', 'surfalert' ) );
                 }
             }
-            new \WP_Error('nx_unknown_reason', __( 'Invalid email address.', 'notificationx' ) );
+            new \WP_Error('sa_unknown_reason', __( 'Invalid email address.', 'surfalert' ) );
         } else {
-            return new \WP_Error('nx_disabled_reporting', __( 'You have to enable Reporting first.', 'notificationx' ) );
+            return new \WP_Error('sa_disabled_reporting', __( 'You have to enable Reporting first.', 'surfalert' ) );
         }
     }
 
@@ -94,30 +94,30 @@ class ReportEmail {
             $extra_query = $wpdb->prepare( ' = %s', $start_date );
         }
 
-        $query = "SELECT MAIN.`nx_id`, MAIN.`title`, MAIN.`type`, STATS.`views`, STATS.`clicks`, STATS.`CTR` FROM ( SELECT P.`nx_id`, title, type FROM {$wpdb->prefix}nx_posts as P LEFT JOIN {$wpdb->prefix}nx_stats as S ON P.`nx_id` = S.`nx_id` GROUP BY P.nx_id ) AS MAIN INNER JOIN ( SELECT *, (clicks/views)*100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks, nx_id FROM {$wpdb->prefix}nx_stats WHERE created_at $extra_query GROUP BY nx_id ) as VCID ) as STATS
-        ON MAIN.`nx_id` = STATS.`nx_id`";
+        $query = "SELECT MAIN.`sa_id`, MAIN.`title`, MAIN.`type`, STATS.`views`, STATS.`clicks`, STATS.`CTR` FROM ( SELECT P.`sa_id`, title, type FROM {$wpdb->prefix}sa_posts as P LEFT JOIN {$wpdb->prefix}sa_stats as S ON P.`sa_id` = S.`sa_id` GROUP BY P.sa_id ) AS MAIN INNER JOIN ( SELECT *, (clicks/views)*100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks, sa_id FROM {$wpdb->prefix}sa_stats WHERE created_at $extra_query GROUP BY sa_id ) as VCID ) as STATS
+        ON MAIN.`sa_id` = STATS.`sa_id`";
 
         return $wpdb->get_results( $query );
     }
     /**
-     * Calculate Total NotificationX Views
+     * Calculate Total SurfAlert Views
      * @return int
      */
-    public function get_data( $frequency = 'nx_weekly'){
-        if( $frequency == 'nx_daily' ) {
+    public function get_data( $frequency = 'sa_weekly'){
+        if( $frequency == 'sa_daily' ) {
             $start_date          = $this->create_date('last day');
             $end_date            = null;
             $previous_start_date = $this->create_date('last day last day');
             $previous_end_date   = null;
         }
 
-        if( $frequency == 'nx_weekly' ) {
+        if( $frequency == 'sa_weekly' ) {
             $start_date          = $this->create_date('-7days');
             $end_date            = $this->create_date('last day');
             $previous_start_date = $this->create_date('-14days');
             $previous_end_date   = $this->create_date('-7days');
         }
-        if( $frequency == 'nx_monthly' ) {
+        if( $frequency == 'sa_monthly' ) {
             $previous_start_date = $this->create_date('first day of last month last month');
             $previous_end_date   = $this->create_date('last day of last month last month');
             $start_date          = $this->create_date('first day of last month');
@@ -128,7 +128,7 @@ class ReportEmail {
         $previous_data = $this->get_stats( $previous_start_date, $previous_end_date );
 
         $from_date = $previous_start_date;
-        $to_date   =  $frequency == 'nx_daily' ? $start_date : $end_date;
+        $to_date   =  $frequency == 'sa_daily' ? $start_date : $end_date;
 
         $data = [
             'from_date' => $from_date,
@@ -189,7 +189,7 @@ class ReportEmail {
         $current_data = [];
         $previous_data = [];
         array_walk( $data['previous_data'], function( $single ) use ( &$previous_data ){
-            $previous_data[ $single->nx_id ] = ( array ) $single;
+            $previous_data[ $single->sa_id ] = ( array ) $single;
         });
         array_walk( $data['current_data'], function( $single ) use ( &$current_data, &$previous_data, $data ){
             $_single_data = ( array ) $single;
@@ -198,12 +198,12 @@ class ReportEmail {
             $_single_data['from_date'] = $data['from_date'];
             $_single_data['to_date'] = $data['to_date'];
             $_previous_data = [];
-            if( isset( $previous_data[ $single->nx_id ] ) ) {
-                $_previous_data = $this->previous_data( $previous_data[ $single->nx_id ], $_single_data );
+            if( isset( $previous_data[ $single->sa_id ] ) ) {
+                $_previous_data = $this->previous_data( $previous_data[ $single->sa_id ], $_single_data );
             } else {
                 $_previous_data = $this->previous_data( $_previous_data, $_single_data );
             }
-            $current_data[ $single->nx_id ] = array_merge( $_single_data, $_previous_data );
+            $current_data[ $single->sa_id ] = array_merge( $_single_data, $_previous_data );
         });
 
         return $current_data;
@@ -215,17 +215,17 @@ class ReportEmail {
      * @return array Filtered array of non-default cron schedules.
      */
     function schedules_cron( $schedules = array() ) {
-        $schedules['nx_weekly'] = array(
+        $schedules['sa_weekly'] = array(
             'interval' => 604800,
-            'display'  => __( 'Once Weekly', 'notificationx' )
+            'display'  => __( 'Once Weekly', 'surfalert' )
         );
-        $schedules['nx_daily'] = array(
+        $schedules['sa_daily'] = array(
             'interval' => 86400,
-            'display'  => __( 'Once Daily', 'notificationx' )
+            'display'  => __( 'Once Daily', 'surfalert' )
         );
-        $schedules['nx_monthly'] = array(
+        $schedules['sa_monthly'] = array(
             'interval' => strtotime( 'first day of next month 9AM' ),
-            'display'  => __( 'Once Monthly', 'notificationx' )
+            'display'  => __( 'Once Monthly', 'surfalert' )
         );
         return $schedules;
     }
@@ -233,7 +233,7 @@ class ReportEmail {
     /**
      * Set Email Receiver mail address
      * By Default, Admin Email Address
-     * Admin can set Custom email from NotificationX Advanced Settings Panel
+     * Admin can set Custom email from SurfAlert Advanced Settings Panel
      * @return email||String
      */
     public function receiver_email_address( $email = '' ) {
@@ -254,13 +254,13 @@ class ReportEmail {
 
     /**
      * Set Email Subject
-     * By Default, subject will be "Weekly Reporting for NotificationX"
-     * Admin can set Custom Subject from NotificationX Advanced Settings Panel
+     * By Default, subject will be "Weekly Reporting for SurfAlert"
+     * Admin can set Custom Subject from SurfAlert Advanced Settings Panel
      * @return subject||String
      */
     public function email_subject() {
         $site_name = get_bloginfo( 'name' );
-        $subject = __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' );
+        $subject = __( "Weekly Engagement Summary of ‘{$site_name}’", 'surfalert' );
         if( isset( $this->settings['reporting_subject'] ) && ! empty( $this->settings['reporting_subject'] ) ) {
             $subject = stripcslashes( $this->settings['reporting_subject'] );
         }
@@ -268,7 +268,7 @@ class ReportEmail {
     }
 
     public function reporting_frequency(){
-        $frequency = Settings::get_instance()->get('settings.reporting_frequency', 'nx_weekly');
+        $frequency = Settings::get_instance()->get('settings.reporting_frequency', 'sa_weekly');
         return $frequency;
     }
 
@@ -283,7 +283,7 @@ class ReportEmail {
         }
 
         $frequency = $this->reporting_frequency();
-        if( $frequency === 'nx_weekly' ) {
+        if( $frequency === 'sa_weekly' ) {
             $datetime = strtotime( "next $day 9AM", current_time('timestamp') );
             $triggered = Settings::get_instance()->get("reporting.mail_sent.$frequency", false);
             if ( $triggered == 1 ) {
@@ -305,23 +305,23 @@ class ReportEmail {
      * Execute Cron Function
      * Hook: admin_init
      */
-    public function send_email_weekly( $frequency = 'nx_weekly', $test = false, $email = null ) {
+    public function send_email_weekly( $frequency = 'sa_weekly', $test = false, $email = null ) {
         $data = $this->get_data( $frequency );
         if( empty( $data ) ) {
-            return new \WP_Error('nx_no_reporting_data', __('No data found.', 'notificationx'));
+            return new \WP_Error('sa_no_reporting_data', __('No data found.', 'surfalert'));
         }
         if( isset( $this->settings['enable_analytics'] ) && ! $this->settings['enable_analytics'] ) {
-            return new \WP_Error('nx_disabled_analytics', __('Analytics disabled. No data found.', 'notificationx'));
+            return new \WP_Error('sa_disabled_analytics', __('Analytics disabled. No data found.', 'surfalert'));
         }
         $to = is_null( $email ) ? $this->receiver_email_address() : $email;
         if( empty( $to ) ) {
-            return new \WP_Error('nx_reporting_email', __('No email found.', 'notificationx'));
+            return new \WP_Error('sa_reporting_email', __('No email found.', 'surfalert'));
         }
 
         $subject = $this->email_subject();
         $template = new EmailTemplate();
         $message = $template->template_body( $data, $frequency );
-        $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.com>" );
+        $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: SurfAlert <support@wpdeveloper.com>" );
         if( ! $test ) {
             $triggered = Settings::get_instance()->get("reporting.mail_sent.$frequency");
             $triggered = ! $triggered ? 0 : $triggered++;

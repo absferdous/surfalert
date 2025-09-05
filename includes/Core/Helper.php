@@ -1,10 +1,10 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Types\TypeFactory;
-use NotificationX\Admin\Settings;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Types\TypeFactory;
+use SurfAlert\Admin\Settings;
 
 /**
  * This class will provide all kind of helper methods.
@@ -32,7 +32,7 @@ class Helper {
             }
         }
 
-        return apply_filters('nx_post_types', $post_types);
+        return apply_filters('sa_post_types', $post_types);
     }
 
     /**
@@ -67,7 +67,7 @@ class Helper {
                 $data[$tax_slug] = $tax;
             }
         }
-        return apply_filters('nx_loop_taxonomies', $data, $taxonomies, $post_type);
+        return apply_filters('sa_loop_taxonomies', $data, $taxonomies, $post_type);
     }
 
     /**
@@ -476,7 +476,7 @@ class Helper {
             'timeout'     => 20,
             'redirection' => 5,
             'httpversion' => '1.1',
-            'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
+            'user-agent'  => 'SurfAlert/' . SURFALERT_VERSION . '; ' . home_url(),
             'body'        => null,
             'sslverify'   => false,
             'stream'      => false,
@@ -512,21 +512,21 @@ class Helper {
         $base = '';
         if(defined('NX_DEBUG') && NX_DEBUG){
             if( $url ) {
-                $base = NOTIFICATIONX_DEV_ASSETS;
+                $base = SURFALERT_DEV_ASSETS;
             }
             else{
-                $base = NOTIFICATIONX_DEV_ASSETS_PATH;
+                $base = SURFALERT_DEV_ASSETS_PATH;
             }
-            if(!file_exists(path_join(NOTIFICATIONX_DEV_ASSETS_PATH, $file))){
+            if(!file_exists(path_join(SURFALERT_DEV_ASSETS_PATH, $file))){
                 $base = '';
             }
         }
         if(empty($base)){
             if( $url ) {
-                $base = NOTIFICATIONX_ASSETS;
+                $base = SURFALERT_ASSETS;
             }
             else{
-                $base = NOTIFICATIONX_ASSETS_PATH;
+                $base = SURFALERT_ASSETS_PATH;
             }
         }
         return path_join($base, $file);
@@ -636,31 +636,31 @@ class Helper {
             'enabled' => array(
                 'type'     => 'toggle',
                 'name'     => 'enabled',
-                'label'    => __('Enabled', 'notificationx'),
+                'label'    => __('Enabled', 'surfalert'),
                 'priority' => 5,
             ), 
             'discovered' => array(
                 'type'     => 'toggle',
                 'name'     => 'discovered',
-                'label'    => __('Discovered', 'notificationx'),
+                'label'    => __('Discovered', 'surfalert'),
                 'priority' => 5,
             ), 
             'cookies_id' => array(
                 'type'     => 'text',
                 'name'     => 'cookies_id',
-                'label'    => __('Cookie ID', 'notificationx'),
+                'label'    => __('Cookie ID', 'surfalert'),
                 'priority' => 10,
             ), 
             'domain' => array(
                 'type'     => 'text',
                 'name'     => 'domain',
-                'label'    => __('Domain', 'notificationx'),
+                'label'    => __('Domain', 'surfalert'),
                 'priority' => 15,
             ), 
             'duration' => array(
                 'type'        => 'number',
                 'name'        => 'duration',
-                'label'       => __('Duration', 'notificationx'),
+                'label'       => __('Duration', 'surfalert'),
                 'min'         => 1,
                 'priority'    => 20,
                 'suggestions' => [
@@ -685,31 +685,31 @@ class Helper {
             'description' => array(
                 'type'     => 'textarea',
                 'name'     => 'description',
-                'label'    => __('Description', 'notificationx-pro'),
+                'label'    => __('Description', 'surfalert-pro'),
                 'priority' => 30,
             ), 
             'is_add_script' => array(
                 'type'     => 'toggle',
                 'name'     => 'is_add_script',
-                'label'    => __('Add Script', 'notificationx'),
+                'label'    => __('Add Script', 'surfalert'),
                 'priority' => 35,
             ), 
             'load_inside' => array(
-                'label'    => __('Add Script on', 'notificationx'),
+                'label'    => __('Add Script on', 'surfalert'),
                 'name'     => 'product_control',
                 'type'     => 'select',
                 'priority' => 40,
                 'default'  => 'head',
                 'options'  => GlobalFields::get_instance()->normalize_fields([
-                    'head'   => __('Header', 'notificationx'),
-                    'body'   => __('Body', 'notificationx'),
-                    'footer' => __('Footer', 'notificationx'),
+                    'head'   => __('Header', 'surfalert'),
+                    'body'   => __('Body', 'surfalert'),
+                    'footer' => __('Footer', 'surfalert'),
                 ]),
             ),
             'script_url_pattern' => array(
                 'type'     => 'codeviewer',
                 'name'     => 'script_url_pattern',
-                'label'    => __('Script', 'notificationx-pro'),
+                'label'    => __('Script', 'surfalert-pro'),
                 'priority' => 45,
             ), 
         ];
@@ -786,7 +786,7 @@ class Helper {
             'type'    => 'text',
             'name'    => "{$name}_tab_title",
             'default' => $title_default,
-            'label'   => __('Name', 'notificationx'),
+            'label'   => __('Name', 'surfalert'),
             'autoFocus' => true,
         ];
     }
@@ -798,7 +798,7 @@ class Helper {
             'row'      => 3,
             'name'    => "{$name}_tab_desc",
             'default' => $desc_default,
-            'label'   => __('Description', 'notificationx'),
+            'label'   => __('Description', 'surfalert'),
         ];
     }
 
@@ -812,7 +812,7 @@ class Helper {
                 'cookies_id'         => 'wordpress_logged_in',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
-                'description'        => __('Indicates when a user is logged in and who they are, for most interface use.','notificationx'),
+                'description'        => __('Indicates when a user is logged in and who they are, for most interface use.','surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
             [
@@ -821,7 +821,7 @@ class Helper {
                 'cookies_id'         => 'wordpress_sec',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
-                'description'        => __('Used for security purposes for logged-in users.', 'notificationx'),
+                'description'        => __('Used for security purposes for logged-in users.', 'surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
             [
@@ -830,7 +830,7 @@ class Helper {
                 'cookies_id'         => 'wp-settings-{user_id}',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
-                'description'        => __('Used to persist a user\'s WordPress admin settings.','notificationx'),
+                'description'        => __('Used to persist a user\'s WordPress admin settings.','surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
             [
@@ -839,7 +839,7 @@ class Helper {
                 'cookies_id'         => 'wp-settings-time-{user_id}',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
-                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
             [
@@ -848,15 +848,15 @@ class Helper {
                 'cookies_id'         => 'wp-settings-time-{user_id}',
                 'load_inside'        => 'head',
                 'script_url_pattern' => '',
-                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'notificationx'),
+                'description'        => __('Records the time that wp-settings-{user_id} was set.', 'surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
             [
                 'enabled'            => true,
                 'default'            => true,
-                'cookies_id'         => 'nx_cookie_manager',
+                'cookies_id'         => 'sa_cookie_manager',
                 'script_url_pattern' => '',
-                'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'notificationx'),
+                'description'        => __('Manages the cookies on the site, ensuring user consent for GDPR compliance.', 'surfalert'),
                 'index'              => wp_generate_uuid4(),
             ],
         ];
@@ -902,7 +902,7 @@ class Helper {
         return $image && isset($image[0]) ? $image[0] : null;
     }
 
-    public static function nx_allowed_html()
+    public static function sa_allowed_html()
     {
         return [
             'a' => [
@@ -1068,7 +1068,7 @@ class Helper {
      *
      * @return string Formatted datetime in 'Y-m-d H:i:s' format.
      */
-    public static function nx_get_current_datetime() {
+    public static function sa_get_current_datetime() {
         // Get the WordPress timezone setting
         $timezone = get_option('timezone_string');
 
@@ -1095,7 +1095,7 @@ class Helper {
         }
     }
 
-    public static function nx_get_visitor_country_code() {
+    public static function sa_get_visitor_country_code() {
         $ip = '';
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -1121,197 +1121,197 @@ class Helper {
         return isset($data['countryCode']) ? $data['countryCode'] : null;
     }
 
-    public static function nx_get_all_country($search = '') {
+    public static function sa_get_all_country($search = '') {
         $countries = [
-            'all' => __('All Countries', 'notificationx'),
-            'AF'  => __('Afghanistan', 'notificationx'),
-            'AL'  => __('Albania', 'notificationx'),
-            'DZ'  => __('Algeria', 'notificationx'),
-            'AS'  => __('American Samoa', 'notificationx'),
-            'AD'  => __('Andorra', 'notificationx'),
-            'AO'  => __('Angola', 'notificationx'),
-            'AI'  => __('Anguilla', 'notificationx'),
-            'AQ'  => __('Antarctica', 'notificationx'),
-            'AG'  => __('Antigua and Barbuda', 'notificationx'),
-            'AR'  => __('Argentina', 'notificationx'),
-            'AM'  => __('Armenia', 'notificationx'),
-            'AW'  => __('Aruba', 'notificationx'),
-            'AU'  => __('Australia', 'notificationx'),
-            'AT'  => __('Austria', 'notificationx'),
-            'AZ'  => __('Azerbaijan', 'notificationx'),
-            'BS'  => __('Bahamas', 'notificationx'),
-            'BH'  => __('Bahrain', 'notificationx'),
-            'BD'  => __('Bangladesh', 'notificationx'),
-            'BB'  => __('Barbados', 'notificationx'),
-            'BY'  => __('Belarus', 'notificationx'),
-            'BE'  => __('Belgium', 'notificationx'),
-            'BZ'  => __('Belize', 'notificationx'),
-            'BJ'  => __('Benin', 'notificationx'),
-            'BM'  => __('Bermuda', 'notificationx'),
-            'BT'  => __('Bhutan', 'notificationx'),
-            'BO'  => __('Bolivia', 'notificationx'),
-            'BA'  => __('Bosnia and Herzegovina', 'notificationx'),
-            'BW'  => __('Botswana', 'notificationx'),
-            'BR'  => __('Brazil', 'notificationx'),
-            'BN'  => __('Brunei', 'notificationx'),
-            'BG'  => __('Bulgaria', 'notificationx'),
-            'BF'  => __('Burkina Faso', 'notificationx'),
-            'BI'  => __('Burundi', 'notificationx'),
-            'KH'  => __('Cambodia', 'notificationx'),
-            'CM'  => __('Cameroon', 'notificationx'),
-            'CA'  => __('Canada', 'notificationx'),
-            'CV'  => __('Cape Verde', 'notificationx'),
-            'CF'  => __('Central African Republic', 'notificationx'),
-            'TD'  => __('Chad', 'notificationx'),
-            'CL'  => __('Chile', 'notificationx'),
-            'CN'  => __('China', 'notificationx'),
-            'CO'  => __('Colombia', 'notificationx'),
-            'KM'  => __('Comoros', 'notificationx'),
-            'CG'  => __('Congo (Brazzaville)', 'notificationx'),
-            'CD'  => __('Congo (Kinshasa)', 'notificationx'),
-            'CR'  => __('Costa Rica', 'notificationx'),
-            'HR'  => __('Croatia', 'notificationx'),
-            'CU'  => __('Cuba', 'notificationx'),
-            'CY'  => __('Cyprus', 'notificationx'),
-            'CZ'  => __('Czech Republic', 'notificationx'),
-            'DK'  => __('Denmark', 'notificationx'),
-            'DJ'  => __('Djibouti', 'notificationx'),
-            'DM'  => __('Dominica', 'notificationx'),
-            'DO'  => __('Dominican Republic', 'notificationx'),
-            'EC'  => __('Ecuador', 'notificationx'),
-            'EG'  => __('Egypt', 'notificationx'),
-            'SV'  => __('El Salvador', 'notificationx'),
-            'GQ'  => __('Equatorial Guinea', 'notificationx'),
-            'ER'  => __('Eritrea', 'notificationx'),
-            'EE'  => __('Estonia', 'notificationx'),
-            'ET'  => __('Ethiopia', 'notificationx'),
-            'FJ'  => __('Fiji', 'notificationx'),
-            'FI'  => __('Finland', 'notificationx'),
-            'FR'  => __('France', 'notificationx'),
-            'GA'  => __('Gabon', 'notificationx'),
-            'GM'  => __('Gambia', 'notificationx'),
-            'GE'  => __('Georgia', 'notificationx'),
-            'DE'  => __('Germany', 'notificationx'),
-            'GH'  => __('Ghana', 'notificationx'),
-            'GR'  => __('Greece', 'notificationx'),
-            'GD'  => __('Grenada', 'notificationx'),
-            'GT'  => __('Guatemala', 'notificationx'),
-            'GN'  => __('Guinea', 'notificationx'),
-            'GW'  => __('Guinea-Bissau', 'notificationx'),
-            'GY'  => __('Guyana', 'notificationx'),
-            'HT'  => __('Haiti', 'notificationx'),
-            'HN'  => __('Honduras', 'notificationx'),
-            'HK'  => __('Hong Kong', 'notificationx'),
-            'HU'  => __('Hungary', 'notificationx'),
-            'IS'  => __('Iceland', 'notificationx'),
-            'IN'  => __('India', 'notificationx'),
-            'ID'  => __('Indonesia', 'notificationx'),
-            'IR'  => __('Iran', 'notificationx'),
-            'IQ'  => __('Iraq', 'notificationx'),
-            'IE'  => __('Ireland', 'notificationx'),
-            'IL'  => __('Israel', 'notificationx'),
-            'IT'  => __('Italy', 'notificationx'),
-            'JM'  => __('Jamaica', 'notificationx'),
-            'JP'  => __('Japan', 'notificationx'),
-            'JO'  => __('Jordan', 'notificationx'),
-            'KZ'  => __('Kazakhstan', 'notificationx'),
-            'KE'  => __('Kenya', 'notificationx'),
-            'KI'  => __('Kiribati', 'notificationx'),
-            'KR'  => __('Korea, South', 'notificationx'),
-            'KW'  => __('Kuwait', 'notificationx'),
-            'KG'  => __('Kyrgyzstan', 'notificationx'),
-            'LA'  => __('Laos', 'notificationx'),
-            'LV'  => __('Latvia', 'notificationx'),
-            'LB'  => __('Lebanon', 'notificationx'),
-            'LS'  => __('Lesotho', 'notificationx'),
-            'LR'  => __('Liberia', 'notificationx'),
-            'LY'  => __('Libya', 'notificationx'),
-            'LI'  => __('Liechtenstein', 'notificationx'),
-            'LT'  => __('Lithuania', 'notificationx'),
-            'LU'  => __('Luxembourg', 'notificationx'),
-            'MG'  => __('Madagascar', 'notificationx'),
-            'MW'  => __('Malawi', 'notificationx'),
-            'MY'  => __('Malaysia', 'notificationx'),
-            'MV'  => __('Maldives', 'notificationx'),
-            'ML'  => __('Mali', 'notificationx'),
-            'MT'  => __('Malta', 'notificationx'),
-            'MH'  => __('Marshall Islands', 'notificationx'),
-            'MR'  => __('Mauritania', 'notificationx'),
-            'MU'  => __('Mauritius', 'notificationx'),
-            'MX'  => __('Mexico', 'notificationx'),
-            'FM'  => __('Micronesia', 'notificationx'),
-            'MD'  => __('Moldova', 'notificationx'),
-            'MC'  => __('Monaco', 'notificationx'),
-            'MN'  => __('Mongolia', 'notificationx'),
-            'ME'  => __('Montenegro', 'notificationx'),
-            'MA'  => __('Morocco', 'notificationx'),
-            'MZ'  => __('Mozambique', 'notificationx'),
-            'MM'  => __('Myanmar (Burma)', 'notificationx'),
-            'NA'  => __('Namibia', 'notificationx'),
-            'NR'  => __('Nauru', 'notificationx'),
-            'NP'  => __('Nepal', 'notificationx'),
-            'NL'  => __('Netherlands', 'notificationx'),
-            'NZ'  => __('New Zealand', 'notificationx'),
-            'NI'  => __('Nicaragua', 'notificationx'),
-            'NE'  => __('Niger', 'notificationx'),
-            'NG'  => __('Nigeria', 'notificationx'),
-            'MK'  => __('North Macedonia', 'notificationx'),
-            'NO'  => __('Norway', 'notificationx'),
-            'OM'  => __('Oman', 'notificationx'),
-            'PK'  => __('Pakistan', 'notificationx'),
-            'PW'  => __('Palau', 'notificationx'),
-            'PA'  => __('Panama', 'notificationx'),
-            'PG'  => __('Papua New Guinea', 'notificationx'),
-            'PY'  => __('Paraguay', 'notificationx'),
-            'PE'  => __('Peru', 'notificationx'),
-            'PH'  => __('Philippines', 'notificationx'),
-            'PL'  => __('Poland', 'notificationx'),
-            'PT'  => __('Portugal', 'notificationx'),
-            'QA'  => __('Qatar', 'notificationx'),
-            'RO'  => __('Romania', 'notificationx'),
-            'RU'  => __('Russia', 'notificationx'),
-            'RW'  => __('Rwanda', 'notificationx'),
-            'SA'  => __('Saudi Arabia', 'notificationx'),
-            'SN'  => __('Senegal', 'notificationx'),
-            'RS'  => __('Serbia', 'notificationx'),
-            'SC'  => __('Seychelles', 'notificationx'),
-            'SL'  => __('Sierra Leone', 'notificationx'),
-            'SG'  => __('Singapore', 'notificationx'),
-            'SK'  => __('Slovakia', 'notificationx'),
-            'SI'  => __('Slovenia', 'notificationx'),
-            'SB'  => __('Solomon Islands', 'notificationx'),
-            'SO'  => __('Somalia', 'notificationx'),
-            'ZA'  => __('South Africa', 'notificationx'),
-            'ES'  => __('Spain', 'notificationx'),
-            'LK'  => __('Sri Lanka', 'notificationx'),
-            'SD'  => __('Sudan', 'notificationx'),
-            'SR'  => __('Suriname', 'notificationx'),
-            'SE'  => __('Sweden', 'notificationx'),
-            'CH'  => __('Switzerland', 'notificationx'),
-            'SY'  => __('Syria', 'notificationx'),
-            'TW'  => __('Taiwan', 'notificationx'),
-            'TJ'  => __('Tajikistan', 'notificationx'),
-            'TZ'  => __('Tanzania', 'notificationx'),
-            'TH'  => __('Thailand', 'notificationx'),
-            'TG'  => __('Togo', 'notificationx'),
-            'TO'  => __('Tonga', 'notificationx'),
-            'TT'  => __('Trinidad and Tobago', 'notificationx'),
-            'TN'  => __('Tunisia', 'notificationx'),
-            'TR'  => __('Turkey', 'notificationx'),
-            'TM'  => __('Turkmenistan', 'notificationx'),
-            'UG'  => __('Uganda', 'notificationx'),
-            'UA'  => __('Ukraine', 'notificationx'),
-            'AE'  => __('United Arab Emirates', 'notificationx'),
-            'GB'  => __('United Kingdom', 'notificationx'),
-            'US'  => __('United States', 'notificationx'),
-            'UY'  => __('Uruguay', 'notificationx'),
-            'UZ'  => __('Uzbekistan', 'notificationx'),
-            'VU'  => __('Vanuatu', 'notificationx'),
-            'VE'  => __('Venezuela', 'notificationx'),
-            'VN'  => __('Vietnam', 'notificationx'),
-            'YE'  => __('Yemen', 'notificationx'),
-            'ZM'  => __('Zambia', 'notificationx'),
-            'ZW'  => __('Zimbabwe', 'notificationx'),
+            'all' => __('All Countries', 'surfalert'),
+            'AF'  => __('Afghanistan', 'surfalert'),
+            'AL'  => __('Albania', 'surfalert'),
+            'DZ'  => __('Algeria', 'surfalert'),
+            'AS'  => __('American Samoa', 'surfalert'),
+            'AD'  => __('Andorra', 'surfalert'),
+            'AO'  => __('Angola', 'surfalert'),
+            'AI'  => __('Anguilla', 'surfalert'),
+            'AQ'  => __('Antarctica', 'surfalert'),
+            'AG'  => __('Antigua and Barbuda', 'surfalert'),
+            'AR'  => __('Argentina', 'surfalert'),
+            'AM'  => __('Armenia', 'surfalert'),
+            'AW'  => __('Aruba', 'surfalert'),
+            'AU'  => __('Australia', 'surfalert'),
+            'AT'  => __('Austria', 'surfalert'),
+            'AZ'  => __('Azerbaijan', 'surfalert'),
+            'BS'  => __('Bahamas', 'surfalert'),
+            'BH'  => __('Bahrain', 'surfalert'),
+            'BD'  => __('Bangladesh', 'surfalert'),
+            'BB'  => __('Barbados', 'surfalert'),
+            'BY'  => __('Belarus', 'surfalert'),
+            'BE'  => __('Belgium', 'surfalert'),
+            'BZ'  => __('Belize', 'surfalert'),
+            'BJ'  => __('Benin', 'surfalert'),
+            'BM'  => __('Bermuda', 'surfalert'),
+            'BT'  => __('Bhutan', 'surfalert'),
+            'BO'  => __('Bolivia', 'surfalert'),
+            'BA'  => __('Bosnia and Herzegovina', 'surfalert'),
+            'BW'  => __('Botswana', 'surfalert'),
+            'BR'  => __('Brazil', 'surfalert'),
+            'BN'  => __('Brunei', 'surfalert'),
+            'BG'  => __('Bulgaria', 'surfalert'),
+            'BF'  => __('Burkina Faso', 'surfalert'),
+            'BI'  => __('Burundi', 'surfalert'),
+            'KH'  => __('Cambodia', 'surfalert'),
+            'CM'  => __('Cameroon', 'surfalert'),
+            'CA'  => __('Canada', 'surfalert'),
+            'CV'  => __('Cape Verde', 'surfalert'),
+            'CF'  => __('Central African Republic', 'surfalert'),
+            'TD'  => __('Chad', 'surfalert'),
+            'CL'  => __('Chile', 'surfalert'),
+            'CN'  => __('China', 'surfalert'),
+            'CO'  => __('Colombia', 'surfalert'),
+            'KM'  => __('Comoros', 'surfalert'),
+            'CG'  => __('Congo (Brazzaville)', 'surfalert'),
+            'CD'  => __('Congo (Kinshasa)', 'surfalert'),
+            'CR'  => __('Costa Rica', 'surfalert'),
+            'HR'  => __('Croatia', 'surfalert'),
+            'CU'  => __('Cuba', 'surfalert'),
+            'CY'  => __('Cyprus', 'surfalert'),
+            'CZ'  => __('Czech Republic', 'surfalert'),
+            'DK'  => __('Denmark', 'surfalert'),
+            'DJ'  => __('Djibouti', 'surfalert'),
+            'DM'  => __('Dominica', 'surfalert'),
+            'DO'  => __('Dominican Republic', 'surfalert'),
+            'EC'  => __('Ecuador', 'surfalert'),
+            'EG'  => __('Egypt', 'surfalert'),
+            'SV'  => __('El Salvador', 'surfalert'),
+            'GQ'  => __('Equatorial Guinea', 'surfalert'),
+            'ER'  => __('Eritrea', 'surfalert'),
+            'EE'  => __('Estonia', 'surfalert'),
+            'ET'  => __('Ethiopia', 'surfalert'),
+            'FJ'  => __('Fiji', 'surfalert'),
+            'FI'  => __('Finland', 'surfalert'),
+            'FR'  => __('France', 'surfalert'),
+            'GA'  => __('Gabon', 'surfalert'),
+            'GM'  => __('Gambia', 'surfalert'),
+            'GE'  => __('Georgia', 'surfalert'),
+            'DE'  => __('Germany', 'surfalert'),
+            'GH'  => __('Ghana', 'surfalert'),
+            'GR'  => __('Greece', 'surfalert'),
+            'GD'  => __('Grenada', 'surfalert'),
+            'GT'  => __('Guatemala', 'surfalert'),
+            'GN'  => __('Guinea', 'surfalert'),
+            'GW'  => __('Guinea-Bissau', 'surfalert'),
+            'GY'  => __('Guyana', 'surfalert'),
+            'HT'  => __('Haiti', 'surfalert'),
+            'HN'  => __('Honduras', 'surfalert'),
+            'HK'  => __('Hong Kong', 'surfalert'),
+            'HU'  => __('Hungary', 'surfalert'),
+            'IS'  => __('Iceland', 'surfalert'),
+            'IN'  => __('India', 'surfalert'),
+            'ID'  => __('Indonesia', 'surfalert'),
+            'IR'  => __('Iran', 'surfalert'),
+            'IQ'  => __('Iraq', 'surfalert'),
+            'IE'  => __('Ireland', 'surfalert'),
+            'IL'  => __('Israel', 'surfalert'),
+            'IT'  => __('Italy', 'surfalert'),
+            'JM'  => __('Jamaica', 'surfalert'),
+            'JP'  => __('Japan', 'surfalert'),
+            'JO'  => __('Jordan', 'surfalert'),
+            'KZ'  => __('Kazakhstan', 'surfalert'),
+            'KE'  => __('Kenya', 'surfalert'),
+            'KI'  => __('Kiribati', 'surfalert'),
+            'KR'  => __('Korea, South', 'surfalert'),
+            'KW'  => __('Kuwait', 'surfalert'),
+            'KG'  => __('Kyrgyzstan', 'surfalert'),
+            'LA'  => __('Laos', 'surfalert'),
+            'LV'  => __('Latvia', 'surfalert'),
+            'LB'  => __('Lebanon', 'surfalert'),
+            'LS'  => __('Lesotho', 'surfalert'),
+            'LR'  => __('Liberia', 'surfalert'),
+            'LY'  => __('Libya', 'surfalert'),
+            'LI'  => __('Liechtenstein', 'surfalert'),
+            'LT'  => __('Lithuania', 'surfalert'),
+            'LU'  => __('Luxembourg', 'surfalert'),
+            'MG'  => __('Madagascar', 'surfalert'),
+            'MW'  => __('Malawi', 'surfalert'),
+            'MY'  => __('Malaysia', 'surfalert'),
+            'MV'  => __('Maldives', 'surfalert'),
+            'ML'  => __('Mali', 'surfalert'),
+            'MT'  => __('Malta', 'surfalert'),
+            'MH'  => __('Marshall Islands', 'surfalert'),
+            'MR'  => __('Mauritania', 'surfalert'),
+            'MU'  => __('Mauritius', 'surfalert'),
+            'MX'  => __('Mexico', 'surfalert'),
+            'FM'  => __('Micronesia', 'surfalert'),
+            'MD'  => __('Moldova', 'surfalert'),
+            'MC'  => __('Monaco', 'surfalert'),
+            'MN'  => __('Mongolia', 'surfalert'),
+            'ME'  => __('Montenegro', 'surfalert'),
+            'MA'  => __('Morocco', 'surfalert'),
+            'MZ'  => __('Mozambique', 'surfalert'),
+            'MM'  => __('Myanmar (Burma)', 'surfalert'),
+            'NA'  => __('Namibia', 'surfalert'),
+            'NR'  => __('Nauru', 'surfalert'),
+            'NP'  => __('Nepal', 'surfalert'),
+            'NL'  => __('Netherlands', 'surfalert'),
+            'NZ'  => __('New Zealand', 'surfalert'),
+            'NI'  => __('Nicaragua', 'surfalert'),
+            'NE'  => __('Niger', 'surfalert'),
+            'NG'  => __('Nigeria', 'surfalert'),
+            'MK'  => __('North Macedonia', 'surfalert'),
+            'NO'  => __('Norway', 'surfalert'),
+            'OM'  => __('Oman', 'surfalert'),
+            'PK'  => __('Pakistan', 'surfalert'),
+            'PW'  => __('Palau', 'surfalert'),
+            'PA'  => __('Panama', 'surfalert'),
+            'PG'  => __('Papua New Guinea', 'surfalert'),
+            'PY'  => __('Paraguay', 'surfalert'),
+            'PE'  => __('Peru', 'surfalert'),
+            'PH'  => __('Philippines', 'surfalert'),
+            'PL'  => __('Poland', 'surfalert'),
+            'PT'  => __('Portugal', 'surfalert'),
+            'QA'  => __('Qatar', 'surfalert'),
+            'RO'  => __('Romania', 'surfalert'),
+            'RU'  => __('Russia', 'surfalert'),
+            'RW'  => __('Rwanda', 'surfalert'),
+            'SA'  => __('Saudi Arabia', 'surfalert'),
+            'SN'  => __('Senegal', 'surfalert'),
+            'RS'  => __('Serbia', 'surfalert'),
+            'SC'  => __('Seychelles', 'surfalert'),
+            'SL'  => __('Sierra Leone', 'surfalert'),
+            'SG'  => __('Singapore', 'surfalert'),
+            'SK'  => __('Slovakia', 'surfalert'),
+            'SI'  => __('Slovenia', 'surfalert'),
+            'SB'  => __('Solomon Islands', 'surfalert'),
+            'SO'  => __('Somalia', 'surfalert'),
+            'ZA'  => __('South Africa', 'surfalert'),
+            'ES'  => __('Spain', 'surfalert'),
+            'LK'  => __('Sri Lanka', 'surfalert'),
+            'SD'  => __('Sudan', 'surfalert'),
+            'SR'  => __('Suriname', 'surfalert'),
+            'SE'  => __('Sweden', 'surfalert'),
+            'CH'  => __('Switzerland', 'surfalert'),
+            'SY'  => __('Syria', 'surfalert'),
+            'TW'  => __('Taiwan', 'surfalert'),
+            'TJ'  => __('Tajikistan', 'surfalert'),
+            'TZ'  => __('Tanzania', 'surfalert'),
+            'TH'  => __('Thailand', 'surfalert'),
+            'TG'  => __('Togo', 'surfalert'),
+            'TO'  => __('Tonga', 'surfalert'),
+            'TT'  => __('Trinidad and Tobago', 'surfalert'),
+            'TN'  => __('Tunisia', 'surfalert'),
+            'TR'  => __('Turkey', 'surfalert'),
+            'TM'  => __('Turkmenistan', 'surfalert'),
+            'UG'  => __('Uganda', 'surfalert'),
+            'UA'  => __('Ukraine', 'surfalert'),
+            'AE'  => __('United Arab Emirates', 'surfalert'),
+            'GB'  => __('United Kingdom', 'surfalert'),
+            'US'  => __('United States', 'surfalert'),
+            'UY'  => __('Uruguay', 'surfalert'),
+            'UZ'  => __('Uzbekistan', 'surfalert'),
+            'VU'  => __('Vanuatu', 'surfalert'),
+            'VE'  => __('Venezuela', 'surfalert'),
+            'VN'  => __('Vietnam', 'surfalert'),
+            'YE'  => __('Yemen', 'surfalert'),
+            'ZM'  => __('Zambia', 'surfalert'),
+            'ZW'  => __('Zimbabwe', 'surfalert'),
         ];
         if (!empty($search)) {
             $search = strtolower($search);

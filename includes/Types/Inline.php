@@ -3,13 +3,13 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
 
 /**
  * Extension Abstract for all Extension.
@@ -33,7 +33,7 @@ class Inline extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        // nx_comment_colored_themes
+        // sa_comment_colored_themes
         parent::__construct();
 
     }
@@ -41,28 +41,28 @@ class Inline extends Types {
     public function init()
     {
         parent::init();
-        $this->title = __('Growth Alert 🚀', 'notificationx');
-        $this->dashboard_title = __('Growth Alert', 'notificationx');
+        $this->title = __('Growth Alert 🚀', 'surfalert');
+        $this->dashboard_title = __('Growth Alert', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/growth-alert/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/Introducing-Growth-Alert-Instant-Sales-Booster-With-NotificationX.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/Introducing-Growth-Alert-Instant-Sales-Booster-With-SurfAlert.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+        add_filter( 'sa_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
 
     }
 

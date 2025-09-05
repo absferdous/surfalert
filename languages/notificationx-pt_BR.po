@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX Pro\n"
+"Project-Id-Version: SurfAlert Pro\n"
 "POT-Creation-Date: 2024-11-17 01:30-0300\n"
 "PO-Revision-Date: 2024-11-17 01:34-0300\n"
 "Last-Translator: \n"
@@ -13,11 +13,11 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: notificationx-pro.php\n"
+"X-Poedit-WPHeader: surfalert-pro.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"_sa_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -124,7 +124,7 @@ msgstr "Arquivo CSV inválido"
 msgid "Please upload a valid CSV file."
 msgstr "Envie um arquivo CSV válido."
 
-#. translators: %1$s: opening tag for WP Developer account link, %2$s: closing tag, %3$s: plugin name (NotificationX Pro)
+#. translators: %1$s: opening tag for WP Developer account link, %2$s: closing tag, %3$s: plugin name (SurfAlert Pro)
 #: includes/Core/Licensing/Licensing.php:141
 #, php-format
 msgid ""
@@ -134,7 +134,7 @@ msgstr ""
 "Sua licença expirou. %1$sRenove sua chave de licença %2$s para ativar as "
 "atualizações para %3$s."
 
-#. translators: %1$s: link of license page, %2$s: closing tag, %3$s: plugin name (NotificationX Pro)
+#. translators: %1$s: link of license page, %2$s: closing tag, %3$s: plugin name (SurfAlert Pro)
 #: includes/Core/Licensing/Licensing.php:149
 #, php-format
 msgid "Please %1$sactivate your license%2$s key to enable updates for %3$s."
@@ -188,7 +188,7 @@ msgstr "Parece que esta é uma chave de licença inválida para"
 msgid "Your license key has reached its activation limit."
 msgstr "Sua chave de licença atingiu o limite de ativação."
 
-#. translators: %1$s: plugin name (NotificationX), %2$s: opening of a tag, %3$s: closing of a tag.
+#. translators: %1$s: plugin name (SurfAlert), %2$s: opening of a tag, %3$s: closing of a tag.
 #: includes/Core/Licensing/Licensing.php:449
 #, php-format
 msgid ""
@@ -205,7 +205,7 @@ msgstr ""
 msgid "An error occurred, please try again."
 msgstr "Ocorreu um erro, tente novamente."
 
-#. translators: %1$s: plugin name (NotificationX), %2$s: starts of a tag, %3$s: version number, %4$s: close of a tag.
+#. translators: %1$s: plugin name (SurfAlert), %2$s: starts of a tag, %3$s: version number, %4$s: close of a tag.
 #: includes/Core/Licensing/ProPluginUpdater.php:196
 #, php-format
 msgid ""
@@ -213,7 +213,7 @@ msgid ""
 msgstr ""
 "Há uma nova versão do %1$s disponível. %2$sVer detalhes da versão %3$s%4$s."
 
-#. translators: %1$s: plugin name (NotificationX), %2$s: open of a tag, %3$s: version number, %4$s: close of a tag, %5$s: starts of a tag, %6$s: close of a tag,
+#. translators: %1$s: plugin name (SurfAlert), %2$s: open of a tag, %3$s: version number, %4$s: close of a tag, %5$s: starts of a tag, %6$s: close of a tag,
 #: includes/Core/Licensing/ProPluginUpdater.php:205
 #, php-format
 msgid ""
@@ -1651,9 +1651,9 @@ msgid "Offer Description"
 msgstr "Descrição da oferta"
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:159
-msgid "Enjoy flat 50% Off on NotificationX PRO Valid till this week"
+msgid "Enjoy flat 50% Off on SurfAlert PRO Valid till this week"
 msgstr ""
-"Aproveite um desconto fixo de 50% no NotificationX PRO, válido até esta "
+"Aproveite um desconto fixo de 50% no SurfAlert PRO, válido até esta "
 "semana"
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:188
@@ -1742,13 +1742,13 @@ msgstr "para receber o convite."
 msgid ""
 "Make sure that you have <a target=\"_blank\" rel=\"nofollow\" "
 "href=\"%1$s\">created a Zap</a> with your preferred Application. From Zap "
-"Builder, you need to choose <strong>NotificationX</strong> as your Action "
+"Builder, you need to choose <strong>SurfAlert</strong> as your Action "
 "App. You can get the public invitation link from <a href=\"%2$s\" "
 "target=\"_blank\" rel=\"nofollow\">here</a>"
 msgstr ""
 "Certifique-se de que você tenha <a target=\"_blank\" rel=\"nofollow\" "
 "href=\"%1$s\">criado um Zap</a> com seu aplicativo preferido. No "
-"\"Construtor de Zap\", você precisa escolher o <strong>NotificationX</"
+"\"Construtor de Zap\", você precisa escolher o <strong>SurfAlert</"
 "strong> como seu aplicativo de ação. Você pode receber o link do convite "
 "público a partir <a href=\"%2$s\" target=\"_blank\" rel=\"nofollow\">daqui</"
 "a>"
@@ -1979,8 +1979,8 @@ msgid "Mobile Visibility"
 msgstr "Visibilidade em dispositivos móveis"
 
 #: includes/Types/Inline.php:83
-msgid "Hide NotificationX on mobile."
-msgstr "Ocultar o NotificationX em dispositivos móveis."
+msgid "Hide SurfAlert on mobile."
+msgstr "Ocultar o SurfAlert em dispositivos móveis."
 
 #: includes/Types/PageAnalytics.php:56
 msgid "in last "
@@ -1990,38 +1990,38 @@ msgstr "nos últimos "
 msgid "7 "
 msgstr "7 "
 
-#: notificationx-pro.php:97
+#: surfalert-pro.php:97
 msgid "Recommended:"
 msgstr "Recomendado:"
 
 #. translators: %s: Plugins page link.
-#: notificationx-pro.php:99
+#: surfalert-pro.php:99
 #, php-format
 msgid ""
-"Seems like you haven't updated the NotificationX Free version. Please make "
-"sure to update NotificationX plugin from <a href='%s'><strong>wp-admin -> "
+"Seems like you haven't updated the SurfAlert Free version. Please make "
+"sure to update SurfAlert plugin from <a href='%s'><strong>wp-admin -> "
 "Plugins</strong></a>."
 msgstr ""
-"Parece que você não atualizou a versão gratuita do NotificationX. Certifique-"
-"se de atualizar o plugin NotificationX em <a href='%s'><strong>wp-admin -> "
+"Parece que você não atualizou a versão gratuita do SurfAlert. Certifique-"
+"se de atualizar o plugin SurfAlert em <a href='%s'><strong>wp-admin -> "
 "Plugins</strong></a>."
 
 #. Plugin Name of the plugin/theme
-msgid "NotificationX Pro"
-msgstr "NotificationX Pro"
+msgid "SurfAlert Pro"
+msgstr "SurfAlert Pro"
 
 #. Plugin URI of the plugin/theme
-msgid "https://notificationx.com/"
-msgstr "https://notificationx.com/"
+msgid "https://surfalert.com/"
+msgstr "https://surfalert.com/"
 
 #. Description of the plugin/theme
 msgid ""
 "Create Email Subscription alerts, connect with Google Analytics, Zapier, "
-"Gravity Forms & others with NotificationX PRO. Get access to Analytics "
+"Gravity Forms & others with SurfAlert PRO. Get access to Analytics "
 "dashboard and many others."
 msgstr ""
 "Crie alertas de assinatura por e-mail, conecte-se com o Google Analytics, "
-"Zapier, Gravity Forms e outros com o NotificationX PRO. Tenha acesso ao "
+"Zapier, Gravity Forms e outros com o SurfAlert PRO. Tenha acesso ao "
 "painel do Analytics e muitos outros."
 
 #. Author of the plugin/theme

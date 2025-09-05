@@ -2,13 +2,13 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Settings;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Settings;
+use SurfAlert\GetInstance;
 
 /**
  * GetData Class

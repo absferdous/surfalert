@@ -2,10 +2,10 @@
 /**
  * GetInstance File
  *
- * @package NotificationX
+ * @package SurfAlert
  */
 
-namespace NotificationX;
+namespace SurfAlert;
 
 /**
  * Base trait make the instances of called class.
@@ -26,8 +26,8 @@ trait GetInstance {
         $class = get_called_class();
         if ( is_null( static::$instance ) || ! static::$instance instanceof self || (strpos($class, "NotificationXPro\\") === 0 && ! static::$instance instanceof $class) ) {
             $class = __CLASS__;
-            if(strpos($class, "NotificationX\\") === 0){
-                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+            if(strpos($class, "SurfAlert\\") === 0){
+                $pro_class = str_replace("SurfAlert\\", "NotificationXPro\\", $class);
                 if(class_exists($pro_class) && is_subclass_of($pro_class, $class)){
                     $class = $pro_class;
                 }
@@ -46,8 +46,8 @@ trait GetInstance {
     // public function __call($name, $arguments){
     //     $class = __CLASS__ . 'Pro';
 
-    //     if(strpos($class, "NotificationX\\") === 0){
-    //         $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+    //     if(strpos($class, "SurfAlert\\") === 0){
+    //         $pro_class = str_replace("SurfAlert\\", "NotificationXPro\\", $class);
     //         if(class_exists($pro_class)){
     //             $obj = $pro_class::get_instance();
     //             if($obj && method_exists($obj, $name)){

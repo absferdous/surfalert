@@ -2,8 +2,8 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.1.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
+"Project-Id-Version: SurfAlert 3.1.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/surfalert\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,10 +12,10 @@ msgstr ""
 "POT-Creation-Date: 2025-08-26T09:43:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: notificationx\n"
+"X-Domain: surfalert\n"
 
 #. Plugin Name of the plugin
-#: notificationx.php
+#: surfalert.php
 #: includes/Admin/Settings.php:110
 #: includes/Core/QuickBuild.php:115
 #: includes/Extensions/GlobalFields.php:51
@@ -23,27 +23,27 @@ msgstr ""
 #: assets/admin/js/admin.js:14
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
-msgid "NotificationX"
+#: nxdev/surfalert/frontend/themes/helpers/NotificationText.js:13
+msgid "SurfAlert"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: notificationx.php
-msgid "https://notificationx.com"
+#: surfalert.php
+msgid "https://surfalert.com"
 msgstr ""
 
 #. Description of the plugin
-#: notificationx.php
+#: surfalert.php
 msgid "Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more."
 msgstr ""
 
 #. Author of the plugin
-#: notificationx.php
+#: surfalert.php
 msgid "WPDeveloper"
 msgstr ""
 
 #. Author URI of the plugin
-#: notificationx.php
+#: surfalert.php
 msgid "https://wpdeveloper.com"
 msgstr ""
 
@@ -53,11 +53,11 @@ msgstr ""
 
 #: includes/Admin/Admin.php:115
 #: assets/admin/js/admin.js:11
-msgid "All NotificationX"
+msgid "All SurfAlert"
 msgstr ""
 
 #: includes/Admin/Admin.php:217
-msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgid "We hope you're enjoying SurfAlert! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
 #: includes/Admin/Admin.php:222
@@ -81,7 +81,7 @@ msgid "Never show again"
 msgstr ""
 
 #: includes/Admin/Admin.php:278
-msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
+msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>SurfAlert Pro</strong> features.</p>"
 msgstr ""
 
 #: includes/Admin/Admin.php:278
@@ -89,7 +89,7 @@ msgid "Grab The Offer"
 msgstr ""
 
 #: includes/Admin/Admin.php:380
-msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
+msgid "Want to help make <strong>SurfAlert</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
 #: includes/Admin/Admin.php:381
@@ -107,7 +107,7 @@ msgid "Every %s minutes"
 msgstr ""
 
 #: includes/Admin/DashboardWidget.php:49
-msgid "NotificationX Analytics"
+msgid "SurfAlert Analytics"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:50
@@ -191,7 +191,7 @@ msgid "Installed"
 msgstr ""
 
 #: includes/Admin/Rating/RatingEmail.php:54
-msgid "[IMPORTANT] New feedback received from a NotificationX user"
+msgid "[IMPORTANT] New feedback received from a SurfAlert user"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:58
@@ -263,7 +263,7 @@ msgid "Enable REST API"
 msgstr ""
 
 #: includes/Admin/Settings.php:177
-msgid "Forcefully enable anonymous REST API for NotificationX."
+msgid "Forcefully enable anonymous REST API for SurfAlert."
 msgstr ""
 
 #: includes/Admin/Settings.php:182
@@ -535,7 +535,7 @@ msgstr ""
 
 #. translators: html tags
 #: includes/Admin/views/main.views.php:18
-msgid "To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device."
+msgid "To work <strong><em>SurfAlert</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device."
 msgstr ""
 
 #: includes/Admin/XSS.php:37
@@ -1455,7 +1455,7 @@ msgid "All %s taxonomy archives"
 msgstr ""
 
 #: includes/Core/Migration.php:392
-#: includes/Extensions/EDD/EDInline.php:45
+#: includes/Extensions/EDD/EDDInline.php:45
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/Give/Give.php:83
 #: includes/Extensions/Give/Give.php:84
@@ -1735,9 +1735,9 @@ msgstr ""
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:58
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
 "\t\t<p><strong>Recommended Blogs:</strong></p>\n"
-"\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>"
+"\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/CCPA/CCPA_Notification.php:42
@@ -1788,9 +1788,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Contact Form 7</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Contact Form 7</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/ConvertKit/ConvertKit.php:43
@@ -1802,9 +1802,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with ConvertKit</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with ConvertKit</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Connect <a target=\"_blank\" href=\"%5$s\">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>"
+"\t\t<p>🔥 Connect <a target=\"_blank\" href=\"%5$s\">SurfAlert With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:46
@@ -1821,11 +1821,11 @@ msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 How to <a target=\"_blank\" href=\"%3$s\">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>"
+"\t\t<p>🔥 How to <a target=\"_blank\" href=\"%3$s\">Display Custom Notification Alerts</a> On Your Website Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:46
-msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
@@ -1847,7 +1847,7 @@ msgstr ""
 #: includes/Types/OfferAnnouncement.php:50
 #: includes/Types/PageAnalytics.php:48
 #: includes/Types/Video.php:53
-msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
+msgid "<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:48
@@ -1893,18 +1893,18 @@ msgstr ""
 #: includes/Extensions/EDD/EDD.php:362
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%4$s\">NotificationX Increase Sales on WordPress</a> Websites?</p>"
+"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%4$s\">SurfAlert Increase Sales on WordPress</a> Websites?</p>"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:46
+#: includes/Extensions/EDD/EDDInline.php:46
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
 #: includes/Extensions/WooCommerce/WooInline.php:81
 msgid "people purchased"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:50
+#: includes/Extensions/EDD/EDDInline.php:50
 #: includes/Extensions/LearnDash/LearnDashInline.php:50
 #: includes/Extensions/LearnPress/LearnPressInline.php:48
 #: includes/Extensions/LearnPress/LearnPressInline.php:62
@@ -1915,7 +1915,7 @@ msgstr ""
 msgid "in last {{day:7}}"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:57
+#: includes/Extensions/EDD/EDDInline.php:57
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/LearnPress/LearnPressInline.php:69
 #: includes/Extensions/Tutor/TutorInline.php:69
@@ -1924,7 +1924,7 @@ msgstr ""
 msgid "Sales Count"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:60
+#: includes/Extensions/EDD/EDDInline.php:60
 #: includes/Extensions/ReviewX/ReviewX.php:157
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
@@ -1938,7 +1938,7 @@ msgstr ""
 msgid "Product Title"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:63
+#: includes/Extensions/EDD/EDDInline.php:63
 #: includes/Extensions/LearnDash/LearnDashInline.php:63
 #: includes/Extensions/LearnPress/LearnPressInline.php:75
 #: includes/Extensions/Tutor/TutorInline.php:75
@@ -1948,7 +1948,7 @@ msgstr ""
 msgid "In last 1 day"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:64
+#: includes/Extensions/EDD/EDDInline.php:64
 #: includes/Extensions/LearnDash/LearnDashInline.php:64
 #: includes/Extensions/LearnPress/LearnPressInline.php:76
 #: includes/Extensions/Tutor/TutorInline.php:76
@@ -1960,7 +1960,7 @@ msgstr ""
 msgid "In last 7 days"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:65
+#: includes/Extensions/EDD/EDDInline.php:65
 #: includes/Extensions/LearnDash/LearnDashInline.php:65
 #: includes/Extensions/LearnPress/LearnPressInline.php:77
 #: includes/Extensions/Tutor/TutorInline.php:77
@@ -1979,7 +1979,7 @@ msgid "Elementor"
 msgstr ""
 
 #: includes/Extensions/Elementor/From.php:48
-msgid "<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/elementor-form-with-surfalert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Elementor/From.php:50
@@ -1998,7 +1998,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%3$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%3$s\">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/Envato/Envato.php:44
@@ -2007,7 +2007,7 @@ msgid "Envato"
 msgstr ""
 
 #: includes/Extensions/Envato/Envato.php:47
-msgid "<a href='https://notificationx.com/docs/envato-sales-notification/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/envato-sales-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Envato/Envato.php:49
@@ -2024,7 +2024,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Envato</a></p>"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Envato</a></p>"
 msgstr ""
 
 #: includes/Extensions/FlashingTab/FlashingTab.php:52
@@ -2056,10 +2056,10 @@ msgstr ""
 #: includes/Extensions/FlashingTab/FlashingTab.php:136
 msgid ""
 "\n"
-"        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
+"        <p>Make sure that you have SurfAlert PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎥 Get a quick demo from the <a target=\"_blank\" href=\"%2$s\">video tutorial</a></p>\n"
 "\t\t<p>📖 Recommended Blog:</p>\n"
-"\t\t<p>🔥How To <a target=\"_blank\" href=\"%3$s\">Attract Customers With Flashing Browser Tab Notification Using NotificationX?</a></p>\n"
+"\t\t<p>🔥How To <a target=\"_blank\" href=\"%3$s\">Attract Customers With Flashing Browser Tab Notification Using SurfAlert?</a></p>\n"
 "\t\t"
 msgstr ""
 
@@ -2076,10 +2076,10 @@ msgid ""
 "\n"
 "        <p>🎥 Learn quickly from the <a target=\"_blank\" href=\"%3$s\">video tutorial</a>.</p>\n"
 "\n"
-"        <p>⚙️ NotificationX integration with Fluent Forms</p>\n"
+"        <p>⚙️ SurfAlert integration with Fluent Forms</p>\n"
 "\n"
 "        <p>📖 Recommended Reading: </p>\n"
-"        <p>🔥How To <a target=\"_blank\" href=\"%4$s\">Display Fluent Forms Submission Alert</a> Using NotificationX?</p>\n"
+"        <p>🔥How To <a target=\"_blank\" href=\"%4$s\">Display Fluent Forms Submission Alert</a> Using SurfAlert?</p>\n"
 "        "
 msgstr ""
 
@@ -2087,7 +2087,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Freemius</a></p>"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Freemius</a></p>"
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusConversions.php:44
@@ -2100,7 +2100,7 @@ msgid "Freemius"
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusConversions.php:47
-msgid "<a href='https://notificationx.com/docs/freemius-sales-notification/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/freemius-sales-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusConversions.php:49
@@ -2114,7 +2114,7 @@ msgid ""
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusReviews.php:47
-msgid "<a href='https://notificationx.com/docs/freemius-review-notificationx/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/freemius-review-surfalert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Freemius/FreemiusReviews.php:49
@@ -2150,8 +2150,8 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:475
 #: includes/Extensions/PressBar/PressBar.php:511
-#: blocks/notificationx/components/inspector.js:313
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:313
+#: blocks/surfalert/index.js:1
 msgid "Background Color"
 msgstr ""
 
@@ -2209,8 +2209,8 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:481
 #: includes/Extensions/PressBar/PressBar.php:523
-#: blocks/notificationx/components/inspector.js:307
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:307
+#: blocks/surfalert/index.js:1
 msgid "Text Color"
 msgstr ""
 
@@ -2238,7 +2238,7 @@ msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
 "        <p><strong>Recommended Blogs:</strong></p>\n"
-"        <p>🔥 <a target=\"_blank\" href=\"%3$s\">How to Display WordPress Cookie Notice Using NotificationX?</a></p>\n"
+"        <p>🔥 <a target=\"_blank\" href=\"%3$s\">How to Display WordPress Cookie Notice Using SurfAlert?</a></p>\n"
 "        <p><strong>Recommended Plugins:</strong></p>\n"
 "        <p>🔌 <a target=\"_blank\" href=\"%4$s\">WP Consent API</a> - Centralize cookie handling with a unified consent solution.</p>"
 msgstr ""
@@ -2337,9 +2337,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with GiveWP</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with GiveWP</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%5$s\">NotificationX Increase Sales on WordPress</a> Websites?\"</p>"
+"\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%5$s\">SurfAlert Increase Sales on WordPress</a> Websites?\"</p>"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:71
@@ -2497,8 +2497,8 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:540
 #: includes/Extensions/PressBar/PressBar.php:643
-#: blocks/notificationx/components/inspector.js:254
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:254
+#: blocks/surfalert/index.js:1
 msgid "Typography"
 msgstr ""
 
@@ -2872,7 +2872,7 @@ msgstr ""
 #: includes/Types/GDPR.php:440
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:141
+#: nxdev/surfalert/frontend/gdpr/utils/GdprActions.jsx:141
 msgid "Customize"
 msgstr ""
 
@@ -2916,7 +2916,7 @@ msgid "Mobile Visibility"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1803
-msgid "Hide NotificationX on mobile."
+msgid "Hide SurfAlert on mobile."
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1857
@@ -3265,7 +3265,7 @@ msgstr ""
 #: includes/Extensions/Google/GoogleReviews.php:161
 #: includes/Extensions/Google/YouTube.php:254
 msgid ""
-"<a href='https://notificationx.com/docs/google-reviews-with-notificationx/\n"
+"<a href='https://surfalert.com/docs/google-reviews-with-surfalert/\n"
 "            ' target='_blank'>More Info</a>"
 msgstr ""
 
@@ -3281,7 +3281,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
-"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Google Reviews</a>.</p>"
+"\t\t<p>👉SurfAlert <a target=\"_blank\" href=\"%3$s\">Integration with Google Reviews</a>.</p>"
 msgstr ""
 
 #: includes/Extensions/Google/Google_Analytics.php:50
@@ -3293,7 +3293,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Google Analytics</a></p>"
+"\t\t<p>👉SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Google Analytics</a></p>"
 msgstr ""
 
 #: includes/Extensions/Google/YouTube.php:52
@@ -3385,7 +3385,7 @@ msgstr ""
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
-"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Youtube</a>.</p>"
+"\t\t<p>👉SurfAlert <a target=\"_blank\" href=\"%3$s\">Integration with Youtube</a>.</p>"
 msgstr ""
 
 #: includes/Extensions/GRVF/GravityForms.php:46
@@ -3395,7 +3395,7 @@ msgid "Gravity Forms"
 msgstr ""
 
 #: includes/Extensions/GRVF/GravityForms.php:49
-msgid "<a href='https://notificationx.com/docs/gravity-forms/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/gravity-forms/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/GRVF/GravityForms.php:51
@@ -3412,9 +3412,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
+"\t\t<p>👉SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/IFTTT/IFTTT.php:41
@@ -3428,7 +3428,7 @@ msgid "LearnDash"
 msgstr ""
 
 #: includes/Extensions/LearnDash/LearnDash.php:49
-msgid "<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/how-to-display-learndash-course-enrollment-alert-using-surfalert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/LearnDash/LearnDash.php:51
@@ -3446,9 +3446,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with LearnDash</a> </p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with LearnDash</a> </p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 How to Increase Your <a target=\"_blank\" href=\"%5$s\">LearnDash Course Enrollment Rates</a> With NotificationX</p>"
+"\t\t<p>🔥 How to Increase Your <a target=\"_blank\" href=\"%5$s\">LearnDash Course Enrollment Rates</a> With SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/LearnDash/LearnDashInline.php:46
@@ -3477,7 +3477,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with LearnPress LMS</a></p>"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with LearnPress LMS</a></p>"
 msgstr ""
 
 #: includes/Extensions/MailChimp/MailChimp.php:43
@@ -3489,7 +3489,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with MailChimp</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with MailChimp</a></p>\n"
 "\t\t<p><strong>Recommended Blogs:</strong></p>\n"
 "\t\t<p>🔥 How To Improve Your <a target=\"_blank\" href=\"%5$s\">Email Marketing Strategy</a> With Social Proof</p>\n"
 "\t\t<p>🚀 Hacks To Grow Your <a target=\"_blank\" href=\"%6$s\">Email Subscription List</a> On WordPress Website</p>"
@@ -3505,9 +3505,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Ninja Forms</a></p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:47
@@ -3535,7 +3535,7 @@ msgstr ""
 #: includes/Extensions/OfferAnnouncement/Announcements.php:181
 #: includes/Extensions/OfferAnnouncement/Announcements.php:195
 #: includes/Extensions/OfferAnnouncement/Announcements.php:210
-msgid "Enjoy flat 50% Off on NotificationX PRO Valid till this week"
+msgid "Enjoy flat 50% Off on SurfAlert PRO Valid till this week"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:68
@@ -3566,7 +3566,7 @@ msgstr ""
 #: includes/Extensions/OfferAnnouncement/Announcements.php:152
 #: includes/Extensions/OfferAnnouncement/Announcements.php:158
 #: includes/Extensions/OfferAnnouncement/Announcements.php:222
-msgid "Enjoy flat 50% Off on NotificationX PRO"
+msgid "Enjoy flat 50% Off on SurfAlert PRO"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:156
@@ -3593,7 +3593,7 @@ msgstr ""
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥Introducing Discount Alert By NotificationX <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
+"\t\t<p>🔥Introducing Discount Alert By SurfAlert <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:65
@@ -3610,7 +3610,7 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:96
 #: includes/Extensions/PressBar/PressBar.php:113
-msgid "<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>"
+msgid "<b>Save Big & Get Lifetime unlimited <strong>SurfAlert</strong> for $99</b>"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:97
@@ -3623,7 +3623,7 @@ msgid "Get Offer!"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:124
-msgid "<p><span style=\"color: #F54747;\">4 Years</span> Of Seamlessly Creating NotificationX!</p>"
+msgid "<p><span style=\"color: #F54747;\">4 Years</span> Of Seamlessly Creating SurfAlert!</p>"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:125
@@ -3649,7 +3649,7 @@ msgid "Shop Now"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:171
-msgid "<p><span style=\"color: #9F7800;\">4 years</span> Of Seamlessly Creating NotificationX!</p>"
+msgid "<p><span style=\"color: #9F7800;\">4 years</span> Of Seamlessly Creating SurfAlert!</p>"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:397
@@ -3892,11 +3892,11 @@ msgid "Custom Schedule"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1493
-msgid "NotificationX Bar"
+msgid "SurfAlert Bar"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1526
-msgid "NotificationX Bar (Gutenberg)"
+msgid "SurfAlert Bar (Gutenberg)"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1624
@@ -3925,7 +3925,7 @@ msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1674
-msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
+msgid "Get <strong>Lifetime Access to SurfAlert</strong> for just <strong>$299</strong>"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1681
@@ -4170,7 +4170,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/SureCart/SureCart.php:40
@@ -4206,7 +4206,7 @@ msgstr ""
 #: includes/Extensions/SureCart/SureCart.php:467
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
-"        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
+"        <a target=\"_blank\" href=\"%3$s\">👉 SurfAlert Integration with SureCart</a>"
 msgstr ""
 
 #: includes/Extensions/Tutor/Tutor.php:47
@@ -4222,7 +4222,7 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Tutor LMS</a></p>"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with Tutor LMS</a></p>"
 msgstr ""
 
 #: includes/Extensions/Vimeo/Vimeo.php:42
@@ -4259,10 +4259,10 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>⭐ NotificationX Integration with WooCommerce</p>\n"
+"\t\t<p>⭐ SurfAlert Integration with WooCommerce</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🔥 Why NotificationX is The <a target=\"_blank\" href=\"%4$s\">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>\n"
-"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+"\t\t<p>🔥 Why SurfAlert is The <a target=\"_blank\" href=\"%4$s\">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>\n"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:76
@@ -4318,7 +4318,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:155
 #: includes/Types/Inline.php:47
-msgid "<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/growth-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
@@ -4337,7 +4337,7 @@ msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
-"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+"\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WOOReviews.php:213
@@ -4487,9 +4487,9 @@ msgstr ""
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
-"\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with WPForms</a></p>\n"
+"\t\t<p>👉 SurfAlert <a target=\"_blank\" href=\"%4$s\">Integration with WPForms</a></p>\n"
 "\t\t<p><strong>Recommended Blogs:</strong></p>\n"
-"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
+"\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>"
 msgstr ""
 
 #: includes/Extensions/Zapier/ZapierConversions.php:44
@@ -4503,7 +4503,7 @@ msgstr ""
 
 #: includes/Extensions/Zapier/ZapierConversions.php:47
 #: includes/Extensions/Zapier/ZapierReviews.php:47
-msgid "<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/Zapier/ZapierConversions.php:49
@@ -4671,12 +4671,12 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/NotificationX.php:172
+#: includes/SurfAlert.php:172
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:177
+#: includes/SurfAlert.php:177
 msgid "Go Pro"
 msgstr ""
 
@@ -4845,7 +4845,7 @@ msgid "Email Subscription"
 msgstr ""
 
 #: includes/Types/EmailSubscription.php:53
-msgid "<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/EmailSubscription.php:55
@@ -4853,7 +4853,7 @@ msgid ""
 "\n"
 "                <span>Show popups to display which users subscribed to your Newsletter.</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/How-to-Display-Email-Subscription-Alerts-using-NotificationX.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/How-to-Display-Email-Subscription-Alerts-using-SurfAlert.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
@@ -4867,7 +4867,7 @@ msgid "List Title"
 msgstr ""
 
 #: includes/Types/FlashingTab.php:46
-msgid "<a href='https://notificationx.com/flashing-tab/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/flashing-tab/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/FlashingTab.php:48
@@ -4875,7 +4875,7 @@ msgid ""
 "\n"
 "                <span>Revive lost visitors and convert them into customers with captivating Flashing Tab alerts.</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-SurfAlert.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
@@ -5015,7 +5015,7 @@ msgstr ""
 #: includes/Types/GDPR.php:424
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:133
+#: nxdev/surfalert/frontend/gdpr/utils/GdprActions.jsx:133
 msgid "Accept All"
 msgstr ""
 
@@ -5026,7 +5026,7 @@ msgstr ""
 #: includes/Types/GDPR.php:432
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:152
+#: nxdev/surfalert/frontend/gdpr/utils/GdprActions.jsx:152
 msgid "Reject All"
 msgstr ""
 
@@ -5064,7 +5064,7 @@ msgid ""
 "\n"
 "                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/Introducing-Growth-Alert-Instant-Sales-Booster-With-NotificationX.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/Introducing-Growth-Alert-Instant-Sales-Booster-With-SurfAlert.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
@@ -5074,15 +5074,15 @@ msgid "Discount Alert"
 msgstr ""
 
 #: includes/Types/OfferAnnouncement.php:49
-msgid "<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/configure-discount-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/OfferAnnouncement.php:51
 msgid ""
 "\n"
-"                <span>Discount Alert by NotificationX will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>\n"
+"                <span>Discount Alert by SurfAlert will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
@@ -5092,7 +5092,7 @@ msgid "Page Analytics"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:47
-msgid "<a href='https://notificationx.com/docs/google-analytics/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/google-analytics/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:49
@@ -5100,7 +5100,7 @@ msgid ""
 "\n"
 "                <span>Connect Google Analytics to display the total number of real-time site visitors</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-NotificationX-How-To-Show-Active-Users-Traffic-in-WordPress.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-SurfAlert-How-To-Show-Active-Users-Traffic-in-WordPress.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
@@ -5201,25 +5201,25 @@ msgstr ""
 
 #: includes/Types/Traits/Reviews.php:97
 msgctxt "nx_preview"
-msgid "NotificationX"
+msgid "SurfAlert"
 msgstr ""
 
 #: includes/Types/Video.php:52
-msgid "<a href='https://notificationx.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>"
+msgid "<a href='https://surfalert.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/Video.php:54
 msgid ""
 "\n"
-"                <span>NotificationX will help you increasing engagement of your YouTube channel and gaining more credibility.</span>\n"
+"                <span>SurfAlert will help you increasing engagement of your YouTube channel and gaining more credibility.</span>\n"
 "                <video id=\"pro_alert_video_popup\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\" autoplay loop muted>\n"
-"                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-NotificationX.mp4\" type=\"video/mp4\">\n"
+"                    <source src=\"https://surfalert.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-SurfAlert.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
 msgstr ""
 
-#: notificationx.php:84
-msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
+#: surfalert.php:84
+msgid "<strong>Recommended: </strong> Seems like you haven't updated the SurfAlert Pro version. Please make sure to update SurfAlert Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
 #: assets/admin/js/223.js:1
@@ -5288,7 +5288,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/GradientPicker.jsx:62
+#: nxdev/surfalert/fields/GradientPicker.jsx:62
 msgid "Reset"
 msgstr ""
 
@@ -5319,7 +5319,7 @@ msgid "Not an array."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <NotificationX> component."
+msgid "NotificationXContext context is undefined, please verify you are calling useNotificationXContext() as child of a <SurfAlert> component."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5352,11 +5352,11 @@ msgid "Close"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "NotificationX:"
+msgid "SurfAlert:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "NotificationX Pro:"
+msgid "SurfAlert Pro:"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5452,11 +5452,11 @@ msgid "Update"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "NotificationX Instructions"
+msgid "SurfAlert Instructions"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Rate NotificationX"
+msgid "Rate SurfAlert"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5464,7 +5464,7 @@ msgid "Help us make it better!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-msgid "Please share what went wrong with The NotificationX so that we can improve further"
+msgid "Please share what went wrong with The SurfAlert so that we can improve further"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5636,7 +5636,7 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:16
-msgid "NotificationX Title"
+msgid "SurfAlert Title"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5673,7 +5673,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
-msgid "NotificationX Fetch Error: "
+msgid "SurfAlert Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -5762,7 +5762,7 @@ msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
+msgid "Simply use the toggle switch to turn your notifications from %1$s\"All SurfAlert\"%2$s page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -5784,13 +5784,13 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Display Social Proof Alerts With NotificationX"
+msgid "Display Social Proof Alerts With SurfAlert"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced NotificationX's features & quickly get started.  "
+msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced SurfAlert's features & quickly get started.  "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -5808,43 +5808,43 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
+msgid "How To Configure 'WooCommerce Sales Alerts' In SurfAlert?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
+msgid "How to Configure Cookies Policy for Website Using SurfAlert’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How to Use Notification Bar in NotificationX?"
+msgid "How to Use Notification Bar in SurfAlert?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Display WooCommerce Growth Alerts With NotificationX"
+msgid "Display WooCommerce Growth Alerts With SurfAlert"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How To Create Custom Notification With NotificationX?"
+msgid "How To Create Custom Notification With SurfAlert?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How To Configure NotificationX Cross Domain Notice?"
+msgid "How To Configure SurfAlert Cross Domain Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "How To Configure Google Reviews With NotificationX?"
+msgid "How To Configure Google Reviews With SurfAlert?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -5916,13 +5916,13 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
+msgid "We love having you in the SurfAlert family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:31
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:31
 msgid "Leave a Review"
 msgstr ""
 
@@ -5935,7 +5935,7 @@ msgstr ""
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately."
+msgid "Get started by spending some time with the documentation to familiarize yourself with SurfAlert and boost your website conversions immediately."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -5980,7 +5980,7 @@ msgid "Changes Saved Successfully."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-msgid "NotificationX Logo"
+msgid "SurfAlert Logo"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -6048,7 +6048,7 @@ msgid "San Diego, CA"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-msgid "Converting Prospects to Customers: Barn2's Success Story with NotificationX"
+msgid "Converting Prospects to Customers: Barn2's Success Story with SurfAlert"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -6073,31 +6073,31 @@ msgid "View All Integrations"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:10
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:10
 msgid "Need Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:11
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:11
 msgid "Our dedicated support team is here to assist you with all your inquiries, anytime you need."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:15
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:15
 msgid "Contact Us"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:26
-msgid "Love NotificationX?"
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:26
+msgid "Love SurfAlert?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:27
+#: nxdev/surfalert/admin/Dashboard/HelpReviewSection.jsx:27
 msgid "Your quick feedback helps us grow and build more awesome features for you!"
 msgstr ""
 
-#. translators: %1$s: title, %2$s: link to the All NotificationX page.
+#. translators: %1$s: title, %2$s: link to the All SurfAlert page.
 #: assets/admin/js/admin.js:14
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
@@ -6112,7 +6112,7 @@ msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:16
-msgid "NotificationX - %1$s - %2$s"
+msgid "SurfAlert - %1$s - %2$s"
 msgstr ""
 
 #: assets/admin/js/admin.js:16
@@ -6249,44 +6249,44 @@ msgid "Edit Category"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:14
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:14
 msgid "History"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:24
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:24
 msgid "Scan Date"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:25
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:25
 msgid "Scan Status"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:26
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:26
 msgid "Category"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:27
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:27
 msgid "Cookies"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:28
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:47
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:28
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:47
 msgid "More Info"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:54
+#: nxdev/surfalert/fields/ModalContent/ScannerHistory.jsx:54
 msgid "No scan history available"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:14
-#: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:24
+#: nxdev/surfalert/fields/ModalContent/HistoryMoreInfo.jsx:14
+#: nxdev/surfalert/fields/ModalContent/HistoryMoreInfo.jsx:24
 msgid "Scanned URL"
 msgstr ""
 
@@ -6333,23 +6333,23 @@ msgstr ""
 #: assets/admin/js/admin.js:18
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/fields/helpers/PressbarAdminPreview.jsx:361
+#: nxdev/surfalert/fields/helpers/PressbarAdminPreview.jsx:361
 msgid "You should setup NX Bar properly"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/IconPicker.jsx:239
+#: nxdev/surfalert/fields/IconPicker.jsx:239
 msgid "Icons"
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: nxdev/notificationx/fields/NxBarPresets.jsx:47
+#: nxdev/surfalert/fields/NxBarPresets.jsx:47
 msgid "Create with Your Preferred Builder/Editor"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
+#: nxdev/surfalert/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
@@ -6395,57 +6395,57 @@ msgid "Secs"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
-msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
+msgid "You are using old version of cross-domain scripts for SurfAlert Pro. Please update this from your SurfAlert Settings page."
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:112
-#: blocks/notificationx/components/inspector.js:133
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:112
+#: blocks/surfalert/components/inspector.js:133
+#: blocks/surfalert/index.js:1
 msgid "Select"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:183
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:183
+#: blocks/surfalert/index.js:1
 msgid "Choose Notification"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:194
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:194
+#: blocks/surfalert/index.js:1
 msgid "Choose Course"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:196
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:196
+#: blocks/surfalert/index.js:1
 msgid "Choose Product"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:203
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:203
+#: blocks/surfalert/index.js:1
 msgid "Please type 3 or more characters"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:215
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:215
+#: blocks/surfalert/index.js:1
 msgid "Note: "
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:216
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:216
+#: blocks/surfalert/index.js:1
 msgid "You have no notification enabled. Please Enable notifications to get here."
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:226
-#: blocks/notificationx/components/inspector.js:260
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:226
+#: blocks/surfalert/components/inspector.js:260
+#: blocks/surfalert/index.js:1
 msgid "Alignment"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:295
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:295
+#: blocks/surfalert/index.js:1
 msgid "Color"
 msgstr ""
 
-#: blocks/notificationx/components/inspector.js:301
-#: blocks/notificationx/index.js:1
+#: blocks/surfalert/components/inspector.js:301
+#: blocks/surfalert/index.js:1
 msgid "Link Color"
 msgstr ""

@@ -2,13 +2,13 @@
 /**
  * ConvertKit Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\ConvertKit;
+namespace SurfAlert\Extensions\ConvertKit;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * ConvertKit Extension
@@ -24,8 +24,8 @@ class ConvertKit extends Extension {
 
     public $priority        = 10;
     public $id              = 'convertkit';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/convertkit.png';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/convertkit.png';
+    public $doc_link        = 'https://surfalert.com/docs/contact-form-submission-alert/';
     public $types           = 'email_subscription';
     public $module          = 'modules_convertkit';
     public $module_priority = 15;
@@ -40,8 +40,8 @@ class ConvertKit extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('ConvertKit', 'notificationx');
-        $this->module_title = __('ConvertKit', 'notificationx');
+        $this->title = __('ConvertKit', 'surfalert');
+        $this->module_title = __('ConvertKit', 'surfalert');
     }
 
     /**
@@ -57,13 +57,13 @@ class ConvertKit extends Extension {
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with ConvertKit</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with ConvertKit</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Connect <a target="_blank" href="%5$s">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>', 'notificationx'),
+		<p>🔥 Connect <a target="_blank" href="%5$s">SurfAlert With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>', 'surfalert'),
         'https://app.convertkit.com/users/login',
-        'https://notificationx.com/docs/convertkit-alert/',
+        'https://surfalert.com/docs/convertkit-alert/',
         'https://youtu.be/lk_KMSBkEbY',
-        'https://notificationx.com/integrations/convertkit/',
+        'https://surfalert.com/integrations/convertkit/',
         'https://wpdeveloper.com/convertkit-social-proof/'
         );
     }

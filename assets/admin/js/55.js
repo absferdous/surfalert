@@ -1,1 +1,1 @@
-"use strict";(globalThis.webpackChunknotificationx=globalThis.webpackChunknotificationx||[]).push([[55],{43055:(i,a,n)=>{n.r(a)}}]);
+"use strict";(globalThis.webpackChunksurfalert=globalThis.webpackChunksurfalert||[]).push([[55],{43055:(i,a,n)=>{n.r(a)}}]);

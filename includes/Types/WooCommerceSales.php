@@ -2,17 +2,17 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Rules;
-use NotificationX\Types\Traits\Conversions;
-use NotificationX\Types\Traits\Reviews;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Core\Rules;
+use SurfAlert\Types\Traits\Conversions;
+use SurfAlert\Types\Traits\Reviews;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 
 /**
  * Extension Abstract for all Extension.
@@ -54,62 +54,62 @@ class WooCommerceSales extends Types {
 
     public function init() {
         parent::init();
-        $this->title = __('WooCommerce', 'notificationx');
+        $this->title = __('WooCommerce', 'surfalert');
 
-        $is_pro = ! NotificationX::is_pro();
-        // nx_colored_themes
+        $is_pro = ! SurfAlert::is_pro();
+        // sa_colored_themes
         $common_fields = [
             'first_param'         => 'tag_name',
-            'custom_first_param'  => __('Someone' , 'notificationx'),
-            'second_param'        => __('just purchased', 'notificationx'),
+            'custom_first_param'  => __('Someone' , 'surfalert'),
+            'second_param'        => __('just purchased', 'surfalert'),
             'third_param'         => 'tag_product_title',
-            'custom_third_param'  => __('Anonymous Product', 'notificationx'),
+            'custom_third_param'  => __('Anonymous Product', 'surfalert'),
             'fourth_param'        => 'tag_time',
-            'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+            'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
         ];
         $this->themes = [
             'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-conv-theme-2.jpg',
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
             'theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-1.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-conv-theme-1.jpg',
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
             'theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-3.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-conv-theme-3.jpg',
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
             'theme-five' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-five.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-five.png',
                 'image_shape' => 'circle',
                 'template'  => $common_fields,
             ),
             'theme-four' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-four.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-four.png',
                 'image_shape' => 'circle',
                 'template'  => $common_fields,
             ),
             // @todo pro map theme
             'conv-theme-six' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-6.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-6.jpg',
                 'image_shape' => 'circle',
             ),
             // @todo pro map theme
             'maps_theme' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/maps-theme.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/maps-theme.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
             'conv-theme-ten' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-4.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-conv-theme-4.png',
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
@@ -118,7 +118,7 @@ class WooCommerceSales extends Types {
             ),
             'conv-theme-eleven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-5.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-conv-theme-5.png',
                 'image_shape' => 'rounded',
                 'defaults'     => [
                     'link_button'   => true,
@@ -127,75 +127,75 @@ class WooCommerceSales extends Types {
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-7.png',
                 'image_shape' => 'rounded',
             ),
             'conv-theme-eight' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-8.png',
                 'image_shape' => 'circle',
 
             ),
             'conv-theme-nine' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
            
         ];
         $this->res_themes = [
             'res-theme-one'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-1.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-1.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-two'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-2.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-2.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-three'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-3.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-3.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-four'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-4.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-4.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-five'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-5.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-5.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-six'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-6.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-6.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-seven'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-7.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-7.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-eight'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-8.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-8.png',
                 '_template' => 'woo_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-nine'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-9.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-9.png',
                 '_template' => 'woo_template_sales_count',
                 'is_pro'    => true,
             ],
             'res-theme-ten'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-10.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-10.png',
                 '_template' => 'woo_template_sales_count',
                 'is_pro'    => true,
             ],
             'res-theme-eleven'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_conv/nx-conv-res-theme-11.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_conv/sa-conv-res-theme-11.png',
                 '_template' => 'woo_template_sales_count',
                 'is_pro'    => true,
             ],
@@ -204,10 +204,10 @@ class WooCommerceSales extends Types {
             'woo_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_product_title' => __('Product Title', 'notificationx'),
+                    'tag_product_title' => __('Product Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx'),
+                    'tag_time' => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'woocommerce_sales_theme-one',
@@ -222,10 +222,10 @@ class WooCommerceSales extends Types {
             'woo_template_sales_count' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_product_title' => __('Product Title', 'notificationx'),
+                    'tag_product_title' => __('Product Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    // 'tag_time' => __('Definite Time', 'notificationx'),
+                    // 'tag_time' => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'woocommerce_sales_conv-theme-six',
@@ -235,18 +235,18 @@ class WooCommerceSales extends Types {
                 ]
             ],
         ];
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
     }
     
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_notification_template', [$this, 'review_templates'], 7);
-        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+        add_filter('sa_notification_template', [$this, 'review_templates'], 7);
+        add_filter('sa_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
     }
 
 }

@@ -1,5 +1,5 @@
 <style>
-.notificationx-disabled-javascript-notice {
+.surfalert-disabled-javascript-notice {
     font-size: 20px;
     width: 700px;
     border: 1px solid #ffcece;
@@ -9,17 +9,17 @@
 </style>
 <hr class="wp-header-end"/>
 <div class="wrap">
-    <div class="notificationx-admin">
+    <div class="surfalert-admin">
         <noscript>
-            <p class="notificationx-disabled-javascript-notice">
+            <p class="surfalert-disabled-javascript-notice">
                 <?php
                     echo
                         // translators: html tags
-                        __( 'To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'notificationx' );
+                        __( 'To work <strong><em>SurfAlert</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'surfalert' );
                 ?>
             </p>
         </noscript>
-        <div id="notificationx">
+        <div id="surfalert">
             <div style="display: flex;align-items: center;justify-content: center;height: 60vh;">
                 <img src="<?php echo esc_url( self::ASSET_URL . 'images/logos/logo-preloader.gif' ); ?>" alt="">
             </div>

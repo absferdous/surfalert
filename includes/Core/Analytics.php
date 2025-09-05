@@ -1,10 +1,10 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Admin;
-use NotificationX\Admin\Settings;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Admin;
+use SurfAlert\Admin\Settings;
+use SurfAlert\GetInstance;
 
 /**
  * @method static Analytics get_instance($args = null)
@@ -31,19 +31,19 @@ class Analytics {
      */
     public function __construct() {
         // add_filter('get_notifications_ids', [$this, 'insert_views'], 999, 2);
-        add_filter( 'nx_filtered_data', [ $this, 'insert_views' ], 999, 2 );
+        add_filter( 'sa_filtered_data', [ $this, 'insert_views' ], 999, 2 );
         add_action( 'admin_menu', [ $this, 'menu' ], 30 );
     }
 
     /**
      * This method is responsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
     public function menu() {
         if ( Settings::get_instance()->get( 'settings.enable_analytics', true ) ) {
-            add_submenu_page( 'nx-admin', __( 'Analytics', 'notificationx' ), __( 'Analytics', 'notificationx' ), 'read_notificationx_analytics', 'nx-analytics', [ Admin::get_instance(), 'views' ], 3 );
+            add_submenu_page( 'sa-admin', __( 'Analytics', 'surfalert' ), __( 'Analytics', 'surfalert' ), 'read_surfalert_analytics', 'sa-analytics', [ Admin::get_instance(), 'views' ], 3 );
         }
     }
 
@@ -56,7 +56,7 @@ class Analytics {
             $where['created_at'] = [ 'BETWEEN', $start_date, $end_date ];
         }
         $stats = Database::get_instance()->get_posts( Database::$table_stats, '*', $where );
-        $posts = PostType::get_instance()->get_posts( [], 'DISTINCT nx_id, title, source, theme' );
+        $posts = PostType::get_instance()->get_posts( [], 'DISTINCT sa_id, title, source, theme' );
         return [
             'stats' => $stats,
             'posts' => $posts,
@@ -64,25 +64,25 @@ class Analytics {
     }
 
     // Wrapper function for Database functions.
-    public function insert_analytics( $nx_id, $type = 'clicks' ) {
+    public function insert_analytics( $sa_id, $type = 'clicks' ) {
         if ( ! $this->should_count() ) {
             return false;
         }
         $format = 'Y-m-d';
         $stats  = $this->stats_exists([
-            'nx_id'      => $nx_id,
+            'sa_id'      => $sa_id,
             'created_at' => date( self::$date_format, time() ),
         ]
         );
         if ( empty( $stats ) ) {
             $data = [
-                'nx_id'  => $nx_id,
+                'sa_id'  => $sa_id,
                 'clicks' => $type == 'clicks' ? 1 : 0,
                 'views'  => 1,
             ];
             $this->_insert_analytics( $data, time() );
         } else {
-            $this->increment_count( $type, $nx_id, date( self::$date_format, time() ) );
+            $this->increment_count( $type, $sa_id, date( self::$date_format, time() ) );
         }
     }
 
@@ -92,16 +92,16 @@ class Analytics {
         }
         if ( $migration ) {
             $_data = $data;
-            $nx_id = $_data['nx_id'];
+            $sa_id = $_data['sa_id'];
             $stats = $this->stats_exists([
-                'nx_id'      => $nx_id,
+                'sa_id'      => $sa_id,
                 'created_at' => date( self::$date_format, $time ),
             ]
             );
             if ( ! empty( $stats ) ) {
-                unset( $_data['nx_id'] );
+                unset( $_data['sa_id'] );
                 foreach ( $_data as $_type => $_s_data ) {
-                    $this->increment_count( $_type, $nx_id, date( self::$date_format, $time ), $_s_data );
+                    $this->increment_count( $_type, $sa_id, date( self::$date_format, $time ), $_s_data );
                 }
                 return;
             }
@@ -118,11 +118,11 @@ class Analytics {
         return false;
     }
 
-    public function delete_analytics($where__or_nx_id, $limit = 0) {
-        if (!is_array($where__or_nx_id)) {
-            $where__or_nx_id = ['nx_id' => $where__or_nx_id];
+    public function delete_analytics($where__or_sa_id, $limit = 0) {
+        if (!is_array($where__or_sa_id)) {
+            $where__or_sa_id = ['sa_id' => $where__or_sa_id];
         }
-        Database::get_instance()->delete_posts(Database::$table_stats, $where__or_nx_id, $limit);
+        Database::get_instance()->delete_posts(Database::$table_stats, $where__or_sa_id, $limit);
         $analytics = $this->get_total_count();
         return $analytics;
     }
@@ -132,12 +132,12 @@ class Analytics {
         return $stats;
     }
 
-    public function increment_count( $type, $nx_id, $date, $_data = null ) {
-        return Database::get_instance()->update_analytics( $type, $nx_id, $date, $_data );
+    public function increment_count( $type, $sa_id, $date, $_data = null ) {
+        return Database::get_instance()->update_analytics( $type, $sa_id, $date, $_data );
     }
 
-    public function get_count( $nx_id, $type ) {
-        $where = [ 'nx_id' => absint( $nx_id ) ];
+    public function get_count( $sa_id, $type ) {
+        $where = [ 'sa_id' => absint( $sa_id ) ];
         $stats = Database::get_instance()->get_col( Database::$table_stats, $type, $where );
         if ( ! empty( $stats[0] ) ) {
             return $stats[0];
@@ -166,17 +166,17 @@ class Analytics {
      * @return void
      */
     public function insert_views( $entries, $post ) {
-        if ( ! did_action( 'nx_ignore_analytics' ) ) {
-            $this->insert_analytics( $post['nx_id'], 'views' );
+        if ( ! did_action( 'sa_ignore_analytics' ) ) {
+            $this->insert_analytics( $post['sa_id'], 'views' );
         }
         return $entries;
     }
 
     /*
-     public function insert_views($nx_ids_array){
-        $nx_ids = array_merge($nx_ids_array['global'], $nx_ids_array['active']);
-        $this->insert_post($nx_ids, 'views');
-        return $nx_ids_array;
+     public function insert_views($sa_ids_array){
+        $sa_ids = array_merge($sa_ids_array['global'], $sa_ids_array['active']);
+        $this->insert_post($sa_ids, 'views');
+        return $sa_ids_array;
     } */
 
     public function should_count() {

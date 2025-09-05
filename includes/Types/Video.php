@@ -3,15 +3,15 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -47,16 +47,16 @@ class Video extends Types {
     public function init()
     {
         parent::init();
-        $this->title = __('Video', 'notificationx');
+        $this->title = __('Video', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
-                <span>NotificationX will help you increasing engagement of your YouTube channel and gaining more credibility.</span>
+                <span>SurfAlert will help you increasing engagement of your YouTube channel and gaining more credibility.</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-NotificationX.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-SurfAlert.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 

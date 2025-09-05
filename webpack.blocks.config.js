@@ -16,7 +16,7 @@ const config = {
     entry: {
         blocks: path.resolve(
             __dirname,
-            "blocks/notificationx/index.jsx"
+            "blocks/surfalert/index.jsx"
         ),
     },
     module: {
@@ -37,14 +37,14 @@ const config = {
     output: {
         ...defaultConfig.output,
         filename: "index.js",
-        path: path.resolve(process.cwd(), "blocks/notificationx/"),
+        path: path.resolve(process.cwd(), "blocks/surfalert/"),
     },
     plugins: [
         new CleanWebpackPlugin({
             // dry: true,
             cleanOnceBeforeBuildPatterns: [
-                "blocks/notificationx/index.js",
-                "blocks/notificationx/index.asset.php",
+                "blocks/surfalert/index.js",
+                "blocks/surfalert/index.asset.php",
             ],
         }),
         ...plugins,

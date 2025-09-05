@@ -1,5 +1,5 @@
 <?php
-namespace NotificationX\Admin\Rating;
+namespace SurfAlert\Admin\Rating;
 
 class EmailTemplate 
 {
@@ -34,24 +34,24 @@ class EmailTemplate
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>NotificationX Feedback Received</title>
+            <title>SurfAlert Feedback Received</title>
             <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
             <style>
                 @media (max-width: 600px) {
-                    .notificationx-email-container .notificationx-email-body {
+                    .surfalert-email-container .surfalert-email-body {
                         width: 100% !important;
                         max-width: 100%;
                     }
                 }
             </style>
         </head>
-        <body class="notificationx-email-wrapper" style="background-color: #f3f7fa; margin: 0; padding: 0">
-        <table class="notificationx-email-container" cellpadding="25" cellspacing="0" border="0" width="100%" align="center"
+        <body class="surfalert-email-wrapper" style="background-color: #f3f7fa; margin: 0; padding: 0">
+        <table class="surfalert-email-container" cellpadding="25" cellspacing="0" border="0" width="100%" align="center"
                bgcolor="#f3f7fa" style="background-color: #f3f7fa; margin: 0; padding: 25px 0 0">
             <tbody>
             <tr>
                 <td>
-                    <table width="540" cellpadding="0" cellspacing="0" border="0" class="notificationx-email-body" bgcolor="#fff"
+                    <table width="540" cellpadding="0" cellspacing="0" border="0" class="surfalert-email-body" bgcolor="#fff"
                            align="center"
                            style="box-shadow: 0 0 15px rgba(0,0,0,0.15); width: 800px;border-radius: 10px; text-align: left">
                         <tbody>
@@ -62,9 +62,9 @@ class EmailTemplate
                                     <tbody>
                                     <tr>
                                         <td style="text-align: center; padding: 20px">
-                                            <a href="https://notificationx.com" target="_blank"
+                                            <a href="https://surfalert.com" target="_blank"
                                                style="text-align: center">
-                                                <img src="https://notificationx.com/wp-content/uploads/2025/02/NotificationX-300x80.png" alt="' . $site_name . ' Logo">
+                                                <img src="https://surfalert.com/wp-content/uploads/2025/02/SurfAlert-300x80.png" alt="' . $site_name . ' Logo">
                                             </a>
                                         </td>
                                     </tr>

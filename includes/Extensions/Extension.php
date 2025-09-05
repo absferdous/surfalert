@@ -3,24 +3,24 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions;
+namespace SurfAlert\Extensions;
 
-use NotificationX\Admin\Cron;
-use NotificationX\NotificationX;
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Database;
-use NotificationX\Core\Helper;
-use NotificationX\Core\Modules;
-use NotificationX\Core\PostType;
-use NotificationX\Core\Rules;
-use NotificationX\Core\Themes;
-use NotificationX\Types\TypeFactory;
-use NotificationX\Types\Types;
-use NotificationX\Core\Limiter;
+use SurfAlert\Admin\Cron;
+use SurfAlert\SurfAlert;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Modules;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\Rules;
+use SurfAlert\Core\Themes;
+use SurfAlert\Types\TypeFactory;
+use SurfAlert\Types\Types;
+use SurfAlert\Core\Limiter;
 
 /**
  * Extension Abstract for all Extension.
@@ -30,7 +30,7 @@ abstract class Extension {
     public $id;
     public $title;
     public $img                   = '';
-    public $doc_link              = 'https://notificationx.com/docs/';
+    public $doc_link              = 'https://surfalert.com/docs/';
     public $types                 = '';
     public $themes                = [];
     public $res_themes            = [];
@@ -84,8 +84,8 @@ abstract class Extension {
 
     public function initialize(){
         do_action('nx::extension::init', $this);
-        add_action('nx_before_metabox_load', [$this, '__init_fields']);
-        add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
+        add_action('sa_before_metabox_load', [$this, '__init_fields']);
+        add_action('sa_before_settings_fields', [$this, 'init_settings_fields']);
 
         if($this->is_active(false)) {
             $this->init();
@@ -94,7 +94,7 @@ abstract class Extension {
             if(did_action('wpml_st_loaded')){
                 $this->wpml_actions();
             }
-            add_action('nx_before_metabox_load', [$this, 'init_fields']);
+            add_action('sa_before_metabox_load', [$this, 'init_fields']);
         }
     }
 
@@ -104,18 +104,18 @@ abstract class Extension {
     public function init(){
         // shouldn't do is_active check.
         if(method_exists($this, 'save_post')){
-            add_filter("nx_save_post_{$this->id}", array($this, 'save_post'), 10, 3);
+            add_filter("sa_save_post_{$this->id}", array($this, 'save_post'), 10, 3);
         }
         if(method_exists($this, 'saved_post')){
-            add_filter("nx_saved_post_{$this->id}", array($this, 'saved_post'), 10, 3);
+            add_filter("sa_saved_post_{$this->id}", array($this, 'saved_post'), 10, 3);
         }
         if(method_exists($this, 'preview_entry')){
-            add_filter("nx_preview_entry_{$this->id}", array($this, 'preview_entry'), 10, 2);
+            add_filter("sa_preview_entry_{$this->id}", array($this, 'preview_entry'), 10, 2);
         }
         if(method_exists($this, 'preview_settings')){
-            add_filter("nx_preview_settings_{$this->id}", array($this, 'preview_settings'), 10, 2);
+            add_filter("sa_preview_settings_{$this->id}", array($this, 'preview_settings'), 10, 2);
         }
-        add_filter("nx_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
+        add_filter("sa_saved_post_{$this->id}", array($this, 'add_cron_job'), 15, 3);
     }
 
     public function __init_extension() {
@@ -138,21 +138,21 @@ abstract class Extension {
      * common init function .
      */
     public function __init_fields(){
-        add_filter('nx_themes', [$this, '__nx_themes']);
-        add_filter('nx_res_themes', [$this, '__nx_res_themes']);
-        add_filter('nx_sources', [$this, '__nx_sources'], 10, 1);
-        add_filter('nx_link_types_dependency', [$this, '__link_types_dependency']);
-        add_filter('nx_notification_template', [$this, '__notification_template']);
-        add_filter('nx_notification_template_mobile', [$this, '__notification_mobile_template']);
-        add_filter('nx_notification_template_dependency', [$this, '__notification_template_dependency']);
-        add_filter('nx_notification_template_mobile_dependency', [$this, '__notification_template_mobile_dependency']);
-        add_filter('nx_source_trigger', [$this, '__source_trigger']);
-        add_filter('nx_themes_trigger', [$this, '__themes_trigger']);
-        add_filter('nx_themes_trigger_for_responsive', [$this, '__res_themes_trigger']);
-        add_filter('nx_is_pro_sources', [$this, '__is_pro_sources']);
+        add_filter('sa_themes', [$this, '__sa_themes']);
+        add_filter('sa_res_themes', [$this, '__sa_res_themes']);
+        add_filter('sa_sources', [$this, '__sa_sources'], 10, 1);
+        add_filter('sa_link_types_dependency', [$this, '__link_types_dependency']);
+        add_filter('sa_notification_template', [$this, '__notification_template']);
+        add_filter('sa_notification_template_mobile', [$this, '__notification_mobile_template']);
+        add_filter('sa_notification_template_dependency', [$this, '__notification_template_dependency']);
+        add_filter('sa_notification_template_mobile_dependency', [$this, '__notification_template_mobile_dependency']);
+        add_filter('sa_source_trigger', [$this, '__source_trigger']);
+        add_filter('sa_themes_trigger', [$this, '__themes_trigger']);
+        add_filter('sa_themes_trigger_for_responsive', [$this, '__res_themes_trigger']);
+        add_filter('sa_is_pro_sources', [$this, '__is_pro_sources']);
 
         if(method_exists($this, 'doc')){
-            add_filter('nx_instructions', [$this, 'nx_instructions']);
+            add_filter('sa_instructions', [$this, 'sa_instructions']);
         }
         if(method_exists($this, 'source_error_message')){
             add_filter('source_error_message', [$this, 'source_error_message']);
@@ -172,10 +172,10 @@ abstract class Extension {
      */
     public function public_actions() {
         if (method_exists($this, 'fallback_data')) {
-            add_filter("nx_fallback_data_{$this->id}", array($this, 'fallback_data'), 11, 3);
+            add_filter("sa_fallback_data_{$this->id}", array($this, 'fallback_data'), 11, 3);
         }
         if (method_exists($this, 'notification_image')) {
-            add_filter("nx_notification_image_{$this->id}", array($this, 'notification_image'), 10, 3);
+            add_filter("sa_notification_image_{$this->id}", array($this, 'notification_image'), 10, 3);
         }
 
     }
@@ -186,7 +186,7 @@ abstract class Extension {
      * @return void
      */
     public function admin_actions() {
-        // add_action('nx_get_conversions_ready', array($this, 'get_notification_ready'), 10, 2);
+        // add_action('sa_get_conversions_ready', array($this, 'get_notification_ready'), 10, 2);
     }
 
     public function wpml_actions(){
@@ -237,7 +237,7 @@ abstract class Extension {
      *
      * @return void
      */
-    public function __nx_themes($themes) {
+    public function __sa_themes($themes) {
         $_themes = $this->get_themes();
 
         $i = 0;
@@ -247,7 +247,7 @@ abstract class Extension {
                     $themes[$tname] = [
                         'label'   => $tname,
                         'value'   => $tname,
-                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! NotificationX::is_pro() : null,
+                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! SurfAlert::is_pro() : null,
                         'icon'    => isset($theme['source']) ? $theme['source'] : $theme,
                         // @todo converts
                         // 'trigger' => isset($theme['template']) ? ['notification-template' => $theme['template']] : null,
@@ -275,7 +275,7 @@ abstract class Extension {
      *
      * @return void
      */
-    public function __nx_res_themes($themes) {
+    public function __sa_res_themes($themes) {
         $_themes = $this->get_res_themes();
         $i = 0;
         if(is_array($_themes)){
@@ -284,7 +284,7 @@ abstract class Extension {
                     $themes[$tname] = [
                         'label'   => $tname,
                         'value'   => $tname,
-                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! NotificationX::is_pro() : null,
+                        'is_pro'  => isset($theme['is_pro']) ? $theme['is_pro'] && ! SurfAlert::is_pro() : null,
                         'icon'    => isset($theme['source']) ? $theme['source'] : $theme,
                         // @todo converts
                         // 'trigger' => isset($theme['template']) ? ['notification-template' => $theme['template']] : null,
@@ -441,14 +441,14 @@ abstract class Extension {
      *
      * @return void
      */
-    public function __nx_sources($sources) {
+    public function __sa_sources($sources) {
         $sources[] = [
             'rules'            => ['is', 'type', $this->types],
             'label'            => $this->title,
             'icon'             => $this->img,
             'value'            => $this->id,
-            'is_pro'           => $this->is_pro && ! NotificationX::is_pro(),
-            'popup'            => apply_filters('nx_pro_alert_popup', $this->popup),
+            'is_pro'           => $this->is_pro && ! SurfAlert::is_pro(),
+            'popup'            => apply_filters('sa_pro_alert_popup', $this->popup),
             'priority'         => $this->priority,
         ];
         return $sources;
@@ -622,7 +622,7 @@ abstract class Extension {
                 'value'    => $this->module,
                 'label'    => $this->module_title,
                 'link'     => $this->doc_link,
-                'is_pro'   => $this->is_pro && ! NotificationX::is_pro(),
+                'is_pro'   => $this->is_pro && ! SurfAlert::is_pro(),
                 'badge'    => $this->is_pro,
                 'priority' => $this->module_priority,
             ));
@@ -630,15 +630,15 @@ abstract class Extension {
         
     }
 
-    public function delete_notification($entry_key = null, $nx_id = null) {
+    public function delete_notification($entry_key = null, $sa_id = null) {
         $where = [
             // 'source' => $this->id
         ];
         if (!empty($entry_key)) {
             $where['entry_key'] = $entry_key;
         }
-        if (!empty($nx_id)) {
-            $where['nx_id'] = $nx_id;
+        if (!empty($sa_id)) {
+            $where['sa_id'] = $sa_id;
         }
         if (!empty($where)) {
             return Entries::get_instance()->delete_entries($where);
@@ -648,38 +648,38 @@ abstract class Extension {
 
     // @todo accept multiple entries.
     public function update_notifications($entries) {
-        if(is_array($entries) && !empty($entries[0]['nx_id'])){
-            $post = PostType::get_instance()->get_post($entries[0]['nx_id']);
+        if(is_array($entries) && !empty($entries[0]['sa_id'])){
+            $post = PostType::get_instance()->get_post($entries[0]['sa_id']);
             foreach ($entries as $key => $entry) {
-                $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+                $can_entry = apply_filters("sa_can_entry_{$this->id}", true, $entry, $post);
                 if(!$can_entry){
                     unset($entries[$key]);
                 }
             }
-            Limiter::get_instance()->remove($post['nx_id'], count($entries));
+            Limiter::get_instance()->remove($post['sa_id'], count($entries));
             Entries::get_instance()->insert_entries(array_values($entries));
         }
     }
 
     // @todo Something
-    public function update_notification($entry, $force = true) { // , $nx_id = 0
-        if (empty($entry['nx_id'])) { // empty($nx_id) &&
+    public function update_notification($entry, $force = true) { // , $sa_id = 0
+        if (empty($entry['sa_id'])) { // empty($sa_id) &&
             $this->save($entry, $force);
         } else {
             if(!$force){
                 $is_exits = Database::get_instance()->get_posts(
                     Database::$table_entries, 'count(*)', [
-                    'nx_id'     => $entry['nx_id'],
+                    'sa_id'     => $entry['sa_id'],
                     'source'    => $this->id,
                     'entry_key' => $entry['entry_key'],
                 ] );
                 if(!empty($is_exits[0]['count(*)'])) return false;
             }
             // @todo add object caching
-            $post = PostType::get_instance()->get_post($entry['nx_id']);
-            $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
+            $post = PostType::get_instance()->get_post($entry['sa_id']);
+            $can_entry = apply_filters("sa_can_entry_{$this->id}", true, $entry, $post);
             if($can_entry){
-                Limiter::get_instance()->remove($post['nx_id'], 1);
+                Limiter::get_instance()->remove($post['sa_id'], 1);
                 Entries::get_instance()->insert_entry($entry);
             }
         }
@@ -699,7 +699,7 @@ abstract class Extension {
         ]);
         if (!empty($posts)) {
             foreach ($posts as $post) {
-                $entry['nx_id'] = $post['nx_id'];
+                $entry['sa_id'] = $post['sa_id'];
                 $this->update_notification($entry, $force);
             }
         }
@@ -792,7 +792,7 @@ abstract class Extension {
         error_log( $params );
     }
 
-    public function nx_instructions($instructions){
+    public function sa_instructions($instructions){
         if(method_exists($this, 'doc')){
             $instructions[$this->types][$this->id] = $this->doc();
         }
@@ -804,9 +804,9 @@ abstract class Extension {
         return $sources;
     }
 
-    public function add_cron_job($post, $data, $nx_id){
+    public function add_cron_job($post, $data, $sa_id){
         if(!empty($this->cron_schedule)){
-            Cron::get_instance()->set_cron($nx_id, $this->cron_schedule);
+            Cron::get_instance()->set_cron($sa_id, $this->cron_schedule);
         }
     }
 

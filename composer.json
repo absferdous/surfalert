@@ -1,17 +1,21 @@
 {
   "name": "surfalert/surfalert",
-  "description": "SurfAlert - The best Social Proof & FOMO Marketing Solution to grow your business.",
+  "description": "SurfAlert - Social Proof Notifications",
   "type": "wordpress-plugin",
   "license": "GPL-3.0-or-later",
   "authors": [
     {
-      "name": "surf lab",
+      "name": "Your Name",
       "email": "your@email.com"
     }
   ],
   "autoload": {
     "psr-4": {
-      "SurfAlert\\": "includes/"
+      "SurfAlert\\": "includes/",
+      "SurfAlert\\Blocks\\": "assets/Blocks/",
+      "SurfAlert\\LibSettings\\": "includes/libraries/settings/src/",
+      "SurfAlert\\LibUtility\\": "includes/libraries/utility/src/",
+      "PriyoMukul\\WPNotice\\": "includes/libraries/wp-notice/src/"
     }
   }
 }

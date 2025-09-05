@@ -2,13 +2,13 @@
 /**
  * ActiveCampaign Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\ActiveCampaign;
+namespace SurfAlert\Extensions\ActiveCampaign;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * ActiveCampaign Extension
@@ -24,8 +24,8 @@ class ActiveCampaign extends Extension {
 
     public $priority        = 15;
     public $id              = 'ActiveCampaign';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/ActiveCampaign.png';
-    public $doc_link        = 'https://notificationx.com/docs/ActiveCampaign-email-subscription-alert/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/ActiveCampaign.png';
+    public $doc_link        = 'https://surfalert.com/docs/ActiveCampaign-email-subscription-alert/';
     public $types           = 'email_subscription';
     public $module          = 'modules_activecampaign';
     public $module_priority = 20;
@@ -40,8 +40,8 @@ class ActiveCampaign extends Extension {
 
     public function init_extension()
     {
-        $this->title        = __('ActiveCampaign', 'notificationx');
-        $this->module_title = __('ActiveCampaign', 'notificationx');
+        $this->title        = __('ActiveCampaign', 'surfalert');
+        $this->module_title = __('ActiveCampaign', 'surfalert');
     }
 
     /**
@@ -56,13 +56,13 @@ class ActiveCampaign extends Extension {
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with ActiveCampaign</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%3$s">Integration with ActiveCampaign</a></p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥 Boosting Engagement with <a target="_blank" href="%4$s">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>', 'notificationx'),
+		<p>🔥 Boosting Engagement with <a target="_blank" href="%4$s">ActiveCampaign Email Subscription Alerts</a> via SurfAlert</p>', 'surfalert'),
         'https://help.activecampaign.com/hc/en-us/articles/207317590-Getting-started-with-the-API#getting-started-with-the-api-0-0',
-        'https://notificationx.com/docs/activecampaign-email-subscription-alert/',
-        'https://notificationx.com/integrations/activecampaign/',
-        'https://notificationx.com/blog/activecampaign-email-subscription-alerts/'
+        'https://surfalert.com/docs/activecampaign-email-subscription-alert/',
+        'https://surfalert.com/integrations/activecampaign/',
+        'https://surfalert.com/blog/activecampaign-email-subscription-alerts/'
         );
     }
 }

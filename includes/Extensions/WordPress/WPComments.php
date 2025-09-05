@@ -3,16 +3,16 @@
 /**
  * WPComments Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
 //  @todo trim comment to length
 
-namespace NotificationX\Extensions\WordPress;
+namespace SurfAlert\Extensions\WordPress;
 
-use NotificationX\Core\Helper;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\Core\Helper;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * WPComments Extension
@@ -29,8 +29,8 @@ class WPComments extends Extension {
 
     public $priority = 5;
     public $id       = 'wp_comments';
-    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wp-comments.png';
-    public $doc_link = 'https://notificationx.com/docs-category/configurations/';
+    public $img      = SURFALERT_ADMIN_URL . 'images/extensions/sources/wp-comments.png';
+    public $doc_link = 'https://surfalert.com/docs-category/configurations/';
     public $types    = 'comments';
     public $module   = 'modules_wordpress';
 	public $module_priority = 2;
@@ -44,8 +44,8 @@ class WPComments extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('WP Comments', 'notificationx');
-        $this->module_title = __('WordPress', 'notificationx');
+        $this->title = __('WP Comments', 'surfalert');
+        $this->module_title = __('WordPress', 'surfalert');
     }
 
 
@@ -69,18 +69,18 @@ class WPComments extends Extension {
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      *
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
 
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -97,9 +97,9 @@ class WPComments extends Extension {
             $entries = [];
             foreach ($comments as $comment) {
                 if ($comment) {
-                    // $comment, $comment['id'], $data['nx_id']
+                    // $comment, $comment['id'], $data['sa_id']
                     $entries[] = [
-                        'nx_id'      => $data['nx_id'],
+                        'sa_id'      => $data['sa_id'],
                         'source'     => $this->id,
                         'entry_key'  => $comment['id'],
                         'data'       => $comment,
@@ -258,13 +258,13 @@ class WPComments extends Extension {
 
     // @todo
     public function fallback_data($data, $saved_data, $settings) {
-        $data['name']           = __('Someone', 'notificationx');
-        $data['first_name']     = __('Someone', 'notificationx');
-        $data['last_name']      = __('Someone', 'notificationx');
-        $data['display_name']   = __('Someone', 'notificationx');
-        $data['anonymous_post'] = __('Anonymous Post', 'notificationx');
-        $data['sometime']       = __('Some time ago', 'notificationx');
-        $data['post_comment']   = __('Some comment', 'notificationx');
+        $data['name']           = __('Someone', 'surfalert');
+        $data['first_name']     = __('Someone', 'surfalert');
+        $data['last_name']      = __('Someone', 'surfalert');
+        $data['display_name']   = __('Someone', 'surfalert');
+        $data['anonymous_post'] = __('Anonymous Post', 'surfalert');
+        $data['sometime']       = __('Some time ago', 'surfalert');
+        $data['post_comment']   = __('Some comment', 'surfalert');
         return $data;
     }
 
@@ -275,10 +275,10 @@ class WPComments extends Extension {
             if ($settings['themes'] == 'comments_theme-seven-free' || $settings['themes'] == 'comments_theme-eight-free') {
                 $trim_length = 80;
             }
-            $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
+            $sa_trimmed_length = apply_filters('sa_text_trim_length', $trim_length, $settings);
             $comment = $saved_data['post_comment'];
-            if (strlen($comment) > $nx_trimmed_length) {
-                $comment = substr($comment, 0, $nx_trimmed_length) . '...';
+            if (strlen($comment) > $sa_trimmed_length) {
+                $comment = substr($comment, 0, $sa_trimmed_length) . '...';
             }
             if ($settings['themes'] == 'comments_theme-seven-free') { // || $settings['theme'] == 'comments_theme-six-free'
                 $comment = '" ' . $comment . ' "';

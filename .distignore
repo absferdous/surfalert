@@ -64,9 +64,9 @@ nxbuild
 .gitmodules
 blocks/controls/src
 blocks/controls/LICENSE
-blocks/notificationx/components
-blocks/notificationx/index.js.map
-blocks/notificationx/index.jsx
+blocks/surfalert/components
+blocks/surfalert/index.js.map
+blocks/surfalert/index.jsx
 webpack.blocks.config.js
 webpack.cs.config.js
 webpack.frontend.config.js

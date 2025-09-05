@@ -2,12 +2,12 @@
 /**
  * Rule
  *
- * @package NotificationX\Core
+ * @package SurfAlert\Core
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Settings;
+use SurfAlert\Admin\Settings;
 
 class Rules {
 
@@ -83,13 +83,13 @@ class Rules {
                     $return = self::add_rule($search_value, $value);
                     if($return) return true;
                 }
-                else if(is_a($value, 'NotificationX\Core\Rule') && $value->can_add($search_value)) {
+                else if(is_a($value, 'SurfAlert\Core\Rule') && $value->can_add($search_value)) {
                     $value->add_value($search_value);
                     return true;
                 }
             }
         }
-        elseif(is_a($array, 'NotificationX\Core\Rule') && $array->can_add($search_value)){
+        elseif(is_a($array, 'SurfAlert\Core\Rule') && $array->can_add($search_value)){
             $array->add_value($search_value);
             return true;
         }

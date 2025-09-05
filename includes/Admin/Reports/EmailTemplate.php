@@ -1,7 +1,7 @@
 <?php
-namespace NotificationX\Admin\Reports;
+namespace SurfAlert\Admin\Reports;
 
-use NotificationX\Core\Helper as NotificationX_Helper;
+use SurfAlert\Core\Helper as NotificationX_Helper;
 
 class EmailTemplate {
 
@@ -12,99 +12,99 @@ class EmailTemplate {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>NotificationX Email Template</title>
+        <title>SurfAlert Email Template</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
         <style type="text/css">
-            .nx-email-body, .nx-wrapper-body {
+            .sa-email-body, .sa-wrapper-body {
                 font-size: 14px;
                 font-family: 'Roboto', sans-serif;
             }
-            .nx-box-analytics-parent {
+            .sa-box-analytics-parent {
                 padding: 0px 25px;
             }
             @media screen and ( min-width: 786px ) {
-                table.nx-email-body > tbody > tr > td {
+                table.sa-email-body > tbody > tr > td {
                     padding-top: 0px;
                     padding-bottom: 20px;
                 }
-                table.nx-email-body > tbody > tr > td.nx-email-header {
+                table.sa-email-body > tbody > tr > td.sa-email-header {
                     padding-top: 30px !important;
                 }
-                table.nx-email-body > tbody > tr:last-of-type > td {
+                table.sa-email-body > tbody > tr:last-of-type > td {
                     padding-bottom: 30px !important;
                 }
             }
             @media screen and (max-width: 620px) {
-                table.nx-email-wrapper > tbody > tr > td, table.nx-email-body > tbody > tr > td,
-                table.nx-email-footer > tbody > tr > td {
+                table.sa-email-wrapper > tbody > tr > td, table.sa-email-body > tbody > tr > td,
+                table.sa-email-footer > tbody > tr > td {
                     padding: 15px !important;
                 }
-                table.nx-email-wrapper > tbody > tr > td.nx-email-footer-parent {
+                table.sa-email-wrapper > tbody > tr > td.sa-email-footer-parent {
                     padding-top: 0px !important;
                 }
 
-                table.nx-email-body > tbody > tr > td.nx-box-analytics-parent {
+                table.sa-email-body > tbody > tr > td.sa-box-analytics-parent {
                     padding: 5px !important;
                 }
 
-                .nx-email-body, .nx-email-footer {
+                .sa-email-body, .sa-email-footer {
                     width: 100% !important;
                 }
-                .nx-email-logo {
+                .sa-email-logo {
                     width: 100px;
                 }
-                .nx-mobile-font {
+                .sa-mobile-font {
                     font-size: 12px !important;
                     line-height: 1.5;
                 }
-                .nx-box-analytics .nx-mobile-font {
+                .sa-box-analytics .sa-mobile-font {
                     font-size: 10px !important;
                 }
-                .nx-box-analytics > tbody > tr > td > table > tbody > tr:nth-of-type(2) td.nx-mobile-font {
+                .sa-box-analytics > tbody > tr > td > table > tbody > tr:nth-of-type(2) td.sa-mobile-font {
                     font-size: 15px !important;
                 }
-                .nx-mobile-icon {
+                .sa-mobile-icon {
                     width: 15px !important
                 }
-                td#nx-no-padding {
+                td#sa-no-padding {
                     padding: 0px !important;
                 }
             }
         </style>
     </head>
-    <body class="nx-wrapper-body" style="background-color: #f3f7fa; margin: 0; padding: 0">
-        <table class="nx-email-wrapper" cellpadding="50" cellspacing="0" border="0" width="100%" align="center" bgcolor="#f3f7fa">
+    <body class="sa-wrapper-body" style="background-color: #f3f7fa; margin: 0; padding: 0">
+        <table class="sa-email-wrapper" cellpadding="50" cellspacing="0" border="0" width="100%" align="center" bgcolor="#f3f7fa">
             <tbody>
                 <tr>
                     <td>
-                        <table class="nx-email-body" cellpadding="35" cellspacing="0" border="0" width="600" align="center" bgcolor="#FFF">
+                        <table class="sa-email-body" cellpadding="35" cellspacing="0" border="0" width="600" align="center" bgcolor="#FFF">
                             <tbody>
 NXTEMHEADER;
         return $output;
     }
 
     public function footer(){
-        $facebook = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/facebook.png' );
-        $twitter  = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/twitter.png' );
-        $youtube  = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/youtube.png' );
-        $web      = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/web.png' );
+        $facebook = esc_url( SURFALERT_PUBLIC_URL  . 'image/reports/facebook.png' );
+        $twitter  = esc_url( SURFALERT_PUBLIC_URL  . 'image/reports/twitter.png' );
+        $youtube  = esc_url( SURFALERT_PUBLIC_URL  . 'image/reports/youtube.png' );
+        $web      = esc_url( SURFALERT_PUBLIC_URL  . 'image/reports/web.png' );
 
         $output = <<<NXTEMFOOTER
         </tbody>
-        </table> <!-- /.nx-email-body -->
+        </table> <!-- /.sa-email-body -->
     </td>
 </tr>
 <tr>
-    <td style="padding: 0px 0px 50px" class="nx-email-footer-parent">
-        <table class="nx-email-footer" cellpadding="0" cellspacing="0" border="0" width="600" align="center">
+    <td style="padding: 0px 0px 50px" class="sa-email-footer-parent">
+        <table class="sa-email-footer" cellpadding="0" cellspacing="0" border="0" width="600" align="center">
             <tbody>
                 <tr>
                     <td align="center" style="padding: 0px 60px">
-                        <a style="background-image: url('$facebook'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://www.facebook.com/groups/NotificationX.Community" title="Join Us in Facebook" target="_blank"></a>
+                        <a style="background-image: url('$facebook'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://www.facebook.com/groups/SurfAlert.Community" title="Join Us in Facebook" target="_blank"></a>
                         <a style="background-image: url('$twitter'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://twitter.com/NotificationX_" target="_blank" title="Follow Us"></a>
                         <a style="background-image: url('$youtube'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://www.youtube.com/wpdevelopernet" target="_blank" title="Subscribe to Get New Tutorial"></a>
-                        <a style="background-image: url('$web'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://notificationx.com" target="_blank" title="Follow us On Web"></a>
-                        <p style="margin: 0; color: #737373; line-height: 1.5; margin-top: 10px;">If you have any suggestion regarding the NotificationX Analytics Report, do not hesitate to reply to this mail.</p>
+                        <a style="background-image: url('$web'); background-repeat: no-repeat; display: inline-block; width: 19px; height: 19px;" href="https://surfalert.com" target="_blank" title="Follow us On Web"></a>
+                        <p style="margin: 0; color: #737373; line-height: 1.5; margin-top: 10px;">If you have any suggestion regarding the SurfAlert Analytics Report, do not hesitate to reply to this mail.</p>
                     </td>
                 </tr>
             </tbody>
@@ -121,7 +121,7 @@ NXTEMFOOTER;
 
     public function body_header( $args = array(), $frequency = '' ){
         $args = current( $args );
-        $logo = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/logo.png' );
+        $logo = esc_url( SURFALERT_PUBLIC_URL . 'image/reports/logo.png' );
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
         $to_date = isset( $args['to_date'] ) ? date( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
 
@@ -129,7 +129,7 @@ NXTEMFOOTER;
             return '';
         }
 
-        if( $frequency !== 'nx_daily' ) {
+        if( $frequency !== 'sa_daily' ) {
             $to_date = "- " . $to_date;
         } else {
             $to_date = '';
@@ -137,14 +137,14 @@ NXTEMFOOTER;
 
         $output = <<<NXBODYHEADER
 <tr>
-    <td class="nx-email-header">
+    <td class="sa-email-header">
         <table width="100%" cellpadding="0" cellspacing="0" align="center">
             <tbody>
                 <tr>
                     <td align="left">
-                        <a href=""><img class="nx-email-logo" style="display: block; max-width: 100%;" src="$logo" alt=""></a>
+                        <a href=""><img class="sa-email-logo" style="display: block; max-width: 100%;" src="$logo" alt=""></a>
                     </td>
-                    <td class="nx-mobile-font" align="right" style="font:normal 14px 'Roboto',sans-serif">
+                    <td class="sa-mobile-font" align="right" style="font:normal 14px 'Roboto',sans-serif">
                         <font color="#848484">Your Analytics <span class="il">Report</span></font><br><font color="#444444">$from_date $to_date</font>
                     </td>
                 </tr>
@@ -223,26 +223,26 @@ NXTEMBODY;
 
         $text_lead = 'In the last 7 Days';
 
-        if( $frequency === 'nx_daily' ) {
+        if( $frequency === 'sa_daily' ) {
             $text_lead = 'Yesterday';
         }
 
-        if( $frequency === 'nx_monthly' ) {
+        if( $frequency === 'sa_monthly' ) {
             $text_lead = 'In the last month';
         }
         $text_lead = esc_html( $text_lead );
 
         $output = <<<NXPROMO
 <tr>
-    <td class="nx-mobile-font" style="line-height: 1.5;">
-        <p style="margin: 0px; color:#555555">$text_lead NotificationX helped you have site visits of <b>$views</b>, total Click of <b>$clicks</b>, and total CTR of <b>$ctr</b></p>
+    <td class="sa-mobile-font" style="line-height: 1.5;">
+        <p style="margin: 0px; color:#555555">$text_lead SurfAlert helped you have site visits of <b>$views</b>, total Click of <b>$clicks</b>, and total CTR of <b>$ctr</b></p>
     </td>
 </tr> <!-- Overall Text -->
 NXPROMO;
         return $output;
     }
 
-    public static function analytics_box( $args = array(), $frequency = 'nx_weekly' ){
+    public static function analytics_box( $args = array(), $frequency = 'sa_weekly' ){
         if( empty( $args ) ) {
             return false;
         }
@@ -256,8 +256,8 @@ NXPROMO;
         $ctr               = number_format( $args['ctr'] );
         $percentage_ctr    = esc_html( $args['percentage_ctr'] );
 
-        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/nx-template-up.png' );
-        $down_arrow = esc_url( NOTIFICATIONX_PUBLIC_URL  . 'image/reports/nx-template-down.png' );
+        $up_arrow = $v_arrow = $c_arrow = $ctr_arrow = esc_url( SURFALERT_PUBLIC_URL . 'image/reports/sa-template-up.png' );
+        $down_arrow = esc_url( SURFALERT_PUBLIC_URL  . 'image/reports/sa-template-down.png' );
         $v_color = $c_color = $ctr_color = '#34cf8a';
         if( $percentage_views < 0 ) {
             $v_color = '#ff616c';
@@ -283,13 +283,13 @@ NXPROMO;
         }
 
         switch( $frequency ) {
-            case 'nx_weekly' :
+            case 'sa_weekly' :
                 $days_ago = '7 days ago';
                 break;
-            case 'nx_daily' :
+            case 'sa_daily' :
                 $days_ago = '1 days ago';
                 break;
-            case 'nx_monthly' :
+            case 'sa_monthly' :
                 $initial_timestamp = strtotime('first day of last month', current_time('timestamp'));
                 $days_in_last_month = cal_days_in_month(CAL_GREGORIAN, date( 'm', $initial_timestamp ), date( 'Y', $initial_timestamp ));
                 $days_ago = $days_in_last_month . ' days ago';
@@ -303,11 +303,11 @@ NXPROMO;
 
         $output = <<<NXBOXTEM
 <tr>
-    <td  class="nx-box-analytics-parent">
-        <table class="nx-box-analytics" cellspacing="10" cellpadding="0" border="0" align="center" width="100%">
+    <td  class="sa-box-analytics-parent">
+        <table class="sa-box-analytics" cellspacing="10" cellpadding="0" border="0" align="center" width="100%">
             <tbody>
                 <tr>
-                    <td align="left" class="nx-mobile-font" colspan="3" style="font-size: 13px;">
+                    <td align="left" class="sa-mobile-font" colspan="3" style="font-size: 13px;">
                     <strong>$type_name</strong> > $title
                     </td>
                 </tr>
@@ -316,18 +316,18 @@ NXPROMO;
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff">
                             <tbody>
                                 <tr>
-                                    <td align="center" class="nx-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
+                                    <td align="center" class="sa-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
                                         Total Views
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
+                                    <td class="sa-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
                                         $views
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
-                                        <font color="$v_color"><img class="nx-mobile-icon" src="$v_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_views%</font>
+                                    <td class="sa-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
+                                        <font color="$v_color"><img class="sa-mobile-icon" src="$v_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_views%</font>
                                         <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
@@ -338,18 +338,18 @@ NXPROMO;
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff">
                             <tbody>
                                 <tr>
-                                    <td align="center" class="nx-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
+                                    <td align="center" class="sa-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
                                         Total Clicks
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
+                                    <td class="sa-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
                                         $clicks
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
-                                        <font color="$c_color"><img class="nx-mobile-icon" src="$c_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_clicks%</font>
+                                    <td class="sa-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
+                                        <font color="$c_color"><img class="sa-mobile-icon" src="$c_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_clicks%</font>
                                         <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
@@ -360,18 +360,18 @@ NXPROMO;
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff">
                             <tbody>
                                 <tr>
-                                    <td align="center" class="nx-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
+                                    <td align="center" class="sa-mobile-font" style="background-color: #e5ecf2; text-transform: uppercase; padding: 10px 0px; font-size: 14px;">
                                         Total CTR
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
+                                    <td class="sa-mobile-font" align="center" style="padding: 10px 5px; font-size: 26px;">
                                         $ctr
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="nx-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
-                                        <font color="$ctr_color"><img class="nx-mobile-icon" src="$ctr_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_ctr%</font>
+                                    <td class="sa-mobile-font" style="padding:3px 10px 10px;font:700 10px" align="center">
+                                        <font color="$ctr_color"><img class="sa-mobile-icon" src="$ctr_arrow" alt="" style="padding-right:5px; width:19px; vertical-align: text-bottom;">$percentage_ctr%</font>
                                         <br><font color="#909090">$days_ago</font>
                                     </td>
                                 </tr>
@@ -388,13 +388,13 @@ NXBOXTEM;
     }
 
     public static function pro_message(){
-        $is_pro              = defined( 'NOTIFICATIONX_PRO_VERSION' );
-        $graph               = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/graph.png' );
-        $admin_analytics_url = admin_url( 'admin.php?page=nx-analytics' );
+        $is_pro              = defined( 'SURFALERT_PRO_VERSION' );
+        $graph               = esc_url( SURFALERT_PUBLIC_URL . 'image/reports/graph.png' );
+        $admin_analytics_url = admin_url( 'admin.php?page=sa-analytics' );
         if( $is_pro ) {
             $output = <<<NXPROMSG
 <tr>
-    <td class="nx-mobile-font nx-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
+    <td class="sa-mobile-font sa-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
         <a href="$admin_analytics_url" target="_blank"><img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt="Visit Dashboard"></a>
         <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="$admin_analytics_url">Visit Dashboard</a>
     </td>
@@ -405,11 +405,11 @@ NXPROMSG;
 
         $output = <<<NXPROMSG
 <tr>
-    <td class="nx-mobile-font nx-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
+    <td class="sa-mobile-font sa-pro-message" align="center" style="font-size: 15px; line-height: 1.7; color: #737373;">
         <p style="text-align: left; margin-top: 0px;">Resolve doubts from the minds of your users using NotificaitonX- the best Social Proof and FOMO Plugin for WordPress.</p>
-        <p style="text-align: left; margin-top: 0px;">Get everything NotificationX has to offer by upgrading to a PRO plan. </p>
-        <a target="_blank" href="https://notificationx.com/in/advanced-reports"><img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt=""></a>
-        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" target="_blank" href="https://notificationx.com/in/advanced-reports">Get More Data</a>
+        <p style="text-align: left; margin-top: 0px;">Get everything SurfAlert has to offer by upgrading to a PRO plan. </p>
+        <a target="_blank" href="https://surfalert.com/in/advanced-reports"><img style="display: block; max-width: 100%; padding: 15px 0 0" src="$graph" alt=""></a>
+        <a style="margin-top: 20px; background-color: #6125d5; color: #FFF; display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px;" target="_blank" href="https://surfalert.com/in/advanced-reports">Get More Data</a>
     </td>
 </tr>
 NXPROMSG;

@@ -1,9 +1,9 @@
 <?php
 
-namespace NotificationX\Core\Rest;
+namespace SurfAlert\Core\Rest;
 
-use NotificationX\GetInstance;
-use NotificationX\Admin\Admin;
+use SurfAlert\GetInstance;
+use SurfAlert\Admin\Admin;
 use WP_REST_Controller;
 use WP_REST_Server;
 
@@ -12,9 +12,9 @@ use WP_REST_Server;
  */
 class Entries {
     /**
-     * Instance of NotificationX
+     * Instance of SurfAlert
      *
-     * @var NotificationX
+     * @var SurfAlert
      */
     use GetInstance;
 
@@ -29,7 +29,7 @@ class Entries {
      * @param string $post_type Post type.
      */
     public function __construct() {
-        $this->namespace = 'notificationx/v1';
+        $this->namespace = 'surfalert/v1';
         $this->rest_base = 'regenerate';
         add_action('rest_api_init', [$this, 'register_routes']);
     }
@@ -43,7 +43,7 @@ class Entries {
      */
     public function register_routes() {
         // For entries page.
-        // register_rest_route($namespace, '/entries/(?P<nx_id>[0-9]+)', array(
+        // register_rest_route($namespace, '/entries/(?P<sa_id>[0-9]+)', array(
         //     array(
         //         'methods'             => WP_REST_Server::READABLE,
         //         'callback'            => array($this, 'get_entries'),
@@ -53,14 +53,14 @@ class Entries {
         // ));
 
         // Regenerate Notices
-		register_rest_route($this->namespace, '/regenerate/(?P<nx_id>[0-9]+)', array(
+		register_rest_route($this->namespace, '/regenerate/(?P<sa_id>[0-9]+)', array(
             array(
                 'methods'             => WP_REST_Server::READABLE,
                 'callback'            => array($this, 'regenerate'),
                 'permission_callback' => array($this, 'check_permission'),
                 'args'                => array(
-                    'nx_id' => array(
-                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                    'sa_id' => array(
+                        'description' => __( 'Unique identifier for the object.', 'surfalert' ),
                         'type'        => 'integer',
                     ),
                 ),
@@ -68,14 +68,14 @@ class Entries {
         ));
 
         // Reset Notices
-		register_rest_route($this->namespace, '/reset/(?P<nx_id>[0-9]+)', array(
+		register_rest_route($this->namespace, '/reset/(?P<sa_id>[0-9]+)', array(
             array(
                 'methods'             => WP_REST_Server::READABLE,
                 'callback'            => array($this, 'reset'),
                 'permission_callback' => array($this, 'check_permission'),
                 'args'                => array(
-                    'nx_id' => array(
-                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                    'sa_id' => array(
+                        'description' => __( 'Unique identifier for the object.', 'surfalert' ),
                         'type'        => 'integer',
                     ),
                 ),
@@ -93,7 +93,7 @@ class Entries {
         $params = $request->get_params();
         Admin::get_instance()->regenerate_notifications($params);
         wp_send_json_success();
-        // return new \WP_Error('cant-update', __('message', 'notificationx'), array('status' => 500));
+        // return new \WP_Error('cant-update', __('message', 'surfalert'), array('status' => 500));
     }
 
     /**
@@ -113,7 +113,7 @@ class Entries {
     public function get_entries($request){
         $params = $request->get_params();
         $result = Entries::get_instance()->get_entries([
-            'nx_id' => absint( $params['nx_id'] )
+            'sa_id' => absint( $params['sa_id'] )
         ]);
         wp_send_json($result);
     }

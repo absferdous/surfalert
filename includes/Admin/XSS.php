@@ -3,12 +3,12 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\GetInstance;
+use SurfAlert\GetInstance;
 
 /**
  * @method static XSS get_instance($args = null)
@@ -17,8 +17,8 @@ class XSS {
     use GetInstance;
 
     public function __construct() {
-        add_filter( 'nx_settings', [ $this, 'save_settings' ] );
-        add_filter( 'nx_settings_tab_miscellaneous', [ $this, 'settings_tab_help' ] );
+        add_filter( 'sa_settings', [ $this, 'save_settings' ] );
+        add_filter( 'sa_settings_tab_miscellaneous', [ $this, 'settings_tab_help' ] );
     }
 
     public function save_settings( $settings ) {
@@ -34,20 +34,20 @@ class XSS {
         $tabs['fields']['xss_settings'] = array(
             'name'     => 'xss_settings',
             'type'     => 'section',
-            'label'    => __( 'Cross Domain Notice', 'notificationx' ),
+            'label'    => __( 'Cross Domain Notice', 'surfalert' ),
             'priority' => 30,
             'fields'   => array(
                 'xss_code' => array(
                     'name'         => 'xss_code',
                     'type'         => 'codeviewer',
-                    'label'        => __( 'Cross Domain Notice', 'notificationx' ),
-                    'button_text'  => __( 'Click to Copy', 'notificationx' ),
-                    'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
+                    'label'        => __( 'Cross Domain Notice', 'surfalert' ),
+                    'button_text'  => __( 'Click to Copy', 'surfalert' ),
+                    'success_text' => __( 'Copied to clipboard.', 'surfalert' ),
                     'is_pro'       => true,
                     'copyOnClick'  => true,
                     'readOnly'     => true,
-                    'help'         => sprintf( __( 'Show your Notification Alerts in another website using <a target="_blank" href="%s">Cross Domain Notice</a>.', 'notificationx' ), 'https://notificationx.com/docs/notificationx-cross-domain-notice/' ),
-                    'default'      => apply_filters( 'nx_settings_xss_code_default', "<div id='notificationx-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>" ),
+                    'help'         => sprintf( __( 'Show your Notification Alerts in another website using <a target="_blank" href="%s">Cross Domain Notice</a>.', 'surfalert' ), 'https://surfalert.com/docs/surfalert-cross-domain-notice/' ),
+                    'default'      => apply_filters( 'sa_settings_xss_code_default', "<div id='surfalert-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>" ),
                     'priority'     => 1,
                 ),
             ),

@@ -3,20 +3,20 @@
 /**
  * Register Global Fields
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Admin;
-use NotificationX\Core\Rules;
-use NotificationX\Core\Database;
-use NotificationX\Core\Locations;
-use NotificationX\GetInstance;
-use NotificationX\Core\Modules;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\NotificationX;
-use NotificationX\Types\TypeFactory;
+use SurfAlert\Admin\Admin;
+use SurfAlert\Core\Rules;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Locations;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Modules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\SurfAlert;
+use SurfAlert\Types\TypeFactory;
 
 /**
  * @method static QuickBuild get_instance($args = null)
@@ -39,12 +39,12 @@ class QuickBuild {
 
     /**
      * This method is responsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
     public function menu() {
-        add_submenu_page('nx-admin', __('Quick Builder', 'notificationx'), __('Quick Builder', 'notificationx'), 'edit_notificationx', 'nx-builder', [Admin::get_instance(), 'views'], 5);
+        add_submenu_page('sa-admin', __('Quick Builder', 'surfalert'), __('Quick Builder', 'surfalert'), 'edit_surfalert', 'sa-builder', [Admin::get_instance(), 'views'], 5);
     }
 
     public function tabs($configs = []) {
@@ -69,7 +69,7 @@ class QuickBuild {
                 'fields'  => [
                     'finalize_message' => [
                         'type' => 'action',
-                        'action' => 'nx_quick_build_finalize',
+                        'action' => 'sa_quick_build_finalize',
                     ],
                 ],
 
@@ -89,7 +89,7 @@ class QuickBuild {
                 'rules' => Rules::includes('source', ['custom_notification', 'custom_notification_conversions']),
                 'fields' => [
                     'content' => [
-                        'label'    => __("Content", 'notificationx'),
+                        'label'    => __("Content", 'surfalert'),
                         'name'     => "content",
                         'type'     => "section",
                         'priority' => 90,
@@ -109,11 +109,11 @@ class QuickBuild {
         $tabs['source_tab']['fields'] = array_merge($tabs['source_tab']['fields'], $configs['tabs']['content_tab']['fields']);
         $tabs['display_tab']['fields'] = array_merge($tabs['display_tab']['fields'], $configs['tabs']['customize_tab']['fields']);
 
-        return apply_filters('nx_quick_builder_tabs', [
-            'id'            => 'notificationx_metabox_quick_builder_wrapper',
-            'redirect'      => !current_user_can( 'edit_notificationx' ),
-            'title'         => __('NotificationX', 'notificationx'),
-            'is_pro_active' => NotificationX::get_instance()->is_pro(),
+        return apply_filters('sa_quick_builder_tabs', [
+            'id'            => 'surfalert_metabox_quick_builder_wrapper',
+            'redirect'      => !current_user_can( 'edit_surfalert' ),
+            'title'         => __('SurfAlert', 'surfalert'),
+            'is_pro_active' => SurfAlert::get_instance()->is_pro(),
             'config'        => [
                 'active'  => "source_tab",
                 'completionTrack' => true,
@@ -126,7 +126,7 @@ class QuickBuild {
                         'quick-builder-publish' => [
                             'name' => 'quick-builder-publish',
                             'type' => 'action',
-                            'action' => 'nx_quick_build_launch',
+                            'action' => 'sa_quick_build_launch',
                         ],
                     ]
                 ],
@@ -250,18 +250,18 @@ class QuickBuild {
                 'time_rotation',
                 'time_reset',
             ],
-            'types_title' => apply_filters( 'nx_source_types_title', array(
-                'notification_bar' => __('Notification Bar', 'notificationx'),
-                'comments'         => __('Comments', 'notificationx'),
-                'conversions'      => __('Sales Notification', 'notificationx'),
-                'video'            => __('Video','notificationx'),
-                'reviews'          => __('Reviews', 'notificationx'),
-                'download_stats'   => __('Download Stats', 'notificationx'),
-                'elearning'        => __('eLearning', 'notificationx'),
-                'donation'         => __('Donation', 'notificationx'),
-                'form'             => __('Contact Form', 'notificationx'),
-                'inline'           => __('Growth Alert', 'notificationx'),
-                'gdpr'             => __('Cookie Notice', 'notificationx'),
+            'types_title' => apply_filters( 'sa_source_types_title', array(
+                'notification_bar' => __('Notification Bar', 'surfalert'),
+                'comments'         => __('Comments', 'surfalert'),
+                'conversions'      => __('Sales Notification', 'surfalert'),
+                'video'            => __('Video','surfalert'),
+                'reviews'          => __('Reviews', 'surfalert'),
+                'download_stats'   => __('Download Stats', 'surfalert'),
+                'elearning'        => __('eLearning', 'surfalert'),
+                'donation'         => __('Donation', 'surfalert'),
+                'form'             => __('Contact Form', 'surfalert'),
+                'inline'           => __('Growth Alert', 'surfalert'),
+                'gdpr'             => __('Cookie Notice', 'surfalert'),
             )),
         ]);
     }

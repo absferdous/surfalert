@@ -2,20 +2,20 @@
 /**
  * WooCommerce Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\WooCommerce;
+namespace SurfAlert\Extensions\WooCommerce;
 
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Helper;
-use NotificationX\Core\PostType;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Types\Conversions;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Types\Conversions;
 
 /**
  * WooCommerce Extension Class
@@ -32,8 +32,8 @@ class WooCommerce extends Extension {
 
     public $priority        = 5;
     public $id              = 'woocommerce';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
-    public $doc_link        = 'https://notificationx.com/docs/woocommerce-sales-notifications/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
+    public $doc_link        = 'https://surfalert.com/docs/woocommerce-sales-notifications/';
     public $types           = 'conversions';
     public $module          = 'modules_woocommerce';
     public $module_priority = 3;
@@ -51,11 +51,11 @@ class WooCommerce extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('WooCommerce', 'notificationx');
-        $this->module_title = __('WooCommerce', 'notificationx');
+        $this->title = __('WooCommerce', 'surfalert');
+        $this->module_title = __('WooCommerce', 'surfalert');
         $this->templates = Conversions::get_instance()->templates;
-        $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
-        $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
+        $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'surfalert');
+        $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'surfalert');
     }
 
     public function init(){
@@ -67,8 +67,8 @@ class WooCommerce extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter( 'nx_woo_order_status', array( $this, 'order_status' ), 11 );
+        add_filter('sa_link_types', [$this, 'link_types']);
+        add_filter( 'sa_woo_order_status', array( $this, 'order_status' ), 11 );
         $this->_init_fields();
     }
 
@@ -79,18 +79,18 @@ class WooCommerce extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
     }
 
     public function public_actions(){
         parent::public_actions();
 
-        add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
+        add_filter("sa_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
     }
 
     public function wpml_actions(){
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'wpml_translate'), 11, 2);
-        add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'wpml_translate'), 11, 2);
+        add_filter("sa_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
 
     }
 
@@ -99,10 +99,10 @@ class WooCommerce extends Extension {
             $url = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'WooCommerce', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'WooCommerce', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -129,14 +129,14 @@ class WooCommerce extends Extension {
      */
     public function link_types($options) {
         $options = GlobalFields::get_instance()->normalize_fields([
-            'product_page' => __('Product Page', 'notificationx'),
+            'product_page' => __('Product Page', 'surfalert'),
         ], 'source', $this->id, $options);
 
         return $options;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -153,7 +153,7 @@ class WooCommerce extends Extension {
             $entries = [];
             foreach ($orders as $key => $order) {
                 $entries[] = [
-                    'nx_id'      => $post['nx_id'],
+                    'sa_id'      => $post['sa_id'],
                     'source'     => $this->id,
                     'entry_key'  => $key,
                     'data'       => $order,
@@ -221,7 +221,7 @@ class WooCommerce extends Extension {
                         $single_notification = $this->ordered_product($item->get_id(), $item, $order);
                         if (!empty($single_notification)) {
                             $this->update_notification([
-                                'nx_id'     => $post['nx_id'],
+                                'sa_id'     => $post['sa_id'],
                                 'source'    => $this->id,
                                 'entry_key' => $key,
                                 'data'      => $single_notification,
@@ -456,7 +456,7 @@ class WooCommerce extends Extension {
     }
 
     public function multiorder_combine($data, $settings) {
-        $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
+        $should_combine = apply_filters('sa_should_combine', true, $data, $settings);
         if (!$should_combine || empty($settings['combine_multiorder']) || intval($settings['combine_multiorder']) != 1 )  {
             return $data;
         }
@@ -474,10 +474,10 @@ class WooCommerce extends Extension {
             }
         }
 
-        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
+        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'surfalert') : __('more products', 'surfalert');
         foreach ($item_counts as $key => $item) {
             // translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-            $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'notificationx'), $items[$key]['title'], $item, $products_more_title);
+            $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'surfalert'), $items[$key]['title'], $item, $products_more_title);
         }
 
         // @todo maybe sort
@@ -523,10 +523,10 @@ class WooCommerce extends Extension {
     }
 
     public function fallback_data($data, $entry) {
-        $data['name']            = __('Someone', 'notificationx');
-        $data['first_name']      = __('Someone', 'notificationx');
-        $data['last_name']       = __('Someone', 'notificationx');
-        $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
+        $data['name']            = __('Someone', 'surfalert');
+        $data['first_name']      = __('Someone', 'surfalert');
+        $data['last_name']       = __('Someone', 'surfalert');
+        $data['anonymous_title'] = __('Anonymous Product', 'surfalert');
         if(empty($entry['product_title']) && !empty($entry['title'])){
             $data['product_title'] = $entry['title'];
         }
@@ -536,15 +536,15 @@ class WooCommerce extends Extension {
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
-		<p>⭐ NotificationX Integration with WooCommerce</p>
+		<p>⭐ SurfAlert Integration with WooCommerce</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Why NotificationX is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
-		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+		<p>🔥 Why SurfAlert is The <a target="_blank" href="%4$s">Best FOMO and Social Proof Plugin</a> for WooCommerce?</p>
+		<p>🚀 How to <a target="_blank" href="%5$s">boost WooCommerce Sales</a> Using SurfAlert</p>', 'surfalert'),
         'https://wordpress.org/plugins/woocommerce/',
-        'https://notificationx.com/docs/woocommerce-sales-notifications/',
+        'https://surfalert.com/docs/woocommerce-sales-notifications/',
         'https://www.youtube.com/watch?v=dVthd36hJ-E&t=1s',
-        'https://notificationx.com/integrations/woocommerce/',
-        'https://notificationx.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
+        'https://surfalert.com/integrations/woocommerce/',
+        'https://surfalert.com/blog/best-fomo-and-social-proof-plugin-for-woocommerce/'
         );
     }
 

@@ -272,7 +272,7 @@
                                                     "isLinked": false
                                                 },
                                                 "_element_width": "auto",
-                                                "button_css_id": "nx-consent-accept"
+                                                "button_css_id": "sa-consent-accept"
                                             },
                                             "elements": [],
                                             "isInner": false,
@@ -344,7 +344,7 @@
                                                 "typography_font_weight": "400",
                                                 "button_text_color": "#40A3FF",
                                                 "_element_width": "auto",
-                                                "button_css_id": "nx-consent-accept"
+                                                "button_css_id": "sa-consent-accept"
                                             },
                                             "elements": [],
                                             "isInner": false,

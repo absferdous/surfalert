@@ -3,16 +3,16 @@
 /**
  * WPOrgReview Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\WordPress;
+namespace SurfAlert\Extensions\WordPress;
 
-use NotificationX\Admin\Cron;
-use NotificationX\Core\PostType;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Admin\Cron;
+use SurfAlert\Core\PostType;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * WPOrgReview Extension
@@ -36,11 +36,11 @@ class WPOrgReview extends Extension {
 
     public $priority = 2;
     public $id       = 'wp_reviews';
-    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wordpress.png';
-    public $doc_link = 'https://notificationx.com/docs-category/configurations/';
+    public $img      = SURFALERT_ADMIN_URL . 'images/extensions/sources/wordpress.png';
+    public $doc_link = 'https://surfalert.com/docs-category/configurations/';
     public $types    = 'reviews';
     public $module   = 'modules_wordpress';
-    public $cron_schedule = 'nx_wp_review_interval';
+    public $cron_schedule = 'sa_wp_review_interval';
 	public $module_priority = 2;
 
     /**
@@ -52,16 +52,16 @@ class WPOrgReview extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('WP.Org Reviews', 'notificationx');
-        $this->module_title = __('WordPress', 'notificationx');
+        $this->title = __('WP.Org Reviews', 'surfalert');
+        $this->module_title = __('WordPress', 'surfalert');
     }
 
     public function init() {
         parent::init();
 
-        // add_filter('nx_notification_link', array($this, 'notification_link'), 10, 2);
+        // add_filter('sa_notification_link', array($this, 'notification_link'), 10, 2);
 
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
 
         if ($this->helper === null) {
             $this->helper = new WPOrg_Helper();
@@ -70,7 +70,7 @@ class WPOrgReview extends Extension {
 
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_fields', [$this, 'content_fields']);
+        add_filter('sa_content_fields', [$this, 'content_fields']);
     }
 
     /**
@@ -81,13 +81,13 @@ class WPOrgReview extends Extension {
     public function admin_actions() {
         parent::admin_actions();
 
-        add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
+        add_action("sa_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      *
      * @return void
      */
@@ -95,9 +95,9 @@ class WPOrgReview extends Extension {
         parent::public_actions();
 
         // Show only single entry if total-rated theme.
-        add_filter( 'nx_frontend_get_entries', [$this, 'total_rated_theme'], 10, 3);
+        add_filter( 'sa_frontend_get_entries', [$this, 'total_rated_theme'], 10, 3);
         // Slice product name
-        add_filter( 'nx_frontend_get_entries', [$this, 'slice_product_name'], 10, 3);
+        add_filter( 'sa_frontend_get_entries', [$this, 'slice_product_name'], 10, 3);
     }
 
     /**
@@ -105,14 +105,14 @@ class WPOrgReview extends Extension {
      * 
      * @param array $entries Array of product entries to process.
      * @param array $ids Array of IDs to process (not used here).
-     * @param array $notifications Notification settings keyed by `nx_id`.
+     * @param array $notifications Notification settings keyed by `sa_id`.
      * @return array Updated entries array with truncated product names.
      */
     public function slice_product_name($entries, $ids, $notifications) {
         foreach ($entries as $key => $entry) {
             if($entry['source'] == $this->id){
-                $nx_id        = $entry['nx_id'];
-                $settings     = $notifications[$nx_id];
+                $sa_id        = $entry['sa_id'];
+                $settings     = $notifications[$sa_id];
                 if ( !empty( $settings['wp_reviews_product_name_length'] ) && !empty( $entry['plugin_name'] ) ) {
                     $text                       = $entry['plugin_name'] ?? '';
                     $maxLength                  = wp_is_mobile()  ? ($settings['wp_reviews_product_name_length']['mobile'] ?? 0)  : ($settings['wp_reviews_product_name_length']['desktop'] ?? 0);
@@ -135,19 +135,19 @@ class WPOrgReview extends Extension {
         $content_fields = &$fields['content']['fields'];
 
         $content_fields['wp_reviews_product_type'] = [
-            'label'    => __('Product Type', 'notificationx'),
+            'label'    => __('Product Type', 'surfalert'),
             'name'     => 'wp_reviews_product_type',
             'type'     => 'select',
             'priority' => 79,
             'default'  => 'plugin',
             'options'  => GlobalFields::get_instance()->normalize_fields([
-                'plugin' => __('Plugin', 'notificationx'),
+                'plugin' => __('Plugin', 'surfalert'),
             ]),
             'rules'  => ['is', 'source', $this->id],
         ];
 
         $content_fields['wp_reviews_slug'] = [
-            'label'    => __('Slug', 'notificationx'),
+            'label'    => __('Slug', 'surfalert'),
             'name'     => 'wp_reviews_slug',
             'type'     => 'text',
             'priority' => 80,
@@ -156,7 +156,7 @@ class WPOrgReview extends Extension {
         $content_fields['wp_reviews_product_name_length'] = [
             'name'    => 'wp_reviews_product_name_length',
             'type'    => "responsive-number",
-            'label'   => __('Product Name Length', 'notificationx'),
+            'label'   => __('Product Name Length', 'surfalert'),
             'rules'   => ['is', 'source', $this->id],
             'default' => [
                 "desktop" => 30,
@@ -166,24 +166,24 @@ class WPOrgReview extends Extension {
             'min'      => 10,
             'controls' => [
                 "desktop" => [
-                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    "icon" => SURFALERT_ADMIN_URL . 'images/responsive/desktop.svg',
                     'size' => 18,
                 ],
                 "mobile" => [
-                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                    "icon" => SURFALERT_ADMIN_URL . 'images/responsive/mobile.svg',
                     'size' => 12,
                 ],
             ],
-            'help' => __('Set a max content length for product name.', 'notificationx'),
+            'help' => __('Set a max content length for product name.', 'surfalert'),
         ];
         return $fields;
     }
 
     // @todo Something
     public function fallback_data($data, $saved_data, $settings) {
-        // $data['username']         = __('Someone', 'notificationx');
-        $data['plugin_name_text'] = __('try it out', 'notificationx');
-        $data['anonymous_title']  = __('Anonymous', 'notificationx');
+        // $data['username']         = __('Someone', 'surfalert');
+        $data['plugin_name_text'] = __('try it out', 'surfalert');
+        $data['anonymous_title']  = __('Anonymous', 'surfalert');
         $data['rating']    = 5;
         return $data;
     }
@@ -217,19 +217,19 @@ class WPOrgReview extends Extension {
         return $image_data;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->update_data($nx_id, $data);
+    public function saved_post($post, $data, $sa_id) {
+        $this->update_data($sa_id, $data);
     }
 
-    public function update_data($nx_id, $data = array()) {
-        if (empty($nx_id)) {
+    public function update_data($sa_id, $data = array()) {
+        if (empty($sa_id)) {
             return;
         }
         if (empty($data)) {
-            $data = PostType::get_instance()->get_post($nx_id);
+            $data = PostType::get_instance()->get_post($sa_id);
         }
 
-        $plugin_data = $this->get_plugins_data($nx_id, $data);
+        $plugin_data = $this->get_plugins_data($sa_id, $data);
         if(empty($plugin_data)){
             return;
         }
@@ -238,12 +238,12 @@ class WPOrgReview extends Extension {
         unset($plugin_data['reviews']);
 
         // removing old notifications.
-        $this->delete_notification(null, $nx_id);
+        $this->delete_notification(null, $sa_id);
         $entries = [];
         foreach ($reviews as $review) {
             $review = array_merge($review, $plugin_data);
             $entries[] = [
-                'nx_id'      => $nx_id,
+                'sa_id'      => $sa_id,
                 'source'     => $this->id,
                 'entry_key'  => $review['username'],
                 'data'       => $review,
@@ -261,8 +261,8 @@ class WPOrgReview extends Extension {
      * @return void
      */
     public function get_notification_ready($data = array()) {
-        if (!is_null($data['nx_id'])) {
-            return $this->update_data($data['nx_id'], $data);
+        if (!is_null($data['sa_id'])) {
+            return $this->update_data($data['sa_id'], $data);
         }
         return [];
     }
@@ -317,17 +317,17 @@ class WPOrgReview extends Extension {
      * @return void
      */
     public function total_rated_theme($entries, $ids, $notifications) {
-        $nx_ids = [];
+        $sa_ids = [];
 
         foreach ($entries as $key => $entry) {
             if($entry['source'] == $this->id){
-                $nx_id        = $entry['nx_id'];
-                $settings     = $notifications[$nx_id];
+                $sa_id        = $entry['sa_id'];
+                $settings     = $notifications[$sa_id];
                 $theme        = $settings['theme'];
                 $product_type = $settings['wp_reviews_product_type'];
                 if($theme === 'reviews_total-rated'){
-                    if(!in_array($nx_id, $nx_ids)){
-                        $nx_ids[]             = $nx_id;
+                    if(!in_array($sa_id, $sa_ids)){
+                        $sa_ids[]             = $sa_id;
 
                         $entry['rated']       = isset($entry['ratings']) ? $entry['ratings']['5'] : '';
                         $entry['name']        = isset($entry['name']) ? html_entity_decode($entry['name']) : '';

@@ -3,20 +3,20 @@
 /**
  * Register Global Fields
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions;
+namespace SurfAlert\Extensions;
 
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Rules;
-use NotificationX\Core\Database;
-use NotificationX\Core\Helper;
-use NotificationX\Core\Locations;
-use NotificationX\GetInstance;
-use NotificationX\Core\Modules;
-use NotificationX\NotificationX;
-use NotificationX\Types\TypeFactory;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Rules;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Locations;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Modules;
+use SurfAlert\SurfAlert;
+use SurfAlert\Types\TypeFactory;
 use Sabberworm\CSS\Value\Value;
 
 /**
@@ -44,22 +44,22 @@ class GlobalFields {
             do_action( 'qm/debug', __METHOD__ );
         }
 
-        do_action('nx_before_metabox_load');
+        do_action('sa_before_metabox_load');
 
         $tabs = [
-            'id'             => 'notificationx_metabox_wrapper',
-            'title'          => __('NotificationX', 'notificationx'),
-            'object_types'   => array('notificationx'),
+            'id'             => 'surfalert_metabox_wrapper',
+            'title'          => __('SurfAlert', 'surfalert'),
+            'object_types'   => array('surfalert'),
             'context'        => 'normal',
             'priority'       => 'high',
             'show_header'    => false,
             'tabnumber'      => true,
             'layout'         => 'horizontal',
-            'version'        => defined('NOTIFICATIONX_VERSION') ? NOTIFICATIONX_VERSION : null,
-            'pro_version'    => defined('NOTIFICATIONX_PRO_VERSION') ? NOTIFICATIONX_PRO_VERSION : null,
-            'is_pro_active'  => NotificationX::get_instance()->is_pro(),
+            'version'        => defined('SURFALERT_VERSION') ? SURFALERT_VERSION : null,
+            'pro_version'    => defined('SURFALERT_PRO_VERSION') ? SURFALERT_PRO_VERSION : null,
+            'is_pro_active'  => SurfAlert::get_instance()->is_pro(),
             'cus_imp_limit'  => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
-            'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
+            'is_pro_sources' => apply_filters('sa_is_pro_sources', []),
             'config'         => [
                 'active'          => "source_tab",
                 'completionTrack' => true,
@@ -68,8 +68,8 @@ class GlobalFields {
                 'step'            => [
                     'show'    => true,
                     'buttons' => [
-                        'prev'    => __('Previous', 'notificationx'),
-                        'next'    => __('Next', 'notificationx'),
+                        'prev'    => __('Previous', 'surfalert'),
+                        'next'    => __('Next', 'surfalert'),
                     ]
                 ],
 
@@ -79,7 +79,7 @@ class GlobalFields {
             ],
             'tabs'         => [
                 "source_tab" => [
-                    'label' => __("Source", 'notificationx'),
+                    'label' => __("Source", 'surfalert'),
                     'id'    => "source_tab",
                     'name'  => "source_tab",
                     'icon'  => [
@@ -87,9 +87,9 @@ class GlobalFields {
                         'name' => 'source'
                     ],
                     'classes' => "source_tab",
-                    'fields'  => apply_filters('nx_source_fields', [
+                    'fields'  => apply_filters('sa_source_fields', [
                         'type_section' => [
-                            'label'   => __("Notification Type", 'notificationx'),
+                            'label'   => __("Notification Type", 'surfalert'),
                             'name'   => "type_section",
                             'type'   => "section",
                             'fields' => [
@@ -107,9 +107,9 @@ class GlobalFields {
                                         return [
                                             'value'             => $type->id,
                                             'label'             => $type->title,
-                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
+                                            'is_pro'            => $type->is_pro && ! SurfAlert::is_pro(),
                                             'priority'          => $type->priority,
-                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'popup'             => apply_filters('sa_pro_alert_popup', $type->popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
                                     'validation_rules' => [
@@ -117,13 +117,13 @@ class GlobalFields {
                                         'label'    => "Type",
                                     ],
                                     // 'trigger' => [
-                                    //     'defaults' => apply_filters( 'nx_type_trigger', [] ),
+                                    //     'defaults' => apply_filters( 'sa_type_trigger', [] ),
                                     // ]
                                 ],
                             ]
                         ],
                         'source_section' => [
-                            'label'            => __("Source", 'notificationx'),
+                            'label'            => __("Source", 'surfalert'),
                             'name'   => "source_section",
                             'type'   => "section",
                             'fields' => [
@@ -137,7 +137,7 @@ class GlobalFields {
                                     // 'label'            => "Source",
                                     'name'             => "source",
                                     'type'             => "radio-card",
-                                    'options'          => apply_filters('nx_sources', []),
+                                    'options'          => apply_filters('sa_sources', []),
                                     'default'          => 'woocommerce',
                                     'style'   => [
                                         'label' => [
@@ -149,7 +149,7 @@ class GlobalFields {
                                         'label'    => "Source",
                                     ],
                                     'trigger' => [
-                                        'defaults' => apply_filters( 'nx_source_trigger', [
+                                        'defaults' => apply_filters( 'sa_source_trigger', [
                                             "custom_notification" => [
                                                 'show_notification_image' => '@show_notification_image:featured_image',
                                             ],
@@ -234,7 +234,7 @@ class GlobalFields {
                     // 'rules'   => Rules::is('source', false)
                 ],
                 "design_tab" => [
-                    'label' => __("Design", 'notificationx'),
+                    'label' => __("Design", 'surfalert'),
                     'id'    => "design_tab",
                     'name'  => "design_tab",
                     'icon'  => [
@@ -242,7 +242,7 @@ class GlobalFields {
                         'name' => 'design'
                     ],
                     'classes' => "design_tab",
-                    'fields'  => apply_filters('nx_design_tab_fields', [
+                    'fields'  => apply_filters('sa_design_tab_fields', [
                         'design_error' => [
                             'type' => 'message',
                             'name' => 'design_error',
@@ -250,7 +250,7 @@ class GlobalFields {
                             'rules' => '',
                         ],
                         "main_preview" => [
-                            'label'  => __("Preview", 'notificationx'),
+                            'label'  => __("Preview", 'surfalert'),
                             'name'   => "main_preview",
                             'type'   => "section",
                             'priority' => 1,
@@ -258,7 +258,7 @@ class GlobalFields {
                                 'preview_field' => [
                                     'name'     => "preview_field",
                                     'type'     => "preview",
-                                    'label'    => __('Preview', 'notificationx'),
+                                    'label'    => __('Preview', 'surfalert'),
                                     'priority' => 10,
                                 ],
                             ],
@@ -267,29 +267,29 @@ class GlobalFields {
                             ]),
                         ],
                        "themes" => [
-                            'label'  => __("Themes", 'notificationx'),
+                            'label'  => __("Themes", 'surfalert'),
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
                                 // [
-                                //     'label'   => __("Select Theme", 'notificationx'),
+                                //     'label'   => __("Select Theme", 'surfalert'),
                                 //     'name'    => "gdpr_s_theme",
                                 //     'type'    => "select",
                                 //     'default' => 'light',
                                 //     'options' => GlobalFields::get_instance()->normalize_fields([
-                                //         'light'  => __('Light', 'notificationx'),
-                                //         'dark' => __('Dark', 'notificationx'),
+                                //         'light'  => __('Light', 'surfalert'),
+                                //         'dark' => __('Dark', 'surfalert'),
                                 //     ]),
                                 //     'rules'   => Rules::logicalRule([
                                 //         Rules::is( 'type', 'gdpr' ),
                                 //     ]),
                                 // ],
                                 [
-                                    'label'            => __("Select Theme", 'notificationx'),
+                                    'label'            => __("Select Theme", 'surfalert'),
                                     'name'             => "gdpr_theme",
                                     'type'             => "better-toggle",
                                     'default'          => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Light', 'notificationx'), 'toggle_label_2' => __('Dark', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Light', 'surfalert'), 'toggle_label_2' => __('Dark', 'surfalert')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -297,7 +297,7 @@ class GlobalFields {
                                 "themes_section" => [
                                     'type'    => 'section',
                                     'name'    => 'themes_section',
-                                    'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated','rules'   => Rules::logicalRule([
+                                    'classes' => SurfAlert::is_pro() ? 'pro-activated' : 'pro-deactivated','rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr', true ),
                                     ]),
                                     'fields'    => [
@@ -310,18 +310,18 @@ class GlobalFields {
                                             'default' => 'for_desktop',
                                             'fields' => [
                                                 'for_desktop'    => [
-                                                    'label'            => __("For Desktop", 'notificationx'),
+                                                    'label'            => __("For Desktop", 'surfalert'),
                                                     'name'             => 'for_desktop',
                                                     'id'               => 'for_desktop',
                                                     'type'             => 'section',
-                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                                    'icon'             => SURFALERT_ADMIN_URL . 'images/responsive/desktop.svg',
                                                 ],
                                                 'for_mobile'      => [
-                                                    'label'            => __("For Mobile", 'notificationx'),
+                                                    'label'            => __("For Mobile", 'surfalert'),
                                                     'type'             => 'section',
                                                     'name'             => 'for_mobile',
                                                     'id'               => 'for_mobile',
-                                                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                                    'icon'             => SURFALERT_ADMIN_URL . 'images/responsive/mobile.svg',
                                                     'rules'   => Rules::logicalRule([
                                                         Rules::is( 'source', ['woocommerce_sales_inline'], true ),
                                                         Rules::includes('type', [ 'notification_bar', 'flashing_tab', 'inline', 'sales_inline', 'offer_announcement', 'custom' ], true),
@@ -336,7 +336,7 @@ class GlobalFields {
                                     'name'             => "themes",
                                     'type'             => "radio-card",
                                     // 'default'          => "conversions_theme-one",
-                                    'options'          => apply_filters('nx_themes', []),
+                                    'options'          => apply_filters('sa_themes', []),
                                     'priority'         => 10,
                                     'style'   => [
                                         'label' => [
@@ -348,34 +348,34 @@ class GlobalFields {
                                         'label'    => "Theme",
                                     ],
                                     'trigger' => [
-                                        'defaults' => apply_filters('nx_themes_trigger', []),
+                                        'defaults' => apply_filters('sa_themes_trigger', []),
                                     ],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is('themes_tab', 'for_desktop'),
                                      ]),
                                 ],
                                 "responsive_themes" => [
-                                    // 'label'  => __("Mobile Responsive Themes", 'notificationx'),
+                                    // 'label'  => __("Mobile Responsive Themes", 'surfalert'),
                                     'name'     => "responsive_themes",
                                     'type'     => "section",
                                     'priority' => 10,
-                                    'classes'  => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'classes'  => SurfAlert::is_pro() ? 'pro-activated' : 'pro-deactivated',
                                     'rules'    => Rules::logicalRule([
                                         Rules::is('themes_tab', 'for_mobile'),
                                     ]),
                                     'fields' => [
                                         'res_get_pro_btn' => array(
                                             'name'    => 'res_get_pro_btn',
-                                            'text'    => __( 'Get PRO to Unlock', 'notificationx' ),
+                                            'text'    => __( 'Get PRO to Unlock', 'surfalert' ),
                                             'type'    => 'button',
-                                            'href'    => esc_url('https://notificationx.com/#pricing'),
+                                            'href'    => esc_url('https://surfalert.com/#pricing'),
                                             'target'  => '_blank',
                                             'classes' => 'res_get_pro_btn',
                                         ),
                                         'responsive_themes' => [
                                             'name'             => "responsive_themes",
                                             'type'             => "radio-card",
-                                            'options'          => apply_filters('nx_res_themes', []),
+                                            'options'          => apply_filters('sa_res_themes', []),
                                             'priority'         => 10,
                                             'style'   => [
                                                 'label' => [
@@ -384,14 +384,14 @@ class GlobalFields {
                                             ],
                                             'validation_rules' => [
                                                 'required' => true,
-                                                'label'    => __("Mobile Responsive Themes",'notificationx'),
+                                                'label'    => __("Mobile Responsive Themes",'surfalert'),
                                             ],
                                             'trigger' => [
-                                                'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
+                                                'defaults' => apply_filters('sa_themes_trigger_for_responsive', []),
                                             ],
                                         ],
                                         'is_mobile_responsive' => [
-                                            'label'    => __("Enable Mobile Responsive", 'notificationx'),
+                                            'label'    => __("Enable Mobile Responsive", 'surfalert'),
                                             'name'     => "is_mobile_responsive",
                                             'type'     => "toggle",
                                             'default'  => true,
@@ -401,14 +401,14 @@ class GlobalFields {
                                     ]
                                 ],
                                 [
-                                    'label'   => __("Position", 'notificationx'),
+                                    'label'   => __("Position", 'surfalert'),
                                     'name'    => "gdpr_position",
                                     'type'    => "select",
                                     'default' => 'cookie_notice_bottom_right',
                                     'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'cookie_notice_bottom_left'  => __('Bottom Left', 'notificationx'),
-                                        'cookie_notice_bottom_right' => __('Bottom Right', 'notificationx'),
-                                        'cookie_notice_center'       => __('Center', 'notificationx'),
+                                        'cookie_notice_bottom_left'  => __('Bottom Left', 'surfalert'),
+                                        'cookie_notice_bottom_right' => __('Bottom Right', 'surfalert'),
+                                        'cookie_notice_center'       => __('Center', 'surfalert'),
                                     ]),
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
@@ -417,13 +417,13 @@ class GlobalFields {
                                     ]),
                                 ],
                                 [
-                                    'label'   => __("Position", 'notificationx'),
+                                    'label'   => __("Position", 'surfalert'),
                                     'name'    => "gdpr_banner_position",
                                     'type'    => "select",
                                     'default' => 'cookie_banner_bottom',
                                     'options' => GlobalFields::get_instance()->normalize_fields([
-                                        'cookie_banner_bottom' => __('Bottom', 'notificationx'),
-                                        'cookie_banner_top'    => __('Top', 'notificationx'),
+                                        'cookie_banner_bottom' => __('Bottom', 'surfalert'),
+                                        'cookie_banner_top'    => __('Top', 'surfalert'),
                                     ]),
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
@@ -431,7 +431,7 @@ class GlobalFields {
                                     ]),
                                 ],
                                 'advance_edit' => [
-                                    'label'    => __("Advanced Design", 'notificationx'),
+                                    'label'    => __("Advanced Design", 'surfalert'),
                                     'name'     => "advance_edit",
                                     'type'     => "toggle",
                                     'default'  => false,
@@ -441,7 +441,7 @@ class GlobalFields {
                             ]
                         ],
                         'advance_design_section' => [
-                            'label' => __('Advanced Design', 'notificationx'),
+                            'label' => __('Advanced Design', 'surfalert'),
                             'type' => 'section',
                             'name' => 'advance_design_section',
                             'dependency_class'  => [
@@ -457,14 +457,14 @@ class GlobalFields {
                              ]),
                             'fields' => [
                                 "advance_edit" => [
-                                    'label'    => __("Advanced Toggle", 'notificationx'),
+                                    'label'    => __("Advanced Toggle", 'surfalert'),
                                     'name'     => "advance_edit",
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 1,
                                 ],
                                 "design" => [
-                                    'label'    => __("Design", 'notificationx'),
+                                    'label'    => __("Design", 'surfalert'),
                                     'name'     => "design",
                                     'type'     => "section",
                                     'priority' => 5,
@@ -472,51 +472,51 @@ class GlobalFields {
                                     // 'rules' => Rules::is( 'advance_edit', true ),
                                     'fields' => [
                                         [
-                                            'label' => __("Background Color", 'notificationx'),
+                                            'label' => __("Background Color", 'surfalert'),
                                             'name'  => "bg_color",
                                             'type'  => "colorpicker",
                                             'default'  => "#fff",
                                         ],
                                         [
-                                            'label' => __("Text Color", 'notificationx'),
+                                            'label' => __("Text Color", 'surfalert'),
                                             'name'  => "text_color",
                                             'type'  => "colorpicker",
                                             'default'  => "#000",
                                         ],
                                         [
-                                            'label'   => __("Want Border?", 'notificationx'),
+                                            'label'   => __("Want Border?", 'surfalert'),
                                             'name'    => "border",
                                             'type'    => "checkbox",
                                             'default' => 0,
                                         ],
                                         [
-                                            'label' => __("Border Size", 'notificationx'),
+                                            'label' => __("Border Size", 'surfalert'),
                                             'name'  => "border_size",
                                             'type'  => "number",
                                             'default' => 1,
                                             'rules' => Rules::is( 'border', true ),
                                         ],
                                         [
-                                            'label'   => __("Border Style", 'notificationx'),
+                                            'label'   => __("Border Style", 'surfalert'),
                                             'name'    => "border_style",
                                             'type'    => "select",
                                             'default' => 'solid',
                                             'options' => $this->normalize_fields([
-                                                'solid'  => __('Solid', 'notificationx'),
-                                                'dashed' => __('Dashed', 'notificationx'),
-                                                'dotted' => __('Dotted', 'notificationx'),
+                                                'solid'  => __('Solid', 'surfalert'),
+                                                'dashed' => __('Dashed', 'surfalert'),
+                                                'dotted' => __('Dotted', 'surfalert'),
                                             ]),
                                             'rules' => Rules::is( 'border', true ),
                                         ],
                                         [
-                                            'label'   => __('Border Color', 'notificationx'),
+                                            'label'   => __('Border Color', 'surfalert'),
                                             'name'    => "border_color",
                                             'type'    => "colorpicker",
                                             'default' => "#000",
                                             'rules'   => Rules::is( 'border', true ),
                                         ],
                                         [
-                                            'label'   => __('Discount Text Color', 'notificationx'),
+                                            'label'   => __('Discount Text Color', 'surfalert'),
                                             'name'    => "discount_text_color",
                                             'type'    => "colorpicker",
                                             'default' => "#fff",
@@ -526,7 +526,7 @@ class GlobalFields {
                                             ]),
                                         ],
                                         [
-                                            'label'   => __('Discount Background', 'notificationx'),
+                                            'label'   => __('Discount Background', 'surfalert'),
                                             'name'    => "discount_background",
                                             'type'    => "colorpicker",
                                             'rules'   => Rules::logicalRule([
@@ -537,87 +537,87 @@ class GlobalFields {
                                     ]
                                 ],
                                 "typography" => [
-                                    'label'    => __('Typography', 'notificationx'),
+                                    'label'    => __('Typography', 'surfalert'),
                                     'name'     => "typography",
                                     'type'     => "section",
                                     'priority' => 10,
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         [
-                                            'label'       => __('Font Size', 'notificationx'),
+                                            'label'       => __('Font Size', 'surfalert'),
                                             'name'        => "first_font_size",
                                             'type'        => "number",
                                             'default'     => '13',
                                             'description' => 'px',
-                                            'help'        => __('This font size will be applied for <mark>first</mark> row', 'notificationx'),
+                                            'help'        => __('This font size will be applied for <mark>first</mark> row', 'surfalert'),
                                         ],
                                         [
-                                            'label'       => __('Font Size', 'notificationx'),
+                                            'label'       => __('Font Size', 'surfalert'),
                                             'name'        => "second_font_size",
                                             'type'        => "number",
                                             'default'     => '14',
                                             'description' => 'px',
-                                            'help'        => __('This font size will be applied for <mark>second</mark> row', 'notificationx'),
+                                            'help'        => __('This font size will be applied for <mark>second</mark> row', 'surfalert'),
                                         ],
                                         [
-                                            'label'       => __('Font Size', 'notificationx'),
+                                            'label'       => __('Font Size', 'surfalert'),
                                             'name'        => "third_font_size",
                                             'type'        => "number",
                                             'default'     => '11',
                                             'description' => 'px',
-                                            'help'        => __('This font size will be applied for <mark>third</mark> row', 'notificationx'),
+                                            'help'        => __('This font size will be applied for <mark>third</mark> row', 'surfalert'),
                                         ],
                                     ]
                                 ],
                                 "image-appearance" => [
-                                    'label'    => __('Image Appearance', 'notificationx'),
+                                    'label'    => __('Image Appearance', 'surfalert'),
                                     'name'     => "image-appearance",
                                     'type'     => "section",
                                     'priority' => 15,
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         'image_shape' => [
-                                            'label'    => __('Image Shape', 'notificationx'),
+                                            'label'    => __('Image Shape', 'surfalert'),
                                             'name'     => "image_shape",
                                             'type'     => "select",
                                             'default'  => 'circle',
                                             'priority' => 5,
                                             'options'  => $this->normalize_fields([
-                                                'circle'  => __('Circle', 'notificationx'),
-                                                'rounded' => __('Rounded', 'notificationx'),
-                                                'square'  => __('Square', 'notificationx'),
+                                                'circle'  => __('Circle', 'surfalert'),
+                                                'rounded' => __('Rounded', 'surfalert'),
+                                                'square'  => __('Square', 'surfalert'),
                                             ]),
                                         ],
                                         'image_position' => [
-                                            'label'   => __('Position', 'notificationx'),
+                                            'label'   => __('Position', 'surfalert'),
                                             'name'    => "image_position",
                                             'type'    => "select",
                                             'default' => 'left',
                                             'priority' => 15,
                                             'options' => $this->normalize_fields([
-                                                'left'  => __('Left', 'notificationx'),
-                                                'right' => __('Right', 'notificationx'),
+                                                'left'  => __('Left', 'surfalert'),
+                                                'right' => __('Right', 'surfalert'),
                                             ]),
                                         ],
                                     ]
                                 ],
                                 "custom_css" => [
-                                    'label'    => __('Custom CSS', 'notificationx'),
+                                    'label'    => __('Custom CSS', 'surfalert'),
                                     'name'     => "custom_css",
                                     'type'     => "section",
                                     'priority' => 150,
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         [
-                                            'label'           => __('Add Custom CSS', 'notificationx'),
+                                            'label'           => __('Add Custom CSS', 'surfalert'),
                                             'name'            => "add_custom_css",
                                             'type'            => "advanced-codeviewer",
-                                            'button_text'     => __( 'Click to Copy', 'notificationx' ),
-                                            'success_text'    => __( 'Copied to clipboard.', 'notificationx' ),
+                                            'button_text'     => __( 'Click to Copy', 'surfalert' ),
+                                            'success_text'    => __( 'Copied to clipboard.', 'surfalert' ),
                                             'is_pro'          => true,
                                             'copyOnClick'     => false,
                                             'priority'        => 5,
-                                            'help'            => __('Use custom CSS to style this Notification.', 'notificationx'),
+                                            'help'            => __('Use custom CSS to style this Notification.', 'surfalert'),
                                         ],
                                     ]
                                 ],
@@ -626,7 +626,7 @@ class GlobalFields {
                     ])
                 ],
                 "content_tab" => [
-                    'label' => __("Content", 'notificationx'),
+                    'label' => __("Content", 'surfalert'),
                     'id'    => "content_tab",
                     'name'  => "content_tab",
                     'icon'  => [
@@ -634,9 +634,9 @@ class GlobalFields {
                         'name' => 'content'
                     ],
                     'classes' => "content_tab",
-                    'fields'  => apply_filters('nx_content_fields', [
+                    'fields'  => apply_filters('sa_content_fields', [
                         "main_preview" => [
-                            'label'  => __("Preview", 'notificationx'),
+                            'label'  => __("Preview", 'surfalert'),
                             'name'   => "main_preview",
                             'type'   => "section",
                             'priority' => 1,
@@ -644,7 +644,7 @@ class GlobalFields {
                                 'preview_field' => [
                                     'name'     => "preview_field",
                                     'type'     => "preview",
-                                    'label'    => __('Preview', 'notificationx'),
+                                    'label'    => __('Preview', 'surfalert'),
                                     'priority' => 10,
                                 ],
                             ],
@@ -652,108 +652,108 @@ class GlobalFields {
                                 Rules::is( 'type', 'notification_bar' ),
                             ]),
                         ],
-                       'content' => apply_filters('nx_content_field', [
-                            'label'    => __("Content", 'notificationx'),
+                       'content' => apply_filters('sa_content_field', [
+                            'label'    => __("Content", 'surfalert'),
                             'name'     => "content",
                             'type'     => "section",
                             'priority' => 90,
                             'fields'   => [
                                 "notification-template" => [
-                                    'label'    => __("Notification Template", 'notificationx'),
+                                    'label'    => __("Notification Template", 'surfalert'),
                                     'name'     => "notification-template",
                                     'type'     => "group",
                                     'display'  => 'inline',
                                     'priority' => 90,
-                                    'fields'   => apply_filters('nx_notification_template',  [
+                                    'fields'   => apply_filters('sa_notification_template',  [
                                         "first_param" => [
-                                            // 'label' => __("First Parameter", 'notificationx'),
+                                            // 'label' => __("First Parameter", 'surfalert'),
                                             'name'     => "first_param",
                                             'type'     => "select",
                                             'priority' => 3,
                                             'default'    => 'tag_name',
                                             'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
+                                                'tag_custom' => __('Custom', 'surfalert'),
                                             ]),
                                         ],
                                         "custom_first_param" => [
-                                            // 'label' => __("Custom First Parameter", 'notificationx'),
+                                            // 'label' => __("Custom First Parameter", 'surfalert'),
                                             'name'     => "custom_first_param",
                                             'type'     => "text",
                                             'priority' => 5,
-                                            'default'    => __('Someone', 'notificationx'),
+                                            'default'    => __('Someone', 'surfalert'),
                                             'rules'    => Rules::is( 'notification-template.first_param', 'tag_custom' ),
                                         ],
                                         "second_param" => [
-                                            // 'label' => __("Second Param", 'notificationx'),
+                                            // 'label' => __("Second Param", 'surfalert'),
                                             'name'     => "second_param",
                                             'type'     => "text",
                                             'priority' => 10,
-                                            'default'    => __('recently purchased', 'notificationx'),
+                                            'default'    => __('recently purchased', 'surfalert'),
                                         ],
                                         "third_param" => [
-                                            // 'label' => __("Third Parameter", 'notificationx'),
+                                            // 'label' => __("Third Parameter", 'surfalert'),
                                             'name'     => "third_param",
                                             'type'     => "select",
                                             'priority' => 20,
                                             'default'    => 'tag_title',
                                             'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
+                                                'tag_custom' => __('Custom', 'surfalert'),
                                             ]),
                                         ],
                                         "custom_third_param" => [
-                                            // 'label' => __("Custom Third Param", 'notificationx'),
+                                            // 'label' => __("Custom Third Param", 'surfalert'),
                                             'name'     => "custom_third_param",
                                             'type'     => "text",
                                             'priority' => 25,
-                                            'default'    => __('Some time ago', 'notificationx'),
+                                            'default'    => __('Some time ago', 'surfalert'),
                                             'rules'    => Rules::is( 'notification-template.third_param', 'tag_custom' ),
                                         ],
                                         "fourth_param" => [
-                                            // 'label' => __("Fourth Parameter", 'notificationx'),
+                                            // 'label' => __("Fourth Parameter", 'surfalert'),
                                             'name'     => "fourth_param",
                                             'type'     => "select",
                                             'priority' => 30,
                                             'default'    => 'tag_time',
                                             'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
+                                                'tag_custom' => __('Custom', 'surfalert'),
                                             ]),
                                         ],
                                         "custom_fourth_param" => [
-                                            // 'label' => __("Custom Fourth Parameter", 'notificationx'),
+                                            // 'label' => __("Custom Fourth Parameter", 'surfalert'),
                                             'name'     => "custom_fourth_param",
                                             'type'     => "text",
                                             'priority' => 35,
-                                            'default'    => __('Some time ago', 'notificationx'),
+                                            'default'    => __('Some time ago', 'surfalert'),
                                             'rules'    => Rules::is( 'notification-template.fourth_param', 'tag_custom' ),
                                         ],
                                         "fifth_param" => [
-                                            // 'label' => __("Fifth Parameter", 'notificationx'),
+                                            // 'label' => __("Fifth Parameter", 'surfalert'),
                                             'name'     => "fifth_param",
                                             'type'     => "select",
                                             'priority' => 40,
                                             'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
+                                                'tag_custom' => __('Custom', 'surfalert'),
                                             ]),
                                         ],
                                         "custom_fifth_param" => [
-                                            // 'label' => __("Custom Fifth Parameter", 'notificationx'),
+                                            // 'label' => __("Custom Fifth Parameter", 'surfalert'),
                                             'name'     => "custom_fifth_param",
                                             'type'     => "text",
                                             'priority' => 45,
                                             'rules'    => Rules::is( 'notification-template.fifth_param', 'tag_custom' ),
                                         ],
                                         "sixth_param" => [
-                                            // 'label' => __("Sixth Parameter", 'notificationx'),
+                                            // 'label' => __("Sixth Parameter", 'surfalert'),
                                             'name'     => "sixth_param",
                                             'type'     => "select",
                                             'priority' => 50,
                                             // 'default'    => 'tag_custom',
                                             'options'  => $this->normalize_fields([
-                                                'tag_custom' => __('Custom', 'notificationx'),
+                                                'tag_custom' => __('Custom', 'surfalert'),
                                             ]),
                                         ],
                                         "custom_sixth_param" => [
-                                            // 'label' => __("Custom Sixth Parameter", 'notificationx'),
+                                            // 'label' => __("Custom Sixth Parameter", 'surfalert'),
                                             'name'     => "custom_sixth_param",
                                             'type'     => "text",
                                             'priority' => 55,
@@ -761,10 +761,10 @@ class GlobalFields {
                                         ],
 
                                     ]),
-                                    'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_dependency', []) ),
+                                    'rules' => Rules::includes( 'source', apply_filters('sa_notification_template_dependency', []) ),
                                 ],
                                 'template_adv' => [
-                                    'label'    => __("Advanced Template", 'notificationx'),
+                                    'label'    => __("Advanced Template", 'surfalert'),
                                     'name'     => "template_adv",
                                     'type'     => "toggle",
                                     'default'  => false,
@@ -774,22 +774,22 @@ class GlobalFields {
                                 'advanced_template' => [
                                     'name'     => 'advanced_template',
                                     'type'     => 'advanced-template',
-                                    'label'    => __('Advanced Template', 'notificationx'),
+                                    'label'    => __('Advanced Template', 'surfalert'),
                                     'priority' => 92,
                                     'rules'    => ['is', 'template_adv', true],
                                 ],
                                 'random_order' => array(
                                     'name'        => 'random_order',
-                                    'label'       => __('Random Order', 'notificationx'),
+                                    'label'       => __('Random Order', 'surfalert'),
                                     'type'        => 'checkbox',
                                     'priority'    => 93,
                                     'default'     => 0,
                                     'is_pro'      => true,
-                                    'description' => __('Enable to show notification in random order.', 'notificationx'),
+                                    'description' => __('Enable to show notification in random order.', 'surfalert'),
                                     'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'product_control' => array(
-                                    'label'    => __('Show Purchase Of', 'notificationx'),
+                                    'label'    => __('Show Purchase Of', 'surfalert'),
                                     'name'     => 'product_control',
                                     'type'     => 'select',
                                     'priority' => 94,
@@ -797,31 +797,31 @@ class GlobalFields {
                                     'is_pro'   => true,
                                     'disable' => true,
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
-                                        'none'             => __('All', 'notificationx'),
-                                        'product_category' => __('Product Category', 'notificationx'),
-                                        'manual_selection' => __('Selected Product', 'notificationx'),
+                                        'none'             => __('All', 'surfalert'),
+                                        'product_category' => __('Product Category', 'surfalert'),
+                                        'manual_selection' => __('Selected Product', 'surfalert'),
                                     ]),
                                     'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'category_list' => array(
-                                    'label'    => __('Select Product Category', 'notificationx'),
+                                    'label'    => __('Select Product Category', 'surfalert'),
                                     'name'     => 'category_list',
                                     'type'     => 'select',
                                     'multiple' => true,
                                     'priority' => 95,
-                                    'options'  => apply_filters('nx_conversion_category_list', []),
+                                    'options'  => apply_filters('sa_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_control', 'product_category' ),
                                     ]),
                                 ),
                                 'product_list' => array(
-                                    'label'    => __('Select Product', 'notificationx'),
+                                    'label'    => __('Select Product', 'surfalert'),
                                     'name'     => 'product_list',
                                     'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 96,
-                                    'options'  => apply_filters('nx_conversion_product_list', [
+                                    'options'  => apply_filters('sa_conversion_product_list', [
                                         [
                                             'label'    => "Type for more result...",
                                             'value'    => null,
@@ -833,7 +833,7 @@ class GlobalFields {
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
-                                        'api'  => "/notificationx/v1/get-data",
+                                        'api'  => "/surfalert/v1/get-data",
                                         'data' => [
                                             'type'   => "@type",
                                             'source' => "@source",
@@ -847,7 +847,7 @@ class GlobalFields {
                                     ],
                                 ),
                                 'product_exclude_by' => array(
-                                    'label'    => __('Exclude By', 'notificationx'),
+                                    'label'    => __('Exclude By', 'surfalert'),
                                     'name'     => 'product_exclude_by',
                                     'type'     => 'select',
                                     'priority' => 97,
@@ -855,31 +855,31 @@ class GlobalFields {
                                     'is_pro'   => true,
                                     'disable' => true,
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
-                                        'none'             => __('None', 'notificationx'),
-                                        'product_category' => __('Product Category', 'notificationx'),
-                                        'manual_selection' => __('Selected Product', 'notificationx'),
+                                        'none'             => __('None', 'surfalert'),
+                                        'product_category' => __('Product Category', 'surfalert'),
+                                        'manual_selection' => __('Selected Product', 'surfalert'),
                                     ]),
                                     'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'exclude_categories' => array(
-                                    'label'    => __('Select Product Category', 'notificationx'),
+                                    'label'    => __('Select Product Category', 'surfalert'),
                                     'name'     => 'exclude_categories',
                                     'type'     => 'select',
                                     'multiple' => true,
                                     'priority' => 98,
-                                    'options'  => apply_filters('nx_conversion_category_list', []),
+                                    'options'  => apply_filters('sa_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                         Rules::is( 'product_exclude_by', 'product_category' ),
                                     ]),
                                 ),
                                 'exclude_products' => array(
-                                    'label'    => __('Select Product', 'notificationx'),
+                                    'label'    => __('Select Product', 'surfalert'),
                                     'name'     => 'exclude_products',
                                     'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 99,
-                                    'options'  => apply_filters('nx_conversion_product_list', [
+                                    'options'  => apply_filters('sa_conversion_product_list', [
                                         [
                                             'label'    => "Type for more result...",
                                             'value'    => null,
@@ -891,7 +891,7 @@ class GlobalFields {
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
-                                        'api'  => "/notificationx/v1/get-data",
+                                        'api'  => "/surfalert/v1/get-data",
                                         'data' => [
                                             'type'   => "@type",
                                             'source' => "@source",
@@ -904,7 +904,7 @@ class GlobalFields {
                                     ],
                                 ),
                                 'order_status'  => array(
-                                    'label'    => __('Order Status', 'notificationx'),
+                                    'label'    => __('Order Status', 'surfalert'),
                                     'name'     => 'order_status',
                                     'type'     => 'select',
                                     'multiple' => true,
@@ -912,7 +912,7 @@ class GlobalFields {
                                     'priority' => 99.5,
                                     'default'  => ['wc-completed', 'wc-processing'],
                                     'help'     => __("By default it will show Processing & Completed status."),
-                                    'options'  => apply_filters('nx_woo_order_status', []),
+                                    'options'  => apply_filters('sa_woo_order_status', []),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline","woocommerce_sales_inline"]),
                                         Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
@@ -920,7 +920,7 @@ class GlobalFields {
 
                                 ),
                                 'surecart_order_status'  => array(
-                                    'label'    => __('Order Status', 'notificationx'),
+                                    'label'    => __('Order Status', 'surfalert'),
                                     'name'     => 'surecart_order_status',
                                     'type'     => 'select',
                                     'multiple' => true,
@@ -928,18 +928,18 @@ class GlobalFields {
                                     'priority' => 99.6,
                                     'default'  => ['processing','fulfilled'],
                                     'help'     => __("By default it will show Processing & Fulfilled status."),
-                                    'options'  => apply_filters('nx_surecart_order_status', []),
+                                    'options'  => apply_filters('sa_surecart_order_status', []),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
                                     ]),
                                 ),
                                 'combine_multiorder' => [
-                                    'label'       => __('Combine Multi Order', 'notificationx'),
+                                    'label'       => __('Combine Multi Order', 'surfalert'),
                                     'name'        => 'combine_multiorder',
                                     'type'        => 'checkbox',
                                     'priority'    => 99.7,
                                     'default'     => true,
-                                    'description' => __('Combine order like, 2 more products.', 'notificationx'),
+                                    'description' => __('Combine order like, 2 more products.', 'surfalert'),
                                     'rules' => Rules::logicalRule([
                                         Rules::is('notification-template.first_param', 'tag_sales_count', true),
                                         Rules::includes('source', [ 'woocommerce', 'edd', 'woocommerce_sales' ]),
@@ -947,31 +947,31 @@ class GlobalFields {
                                 ],
                             ],
                         ]),
-                        'gdpr_content' => apply_filters('nx_content_gdpr', [
-                            'label'    => __("Cookies Content", 'notificationx'),
+                        'gdpr_content' => apply_filters('sa_content_gdpr', [
+                            'label'    => __("Cookies Content", 'surfalert'),
                             'name'     => "content",
                             'type'     => "section",
                             'priority' => 95,
-                            'fields'   => apply_filters('nx_content_fields_gdpr', []),
+                            'fields'   => apply_filters('sa_content_fields_gdpr', []),
                             'rules'    => Rules::is('type', 'gdpr' ),
                         ]),
                         'link_options' => [
-                            'label'    => __('Link Options', 'notificationx'),
+                            'label'    => __('Link Options', 'surfalert'),
                             'name'     => "link_options",
                             'type'     => "section",
                             'priority' => 105,
                             'fields'   => [
                                 "link_type" => [
-                                    'label'   => __("Link Type", 'notificationx'),
+                                    'label'   => __("Link Type", 'surfalert'),
                                     'name'    => "link_type",
                                     'type'    => "select",
                                     'default'   => 'none',
-                                    'options' => apply_filters('nx_link_types', $this->normalize_fields([
-                                        'none' => __('None', 'notificationx'),
+                                    'options' => apply_filters('sa_link_types', $this->normalize_fields([
+                                        'none' => __('None', 'surfalert'),
                                     ])),
                                 ],
                                 'link_button' => [
-                                    'label'       => __('Button', 'notificationx'),
+                                    'label'       => __('Button', 'surfalert'),
                                     'name'        => 'link_button',
                                     'type'        => 'checkbox',
                                     'priority'    => 100,
@@ -983,23 +983,23 @@ class GlobalFields {
                                     //     'youtube_video-3'   => true,
                                     //     'youtube_video-4'   => true,
                                     // ],
-                                    'description' => __('Enable button with link', 'notificationx'),
+                                    'description' => __('Enable button with link', 'surfalert'),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
                                     ]),
                                 ],
                             ],
-                            // must be called after nx_link_types filter.
+                            // must be called after sa_link_types filter.
                             'rules'   => Rules::logicalRule([
-                                [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                                [ 'includes', 'source', apply_filters('sa_link_types_dependency', []) ],
                                 Rules::is( 'type', 'gdpr', true ),
                             ]),
                         ],
                     ]),
                 ],
                 "manager_tab" => [
-                    'label' => __("Manager", 'notificationx'),
+                    'label' => __("Manager", 'surfalert'),
                     'id'    => "manager_tab",
                     'name'  => "manager_tab",
                     'rules' => Rules::is('type', 'gdpr'),
@@ -1008,9 +1008,9 @@ class GlobalFields {
                         'name' => 'manager'
                     ],
                     'classes' => "manager_tab",
-                    'fields'  => apply_filters('nx_manager_fields', [
+                    'fields'  => apply_filters('sa_manager_fields', [
                         "main_preview" => [
-                            'label'  => __("Preview", 'notificationx'),
+                            'label'  => __("Preview", 'surfalert'),
                             'name'   => "main_preview",
                             'type'   => "section",
                             'priority' => 1,
@@ -1018,7 +1018,7 @@ class GlobalFields {
                                 'preview_field' => [
                                     'name'     => "preview_field",
                                     'type'     => "preview",
-                                    'label'    => __('Preview', 'notificationx'),
+                                    'label'    => __('Preview', 'surfalert'),
                                     'priority' => 10,
                                 ],
                             ],
@@ -1027,39 +1027,39 @@ class GlobalFields {
                             ]),
                         ],
                         'general_settngs'  => [
-                            'label' => __("General Settings", 'notificationx'),
+                            'label' => __("General Settings", 'surfalert'),
                             'id'    => "general_settngs",
                             'name'  => "general_settngs",
                             'type'  => 'section',
                             'fields'=> [
                                 'gdpr_force_reload' => [
-                                    'label'   => __("Force Reload", 'notificationx'),
+                                    'label'   => __("Force Reload", 'surfalert'),
                                     'name'    => "gdpr_force_reload",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'surfalert'), 'toggle_label_2' => __('', 'surfalert')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load', 'notificationx'),
+                                    'info'    => __('Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load', 'surfalert'),
                                 ],
                                 'gdpr_cookie_removal' => [
-                                    'label'   => __("Cookie Removal", 'notificationx'),
+                                    'label'   => __("Cookie Removal", 'surfalert'),
                                     'name'    => "gdpr_cookie_removal",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'surfalert'), 'toggle_label_2' => __('', 'surfalert')],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements.', 'notificationx'),
+                                    'info'    => __('When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements.', 'surfalert'),
                                 ],
                                 'gdpr_consent_expiry' => [
-                                    'label'   => __("Consent Expiry", 'notificationx'),
+                                    'label'   => __("Consent Expiry", 'surfalert'),
                                     'name'    => "gdpr_consent_expiry",
                                     'type'    => "number",
                                     'min'     => 1,
-                                    'description' => __('Days', 'notificationx'),
+                                    'description' => __('Days', 'surfalert'),
                                     'default' => 30,
                                     'suggestions' => [
                                         [
@@ -1082,7 +1082,7 @@ class GlobalFields {
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
-                                    'info'    => __('By default, consent expires after 30 days. If needed, you can adjust this number to your preference', 'notificationx'),
+                                    'info'    => __('By default, consent expires after 30 days. If needed, you can adjust this number to your preference', 'surfalert'),
                                 ],
                             ]
                         ],
@@ -1114,7 +1114,7 @@ class GlobalFields {
                                     'dataShare' => true,
                                     'fields' => [
                                         'necessary_tab'    => [
-                                            'label'            => __("Necessary", 'notificationx'),
+                                            'label'            => __("Necessary", 'surfalert'),
                                             'name'             => 'necessary_tab',
                                             'id'               => 'necessary_tab',
                                             'type'             => 'section',
@@ -1130,7 +1130,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1145,7 +1145,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "necessary_close_tab_info_modal",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title'       => Helper::tab_info_title('necessary', 'Necessary'),
                                                             'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.'),
@@ -1153,13 +1153,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'necessary_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => __('', 'surfalert'),
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'   => [
-                                                        'label'    => __('Add New', 'notificationx'),
+                                                        'label'    => __('Add New', 'surfalert'),
                                                         'position' => 'top',
                                                     ],
                                                     'default'        => Helper::default_cookie_list(),
@@ -1169,7 +1169,7 @@ class GlobalFields {
                                             ],
                                         ],
                                         'functional_tab'      => [
-                                            'label'            => __("Functional", 'notificationx'),
+                                            'label'            => __("Functional", 'surfalert'),
                                             'type'             => 'section',
                                             'name'             => 'functional_tab',
                                             'id'               => 'functional_tab',
@@ -1185,7 +1185,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1200,7 +1200,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "functional_close_tab_info_modal",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('functional', 'Functional'),
                                                             'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.'),
@@ -1208,13 +1208,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'functional_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => __('', 'surfalert-pro'),
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'surfalert-pro'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1223,7 +1223,7 @@ class GlobalFields {
                                             ],
                                         ],
                                         'analytics_tab'      => [
-                                            'label'            => __("Analytics", 'notificationx'),
+                                            'label'            => __("Analytics", 'surfalert'),
                                             'type'             => 'section',
                                             'name'             => 'analytics_tab',
                                             'id'               => 'analytics_tab',
@@ -1239,7 +1239,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1254,7 +1254,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "analytics_close_tab_info_modal",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
                                                             'tab_description' => Helper::tab_info_desc('analytics', 'Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.'),
@@ -1262,13 +1262,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'analytics_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => __('', 'surfalert-pro'),
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'surfalert-pro'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1277,7 +1277,7 @@ class GlobalFields {
                                             ],
                                         ],
                                         'performance_tab'      => [
-                                            'label'            => __("Performance", 'notificationx'),
+                                            'label'            => __("Performance", 'surfalert'),
                                             'type'             => 'section',
                                             'name'             => 'performance_tab',
                                             'id'               => 'performance_tab',
@@ -1293,7 +1293,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1308,7 +1308,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "performance_close_tab_info_modal",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('performance', 'Performance'),
                                                             'tab_description' => Helper::tab_info_desc('performance', "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
@@ -1316,13 +1316,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'performance_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => __('', 'surfalert-pro'),
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'surfalert-pro'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1331,7 +1331,7 @@ class GlobalFields {
                                             ],
                                         ],
                                         'advertisement_tab'      => [
-                                            'label'            => __("Advertisement", 'notificationx'),
+                                            'label'            => __("Advertisement", 'surfalert'),
                                             'type'             => 'section',
                                             'name'             => 'advertisement_tab',
                                             'id'               => 'advertisement_tab',
@@ -1347,7 +1347,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1362,7 +1362,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "advertising_close_tab_info_modal",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('advertising', 'Advertisement'),
                                                             'tab_description' => Helper::tab_info_desc('advertising', "Advertisement cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
@@ -1370,13 +1370,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'advertising_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => __('', 'surfalert-pro'),
                                                     'name'     => 'advertising_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'surfalert-pro'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1385,7 +1385,7 @@ class GlobalFields {
                                             ],
                                         ],
                                         'uncategorized_tab'      => [
-                                            'label'            => __("Uncategorized", 'notificationx'),
+                                            'label'            => __("Uncategorized", 'surfalert'),
                                             'type'             => 'section',
                                             'name'             => 'uncategorized_tab',
                                             'id'               => 'uncategorized_tab',
@@ -1401,7 +1401,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => __(' ', 'surfalert'),
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1416,7 +1416,7 @@ class GlobalFields {
                                                     ],
                                                     'cancel' => "uncategorized_close_tab_info",
                                                     'body'   => [
-                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'header' => __('Edit Category ', 'surfalert'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
                                                             'tab_description' => Helper::tab_info_desc('uncategorized', "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."),
@@ -1424,13 +1424,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'uncategorized_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => __('', 'surfalert-pro'),
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
-                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'placeholder_img'=> SURFALERT_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'surfalert-pro'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1445,7 +1445,7 @@ class GlobalFields {
                     ]),
                 ],
                 "display_tab" => [
-                    'label' => __("Display", 'notificationx'),
+                    'label' => __("Display", 'surfalert'),
                     'id'    => "display_tab",
                     'name'  => "display_tab",
                     'rules' => Rules::is('type', 'gdpr', true),
@@ -1454,9 +1454,9 @@ class GlobalFields {
                         'name' => 'display'
                     ],
                     'classes' => "display_tab",
-                    'fields'  => apply_filters('nx_display_fields', [
+                    'fields'  => apply_filters('sa_display_fields', [
                         "main_preview" => [
-                            'label'  => __("Preview", 'notificationx'),
+                            'label'  => __("Preview", 'surfalert'),
                             'name'   => "main_preview",
                             'type'   => "section",
                             'priority' => 1,
@@ -1464,7 +1464,7 @@ class GlobalFields {
                                 'preview_field' => [
                                     'name'     => "preview_field",
                                     'type'     => "preview",
-                                    'label'    => __('Preview', 'notificationx'),
+                                    'label'    => __('Preview', 'surfalert'),
                                     'priority' => 10,
                                 ],
                             ],
@@ -1473,7 +1473,7 @@ class GlobalFields {
                             ]),
                         ],
                         "image-section" => [
-                            'label' => __("IMAGE", 'notificationx'),
+                            'label' => __("IMAGE", 'surfalert'),
                             'name'  => "image-section",
                             'type'  => "section",
                             // 'condition' => [
@@ -1481,17 +1481,17 @@ class GlobalFields {
                             // ],
                             'fields' => [
                                 'show_default_image' => [
-                                    'label' => __("Show Default Image", 'notificationx'),
+                                    'label' => __("Show Default Image", 'surfalert'),
                                     'name'  => "show_default_image",
                                     'type'  => "checkbox",
                                     'default' => false,
                                 ],
                                 'default_avatar' => [
-                                    'label'       =>__( "Choose an Image", 'notificationx'),
+                                    'label'       =>__( "Choose an Image", 'surfalert'),
                                     'name'        => "default_avatar",
                                     'type'        => "radio-card",
                                     'default'     => "verified.svg",
-                                    'description' => __('If checked, this will show in notifications.', 'notificationx'),
+                                    'description' => __('If checked, this will show in notifications.', 'surfalert'),
                                     'rules'       => Rules::is( 'show_default_image', true ),
                                     'style'       => [
                                         'size' => 'medium'
@@ -1499,42 +1499,42 @@ class GlobalFields {
                                     'options'     => array(
                                         array(
                                             'value' => 'verified.svg',
-                                            'label' => __('Verified', 'notificationx'),
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/verified.svg',
+                                            'label' => __('Verified', 'surfalert'),
+                                            'icon'  => SURFALERT_PUBLIC_URL . 'image/icons/verified.svg',
                                         ),
                                         array(
                                             'value' => 'flames.svg',
-                                            'label' => __('Flames', 'notificationx'),
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/flames.svg',
+                                            'label' => __('Flames', 'surfalert'),
+                                            'icon'  => SURFALERT_PUBLIC_URL . 'image/icons/flames.svg',
                                         ),
                                         array(
                                             'value' => 'flames.gif',
-                                            'label' => __('Flames GIF', 'notificationx'),
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/flames.gif',
+                                            'label' => __('Flames GIF', 'surfalert'),
+                                            'icon'  => SURFALERT_PUBLIC_URL . 'image/icons/flames.gif',
                                         ),
                                         array(
                                             'value' => 'pink-face-looped.gif',
-                                            'label' => __('Pink Face', 'notificationx'),
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                                            'label' => __('Pink Face', 'surfalert'),
+                                            'icon'  => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                                         ),
                                         array(
                                             'value' => 'blue-face-non-looped.gif',
-                                            'label' => __('Blue Face', 'notificationx'),
-                                            'icon'  => NOTIFICATIONX_PUBLIC_URL . 'image/icons/blue-face-non-looped.gif',
+                                            'label' => __('Blue Face', 'surfalert'),
+                                            'icon'  => SURFALERT_PUBLIC_URL . 'image/icons/blue-face-non-looped.gif',
                                         ),
                                         //TODO: none
                                     )
                                 ],
                                 [
-                                    'label' => __("Upload an Image", 'notificationx'),
+                                    'label' => __("Upload an Image", 'surfalert'),
                                     'name'  => "image_url",
-                                    'button'  => __('Upload', 'notificationx'),
+                                    'button'  => __('Upload', 'surfalert'),
                                     'type'  => "media",
                                     'default' => "",
                                     'rules' => Rules::is( 'show_default_image', true ),
                                 ],
                                 'show_notification_image' => [
-                                    'label'   => __("Image", 'notificationx'),
+                                    'label'   => __("Image", 'surfalert'),
                                     'name'    => "show_notification_image",
                                     'type'    => "select",
                                     'default' => "none",
@@ -1568,14 +1568,14 @@ class GlobalFields {
                                         "woocommerce_sales",
                                         'woocommerce_sales_reviews',
                                     ] ),
-                                    'options' => apply_filters('nx_show_image_options', array(
+                                    'options' => apply_filters('sa_show_image_options', array(
                                         'none'           => [
                                             'value' => 'none',
-                                            'label' => __('None', 'notificationx'),
+                                            'label' => __('None', 'surfalert'),
                                         ],
                                         'featured_image' => [
                                             'value' => 'featured_image',
-                                            'label' => __('Featured Image', 'notificationx'),
+                                            'label' => __('Featured Image', 'surfalert'),
                                             'rules'  => [
                                                 'includes',
                                                 'source',
@@ -1608,7 +1608,7 @@ class GlobalFields {
                                         'gravatar'       => [
                                             // @todo move the rules to a filter.
                                             'value' => 'gravatar',
-                                            'label' => __('Gravatar', 'notificationx'),
+                                            'label' => __('Gravatar', 'surfalert'),
                                             'rules'  => [
                                                 'includes',
                                                 'source',[
@@ -1646,24 +1646,24 @@ class GlobalFields {
                             ],
                         ],
                         "visibility" => [
-                            'label'  => __("Visibility", 'notificationx'),
+                            'label'  => __("Visibility", 'surfalert'),
                             'name'   => "visibility",
                             'type'   => "section",
                             'fields' => [
                                 "show_on" => [
-                                    'label'    => __("Show On", 'notificationx'),
+                                    'label'    => __("Show On", 'surfalert'),
                                     'name'     => "show_on",
                                     'type'     => "select",
                                     'default'  => "everywhere",
                                     'priority' => 5,
-                                    'options'  => apply_filters('nx_show_on_options', $this->normalize_fields([
-                                        'everywhere'       => __('Show Everywhere', 'notificationx'),
-                                        'on_selected'      => __('Show On Selected', 'notificationx'),
-                                        'hide_on_selected' => __('Hide On Selected', 'notificationx'),
+                                    'options'  => apply_filters('sa_show_on_options', $this->normalize_fields([
+                                        'everywhere'       => __('Show Everywhere', 'surfalert'),
+                                        'on_selected'      => __('Show On Selected', 'surfalert'),
+                                        'hide_on_selected' => __('Hide On Selected', 'surfalert'),
                                     ])),
                                 ],
                                 "all_locations" => [
-                                    'label'    => __("Locations", 'notificationx'),
+                                    'label'    => __("Locations", 'surfalert'),
                                     'name'     => "all_locations",
                                     'type'     => "select",
                                     'default'    => "",
@@ -1676,24 +1676,24 @@ class GlobalFields {
                                     'options' => $this->normalize_fields(Locations::get_instance()->get_locations()),
                                 ],
                                 "show_on_display" => [
-                                    'label'    => __("Display For", 'notificationx'),
+                                    'label'    => __("Display For", 'surfalert'),
                                     'name'     => "show_on_display",
                                     'type'     => "select",
                                     'default'    => "always",
                                     'priority' => 15,
                                     'options'  => $this->normalize_fields([
-                                        'always'          => __('Everyone', 'notificationx'),
-                                        'logged_out_user' => __('Logged Out User', 'notificationx'),
-                                        'logged_in_user'  => __('Logged In User', 'notificationx'),
+                                        'always'          => __('Everyone', 'surfalert'),
+                                        'logged_out_user' => __('Logged Out User', 'surfalert'),
+                                        'logged_in_user'  => __('Logged In User', 'surfalert'),
                                     ]),
-                                    'help' => sprintf('<a target="_blank" rel="nofollow" href="https://notificationx.com/in/pro-display-control">%s</a>', __('More Control in Pro', 'notificationx')),
+                                    'help' => sprintf('<a target="_blank" rel="nofollow" href="https://surfalert.com/in/pro-display-control">%s</a>', __('More Control in Pro', 'surfalert')),
                                 ],
                             ],
                         ],
                     ]),
                 ],
                 "customize_tab" => [
-                    'label' => __("Customize", 'notificationx'),
+                    'label' => __("Customize", 'surfalert'),
                     'id'    => "customize_tab",
                     'name'  => "customize_tab",
                     'icon'  => [
@@ -1701,9 +1701,9 @@ class GlobalFields {
                         'name' => 'customize'
                     ],
                     'classes' => "customize_tab",
-                    'fields'  => apply_filters('nx_customize_fields', [
+                    'fields'  => apply_filters('sa_customize_fields', [
                         "main_preview" => [
-                            'label'  => __("Preview", 'notificationx'),
+                            'label'  => __("Preview", 'surfalert'),
                             'name'   => "main_preview",
                             'type'   => "section",
                             'priority' => 1,
@@ -1711,7 +1711,7 @@ class GlobalFields {
                                 'preview_field' => [
                                     'name'     => "preview_field",
                                     'type'     => "preview",
-                                    'label'    => __('Preview', 'notificationx'),
+                                    'label'    => __('Preview', 'surfalert'),
                                     'priority' => 10,
                                 ],
                             ],
@@ -1720,47 +1720,47 @@ class GlobalFields {
                             ]),
                         ],
                         'appearance' => [
-                            'label'  => __("Appearance", 'notificationx'),
+                            'label'  => __("Appearance", 'surfalert'),
                             'name'   => "appearance",
                             'type'   => "section",
                             'fields' => [
                                 'position' => [
-                                    'label'    => __("Position", 'notificationx'),
+                                    'label'    => __("Position", 'surfalert'),
                                     'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
                                     'type'     => "select",
                                     'default'  => 'bottom_left',
                                     'priority' => 50,
                                     'options'  => [
                                         'bottom_left' => [
-                                            'label' => __('Bottom Left', 'notificationx'),
+                                            'label' => __('Bottom Left', 'surfalert'),
                                             'value' => 'bottom_left',
                                         ],
                                         'bottom_right' => [
-                                            'label' => __('Bottom Right', 'notificationx'),
+                                            'label' => __('Bottom Right', 'surfalert'),
                                             'value' => 'bottom_right',
                                         ],
                                     ],
                                 ],
                                 'close_icon_position' => [
-                                    'label'    => __("Close Icon Position", 'notificationx'),
+                                    'label'    => __("Close Icon Position", 'surfalert'),
                                     'name'     => "close_icon_position",
                                     'type'     => "select",
                                     'default'    => 'top_right',
                                     'priority' => 51,
                                     'options'  => [
                                         'top_right' => [
-                                            'label' => __('Top Right', 'notificationx'),
+                                            'label' => __('Top Right', 'surfalert'),
                                             'value' => 'top_right',
                                         ],
                                         'top_left' => [
-                                            'label' => __('Top Left', 'notificationx'),
+                                            'label' => __('Top Left', 'surfalert'),
                                             'value' => 'top_left',
                                         ]
                                     ],
                                     'rules'       => Rules::includes('source', ['press_bar']),
                                 ],
                                 'size' => [
-                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'label'   => __("Notification Size", 'surfalert'),
                                     'name'    => "size",
                                     'type'    => "responsive-number",
                                     'default' => [
@@ -1772,62 +1772,62 @@ class GlobalFields {
                                     'min'      => 300,
                                     'controls' => [
                                         "desktop" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/desktop.svg',
                                             'size' => 18,
                                         ],
                                         "tablet" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/tablet.svg',
                                             'size' => 14,
                                         ],
                                         "mobile" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/mobile.svg',
                                             'size' => 12,
                                         ],
                                     ],
-                                    'help' => __('Set a max width for notification.', 'notificationx'),
+                                    'help' => __('Set a max width for notification.', 'surfalert'),
                                 ],
                                 'close_button' => [
-                                    'label'       => __("Display Close Option", 'notificationx'),
+                                    'label'       => __("Display Close Option", 'surfalert'),
                                     'name'        => "close_button",
                                     'type'        => "checkbox",
                                     'default'     => 1,
                                     'priority'    => 70,
-                                    'description' => __('Display a close button.', 'notificationx'),
+                                    'description' => __('Display a close button.', 'surfalert'),
                                 ],
                                 'hide_on_mobile' => [
-                                    'label'       => __("Mobile Visibility", 'notificationx'),
+                                    'label'       => __("Mobile Visibility", 'surfalert'),
                                     'name'        => "hide_on_mobile",
                                     'type'        => "checkbox",
                                     'default'     => false,
                                     'priority'    => 200,
-                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                    'description' => __('Hide SurfAlert on mobile.', 'surfalert'),
                                 ],
                             ]
                         ],
                         'appearance' => [
-                            'label'  => __("Appearance", 'notificationx'),
+                            'label'  => __("Appearance", 'surfalert'),
                             'name'   => "appearance",
                             'type'   => "section",
                             'fields' => [
                                 'position' => [
-                                    'label'    => __("Position", 'notificationx'),
+                                    'label'    => __("Position", 'surfalert'),
                                     'name'     => "position",                        // combined "pressbar_position" && "conversion_position"
                                     'type'     => "select",
                                     'default'  => 'bottom_left',
                                     'priority' => 50,
                                     'options'  => [
                                         'bottom_left' => [
-                                            'label' => __('Bottom Left', 'notificationx'),
+                                            'label' => __('Bottom Left', 'surfalert'),
                                             'value' => 'bottom_left',
                                         ],
                                         'bottom_right' => [
-                                            'label' => __('Bottom Right', 'notificationx'),
+                                            'label' => __('Bottom Right', 'surfalert'),
                                             'value' => 'bottom_right',
                                         ],
                                     ],
                                 ],
                                 'size' => [
-                                    'label'   => __("Notification Size", 'notificationx'),
+                                    'label'   => __("Notification Size", 'surfalert'),
                                     'name'    => "size",
                                     'type'    => "responsive-number",
                                     'default' => [
@@ -1839,22 +1839,22 @@ class GlobalFields {
                                     'min'      => 300,
                                     'controls' => [
                                         "desktop" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/desktop.svg',
                                             'size' => 18,
                                         ],
                                         "tablet" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/tablet.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/tablet.svg',
                                             'size' => 14,
                                         ],
                                         "mobile" => [
-                                            "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                                            "icon" => SURFALERT_ADMIN_URL . 'images/responsive/mobile.svg',
                                             'size' => 12,
                                         ],
                                     ],
-                                    'help' => __('Set a max width for notification.', 'notificationx'),
+                                    'help' => __('Set a max width for notification.', 'surfalert'),
                                 ],
                                 'close_button_control' => [
-                                    'label'  => __("Display Close Button", 'notificationx'),
+                                    'label'  => __("Display Close Button", 'surfalert'),
                                     'name'   => "close_button_control",
                                     'type'   => "section",
                                     'fields' => [
@@ -1863,26 +1863,26 @@ class GlobalFields {
                                             'type'        => "checkbox",
                                             'default'     => 1,
                                             'priority'    => 70,
-                                            'description' => __('Desktop', 'notificationx'),
+                                            'description' => __('Desktop', 'surfalert'),
                                         ],
                                         'close_button_tab' => [
                                             'name'        => "close_button_tab",
                                             'type'        => "checkbox",
                                             'default'     => 1,
                                             'priority'    => 71,
-                                            'description' => __('Tablet', 'notificationx'),
+                                            'description' => __('Tablet', 'surfalert'),
                                         ],
                                         'close_button_mobile' => [
                                             'name'        => "close_button_mobile",
                                             'type'        => "checkbox",
                                             'default'     => 1,
                                             'priority'    => 72,
-                                            'description' => __('Mobile', 'notificationx'),
+                                            'description' => __('Mobile', 'surfalert'),
                                         ],
                                     ]
                                 ],
-                                'nx_visibility_control' => [
-                                    'label'  => __("Notification Visibility", 'notificationx'),
+                                'sa_visibility_control' => [
+                                    'label'  => __("Notification Visibility", 'surfalert'),
                                     'name'   => "close_button_control",
                                     'type'   => "section",
                                     'fields' => [
@@ -1891,203 +1891,203 @@ class GlobalFields {
                                             'type'        => "checkbox",
                                             'default'     => true,
                                             'priority'    => 201,
-                                            'description' => __('Desktop', 'notificationx'),
+                                            'description' => __('Desktop', 'surfalert'),
                                         ],
                                         'hide_on_tab' => [
                                             'name'        => "hide_on_tab",
                                             'type'        => "checkbox",
                                             'default'     => true,
                                             'priority'    => 202,
-                                            'description' => __('Tablet', 'notificationx'),
+                                            'description' => __('Tablet', 'surfalert'),
                                         ],
                                         'hide_on_mobile' => [
                                             'name'        => "hide_on_mobile",
                                             'type'        => "checkbox",
                                             'default'     => true,
                                             'priority'    => 205,
-                                            'description' => __('Mobile', 'notificationx'),
+                                            'description' => __('Mobile', 'surfalert'),
                                         ],
                                     ]
                                 ],
                             ]
                         ],
                         'animation' => [
-                            'label'  => __("Animation", 'notificationx'),
+                            'label'  => __("Animation", 'surfalert'),
                             'name'   => "animation",
                             'type'   => "section",
                             'priority'=> 15,
                             'fields' => [
                                 'animation_notification_show' => [
-                                    'label'    => __("Notification Show", 'notificationx'),
+                                    'label'    => __("Notification Show", 'surfalert'),
                                     'name'     => "animation_notification_show",
                                     'type'     => "select",
                                     'default'  => 'default',
-                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
+                                    'classes'  => SurfAlert::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 5,
                                     'options'  => [
                                         'default' => [
-                                            'label'    => __('Default', 'notificationx'),
+                                            'label'    => __('Default', 'surfalert'),
                                             'value'    => 'default',
                                             'selected' => 'selected',
                                         ],
                                         'animate__fadeIn' => [
-                                            'label'    => __('Fade In', 'notificationx'),
+                                            'label'    => __('Fade In', 'surfalert'),
                                             'value'    => 'animate__fadeIn',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeInUp' => [
-                                            'label'    => __('Fade In Up', 'notificationx'),
+                                            'label'    => __('Fade In Up', 'surfalert'),
                                             'value'    => 'animate__fadeInUp',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeInDown' => [
-                                            'label'    => __('Fade In Down', 'notificationx'),
+                                            'label'    => __('Fade In Down', 'surfalert'),
                                             'value'    => 'animate__fadeInDown',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeInDownBig' => [
-                                            'label'    => __('Fade In Down Big', 'notificationx'),
+                                            'label'    => __('Fade In Down Big', 'surfalert'),
                                             'value'    => 'animate__fadeInDownBig',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeInLeft' => [
-                                            'label'    => __('Fade In Left', 'notificationx'),
+                                            'label'    => __('Fade In Left', 'surfalert'),
                                             'value'    => 'animate__fadeInLeft',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeInRight' => [
-                                            'label' => __('Fade In Right', 'notificationx'),
+                                            'label' => __('Fade In Right', 'surfalert'),
                                             'value' => 'animate__fadeInRight',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__lightSpeedInLeft' => [
-                                            'label' => __('Light Speed In Left', 'notificationx'),
+                                            'label' => __('Light Speed In Left', 'surfalert'),
                                             'value' => 'animate__lightSpeedInLeft',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__lightSpeedInRight' => [
-                                            'label' => __('Light Speed In Right', 'notificationx'),
+                                            'label' => __('Light Speed In Right', 'surfalert'),
                                             'value' => 'animate__lightSpeedInRight',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__zoomIn' => [
-                                            'label' => __('Zoom In', 'notificationx'),
+                                            'label' => __('Zoom In', 'surfalert'),
                                             'value' => 'animate__zoomIn',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideInUp' => [
-                                            'label' => __('Slide In Up', 'notificationx'),
+                                            'label' => __('Slide In Up', 'surfalert'),
                                             'value' => 'animate__slideInUp',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideInLeft' => [
-                                            'label' => __('Slide In Left', 'notificationx'),
+                                            'label' => __('Slide In Left', 'surfalert'),
                                             'value' => 'animate__slideInLeft',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideInRight' => [
-                                            'label' => __('Slide In Right', 'notificationx'),
+                                            'label' => __('Slide In Right', 'surfalert'),
                                             'value' => 'animate__slideInRight',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideInDown' => [
-                                            'label' => __('Slide In Down', 'notificationx'),
+                                            'label' => __('Slide In Down', 'surfalert'),
                                             'value' => 'animate__slideInDown',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                     ],
                                 ],
                                 'animation_notification_hide' => [
-                                    'label'    => __("Notification Hide", 'notificationx'),
+                                    'label'    => __("Notification Hide", 'surfalert'),
                                     'name'     => "animation_notification_hide",
                                     'type'     => "select",
                                     'default'  => 'default',
-                                    'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
+                                    'classes'  => SurfAlert::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 10,
                                     'options'  => [
                                         'default' => [
-                                            'label' => __('Default', 'notificationx'),
+                                            'label' => __('Default', 'surfalert'),
                                             'value' => 'default',
                                         ],
                                         'animate__fadeOut' => [
-                                            'label'    => __('Fade Out', 'notificationx'),
+                                            'label'    => __('Fade Out', 'surfalert'),
                                             'value'    => 'animate__fadeOut',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeOutDown' => [
-                                            'label'    => __('Fade Out Down', 'notificationx'),
+                                            'label'    => __('Fade Out Down', 'surfalert'),
                                             'value'    => 'animate__fadeOutDown',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeOutRight' => [
-                                            'label'    => __('Fade Out Right', 'notificationx'),
+                                            'label'    => __('Fade Out Right', 'surfalert'),
                                             'value'    => 'animate__fadeOutRight',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__fadeOutUp' => [
-                                            'label'    => __('Fade Out Up', 'notificationx'),
+                                            'label'    => __('Fade Out Up', 'surfalert'),
                                             'value'    => 'animate__fadeOutUp',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__lightSpeedOutLeft' => [
-                                            'label'    => __('Light Speed Out Left', 'notificationx'),
+                                            'label'    => __('Light Speed Out Left', 'surfalert'),
                                             'value'    => 'animate__lightSpeedOutLeft',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__zoomOut' => [
-                                            'label'    => __('Zoom Out', 'notificationx'),
+                                            'label'    => __('Zoom Out', 'surfalert'),
                                             'value'    => 'animate__zoomOut',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideOutDown' => [
-                                            'label'    => __('Slide Out Down', 'notificationx'),
+                                            'label'    => __('Slide Out Down', 'surfalert'),
                                             'value'    => 'animate__slideOutDown',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideOutLeft' => [
-                                            'label'    => __('Slide Out Left', 'notificationx'),
+                                            'label'    => __('Slide Out Left', 'surfalert'),
                                             'value'    => 'animate__slideOutLeft',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideOutRight' => [
-                                            'label'    => __('Slide Out Right', 'notificationx'),
+                                            'label'    => __('Slide Out Right', 'surfalert'),
                                             'value'    => 'animate__slideOutRight',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                         'animate__slideOutUp' => [
-                                            'label'    => __('Slide Out Up', 'notificationx'),
+                                            'label'    => __('Slide Out Up', 'surfalert'),
                                             'value'    => 'animate__slideOutUp',
-                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                            'disabled' => SurfAlert::is_pro() ? false : true,
                                         ],
                                     ],
                                 ],
                                 // 'animation_notification_duration' => [
-                                //     'label'    => __("Duration", 'notificationx'),
+                                //     'label'    => __("Duration", 'surfalert'),
                                 //     'name'     => "animation_notification_duration",
                                 //     'type'     => "select",
                                 //     'default'  => 'default',
                                 //     'priority' => 15,
                                 //     'options'  => [
                                 //         'default' => [
-                                //             'label' => __('Default', 'notificationx'),
+                                //             'label' => __('Default', 'surfalert'),
                                 //             'value' => 'default',
                                 //         ],
                                 //         'animate__faster' => [
-                                //             'label'    => __('Faster', 'notificationx'),
+                                //             'label'    => __('Faster', 'surfalert'),
                                 //             'value'    => 'animate__faster',
-                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //             'disabled' => SurfAlert::is_pro() ? false : true,
                                 //         ],
                                 //         'animate__fast' => [
-                                //             'label'    => __('Fast', 'notificationx'),
+                                //             'label'    => __('Fast', 'surfalert'),
                                 //             'value'    => 'animate__fast',
-                                //             'disabled' => NotificationX::is_pro() ? false : true,
+                                //             'disabled' => SurfAlert::is_pro() ? false : true,
                                 //         ],
                                 //     ],
                                 // ],
                             ]
                         ],
                         'queue_management' => [
-                            'label'    => __("Queue Management", 'notificationx'),
+                            'label'    => __("Queue Management", 'surfalert'),
                             'name'     => "queue_management",
                             'type'     => "section",
                             'priority' => 150,
@@ -2095,18 +2095,18 @@ class GlobalFields {
                             'is_pro' => true,
                             'fields' => [
                                 [
-                                    'label'    => __("Enable Global Queue", 'notificationx'),
+                                    'label'    => __("Enable Global Queue", 'surfalert'),
                                     'name'     => "global_queue",
                                     'type'     => "checkbox",
                                     'priority' => 0,
                                     'default'  => false,
                                     'is_pro'   => true,
-                                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', __('Check out this doc.', 'notificationx')),
+                                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'surfalert'), 'https://surfalert.com/docs/centralized-queue', __('Check out this doc.', 'surfalert')),
                                 ],
                             ]
                         ],
                         'timing' => [
-                            'label'    => __("Timing", 'notificationx'),
+                            'label'    => __("Timing", 'surfalert'),
                             'name'     => "timing",
                             'type'     => "section",
                             'priority' => 200,
@@ -2114,37 +2114,37 @@ class GlobalFields {
                             'rules'    => Rules::is( 'global_queue', true, true ),
                             'fields'   => [
                                 'delay_before' => [
-                                    'label'       => __("Delay Before First Notification", 'notificationx'),
+                                    'label'       => __("Delay Before First Notification", 'surfalert'),
                                     'name'        => "delay_before",
                                     'type'        => "number",
                                     'priority'    => 40,
                                     'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
-                                    'help'        => __('Initial Delay', 'notificationx'),
-                                    'description' => __('seconds', 'notificationx'),
+                                    'help'        => __('Initial Delay', 'surfalert'),
+                                    'description' => __('seconds', 'surfalert'),
 
                                 ],
                                 'display_for' => [
                                     'name'        => "display_for",
                                     'type'        => "number",
-                                    'label'       => __("Display For", 'notificationx'),
-                                    'description' => __('seconds', 'notificationx'),
-                                    'help'        => __('Display each notification for * seconds', 'notificationx'),
+                                    'label'       => __("Display For", 'surfalert'),
+                                    'description' => __('seconds', 'surfalert'),
+                                    'help'        => __('Display each notification for * seconds', 'surfalert'),
                                     'priority'    => 60,
                                     'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 5,
                                 ],
                                 'delay_between' => [
                                     'name'        => "delay_between",
                                     'type'        => "number",
-                                    'label'       => __("Delay Between", 'notificationx'),
-                                    'description' => __('seconds', 'notificationx'),
-                                    'help'        => __('Delay between each notification', 'notificationx'),
+                                    'label'       => __("Delay Between", 'surfalert'),
+                                    'description' => __('seconds', 'surfalert'),
+                                    'help'        => __('Delay between each notification', 'surfalert'),
                                     'priority'    => 70,
                                     'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
                                 ],
                             ]
                         ],
                         'behaviour' => [
-                            'label'       => __("Behavior", 'notificationx'),
+                            'label'       => __("Behavior", 'surfalert'),
                             'name'        => "behaviour",
                             'type'        => "section",
                             'priority'    => 300,
@@ -2153,7 +2153,7 @@ class GlobalFields {
                                 "display_last" => [
                                     'name'        => "display_last",
                                     'type'        => 'number',
-                                    'label'       => __('Display The Last', 'notificationx'),
+                                    'label'       => __('Display The Last', 'surfalert'),
                                     'description' => 'conversions',
                                     'default'       => 20,
                                     'priority'    => 40,
@@ -2162,7 +2162,7 @@ class GlobalFields {
                                 'display_from' => [
                                     'name'        => 'display_from',
                                     'type'        => 'number',
-                                    'label'       => __('Display From The Last', 'notificationx'),
+                                    'label'       => __('Display From The Last', 'surfalert'),
                                     'priority'    => 45,
                                     'default'       => 30,
                                     'description' => 'Days',
@@ -2176,7 +2176,7 @@ class GlobalFields {
                                     ]),
                                     'fields' => [
                                         [
-                                            'help'        => __('Hours', 'notificationx'),
+                                            'help'        => __('Hours', 'surfalert'),
                                             'name'        => "display_from_hour",
                                             'type'        => "number",
                                             'default'     => '0',
@@ -2185,7 +2185,7 @@ class GlobalFields {
                                             'min'         => 0,
                                         ],
                                         [
-                                            'help'        => __('Minutes', 'notificationx'),
+                                            'help'        => __('Minutes', 'surfalert'),
                                             'name'        => "display_from_minute",
                                             'type'        => "number",
                                             'default'     => '0',
@@ -2198,7 +2198,7 @@ class GlobalFields {
                                 'loop' => [
                                     'name'     => 'loop',
                                     'type'     => 'checkbox',
-                                    'label'    => __('Loop Notification', 'notificationx'),
+                                    'label'    => __('Loop Notification', 'surfalert'),
                                     'priority' => 50,
                                     'default'    => true,
                                     'rules'    => Rules::is( 'global_queue', true, true ),
@@ -2206,7 +2206,7 @@ class GlobalFields {
                                 'link_open' => [
                                     'name'     => 'link_open',
                                     'type'     => 'checkbox',
-                                    'label'    => __('Open Link In New Tab', 'notificationx'),
+                                    'label'    => __('Open Link In New Tab', 'surfalert'),
                                     'priority' => 60,
                                     'default'    => false,
                                 ],
@@ -2215,12 +2215,12 @@ class GlobalFields {
                     ]),
                 ],
             ],
-            'instructions' => apply_filters( 'nx_instructions', [] ),
-            'pro_popup'    => apply_filters( 'nx_popup_alert', [] ),
+            'instructions' => apply_filters( 'sa_instructions', [] ),
+            'pro_popup'    => apply_filters( 'sa_popup_alert', [] ),
         ];
 
-        $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
-        $tabs = apply_filters('nx_metabox_config', $tabs);
+        $tabs['tabs'] = apply_filters('sa_metabox_tabs', $tabs['tabs']);
+        $tabs = apply_filters('sa_metabox_config', $tabs);
 
         if(defined('NX_DEBUG') && NX_DEBUG){
             do_action( 'qm/stop', __METHOD__ );
@@ -2251,19 +2251,19 @@ class GlobalFields {
 
     public function common_name_fields($display_name = false) {
         $fields = [
-            'tag_name'       => __('Full Name', 'notificationx'),
-            'tag_first_name' => __('First Name', 'notificationx'),
-            'tag_last_name'  => __('Last Name', 'notificationx'),
+            'tag_name'       => __('Full Name', 'surfalert'),
+            'tag_first_name' => __('First Name', 'surfalert'),
+            'tag_last_name'  => __('Last Name', 'surfalert'),
         ];
         if ($display_name)
-            $fields['tag_display_name'] = __('Display Name', 'notificationx');
+            $fields['tag_display_name'] = __('Display Name', 'surfalert');
         return $fields;
     }
 
     public function common_time_fields() {
         return [
-            'tag_time'   => __('Definite Time', 'notificationx'),
-            'tag_custom' => __('Some time ago', 'notificationx'),
+            'tag_time'   => __('Definite Time', 'surfalert'),
+            'tag_custom' => __('Some time ago', 'surfalert'),
         ];
     }
 

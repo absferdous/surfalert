@@ -3,18 +3,18 @@
 /**
  * EDD Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\EDD;
+namespace SurfAlert\Extensions\EDD;
 
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Database;
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * EDD Extension
@@ -30,8 +30,8 @@ class EDD extends Extension {
 
     public $priority        = 10;
     public $id              = 'edd';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/edd.png';
-    public $doc_link        = 'https://notificationx.com/docs/notificationx-easy-digital-downloads/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/edd.png';
+    public $doc_link        = 'https://surfalert.com/docs/surfalert-easy-digital-downloads/';
     public $types           = 'conversions';
     public $module          = 'modules_edd';
     public $module_priority = 5;
@@ -46,8 +46,8 @@ class EDD extends Extension {
 
     public function init_extension()
     {
-        $this->title        = __( 'Easy Digital Downloads', 'notificationx' );
-        $this->module_title = __( 'Easy Digital Downloads', 'notificationx' );
+        $this->title        = __( 'Easy Digital Downloads', 'surfalert' );
+        $this->module_title = __( 'Easy Digital Downloads', 'surfalert' );
     }
 
     /**
@@ -64,7 +64,7 @@ class EDD extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_link_types', [$this, 'link_types']);
+        add_filter('sa_link_types', [$this, 'link_types']);
     }
 
     /**
@@ -80,12 +80,12 @@ class EDD extends Extension {
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
-        add_filter("nx_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
+        add_filter("sa_filtered_data_{$this->id}", array($this, 'multiorder_combine'), 11, 3);
     }
 
     public function source_error_message($messages) {
@@ -93,10 +93,10 @@ class EDD extends Extension {
             $url = admin_url('plugin-install.php?s=easy-digital-downloads&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'Easy Digital Downloads', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'Easy Digital Downloads', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -111,7 +111,7 @@ class EDD extends Extension {
 
 
     public function multiorder_combine($data, $settings) {
-        $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
+        $should_combine = apply_filters('sa_should_combine', true, $data, $settings);
         if (!$should_combine || empty($settings['combine_multiorder']) || $settings['combine_multiorder'] != '1') {
             return $data;
         }
@@ -126,7 +126,7 @@ class EDD extends Extension {
             }
         }
 
-        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
+        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'surfalert') : __('more products', 'surfalert');
         foreach ($item_counts as $key => $item) {
             $items[$key]['title'] = $items[$key]['title'] . ' & ' . $item . ' ' . $products_more_title;
         }
@@ -144,15 +144,15 @@ class EDD extends Extension {
     public function link_types( $options ) {
         $options = GlobalFields::get_instance()->normalize_fields(
             array(
-                'product_image' => __( 'Product Page', 'notificationx' ),
+                'product_image' => __( 'Product Page', 'surfalert' ),
             ), 'source', $this->id, $options
         );
 
         return $options;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -170,7 +170,7 @@ class EDD extends Extension {
             $entries = [];
             foreach ( $orders as $key => $order ) {
                 $entries[] = [
-                    'nx_id'      => $post['nx_id'],
+                    'sa_id'      => $post['sa_id'],
                     'source'     => $this->id,
                     'entry_key'  => $order['key'],
                     'data'       => $order,
@@ -350,7 +350,7 @@ class EDD extends Extension {
 
     // @todo
     public function fallback_data( $data, $saved_data, $settings ) {
-        $data['anonymous_title'] = __( 'Anonymous Product', 'notificationx' );
+        $data['anonymous_title'] = __( 'Anonymous Product', 'surfalert' );
         if(empty($saved_data['product_title']) && !empty($saved_data['title'])){
             $data['product_title'] = $saved_data['title'];
         }
@@ -360,13 +360,13 @@ class EDD extends Extension {
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
-		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with Easy Digital Downloads</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%3$s">Integration with Easy Digital Downloads</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How Does <a target="_blank" href="%4$s">NotificationX Increase Sales on WordPress</a> Websites?</p>', 'notificationx'),
+		<p>🔥 How Does <a target="_blank" href="%4$s">SurfAlert Increase Sales on WordPress</a> Websites?</p>', 'surfalert'),
         'https://wordpress.org/plugins/easy-digital-downloads/',
-        'https://notificationx.com/docs/notificationx-easy-digital-downloads/',
-        'https://notificationx.com/integrations/easy-digital-downloads/',
-        'https://wpdeveloper.com/notificationx-increase-sales-wordpress/'
+        'https://surfalert.com/docs/surfalert-easy-digital-downloads/',
+        'https://surfalert.com/integrations/easy-digital-downloads/',
+        'https://wpdeveloper.com/surfalert-increase-sales-wordpress/'
         );
     }
 }

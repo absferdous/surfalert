@@ -2,12 +2,12 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+namespace SurfAlert\Types;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -43,7 +43,7 @@ class CustomNotification extends Types {
      */
     public function init(){
         parent::init();
-        $this->title = __('Custom Notification', 'notificationx');
+        $this->title = __('Custom Notification', 'surfalert');
     }
 
 

@@ -3,10 +3,10 @@
 /**
  * Tutor Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Tutor;
+namespace SurfAlert\Extensions\Tutor;
 
 /**
  * Tutor Extension
@@ -16,8 +16,8 @@ class TutorInline extends Tutor {
 
     public $priority        = 15;
     public $id              = 'tutor_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/tutor.png';
-    public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/tutor.png';
+    public $doc_link        = 'https://surfalert.com/docs/tutor-lms/';
     public $types           = 'inline';
     public $module_priority = 7;
     public $function        = 'tutor_lms';
@@ -28,7 +28,7 @@ class TutorInline extends Tutor {
      */
     public function __construct() {
         parent::__construct();
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+        add_filter( 'sa_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
     }
 
     public function init_extension()
@@ -36,45 +36,45 @@ class TutorInline extends Tutor {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline.png',
                 'image_shape' => 'rounded',
                 'inline_location' => ['tutor/course/single/entry-box/free'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'second_param'        => __('people enrolled', 'notificationx'),
+                    'second_param'        => __('people enrolled', 'surfalert'),
                     'third_param'         => 'tag_custom',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                    'custom_fourth_param' => __('in last {{day:7}}', 'surfalert'),
                 ],
             ),
             'conv-theme-eight' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline-2.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/tutor-inline-2.png',
                 'image_shape' => 'rounded',
                 'inline_location' => ['tutor_course/loop/after_title'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'second_param'        => __('people enrolled', 'notificationx'),
+                    'second_param'        => __('people enrolled', 'surfalert'),
                     'third_param'         => 'tag_custom',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                    'custom_fourth_param' => __('in last {{day:7}}', 'surfalert'),
                 ],
             ),
         ];
         $this->templates = [
             'tutor_inline_template_sales_count' => [
                 'first_param'  => [
-                    'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
+                    'tag_sales_count' => __( 'Sales Count', 'surfalert' ),
                 ],
                 'third_param' => [
-                    'tag_course_title' => __('Course Title', 'notificationx'),
+                    'tag_course_title' => __('Course Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
-                    'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
-                    'tag_30days' => __( 'In last 30 days', 'notificationx' ),
+                    'tag_1day'   => __( 'In last 1 day', 'surfalert' ),
+                    'tag_7days'  => __( 'In last 7 days', 'surfalert' ),
+                    'tag_30days' => __( 'In last 30 days', 'surfalert' ),
                 ],
                 '_themes' => [
                     'tutor_inline_conv-theme-seven',
@@ -111,8 +111,8 @@ class TutorInline extends Tutor {
     public static function get_instance($args = null){
         if ( is_null( static::$instance ) ) {
             $class = __CLASS__;
-            if(strpos($class, "NotificationX\\") === 0){
-                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+            if(strpos($class, "SurfAlert\\") === 0){
+                $pro_class = str_replace("SurfAlert\\", "NotificationXPro\\", $class);
                 if(class_exists($pro_class)){
                     $class = $pro_class;
                 }

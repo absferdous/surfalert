@@ -2,15 +2,15 @@
 /**
  * CustomNotification Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\CustomNotification;
+namespace SurfAlert\Extensions\CustomNotification;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Types\Conversions;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Types\Conversions;
 
 /**
  * CustomNotification Extension
@@ -26,8 +26,8 @@ class CustomNotification extends Extension {
 
     public $priority        = 5;
     public $id              = 'custom_notification';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/custom.png';
-    public $doc_link        = 'https://notificationx.com/docs/custom-notification';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/custom.png';
+    public $doc_link        = 'https://surfalert.com/docs/custom-notification';
     public $types           = 'custom';
     public $module          = 'modules_custom_notification';
     public $module_priority = 13;
@@ -43,8 +43,8 @@ class CustomNotification extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Custom Notification', 'notificationx');
-        $this->module_title = __('Custom Notification', 'notificationx');
+        $this->title = __('Custom Notification', 'surfalert');
+        $this->module_title = __('Custom Notification', 'surfalert');
     }
 
     /**
@@ -91,10 +91,10 @@ class CustomNotification extends Extension {
         return sprintf(__('<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>', 'notificationx'),
-        'https://notificationx.com/docs/custom-notification/',
+		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using SurfAlert</p>', 'surfalert'),
+        'https://surfalert.com/docs/custom-notification/',
         'https://www.youtube.com/watch?v=OuTmDZ0_TEw',
-        'https://wpdeveloper.com/custom-notificationx-alert-fomo/'
+        'https://wpdeveloper.com/custom-surfalert-alert-fomo/'
         );
     }
 }

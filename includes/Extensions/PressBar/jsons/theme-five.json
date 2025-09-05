@@ -386,7 +386,7 @@
                                                 "_element_width_mobile": "inherit",
                                                 "hover_color": "#EC9141",
                                                 "button_background_hover_color": "#622E03",
-                                                "button_css_id": "nx-consent-accept"
+                                                "button_css_id": "sa-consent-accept"
                                             },
                                             "elements": [],
                                             "isInner": false,

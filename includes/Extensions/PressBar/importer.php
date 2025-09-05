@@ -1,5 +1,5 @@
 <?php
-namespace NotificationX\Extensions\PressBar;
+namespace SurfAlert\Extensions\PressBar;
 
 use Elementor\TemplateLibrary\Source_Local;
 use Elementor\TemplateLibrary\Classes\Images;
@@ -72,7 +72,7 @@ class Importer extends Source_Local {
 			[
 				'post_title' => $template_data['post_title'],
 				'post_status' => $template_data['status'],
-				'post_type' => 'nx_bar',
+				'post_type' => 'sa_bar',
 			]
 		);
 

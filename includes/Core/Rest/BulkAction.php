@@ -1,11 +1,11 @@
 <?php
 
-namespace NotificationX\Core\Rest;
+namespace SurfAlert\Core\Rest;
 
-use NotificationX\Admin\Admin;
-use NotificationX\Core\Analytics;
-use NotificationX\Core\PostType;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Admin;
+use SurfAlert\Core\Analytics;
+use SurfAlert\Core\PostType;
+use SurfAlert\GetInstance;
 use WP_REST_Server;
 
 /**
@@ -36,7 +36,7 @@ class BulkAction {
      * @param string $post_type Post type.
      */
     public function __construct() {
-        $this->namespace = 'notificationx/v1';
+        $this->namespace = 'surfalert/v1';
         $this->rest_base = 'bulk-action';
         add_action( 'rest_api_init', [ $this, 'register_routes' ] );
     }
@@ -56,7 +56,7 @@ class BulkAction {
                 'permission_callback' => [ $this, 'edit_permission' ],
                 'args'                => array(
                     'ids' => array(
-                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'description' => __( 'Array of sa_id.', 'surfalert' ),
                         'type'        => 'array',
                     ),
                 ),
@@ -69,7 +69,7 @@ class BulkAction {
                 'permission_callback' => [ $this, 'read_permission' ],
                 'args'                => array(
                     'ids' => array(
-                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'description' => __( 'Array of sa_id.', 'surfalert' ),
                         'type'        => 'array',
                     ),
                 ),
@@ -82,7 +82,7 @@ class BulkAction {
                 'permission_callback' => [ $this, 'edit_permission' ],
                 'args'                => array(
                     'ids' => array(
-                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'description' => __( 'Array of sa_id.', 'surfalert' ),
                         'type'        => 'array',
                     ),
                 ),
@@ -95,7 +95,7 @@ class BulkAction {
                 'permission_callback' => [ $this, 'edit_permission' ],
                 'args'                => array(
                     'ids' => array(
-                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'description' => __( 'Array of sa_id.', 'surfalert' ),
                         'type'        => 'array',
                     ),
                 ),
@@ -108,7 +108,7 @@ class BulkAction {
                 'permission_callback' => [ $this, 'edit_permission' ],
                 'args'                => array(
                     'ids' => array(
-                        'description' => __( 'Array of nx_id.', 'notificationx' ),
+                        'description' => __( 'Array of sa_id.', 'surfalert' ),
                         'type'        => 'array',
                     ),
                 ),
@@ -117,18 +117,18 @@ class BulkAction {
     }
 
     public function read_permission( $request ) {
-        return current_user_can( 'read_notificationx' );
+        return current_user_can( 'read_surfalert' );
     }
     public function edit_permission( $request ) {
-        return current_user_can( 'edit_notificationx' );
+        return current_user_can( 'edit_surfalert' );
     }
 
     public function delete( $request ) {
         $count  = [];
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
-            foreach ( $params['ids'] as $key => $nx_id ) {
-                $count[ $nx_id ] = PostType::get_instance()->delete_post( $nx_id );
+            foreach ( $params['ids'] as $key => $sa_id ) {
+                $count[ $sa_id ] = PostType::get_instance()->delete_post( $sa_id );
             }
         }
         return [
@@ -141,8 +141,8 @@ class BulkAction {
         $count  = 0;
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
-            foreach ( $params['ids'] as $key => $nx_id ) {
-                $count += Admin::get_instance()->regenerate_notifications( [ 'nx_id' => $nx_id ] );
+            foreach ( $params['ids'] as $key => $sa_id ) {
+                $count += Admin::get_instance()->regenerate_notifications( [ 'sa_id' => $sa_id ] );
             }
         }
         return [
@@ -156,11 +156,11 @@ class BulkAction {
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
             $ids   = array_map( 'absint', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source, type' );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'sa_id, source, type' );
             if ( is_array( $posts ) ) {
                 foreach ( $posts as $key => $post ) {
-                    $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([
-                        'nx_id'   => $post['nx_id'],
+                    $count[ $post['sa_id'] ] = PostType::get_instance()->update_status([
+                        'sa_id'   => $post['sa_id'],
                         'source'  => $post['source'],
                         'enabled' => true,
                     ]);
@@ -178,11 +178,11 @@ class BulkAction {
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
             $ids   = array_map( 'absint', $params['ids'] );
-            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'nx_id, source, type' );
+            $posts = PostType::get_instance()->get_posts_by_ids( $ids, null, 'sa_id, source, type' );
             if ( is_array( $posts ) ) {
                 foreach ( $posts as $key => $post ) {
-                    $count[ $post['nx_id'] ] = PostType::get_instance()->update_status([
-                        'nx_id'   => $post['nx_id'],
+                    $count[ $post['sa_id'] ] = PostType::get_instance()->update_status([
+                        'sa_id'   => $post['sa_id'],
                         'source'  => $post['source'],
                         'enabled' => false,
                     ]);
@@ -201,8 +201,8 @@ class BulkAction {
         $count     = 0;
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
-            foreach ( $params['ids'] as $key => $nx_id ) {
-                Admin::get_instance()->reset_notifications( [ 'nx_id' => $nx_id ] );
+            foreach ( $params['ids'] as $key => $sa_id ) {
+                Admin::get_instance()->reset_notifications( [ 'sa_id' => $sa_id ] );
                 $count++;
             }
             $analytics = Analytics::get_instance()->get_total_count();

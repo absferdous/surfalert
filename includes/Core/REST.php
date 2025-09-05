@@ -3,22 +3,22 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\ImportExport;
-use NotificationX\Types\ContactForm;
-use NotificationX\Admin\Settings;
-use NotificationX\CoreInstaller;
-use NotificationX\Extensions\PressBar\PressBar;
-use NotificationX\Admin\Reports\ReportEmail;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\Google\GoogleReviews;
-use NotificationX\FrontEnd\FrontEnd;
-use NotificationX\GetInstance;
-use NotificationX\Types\NotificationBar;
+use SurfAlert\Admin\ImportExport;
+use SurfAlert\Types\ContactForm;
+use SurfAlert\Admin\Settings;
+use SurfAlert\CoreInstaller;
+use SurfAlert\Extensions\PressBar\PressBar;
+use SurfAlert\Admin\Reports\ReportEmail;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\Google\GoogleReviews;
+use SurfAlert\FrontEnd\FrontEnd;
+use SurfAlert\GetInstance;
+use SurfAlert\Types\NotificationBar;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -36,7 +36,7 @@ class REST {
      */
     use GetInstance;
 
-    private static $_namespace = 'notificationx';
+    private static $_namespace = 'surfalert';
     private static $_version = 1;
 
     public static function _namespace(){
@@ -119,13 +119,13 @@ class REST {
      * @return \WP_Error|bool
      */
     public function read_permission( $request ) {
-        return current_user_can('read_notificationx');
+        return current_user_can('read_surfalert');
     }
     public function edit_permission( $request ) {
-        return current_user_can('edit_notificationx');
+        return current_user_can('edit_surfalert');
     }
     public function settings_permission( $request ) {
-        return current_user_can('edit_notificationx_settings');
+        return current_user_can('edit_surfalert_settings');
     }
     public function activate_plugin_permission( $request ) {
         $params = $request->get_params();
@@ -232,7 +232,7 @@ class REST {
         ));
 
         // For entries page.
-        // register_rest_route($namespace, '/entries/(?P<nx_id>[0-9]+)', array(
+        // register_rest_route($namespace, '/entries/(?P<sa_id>[0-9]+)', array(
         //     array(
         //         'methods'             => WP_REST_Server::READABLE,
         //         'callback'            => array($this, 'get_entries'),
@@ -399,7 +399,7 @@ class REST {
     public function miscellaneous($request) {
         $params = $request->get_params();
 
-        $result = apply_filters('nx_rest_miscellaneous', null, $params);
+        $result = apply_filters('sa_rest_miscellaneous', null, $params);
         if($result !== null){
             return rest_ensure_response([
                 'success' => true,
@@ -430,7 +430,7 @@ class REST {
     }
 
     public function rest_data($nonce = true){
-        return apply_filters('nx_rest_data', array(
+        return apply_filters('sa_rest_data', array(
             'root'             => rest_url(),
             'namespace'        => $this->_namespace(),
             'nonce'            => $nonce ? wp_create_nonce( 'wp_rest' ) : '',
@@ -461,13 +461,13 @@ class REST {
     public function error( $type = '' ) {
         switch( $type ) {
             case 'api':
-                return $this->formattedError( 'api_error', __( 'Unauthorized Access: You have to logged in first.', 'notificationx' ), 401 );
+                return $this->formattedError( 'api_error', __( 'Unauthorized Access: You have to logged in first.', 'surfalert' ), 401 );
                 break;
             case 'type':
-                return $this->formattedError( 'type_error', __( 'Invalid Type: You have to give a type.', 'notificationx' ), 401 );
+                return $this->formattedError( 'type_error', __( 'Invalid Type: You have to give a type.', 'surfalert' ), 401 );
                 break;
             default:
-                return $this->formattedError( 'response_error', __( '400 Bad Request.', 'notificationx' ), 400 );
+                return $this->formattedError( 'response_error', __( '400 Bad Request.', 'surfalert' ), 400 );
         }
     }
 
@@ -481,7 +481,7 @@ class REST {
      * @return \WP_Error
      */
     private function formattedError( $code, $message, $http_code, $args = [] ){
-        return new \WP_Error( "nx_$code", $message, [ 'status' => $http_code ] );
+        return new \WP_Error( "sa_$code", $message, [ 'status' => $http_code ] );
     }
 
     /**
@@ -492,37 +492,37 @@ class REST {
      */
     public function jwt_whitelist( $endpoints ) {
         $__endpoints = array(
-            '/wp-json/notificationx/v1',
-            '/wp-json/notificationx/v1/nx',
-            '/wp-json/notificationx/v1/nx/*',
-            '/wp-json/notificationx/v1/api-connect',
-            '/wp-json/notificationx/v1/notification/*',
-            '/wp-json/notificationx/v1/regenerate/*',
-            '/wp-json/notificationx/v1/reset/*',
-            '/wp-json/notificationx/v1/analytics',
-            '/wp-json/notificationx/v1/analytics/get',
-            '/wp-json/notificationx/v1/bulk-action/delete',
-            '/wp-json/notificationx/v1/bulk-action/regenerate',
-            '/wp-json/notificationx/v1/bulk-action/enable',
-            '/wp-json/notificationx/v1/bulk-action/disable',
-            '/wp-json/notificationx/v1/builder',
-            '/wp-json/notificationx/v1/core-install',
-            '/wp-json/notificationx/v1/elementor/import',
-            '/wp-json/notificationx/v1/gutenberg/import',
-            '/wp-json/notificationx/v1/elementor/remove',
-            '/wp-json/notificationx/v1/gutenberg/remove',
-            '/wp-json/notificationx/v1/reporting-test',
-            '/wp-json/notificationx/v1/settings',
-            '/wp-json/notificationx/v1/miscellaneous',
-            '/wp-json/notificationx/v1/get-data',
-            '/wp-json/notificationx/v1/notice',
-            '/wp-json/notificationx/v1/delete-cookies',
-            '/wp-json/notificationx/v1/import',
-            '/wp-json/notificationx/v1/export',
-            '/wp-json/notificationx/v1/license/activate',
-            '/wp-json/notificationx/v1/license/deactivate',
-            '/wp-json/notificationx/v1/license/submit-otp',
-            '/wp-json/notificationx/v1/license/resend-otp',
+            '/wp-json/surfalert/v1',
+            '/wp-json/surfalert/v1/nx',
+            '/wp-json/surfalert/v1/nx/*',
+            '/wp-json/surfalert/v1/api-connect',
+            '/wp-json/surfalert/v1/notification/*',
+            '/wp-json/surfalert/v1/regenerate/*',
+            '/wp-json/surfalert/v1/reset/*',
+            '/wp-json/surfalert/v1/analytics',
+            '/wp-json/surfalert/v1/analytics/get',
+            '/wp-json/surfalert/v1/bulk-action/delete',
+            '/wp-json/surfalert/v1/bulk-action/regenerate',
+            '/wp-json/surfalert/v1/bulk-action/enable',
+            '/wp-json/surfalert/v1/bulk-action/disable',
+            '/wp-json/surfalert/v1/builder',
+            '/wp-json/surfalert/v1/core-install',
+            '/wp-json/surfalert/v1/elementor/import',
+            '/wp-json/surfalert/v1/gutenberg/import',
+            '/wp-json/surfalert/v1/elementor/remove',
+            '/wp-json/surfalert/v1/gutenberg/remove',
+            '/wp-json/surfalert/v1/reporting-test',
+            '/wp-json/surfalert/v1/settings',
+            '/wp-json/surfalert/v1/miscellaneous',
+            '/wp-json/surfalert/v1/get-data',
+            '/wp-json/surfalert/v1/notice',
+            '/wp-json/surfalert/v1/delete-cookies',
+            '/wp-json/surfalert/v1/import',
+            '/wp-json/surfalert/v1/export',
+            '/wp-json/surfalert/v1/license/activate',
+            '/wp-json/surfalert/v1/license/deactivate',
+            '/wp-json/surfalert/v1/license/submit-otp',
+            '/wp-json/surfalert/v1/license/resend-otp',
         );
 
         return array_unique( array_merge( $endpoints, $__endpoints ) );

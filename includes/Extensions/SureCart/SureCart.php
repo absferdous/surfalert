@@ -2,16 +2,16 @@
 /**
  * SureCart Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\SureCart;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Admin\Entries;
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
+namespace SurfAlert\Extensions\SureCart;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
 
 /**
  * SureCart Extension Class
@@ -21,9 +21,9 @@ class SureCart extends Extension {
     use GetInstance;
     public $priority        = 8;
     public $id              = 'surecart';
-    public $doc_link        = 'https://notificationx.com/docs/surecart-sales-notifications/';
+    public $doc_link        = 'https://surfalert.com/docs/surecart-sales-notifications/';
     public $types           = 'conversions';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/surecart.png';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/surecart.png';
     public $module          = 'modules_surecart';
     public $module_priority = 35;
     public $class           = '\SureCart';
@@ -37,8 +37,8 @@ class SureCart extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('SureCart', 'notificationx');
-        $this->module_title = __('SureCart', 'notificationx');
+        $this->title = __('SureCart', 'surfalert');
+        $this->module_title = __('SureCart', 'surfalert');
     }
 
     public function init(){
@@ -50,11 +50,11 @@ class SureCart extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter( 'nx_surecart_order_status', array( $this, 'order_status' ), 11 );
-        add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
-        add_filter('nx_conversion_category_list', [$this, 'collections']);
-        add_filter('nx_conversion_product_list', [$this, 'product_lists']);
+        add_filter('sa_link_types', [$this, 'link_types']);
+        add_filter( 'sa_surecart_order_status', array( $this, 'order_status' ), 11 );
+        add_filter("sa_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
+        add_filter('sa_conversion_category_list', [$this, 'collections']);
+        add_filter('sa_conversion_product_list', [$this, 'product_lists']);
 
     }
 
@@ -65,7 +65,7 @@ class SureCart extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
     }
 
     public function public_actions(){
@@ -114,12 +114,12 @@ class SureCart extends Extension {
 
     public function order_status($options){
         $order_status = [
-            'processing'  => __( 'Processing','notificationx' ),
-            'unfulfilled' => __( 'Unfulfilled','notificationx' ),
-            'fulfilled'   => __( 'Fulfilled','notificationx' ),
-            'shipped'     => __( 'Shipped','notificationx' ),
-            'delivered'   => __( 'Delivered','notificationx' ),
-            'not-shipped' => __( 'Not Shipped','notificationx' ),
+            'processing'  => __( 'Processing','surfalert' ),
+            'unfulfilled' => __( 'Unfulfilled','surfalert' ),
+            'fulfilled'   => __( 'Fulfilled','surfalert' ),
+            'shipped'     => __( 'Shipped','surfalert' ),
+            'delivered'   => __( 'Delivered','surfalert' ),
+            'not-shipped' => __( 'Not Shipped','surfalert' ),
          ];
         $options = GlobalFields::get_instance()->normalize_fields( $order_status, 'source', $this->id, $options);
         return $options;
@@ -226,8 +226,8 @@ class SureCart extends Extension {
         return $image_data;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -237,7 +237,7 @@ class SureCart extends Extension {
             $entries = [];
             foreach ( $orders as $order ) {
                 $entries[] = [
-                    'nx_id'      => $post['nx_id'],
+                    'sa_id'      => $post['sa_id'],
                     'source'     => $this->id,
                     'entry_key'  => $order['order'],
                     'data'       => $order,
@@ -260,20 +260,20 @@ class SureCart extends Extension {
                 $update_data['fulfillment_status'] = 'fulfilled';
                 $update_data['shipment_status'] = $data['shipment_status'];
                 unset($update_data['entry_id']);
-                unset($update_data['nx_id']);
+                unset($update_data['sa_id']);
                 unset($update_data['source']);
                 unset($update_data['entry_key']);
                 unset($update_data['created_at']);
                 unset($update_data['updated_at']);
                 $entries[] = [
-                    'nx_id'      => $order['nx_id'],
+                    'sa_id'      => $order['sa_id'],
                     'source'     => $this->id,
                     'entry_key'  => $order['order'],
                     'data'       => $update_data,
                     'updated_at' => Helper::mysql_time($data['updated_at']),
                 ];
             }
-            $this->delete_notification($order['order'], $order['nx_id']);
+            $this->delete_notification($order['order'], $order['sa_id']);
             $this->update_notifications($entries);
         }else{
             $get_orders = \SureCart\Models\Order::where( [ 'order_ids' => [ $data['order'] ] ])->with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => 1 ] );
@@ -428,17 +428,17 @@ class SureCart extends Extension {
      */
     public function link_types($options) {
         $options = GlobalFields::get_instance()->normalize_fields([
-            'product_page' => __('Product Page', 'notificationx'),
+            'product_page' => __('Product Page', 'surfalert'),
         ], 'source', $this->id, $options);
 
         return $options;
     }
 
     public function fallback_data($data, $entry) {
-        $data['name']            = __('Someone', 'notificationx');
-        $data['first_name']      = __('Someone', 'notificationx');
-        $data['last_name']       = __('Someone', 'notificationx');
-        $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
+        $data['name']            = __('Someone', 'surfalert');
+        $data['first_name']      = __('Someone', 'surfalert');
+        $data['last_name']       = __('Someone', 'surfalert');
+        $data['anonymous_title'] = __('Anonymous Product', 'surfalert');
         if(empty($entry['product_title']) && !empty($entry['title'])){
             $data['product_title'] = $entry['title'];
         }
@@ -450,10 +450,10 @@ class SureCart extends Extension {
             $url = admin_url('plugin-install.php?s=surecart&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'SureCart', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'SureCart', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -465,10 +465,10 @@ class SureCart extends Extension {
 
     public function doc(){
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
-        <a target="_blank" href="%3$s">👉 NotificationX Integration with SureCart</a>', 'notificationx'),
+        <a target="_blank" href="%3$s">👉 SurfAlert Integration with SureCart</a>', 'surfalert'),
         'https://wordpress.org/plugins/surecart/',
-        'https://notificationx.com/docs/surecart-sales-alert/',
-        'https://notificationx.com/surecart/'
+        'https://surfalert.com/docs/surecart-sales-alert/',
+        'https://surfalert.com/surecart/'
         );
     }
 

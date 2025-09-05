@@ -3,14 +3,14 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\Core\Database;
-use NotificationX\Core\Helper;
-use NotificationX\GetInstance;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\Helper;
+use SurfAlert\GetInstance;
 
 /**
  * @method static Entries get_instance($args = null)
@@ -27,7 +27,7 @@ class Entries {
     protected $count = [];
     public $format = [
         'entry_id'    => '%d',
-        'nx_id'       => '%d',
+        'sa_id'       => '%d',
         'source'      => '%s',
         'entry_key'   => '%s',
         'data'        => '%s',
@@ -69,7 +69,7 @@ class Entries {
         if(empty($entry['updated_at'])){
             $entry['updated_at'] = Helper::mysql_time($timestamp);
         }
-        $entry = apply_filters('nx_insert_entry', $entry);
+        $entry = apply_filters('sa_insert_entry', $entry);
         return Database::get_instance()->insert_post(Database::$table_entries, $entry, $this->format);
     }
 
@@ -86,18 +86,18 @@ class Entries {
             if(empty($entry['updated_at'])){
                 $entry['updated_at'] = Helper::mysql_time($timestamp);
             }
-            $entries[$key] = apply_filters('nx_insert_entry', $entry);
+            $entries[$key] = apply_filters('sa_insert_entry', $entry);
         }
         return Database::get_instance()->insert_posts(Database::$table_entries, $entries, $this->format);
     }
 
-    public function get_entries($where__or_nx_id = [], $select = "*", $join_table = '', $group_by_col = '', $data_in_entry = false) {
-        if (is_int($where__or_nx_id)) {
-            $where__or_nx_id = ['nx_id' => $where__or_nx_id];
+    public function get_entries($where__or_sa_id = [], $select = "*", $join_table = '', $group_by_col = '', $data_in_entry = false) {
+        if (is_int($where__or_sa_id)) {
+            $where__or_sa_id = ['sa_id' => $where__or_sa_id];
         }
-        $entries = Database::get_instance()->get_posts(Database::$table_entries, $select, $where__or_nx_id, $join_table, $group_by_col, '', 'ORDER BY `created_at` DESC');
+        $entries = Database::get_instance()->get_posts(Database::$table_entries, $select, $where__or_sa_id, $join_table, $group_by_col, '', 'ORDER BY `created_at` DESC');
         if ($data_in_entry) {
-            $entries = apply_filters('nx_get_entries', $entries);
+            $entries = apply_filters('sa_get_entries', $entries);
             return $entries;
         }
         foreach ($entries as $key => $value) {
@@ -105,17 +105,17 @@ class Entries {
                 $value = array_merge($value['data'], $value);
                 unset($value['data']);
             }
-            $entries[$key] = apply_filters('nx_get_entry', $value);
+            $entries[$key] = apply_filters('sa_get_entry', $value);
         }
-        $entries = apply_filters('nx_get_entries', $entries);
+        $entries = apply_filters('sa_get_entries', $entries);
         return $entries;
     }
 
-    public function delete_entries($where__or_nx_id, $limit = 0) {
-        if (!is_array($where__or_nx_id)) {
-            $where__or_nx_id = ['nx_id' => $where__or_nx_id];
+    public function delete_entries($where__or_sa_id, $limit = 0) {
+        if (!is_array($where__or_sa_id)) {
+            $where__or_sa_id = ['sa_id' => $where__or_sa_id];
         }
-        $results = Database::get_instance()->delete_posts(Database::$table_entries, $where__or_nx_id, $limit);
+        $results = Database::get_instance()->delete_posts(Database::$table_entries, $where__or_sa_id, $limit);
         // @todo add action.
         return $results;
     }

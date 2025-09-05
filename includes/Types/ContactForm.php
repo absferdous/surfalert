@@ -3,16 +3,16 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -49,79 +49,79 @@ class ContactForm extends Types {
     public function init()
     {
         parent::init();
-        $this->title = __('Contact Form', 'notificationx');
+        $this->title = __('Contact Form', 'surfalert');
         $this->themes = [
             'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-two.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-two.jpg',
                 'image_shape' => 'circle',
                 // Default values for Add New > Content > Notification Template fields
                 'template' => [
                     'first_param'         => 'select_a_tag',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('recently contacted via', 'surfalert'),
                     'third_param'         => 'tag_title',
                     'custom_third_param'  => '',
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-one.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-one.jpg',
                 'image_shape' => 'circle',
                 'template' => [
                     'first_param'         => 'select_a_tag',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('recently contacted via', 'surfalert'),
                     'third_param'         => 'tag_title',
                     'custom_third_param'  => '',
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-three.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/form/cf7-theme-three.jpg',
                 'image_shape' => 'square',
                 'template' => [
                     'first_param'         => 'select_a_tag',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('recently contacted via', 'surfalert'),
                     'third_param'         => 'tag_title',
                     'custom_third_param'  => '',
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
         ];
         $this->res_themes = [
             'res-theme-one'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-1.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-1.png',
                 'image_shape' => 'circle',
                   // Default values for Add New > Content > Notification Template fields
                 'template' => [
                     'res_first_param'  => 'select_a_tag',
-                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_second_param' => __('just contacted via', 'surfalert'),
                     'res_third_param'  => 'tag_title',
                 ],
                 'is_pro' => true,
             ],
             'res-theme-two'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-2.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-2.png',
                 'image_shape' => 'circle',
                   // Default values for Add New > Content > Notification Template fields
                 'template' => [
                     'res_first_param'  => 'select_a_tag',
-                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_second_param' => __('just contacted via', 'surfalert'),
                     'res_third_param'  => 'tag_title',
                 ],
                 'is_pro' => true,
             ],
             'res-theme-three'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-3.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_form/cf-res-theme-3.png',
                 'image_shape' => 'circle',
                   // Default values for Add New > Content > Notification Template fields
                 'template' => [
                     'res_first_param'  => 'select_a_tag',
-                    'res_second_param' => __('just contacted via', 'notificationx'),
+                    'res_second_param' => __('just contacted via', 'surfalert'),
                     'res_third_param'  => 'tag_title',
                 ],
                 'is_pro' => true,
@@ -132,17 +132,17 @@ class ContactForm extends Types {
             'form_template_new' => [
                 'first_param' => [
                     'select_a_tag' => [
-                        'label'    => __('Select A Tag', 'notificationx'),
+                        'label'    => __('Select A Tag', 'surfalert'),
                         'value'    => 'select_a_tag',
                         'disabled' => true,
                     ],
                 ],
                 'third_param' => [
-                    'tag_title'       => __('Form Title', 'notificationx'),
-                    // 'tag_custom_form_title' => __('Custom Title', 'notificationx'),
+                    'tag_title'       => __('Form Title', 'surfalert'),
+                    // 'tag_custom_form_title' => __('Custom Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time'       => __('Definite Time', 'notificationx'),
+                    'tag_time'       => __('Definite Time', 'surfalert'),
                 ],
                 // themes for this template.
                 '_themes' => [
@@ -155,15 +155,15 @@ class ContactForm extends Types {
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_fields', [$this, 'add_form_fields'], 9);
-        add_filter('nx_notification_template', [$this, 'notification_template'], 9);
-        // add_filter('nx_customize_fields', [$this, 'customize_fields'], 20);
+        add_filter('sa_content_fields', [$this, 'add_form_fields'], 9);
+        add_filter('sa_notification_template', [$this, 'notification_template'], 9);
+        // add_filter('sa_customize_fields', [$this, 'customize_fields'], 20);
     }
 
     /**
@@ -175,7 +175,7 @@ class ContactForm extends Types {
     public function notification_template( $fields ){
         $fields['first_param']['ajax'] = [
             'on'   => 'click',
-            'api'  => "/notificationx/v1/get-data",
+            'api'  => "/surfalert/v1/get-data",
             'data' => [
                 'type'      => "ContactForm",
                 'form_type' => "@source",
@@ -227,8 +227,8 @@ class ContactForm extends Types {
         $fields['content']['fields']['form_list'] = [
             'type'    => 'select-async',
             'name'    => 'form_list',
-            'label'   => __('Select a Form', 'notificationx'),
-            'options' => apply_filters('nx_form_list', [
+            'label'   => __('Select a Form', 'surfalert'),
+            'options' => apply_filters('sa_form_list', [
                 [
                     'label'    => "Type for more result...",
                     'value'    => null,
@@ -238,7 +238,7 @@ class ContactForm extends Types {
             'priority' => 20,
             'rules' => Rules::includes( 'type', $this->id ),
             'ajax'   => [
-                'api'  => "/notificationx/v1/get-data",
+                'api'  => "/surfalert/v1/get-data",
                 'data' => [
                     'type'   => "@type",
                     'source' => "@source",
@@ -266,7 +266,7 @@ class ContactForm extends Types {
         $entry = array_merge($entry, [
             "title"             => "Support Us Form",
             'image_data' => array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'url'     => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             ),

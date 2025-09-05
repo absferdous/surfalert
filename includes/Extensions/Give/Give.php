@@ -3,14 +3,14 @@
 /**
  * Give Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Give;
+namespace SurfAlert\Extensions\Give;
 
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * Give Extension
@@ -26,8 +26,8 @@ class Give extends Extension {
 
     public $priority        = 5;
     public $id              = 'give';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/give.png';
-    public $doc_link        = 'https://notificationx.com/docs/givewp-donation-alert/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/give.png';
+    public $doc_link        = 'https://surfalert.com/docs/givewp-donation-alert/';
     public $types           = 'donation';
     public $module          = 'modules_give';
     public $module_priority = 6;
@@ -43,8 +43,8 @@ class Give extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Give', 'notificationx');
-        $this->module_title = __('GiveWP', 'notificationx');
+        $this->title = __('Give', 'surfalert');
+        $this->module_title = __('GiveWP', 'surfalert');
     }
 
     /**
@@ -56,20 +56,20 @@ class Give extends Extension {
         parent::admin_actions();
 
         // @todo Something
-        add_filter("nx_can_entry_{$this->id}", array($this, 'limit_by_selected_form'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'limit_by_selected_form'), 10, 3);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
         // public actions will be here
         add_action('give_complete_donation', [$this, 'save_new_donation'], 10, 1);
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
     /**
@@ -79,11 +79,11 @@ class Give extends Extension {
      * @return array
      */
     public function fallback_data($data, $saved_data, $settings) {
-        $data['name']            = __('Someone', 'notificationx');
-        $data['first_name']      = __('Someone', 'notificationx');
-        $data['last_name']       = __('Someone', 'notificationx');
-        $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
-        $data['sometime']        = __('Some time ago', 'notificationx');
+        $data['name']            = __('Someone', 'surfalert');
+        $data['first_name']      = __('Someone', 'surfalert');
+        $data['last_name']       = __('Someone', 'surfalert');
+        $data['anonymous_title'] = __('Anonymous Product', 'surfalert');
+        $data['sometime']        = __('Some time ago', 'surfalert');
         return $data;
     }
 
@@ -100,10 +100,10 @@ class Give extends Extension {
             $url = admin_url('plugin-install.php?s=give&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'GiveWP Donation', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'GiveWP Donation', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -154,7 +154,7 @@ class Give extends Extension {
             $donation_data = array_merge(array(
                 'id' => $result->ID,
                 'title' => $result->form_title,
-                'amount' => $result->total . ' ' . __('for', 'notificationx'),
+                'amount' => $result->total . ' ' . __('for', 'surfalert'),
                 'link' => isset($result->payment_meta['_give_current_url']) ? $result->payment_meta['_give_current_url'] : '',
                 'give_form_id' => $result->form_id,
                 'give_page_id' => isset($result->payment_meta['_give_current_page_id']) ? $result->payment_meta['_give_current_page_id'] : '',
@@ -170,8 +170,8 @@ class Give extends Extension {
         }
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -185,11 +185,11 @@ class Give extends Extension {
     public function get_notification_ready($data = array()) {
         $donations = $this->get_give_donations($data);
         if (!empty($donations)) {
-            // $this->update_notification($donations, null, $data['nx_id']);
+            // $this->update_notification($donations, null, $data['sa_id']);
             $entries = [];
             foreach ($donations as $key => $donation) {
                 $entries[] = [
-                    'nx_id'      => $data['nx_id'],
+                    'sa_id'      => $data['sa_id'],
                     'source'     => $this->id,
                     'entry_key'  => $key,
                     'data'       => $donation,
@@ -232,7 +232,7 @@ class Give extends Extension {
                         'title' => $result->form_title,
                         'link' => isset($result->payment_meta['_give_current_url']) ? $result->payment_meta['_give_current_url'] : '',
                         'give_form_id' => $result->form_id,
-                        'amount' => $result->total . ' ' . __('for', 'notificationx'),
+                        'amount' => $result->total . ' ' . __('for', 'surfalert'),
                         'give_page_id' => isset($result->payment_meta['_give_current_page_id']) ? $result->payment_meta['_give_current_page_id'] : '',
                         'timestamp' => get_gmt_from_date($result->date),
                     ),
@@ -272,7 +272,7 @@ class Give extends Extension {
     }
 
     /**
-     * Hooked with nx_can_entry_give
+     * Hooked with sa_can_entry_give
      *
      * @param [type] $return
      * @param [type] $entry
@@ -296,14 +296,14 @@ class Give extends Extension {
     public function doc() {
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with GiveWP</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with GiveWP</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How Does <a target="_blank" href="%5$s">NotificationX Increase Sales on WordPress</a> Websites?"</p>', 'notificationx'),
+		<p>🔥 How Does <a target="_blank" href="%5$s">SurfAlert Increase Sales on WordPress</a> Websites?"</p>', 'surfalert'),
         'https://wordpress.org/plugins/give/',
-        'https://notificationx.com/docs/givewp-donation-alert/',
+        'https://surfalert.com/docs/givewp-donation-alert/',
         'https://www.youtube.com/watch?v=8EFgHSA8mOg',
-        'https://notificationx.com/integrations/givewp/',
-        'https://wpdeveloper.com/notificationx-increase-sales-wordpress/'
+        'https://surfalert.com/integrations/givewp/',
+        'https://wpdeveloper.com/surfalert-increase-sales-wordpress/'
         );
     }
 }

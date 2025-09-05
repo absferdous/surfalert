@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationX\Admin\Rating;
+namespace SurfAlert\Admin\Rating;
 
-use NotificationX\GetInstance;
+use SurfAlert\GetInstance;
 use WP_REST_Server;
 
 /**
@@ -12,7 +12,7 @@ use WP_REST_Server;
  * @since 1.4.4
  */
 class RatingEmail {
-    private static $_namespace   = 'notificationx';
+    private static $_namespace   = 'surfalert';
     private static $_version     = 1;
     private static $_mail_sendto = 'support@wpdeveloper.com';
     /**
@@ -46,18 +46,18 @@ class RatingEmail {
 
     /**
      * Set Email Subject
-     * By Default, subject will be "Weekly Reporting for NotificationX"
-     * Admin can set Custom Subject from NotificationX Advanced Settings Panel
+     * By Default, subject will be "Weekly Reporting for SurfAlert"
+     * Admin can set Custom Subject from SurfAlert Advanced Settings Panel
      * @return subject||String
      */
     public function email_subject() {
-        $subject = __( "[IMPORTANT] New feedback received from a NotificationX user", 'notificationx' );
+        $subject = __( "[IMPORTANT] New feedback received from a SurfAlert user", 'surfalert' );
         return $subject;
     }
 
     public function send_rating($request)
     {
-        update_option('nx_feedback_shared', true);
+        update_option('sa_feedback_shared', true);
         $params = $request->get_params();
         $rating = isset($params['rating']) ? intval($params['rating']) : null;
         $review = isset($params['review']) ? sanitize_text_field($params['review']) : '';
@@ -77,7 +77,7 @@ class RatingEmail {
         $template = new EmailTemplate();
         $message = $template->template_body($data, 'weekly'); // Pass data
         
-        $headers = ['Content-Type: text/html; charset=UTF-8', "From: NotificationX <support@wpdeveloper.com>"];
+        $headers = ['Content-Type: text/html; charset=UTF-8', "From: SurfAlert <support@wpdeveloper.com>"];
     
         // Send email
         $sent = wp_mail($to, $subject, $message, $headers);

@@ -3,17 +3,17 @@
 /**
  * LearnPress Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\LearnPress;
+namespace SurfAlert\Extensions\LearnPress;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Admin\Settings;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Admin\Settings;
 
 /**
  * LearnPress Extension
@@ -29,8 +29,8 @@ class LearnPress extends Extension {
 
     public $priority        = 11;
     public $id              = 'learnpress';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/_learnpress.png';
-    public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/_learnpress.png';
+    public $doc_link        = 'https://surfalert.com/docs/tutor-lms/';
     public $types           = 'elearning';
     public $module          = 'modules_learnpress';
     public $module_priority = 19;
@@ -45,14 +45,14 @@ class LearnPress extends Extension {
 
     public function init_extension()
     {
-        $this->title        = __('LearnPress', 'notificationx');
-        $this->module_title = __('LearnPress', 'notificationx');
+        $this->title        = __('LearnPress', 'surfalert');
+        $this->module_title = __('LearnPress', 'surfalert');
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
@@ -84,7 +84,7 @@ class LearnPress extends Extension {
     /**
      * This functions is hooked
      *
-     * @hooked nx_admin_action
+     * @hooked sa_admin_action
      * @return void
      */
     public function admin_actions() {
@@ -109,7 +109,7 @@ class LearnPress extends Extension {
         if(!$settings['show_default_image']){
             switch ($settings['show_notification_image']) {
                 case 'featured_image':
-                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], '_nx_notification_thumb' );
+                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], '_sa_notification_thumb' );
                     $image_data['alt'] = !empty($data['title']) ? $data['title'] : '';
                     break;
                 case 'gravatar':
@@ -127,10 +127,10 @@ class LearnPress extends Extension {
             $url = admin_url('plugin-install.php?s=learnpress&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'LearnPress', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'LearnPress', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -459,8 +459,8 @@ class LearnPress extends Extension {
         return $buyer_data;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -478,7 +478,7 @@ class LearnPress extends Extension {
             $entries = [];
             foreach ($enrollments as $key => $enrollment) {
                 $entries[] = array(
-                        'nx_id'     => $data['nx_id'],
+                        'sa_id'     => $data['sa_id'],
                         'source'    => $this->id,
                         'entry_key' => $key,
                         'data'      => $enrollment,
@@ -533,10 +533,10 @@ class LearnPress extends Extension {
      * @return array
      */
     public function fallback_data($data, $saved_data, $settings) {
-        $data['name']            = __('Someone', 'notificationx');
-        $data['first_name']      = __('Someone', 'notificationx');
-        $data['last_name']       = __('Someone', 'notificationx');
-        $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
+        $data['name']            = __('Someone', 'surfalert');
+        $data['first_name']      = __('Someone', 'surfalert');
+        $data['last_name']       = __('Someone', 'surfalert');
+        $data['anonymous_title'] = __('Anonymous Product', 'surfalert');
         $data['course_title']    = $saved_data['title'];
         return $data;
     }
@@ -544,11 +544,11 @@ class LearnPress extends Extension {
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with LearnPress LMS</a></p>', 'notificationx'),
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with LearnPress LMS</a></p>', 'surfalert'),
         'https://wordpress.org/plugins/learnpress/',
-        'https://notificationx.com/docs/how-to-display-learnpress-course-enrollment-alert-using-notificationx/',
-        'https://notificationx.com/integrations/learnpress/',
-        'https://notificationx.com/integrations/learnpress/'
+        'https://surfalert.com/docs/how-to-display-learnpress-course-enrollment-alert-using-surfalert/',
+        'https://surfalert.com/integrations/learnpress/',
+        'https://surfalert.com/integrations/learnpress/'
         );
     }
 }

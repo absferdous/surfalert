@@ -1,0 +1,373 @@
+// color theme five
+.themes-donation_conv-theme-eight,
+.themes-donation_conv-theme-nine,
+.themes-elearning_conv-theme-eight,
+.themes-elearning_conv-theme-nine,
+.themes-woocommerce_sales_conv-theme-eight,
+.themes-woocommerce_sales_conv-theme-nine,
+.themes-conversions_conv-theme-eight,
+.themes-conversions_conv-theme-nine {
+    .surfalert-inner {
+        .surfalert-content {
+            & > p {
+                &.sa-first-row {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #000;
+                    .sa-first-word,
+                    .sa-second-word {
+                        font-weight: 500;
+                        color: #6a4bff;
+                    }
+                    > span {
+                        span {
+                            &:nth-child(1) {
+                                font-weight: 500;
+                                color: #6a4bff;
+                            }
+                            // &:nth-child(2) {
+
+                            // }
+                        }
+                    }
+                }
+                &.sa-second-row {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #000;
+                    .sa-second-word {
+                        font-weight: 400;
+                    }
+                    > span {
+                        span {
+                            // &:nth-child(1) {
+                            //     color: #000;
+                            // }
+                            &:nth-child(2) {
+                                font-weight: 400;
+                                color: #7c8db5;
+                            }
+                        }
+                    }
+                }
+                &.sa-third-row {
+                    font-size: 10px;
+                    color: #7c8db5;
+                }
+            }
+        }
+    }
+}
+
+// color theme five
+.themes-review-comment,
+.themes-page_analytics_pa-theme-two,
+.themes-review-comment-3 {
+    .surfalert-inner {
+        .surfalert-content {
+            & > p {
+                &.sa-first-row {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #000;
+                    .sa-first-word {
+                        font-weight: 500;
+                        color: #6a4bff;
+                    }
+                    > span {
+                        span {
+                            &:nth-child(1) {
+                                font-weight: 500;
+                                color: #6a4bff;
+                            }
+                            // &:nth-child(2) {
+
+                            // }
+                        }
+                    }
+                }
+                &.sa-second-row {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #7c8db5;
+                }
+                &.sa-third-row {
+                    font-size: 10px;
+                    color: #7c8db5;
+                }
+            }
+        }
+    }
+}
+
+.themes-elearning_conv-theme-seven,
+.themes-page_analytics_pa-theme-three,
+.themes-donation_conv-theme-seven,
+.themes-woocommerce_sales_conv-theme-seven,
+.themes-conversions_conv-theme-seven {
+    .surfalert-content {
+        & > p {
+            &.sa-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                > span {
+                    span {
+                        &:nth-child(1) {
+                            font-weight: 500;
+                            color: #45c9b1;
+                        }
+                        &:nth-child(2) {
+                            font-weight: 400;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+            &.sa-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #000;
+                > span {
+                    span {
+                        &:nth-child(2) {
+                            font-weight: 400;
+                            color: #7c8db5;
+                        }
+                    }
+                }
+            }
+            &.sa-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
+}
+
+.themes-review-comment-2 {
+    .surfalert-content {
+        & > p {
+            &.sa-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .sa-first-word {
+                    font-weight: 500;
+                    color: #ff66bc;
+                }
+                > span {
+                    span {
+                        &:nth-child(1) {
+                            font-weight: 500;
+                            color: #ff66bc;
+                        }
+                        // &:nth-child(2) {
+
+                        // }
+                    }
+                }
+            }
+            &.sa-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.sa-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
+}
+
+// .themes-google_reviews_reviewed {
+//     .surfalert-content {
+//         & > p {
+//             &.sa-first-row {
+//                 color: #000;
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 .sa-first-word {
+//                     color: #000;
+//                     font-weight: 400;
+//                 }
+//             }
+//             &.sa-second-row {
+//                 font-size: 15px;
+//                 color: #6a4bff;
+//                 font-weight: 500;
+//             }
+//             &.sa-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
+// .themes-google_reviews_review-comment {
+//     .surfalert-content {
+//         & > p {
+//             &.sa-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .sa-first-word {
+//                     font-weight: 500;
+//                     color: #6a4bff;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #6a4bff;
+//                         }
+//                         // &:nth-child(2) {
+
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.sa-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.sa-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
+// .themes-google_reviews_review-comment-2 {
+//     .surfalert-content {
+//         & > p {
+//             &.sa-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .sa-first-word {
+//                     font-weight: 500;
+//                     color: #ff66bc;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #ff66bc;
+//                         }
+//                         // &:nth-child(2) {
+
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.sa-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.sa-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+// .themes-google_reviews_review-comment-3 {
+//     .surfalert-content {
+//         & > p {
+//             &.sa-first-row {
+//                 font-size: 14px;
+//                 font-weight: 400;
+//                 color: #000;
+//                 .sa-first-word {
+//                     font-weight: 500;
+//                     color: #6a4bff;
+//                 }
+//                 > span {
+//                     span {
+//                         &:nth-child(1) {
+//                             font-weight: 500;
+//                             color: #6a4bff;
+//                         }
+//                         // &:nth-child(2) {
+
+//                         // }
+//                     }
+//                 }
+//             }
+//             &.sa-second-row {
+//                 font-size: 12px;
+//                 font-weight: 400;
+//                 color: #7c8db5;
+//             }
+//             &.sa-third-row {
+//                 font-size: 10px;
+//                 color: #7c8db5;
+//             }
+//         }
+//     }
+// }
+
+.themes-comments_theme-six-free,
+.themes-comments_theme-eight-free {
+    .surfalert-content {
+        & > p {
+            &.sa-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .sa-first-word {
+                    font-weight: 500;
+                    color: #6a4bff;
+                }
+                > *:last-child {
+                    font-weight: 500;
+                    color: #6a4bff;
+                }
+            }
+            &.sa-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.sa-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
+}
+
+.themes-comments_theme-seven-free {
+    .surfalert-content {
+        & > p {
+            &.sa-first-row {
+                font-size: 14px;
+                font-weight: 400;
+                color: #000;
+                .sa-first-word {
+                    font-weight: 500;
+                    color: #ff66bc;
+                }
+                > *:last-child {
+                    font-weight: 500;
+                    color: #ff66bc;
+                }
+            }
+            &.sa-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #7c8db5;
+            }
+            &.sa-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
+}

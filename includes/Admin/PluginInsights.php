@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 #[\AllowDynamicProperties]
 class PluginInsights {
     /**
@@ -613,7 +613,7 @@ class PluginInsights {
 
         ?>
 
-        <div class="nx-optin">
+        <div class="sa-optin">
             <p><?php echo wp_kses_post( $notice_text ); ?></p>
             <div class="wpinsights-data" style="display: none;">
                 <p><?php echo wp_kses_post( $extra_notice_text ); ?></p>
@@ -782,7 +782,7 @@ class PluginInsights {
     public function deactivate_reasons_form_style() {
         ?>
         <style type="text/css">
-            .wpinsights-form-active-notificationx .wpinsights-goodbye-form-bg {
+            .wpinsights-form-active-surfalert .wpinsights-goodbye-form-bg {
                 background: rgba(0, 0, 0, .8);
                 position: fixed;
                 top: 0;
@@ -792,12 +792,12 @@ class PluginInsights {
                 z-index: 9;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx {
+            .wpinsights-goodbye-form-wrapper-surfalert {
                 position: relative;
                 display: none;
             }
 
-            .wpinsights-form-active-notificationx .wpinsights-goodbye-form-wrapper-notificationx {
+            .wpinsights-form-active-surfalert .wpinsights-goodbye-form-wrapper-surfalert {
                 display: flex !important;
                 position: fixed;
                 top: 0;
@@ -808,11 +808,11 @@ class PluginInsights {
                 align-items: center;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form {
                 display: none;
             }
 
-            .wpinsights-form-active-notificationx .wpinsights-goodbye-form {
+            .wpinsights-form-active-surfalert .wpinsights-goodbye-form {
                 position: relative !important;
                 width: 550px;
                 max-width: 80%;
@@ -825,7 +825,7 @@ class PluginInsights {
                 z-index: 999999;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-head {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-head {
                 background: #fff;
                 color: #495157;
                 padding: 18px;
@@ -833,71 +833,71 @@ class PluginInsights {
                 font-size: 15px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form .wpinsights-goodbye-form-head strong {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form .wpinsights-goodbye-form-head strong {
                 font-size: 15px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body {
                 padding: 8px 18px;
                 color: #333;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body label {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body label {
                 padding-left: 5px;
                 color: #6d7882;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body .wpinsights-goodbye-form-caption {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body .wpinsights-goodbye-form-caption {
                 font-weight: 500;
                 font-size: 15px;
                 color: #495157;
                 line-height: 1.4;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body #wpinsights-goodbye-options {
                 padding-top: 5px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li {
                 margin-bottom: 15px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div {
                 display: inline;
                 padding-left: 3px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div>input,
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div>textarea {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div>input,
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div>textarea {
                 margin: 10px 18px;
                 padding: 8px;
                 width: 80%;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .deactivating-spinner {
+            .wpinsights-goodbye-form-wrapper-surfalert .deactivating-spinner {
                 display: none;
                 padding-bottom: 20px !important;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .deactivating-spinner .spinner {
+            .wpinsights-goodbye-form-wrapper-surfalert .deactivating-spinner .spinner {
                 float: none;
                 margin: 4px 4px 0 18px;
                 vertical-align: bottom;
                 visibility: visible;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-footer {
                 padding: 8px 18px;
                 margin-bottom: 15px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer>.wpinsights-goodbye-form-buttons {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-footer>.wpinsights-goodbye-form-buttons {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-submit-btn {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-footer .wpinsights-submit-btn {
                 background-color: #d30c5c;
                 -webkit-border-radius: 3px;
                 border-radius: 3px;
@@ -907,7 +907,7 @@ class PluginInsights {
                 font-size: 13px;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-deactivate-btn {
+            .wpinsights-goodbye-form-wrapper-surfalert .wpinsights-goodbye-form-footer .wpinsights-deactivate-btn {
                 font-size: 13px;
                 color: #a4afb7;
                 background: none;
@@ -917,7 +917,7 @@ class PluginInsights {
                 text-decoration: underline;
             }
 
-            .wpinsights-goodbye-form-wrapper-notificationx .test {}
+            .wpinsights-goodbye-form-wrapper-surfalert .test {}
         </style>
 
         <?php

@@ -3,17 +3,17 @@
 /**
  * WPOrgStats Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\WordPress;
+namespace SurfAlert\Extensions\WordPress;
 
-use NotificationX\Admin\Cron;
-use NotificationX\Core\Helper;
-use NotificationX\Core\PostType;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Admin\Cron;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\PostType;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * WPOrgStats Extension
@@ -37,11 +37,11 @@ class WPOrgStats extends Extension {
 
     public $priority = 5;
     public $id       = 'wp_stats';
-    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wordpress.png';
-    public $doc_link = 'https://notificationx.com/docs-category/configurations/';
+    public $img      = SURFALERT_ADMIN_URL . 'images/extensions/sources/wordpress.png';
+    public $doc_link = 'https://surfalert.com/docs-category/configurations/';
     public $types    = 'download_stats';
     public $module   = 'modules_wordpress';
-    public $cron_schedule = 'nx_wp_stats_interval';
+    public $cron_schedule = 'sa_wp_stats_interval';
 	public $module_priority = 2;
 
     /**
@@ -53,19 +53,19 @@ class WPOrgStats extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('WP.Org Stats', 'notificationx');
-        $this->module_title = __('WordPress', 'notificationx');
+        $this->title = __('WP.Org Stats', 'surfalert');
+        $this->module_title = __('WordPress', 'surfalert');
     }
 
 
     public function init() {
         parent::init();
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_fields', [$this, 'content_fields']);
+        add_filter('sa_content_fields', [$this, 'content_fields']);
     }
 
     /**
@@ -75,20 +75,20 @@ class WPOrgStats extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_action("nx_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
+        add_action("sa_cron_update_data_{$this->id}", array($this, 'update_data'), 10, 2);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      *
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
 
-        add_filter( 'nx_frontend_get_entries', [$this, 'slice_product_name'], 10, 3);
+        add_filter( 'sa_frontend_get_entries', [$this, 'slice_product_name'], 10, 3);
     }
 
     /**
@@ -96,14 +96,14 @@ class WPOrgStats extends Extension {
      * 
      * @param array $entries Array of product entries to process.
      * @param array $ids Array of IDs to process (not used here).
-     * @param array $notifications Notification settings keyed by `nx_id`.
+     * @param array $notifications Notification settings keyed by `sa_id`.
      * @return array Updated entries array with truncated product names.
     */
     public function slice_product_name($entries, $ids, $notifications) {
         foreach ($entries as $key => $entry) {
             if($entry['source'] == $this->id){
-                $nx_id        = $entry['nx_id'];
-                $settings     = $notifications[$nx_id];
+                $sa_id        = $entry['sa_id'];
+                $settings     = $notifications[$sa_id];
                 if ( !empty( $settings['wp_stats_product_name_length'] ) && !empty( $entry['plugin_theme_name'] ) ) {
                     $text                       = $entry['plugin_theme_name'] ?? '';
                     $maxLength                  = wp_is_mobile()  ? ($settings['wp_stats_product_name_length']['mobile'] ?? 0)  : ($settings['wp_stats_product_name_length']['desktop'] ?? 0);
@@ -128,12 +128,12 @@ class WPOrgStats extends Extension {
         $content_fields['wp_stats_product_type'] = [
             'name' => 'wp_stats_product_type',
             'type'     => 'select',
-            'label'    => __('Product Type', 'notificationx'),
+            'label'    => __('Product Type', 'surfalert'),
             'priority' => 79,
             'default'  => 'plugin',
             'options' => GlobalFields::get_instance()->normalize_fields([
-                'plugin' => __('Plugin', 'notificationx'),
-                'theme' => __('Theme', 'notificationx'),
+                'plugin' => __('Plugin', 'surfalert'),
+                'theme' => __('Theme', 'surfalert'),
             ]),
             'rules'  => ['is', 'source', $this->id]
         ];
@@ -141,14 +141,14 @@ class WPOrgStats extends Extension {
         $content_fields['wp_stats_slug'] = [
             'name' => 'wp_stats_slug',
             'type'     => 'text',
-            'label'    => __('Slug', 'notificationx'),
+            'label'    => __('Slug', 'surfalert'),
             'priority' => 80,
             'rules'  => ['is', 'source', $this->id]
         ];
         $content_fields['wp_stats_product_name_length'] = [
             'name'    => 'wp_stats_product_name_length',
             'type'    => "responsive-number",
-            'label'   => __('Product Name Length', 'notificationx'),
+            'label'   => __('Product Name Length', 'surfalert'),
             'rules'   => ['is', 'source', $this->id],
             'default' => [
                 "desktop" => 30,
@@ -158,15 +158,15 @@ class WPOrgStats extends Extension {
             'min'      => 10,
             'controls' => [
                 "desktop" => [
-                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    "icon" => SURFALERT_ADMIN_URL . 'images/responsive/desktop.svg',
                     'size' => 18,
                 ],
                 "mobile" => [
-                    "icon" => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
+                    "icon" => SURFALERT_ADMIN_URL . 'images/responsive/mobile.svg',
                     'size' => 12,
                 ],
             ],
-            'help' => __('Set a max content length for product name.', 'notificationx'),
+            'help' => __('Set a max content length for product name.', 'surfalert'),
         ];
         return $fields;
     }
@@ -178,10 +178,10 @@ class WPOrgStats extends Extension {
         $data['last_week'] = 0;
         $data['all_time'] = 0;
         $data['active_installs'] = 0;
-        $data['today_text'] = __('Try It Out', 'notificationx');
-        $data['last_week_text'] = __('Get Started for Free.', 'notificationx');
-        $data['all_time_text']  = __('Why Don\'t You?', 'notificationx');
-        $data['active_installs_text'] = __( 'Try It Out', 'notificationx' );
+        $data['today_text'] = __('Try It Out', 'surfalert');
+        $data['last_week_text'] = __('Get Started for Free.', 'surfalert');
+        $data['all_time_text']  = __('Why Don\'t You?', 'surfalert');
+        $data['active_installs_text'] = __( 'Try It Out', 'surfalert' );
 
         if(!empty($saved_data['name'])){
             $data['plugin_theme_name'] = $saved_data['name'];
@@ -194,14 +194,14 @@ class WPOrgStats extends Extension {
     public function conversion_data($saved_data, $settings) {
 
         // translators: %s: number of downloads today.
-        $saved_data['today'] = sprintf(__( '%s times today', 'notificationx' ), Helper::nice_number( $saved_data['today'] ));
+        $saved_data['today'] = sprintf(__( '%s times today', 'surfalert' ), Helper::nice_number( $saved_data['today'] ));
         // translators: %s: number of downloads yesterday.
-        $saved_data['yesterday'] = sprintf(__( '%s times', 'notificationx' ), Helper::nice_number( $saved_data['yesterday'] ));
+        $saved_data['yesterday'] = sprintf(__( '%s times', 'surfalert' ), Helper::nice_number( $saved_data['yesterday'] ));
         // translators: %s: number of downloads in last 7 days.
-        $saved_data['last_week'] = sprintf(__( '%s times in last 7 days', 'notificationx' ), Helper::nice_number( $saved_data['last_week'] ));
+        $saved_data['last_week'] = sprintf(__( '%s times in last 7 days', 'surfalert' ), Helper::nice_number( $saved_data['last_week'] ));
         // translators: %s: number of downloads of all time.
-        $saved_data['all_time'] = sprintf(__( '%s times', 'notificationx' ), Helper::nice_number( $saved_data['all_time'] ));
-        $saved_data['active_installs'] = __( Helper::nice_number( $saved_data['active_installs'] ), 'notificationx' );
+        $saved_data['all_time'] = sprintf(__( '%s times', 'surfalert' ), Helper::nice_number( $saved_data['all_time'] ));
+        $saved_data['active_installs'] = __( Helper::nice_number( $saved_data['active_installs'] ), 'surfalert' );
         // wp_send_json($saved_data);
         return $saved_data;
     }
@@ -226,8 +226,8 @@ class WPOrgStats extends Extension {
         return $image_data;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->update_data($nx_id, $data);
+    public function saved_post($post, $data, $sa_id) {
+        $this->update_data($sa_id, $data);
         return $post;
     }
 
@@ -242,20 +242,20 @@ class WPOrgStats extends Extension {
         $plugins_data = $this->get_plugins_data($post_id, $data);
         $this->delete_notification(null, $post_id);
         $this->update_notification([
-            'nx_id'      => $post_id,
+            'sa_id'      => $post_id,
             'source'     => $this->id,
             'entry_key'  => !empty(  $plugins_data['slug'] ) ?  $plugins_data['slug'] : '',
             'data'       => $plugins_data,
         ]);
     }
 
-    public function get_plugins_data($post_id, $_nx_meta) {
+    public function get_plugins_data($post_id, $_sa_meta) {
         if (!$post_id) {
             return;
         }
         $this->helper = new WPOrg_Helper();
-        $product_type = $_nx_meta['wp_stats_product_type'];
-        $plugin_slug = $_nx_meta['wp_stats_slug'];
+        $product_type = $_sa_meta['wp_stats_product_type'];
+        $plugin_slug = $_sa_meta['wp_stats_slug'];
 
         if (!$plugin_slug) {
             return;
@@ -289,8 +289,8 @@ class WPOrgStats extends Extension {
      * @return void
      */
     public function get_notification_ready($data = array()) {
-        if (!is_null($data['nx_id'])) {
-            $this->update_data($data['nx_id'], $data);
+        if (!is_null($data['sa_id'])) {
+            $this->update_data($data['sa_id'], $data);
         }
     }
 }

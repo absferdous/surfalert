@@ -3,16 +3,16 @@
 /**
  * CF7 Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\CF7;
+namespace SurfAlert\Extensions\CF7;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * CF7 Extension
@@ -29,7 +29,7 @@ class CF7 extends Extension {
     public $priority        = 5;
     public $id              = 'cf7';
     public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $doc_link        = 'https://surfalert.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
     // used in Settings > General tab
     public $module          = 'modules_cf7';
@@ -47,8 +47,8 @@ class CF7 extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Contact Form 7', 'notificationx');
-        $this->module_title = __('Contact Form 7', 'notificationx');
+        $this->title = __('Contact Form 7', 'surfalert');
+        $this->module_title = __('Contact Form 7', 'surfalert');
     }
 
     public function init(){
@@ -59,24 +59,24 @@ class CF7 extends Extension {
     public function init_fields(){
         parent::init_fields();
 
-        add_filter('nx_form_list', [$this, 'nx_form_list'], 9);
+        add_filter('sa_form_list', [$this, 'sa_form_list'], 9);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
@@ -96,10 +96,10 @@ class CF7 extends Extension {
             $messages['cf7'] = [
                 'message' => sprintf(
                     '%s <a href="%s" target="_blank">%s</a> %s',
-                    __('You have to install', 'notificationx'),
+                    __('You have to install', 'surfalert'),
                     $url,
-                    __('Contact Form 7', 'notificationx'),
-                    __('plugin first.', 'notificationx')
+                    __('Contact Form 7', 'surfalert'),
+                    __('plugin first.', 'surfalert')
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -115,7 +115,7 @@ class CF7 extends Extension {
      * @param array $forms
      * @return array
      */
-    public function nx_form_list($forms) {
+    public function sa_form_list($forms) {
         $forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id, $forms);
         return array_values($forms);
     }
@@ -277,14 +277,14 @@ class CF7 extends Extension {
         // translators: links
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Contact Form 7</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with Contact Form 7</a></p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+		<p>🔥 Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>', 'surfalert'),
         'https://wordpress.org/plugins/contact-form-7/',
-        'https://notificationx.com/docs/contact-form-submission-alert/',
+        'https://surfalert.com/docs/contact-form-submission-alert/',
         'https://youtu.be/SP9NXMioIK8',
-        'https://notificationx.com/integrations/contact-form-7/',
-        'https://notificationx.com/blog/wordpress-contact-forms/'
+        'https://surfalert.com/integrations/contact-form-7/',
+        'https://surfalert.com/blog/wordpress-contact-forms/'
         );
     }
 }

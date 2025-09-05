@@ -3,28 +3,28 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Cron;
-use NotificationX\Admin\Settings;
-use NotificationX\Extensions\ConvertKit\ConvertKit;
-use NotificationX\Extensions\CustomNotification\CustomNotification;
-use NotificationX\Extensions\CustomNotification\CustomNotificationConversions;
-use NotificationX\Extensions\Envato\Envato;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\Freemius\FreemiusConversions;
-use NotificationX\Extensions\Freemius\FreemiusReviews;
-use NotificationX\Extensions\Freemius\FreemiusStats;
-use NotificationX\Extensions\Google_Analytics\Google_Analytics;
-use NotificationX\Extensions\MailChimp\MailChimp;
-use NotificationX\Extensions\WooCommerce\WooCommerce as WooCommerce;
-use NotificationX\Extensions\WordPress\WPOrgReview;
-use NotificationX\Extensions\WordPress\WPOrgStats;
-use NotificationX\GetInstance;
-use NotificationX\Types\Conversions;
+use SurfAlert\Admin\Cron;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Extensions\ConvertKit\ConvertKit;
+use SurfAlert\Extensions\CustomNotification\CustomNotification;
+use SurfAlert\Extensions\CustomNotification\CustomNotificationConversions;
+use SurfAlert\Extensions\Envato\Envato;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\Freemius\FreemiusConversions;
+use SurfAlert\Extensions\Freemius\FreemiusReviews;
+use SurfAlert\Extensions\Freemius\FreemiusStats;
+use SurfAlert\Extensions\Google_Analytics\Google_Analytics;
+use SurfAlert\Extensions\MailChimp\MailChimp;
+use SurfAlert\Extensions\WooCommerce\WooCommerce as WooCommerce;
+use SurfAlert\Extensions\WordPress\WPOrgReview;
+use SurfAlert\Extensions\WordPress\WPOrgStats;
+use SurfAlert\GetInstance;
+use SurfAlert\Types\Conversions;
 use NotificationXPro\Feature\SalesFeatures;
 
 /**
@@ -58,16 +58,16 @@ class Migration {
 
         // delete options
         // @todo uncomment
-        // delete_option('notificationx_data');
-        // delete_option('notificationx_settings');
+        // delete_option('surfalert_data');
+        // delete_option('surfalert_settings');
     }
 
     public function migrate_options() {
-        $settings = get_option('notificationx_settings', []);
+        $settings = get_option('surfalert_settings', []);
         if($settings){
-            if(!empty($settings['nx_modules'])){
-                $settings['modules'] = $settings['nx_modules'];
-                unset($settings['nx_modules']);
+            if(!empty($settings['sa_modules'])){
+                $settings['modules'] = $settings['sa_modules'];
+                unset($settings['sa_modules']);
             }
             $settings['is_migrated'] = true;
             Settings::get_instance()->set('settings', $settings);
@@ -91,14 +91,14 @@ class Migration {
         }
 
         // @todo move to ReportEmail.php
-        $nx_daily   = get_option("nx_daily_mail_sent", false);
-        $nx_weekly  = get_option("nx_weekly_mail_sent", false);
-        $nx_monthly = get_option("nx_monthly_mail_sent", false);
+        $sa_daily   = get_option("sa_daily_mail_sent", false);
+        $sa_weekly  = get_option("sa_weekly_mail_sent", false);
+        $sa_monthly = get_option("sa_monthly_mail_sent", false);
         Settings::get_instance()->set("reporting", [
             'mail_sent' => [
-                'daily'    => $nx_daily,
-                'weekly'   => $nx_weekly,
-                'monthly'  => $nx_monthly,
+                'daily'    => $sa_daily,
+                'weekly'   => $sa_weekly,
+                'monthly'  => $sa_monthly,
             ]
         ]);
     }
@@ -107,26 +107,26 @@ class Migration {
         global $wpdb;
         $posts = [];
         $post_meta = [];
-        $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'notificationx'"; // AND ID = $id
+        $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'surfalert'"; // AND ID = $id
         $_posts = $wpdb->get_results($query, ARRAY_A);
-        // $nx_ids = array_column($_posts, 'ID');
+        // $sa_ids = array_column($_posts, 'ID');
 
         if(empty($_posts)) return false;
 
-        // $nx_ids = implode(", ", $nx_ids);
-        // $main_query = "SELECT * FROM $wpdb->postmeta WHERE post_id IN ( $nx_ids )";
+        // $sa_ids = implode(", ", $sa_ids);
+        // $main_query = "SELECT * FROM $wpdb->postmeta WHERE post_id IN ( $sa_ids )";
         // $_post_meta = $wpdb->get_results($main_query, ARRAY_A);
 
         // foreach ($_post_meta as $meta) {
         //     $pid = $meta['post_id'];
         //     $key = $meta['meta_key'];
         //     $_value = maybe_unserialize($meta['meta_value']);
-        //     if ($key == '_nx_meta' && is_array($_value)) {
+        //     if ($key == '_sa_meta' && is_array($_value)) {
         //         foreach ($_value as $key => $value) {
-        //             $post_meta[$pid]["_nx_meta_$key"] = $value;
+        //             $post_meta[$pid]["_sa_meta_$key"] = $value;
         //         }
         //     } else {
-        //         if( $key === "_nx_meta_impression_per_day" ) {
+        //         if( $key === "_sa_meta_impression_per_day" ) {
         //             $post_meta[$pid][$key][] = $_value;
         //         } else {
         //             $post_meta[$pid][$key] = $_value;
@@ -136,24 +136,24 @@ class Migration {
         // wp_send_json($post_meta);
 
         foreach ($_posts as $key => $post) {
-            if ($post['post_type'] != 'notificationx' || $post['post_status'] == 'auto-draft' || $post['post_status'] == 'draft') { // && $post['post_status'] == 'trash'
+            if ($post['post_type'] != 'surfalert' || $post['post_status'] == 'auto-draft' || $post['post_status'] == 'draft') { // && $post['post_status'] == 'trash'
                 continue;
             }
 
             $pid = $post['ID'];
 
-            $is_exist = PostType::get_instance()->get_col('nx_id', ['nx_id' => $pid]);
+            $is_exist = PostType::get_instance()->get_col('sa_id', ['sa_id' => $pid]);
 
             if (empty($is_exist)) {
                 try {
                     $post_meta = $this->get_normalize_meta( $pid );
                     if(!empty($post_meta)){
                         // we need to do create post first so that we can save entries.
-                        $nx_id = PostType::get_instance()->insert_post([
-                            'nx_id' => $post['ID'],
+                        $sa_id = PostType::get_instance()->insert_post([
+                            'sa_id' => $post['ID'],
                             'title' => $post['post_title'],
                         ]);
-                        $post = array_merge($post, $post_meta, ['nx_id' => $nx_id]);
+                        $post = array_merge($post, $post_meta, ['sa_id' => $sa_id]);
                         $data = $this->migrate_post($post);
                         $posts[$pid] = [ 'source' => $data['source'] ];
                         $this->migrate_stats($post);
@@ -167,7 +167,7 @@ class Migration {
                         }
 
                         PostType::get_instance()->update_post([
-                            'nx_id'        => $data['nx_id'],
+                            'sa_id'        => $data['sa_id'],
                             'type'         => $data['type'],
                             'source'       => $data['source'],
                             'theme'        => $data['themes'],
@@ -177,7 +177,7 @@ class Migration {
                             'data'         => $data,
                             'created_at'   => $post_date,
                             'updated_at'   => $post_modified,
-                        ], $nx_id);
+                        ], $sa_id);
                     }
 
                 } catch (\Exception $e) {
@@ -188,9 +188,9 @@ class Migration {
 
         // delete post & meta;
         // @todo uncomment
-        // $query = "DELETE FROM $wpdb->posts WHERE ID in ($nx_ids)"; // AND ID = $id
+        // $query = "DELETE FROM $wpdb->posts WHERE ID in ($sa_ids)"; // AND ID = $id
         // $wpdb->query($query);
-        // $query = "DELETE FROM $wpdb->postmeta WHERE post_id in ($nx_ids)"; // AND ID = $id
+        // $query = "DELETE FROM $wpdb->postmeta WHERE post_id in ($sa_ids)"; // AND ID = $id
         // $wpdb->query($query);
 
         return $posts;
@@ -202,12 +202,12 @@ class Migration {
         if( ! empty( $metas ) && is_array( $metas ) ) {
             array_walk( $metas, function( $value, $key ) use ( &$_metas ) {
                 $_value = maybe_unserialize( $value[0] );
-                if ($key == '_nx_meta' && is_array($_value)) {
+                if ($key == '_sa_meta' && is_array($_value)) {
                     foreach ($_value as $_key => $value) {
-                        $_metas["_nx_meta_$_key"] = $value;
+                        $_metas["_sa_meta_$_key"] = $value;
                     }
                 } else {
-                    if( $key === "_nx_meta_impression_per_day" ) {
+                    if( $key === "_sa_meta_impression_per_day" ) {
                         $_metas[$key][] = $_value;
                     } else {
                         $_metas[$key] = $_value;
@@ -223,133 +223,133 @@ class Migration {
         $post               = [];
         // get() function use $this->_post
         $this->_post        = $_post;
-        $nx_id              = $this->get('ID');
+        $sa_id              = $this->get('ID');
 
         $post['id']         = $this->get('ID');
-        $post['nx_id']      = $this->get('ID');
+        $post['sa_id']      = $this->get('ID');
         $post['title']      = $this->get('post_title');
-        $post['type']       = $this->get('_nx_meta_display_type');
-        $post['currentTab'] = $this->get('_nx_builder_current_tab');
-        $post['enabled']    = $this->get('_nx_meta_active_check');
+        $post['type']       = $this->get('_sa_meta_display_type');
+        $post['currentTab'] = $this->get('_sa_builder_current_tab');
+        $post['enabled']    = $this->get('_sa_meta_active_check');
         $post['is_migrated'] = true;
 
-        $post['utm_campaign']            = $this->get("_nx_meta_utm_campaign");
-        $post['utm_medium']              = $this->get("_nx_meta_utm_medium");
-        $post['utm_source']              = $this->get("_nx_meta_utm_source");
-        $post['utm_source']              = $this->get("_nx_meta_utm_source");
+        $post['utm_campaign']            = $this->get("_sa_meta_utm_campaign");
+        $post['utm_medium']              = $this->get("_sa_meta_utm_medium");
+        $post['utm_source']              = $this->get("_sa_meta_utm_source");
+        $post['utm_source']              = $this->get("_sa_meta_utm_source");
 
         // Display
-        $post['show_on']         = $this->get("_nx_meta_show_on");
-        $post['all_locations']   = $this->get("_nx_meta_all_locations");
-        $post['show_on_display'] = $this->get("_nx_meta_show_on_display");
+        $post['show_on']         = $this->get("_sa_meta_show_on");
+        $post['all_locations']   = $this->get("_sa_meta_all_locations");
+        $post['show_on_display'] = $this->get("_sa_meta_show_on_display");
 
         $post['notification-template'] = [];
 
         // Customize
-        $post['position']       = $this->get("_nx_meta_conversion_position");
-        $post['size']           = $this->get("_nx_meta_conversion_size");
-        $post['close_button']   = (bool) $this->get("_nx_meta_close_button");
-        $post['hide_on_mobile'] = (bool) $this->get("_nx_meta_hide_on_mobile");
-        $post['global_queue']   = (bool) $this->get("_nx_meta_global_queue_active");
-        $post['delay_before']   = $this->get("_nx_meta_delay_before");
-        $post['initial_delay']  = $this->get("_nx_meta_initial_delay");
-        $post['auto_hide']      = $this->get("_nx_meta_auto_hide");
-        $post['hide_after']     = $this->get("_nx_meta_hide_after");
-        $post['display_for']    = $this->get("_nx_meta_display_for");
-        $post['delay_between']  = $this->get("_nx_meta_delay_between");
-        $post['display_last']   = $this->get("_nx_meta_display_last");
-        $post['display_from']   = $this->get("_nx_meta_display_from");
-        $post['loop']           = (bool) $this->get("_nx_meta_loop");
-        $post['link_open']      = (bool) $this->get("_nx_meta_link_open");
-        $post['custom_ids']     = $this->get("_nx_meta_custom_ids");
-        if ($this->get("_nx_meta_sound_checkbox")) {
-            $post['volume']     = $this->get("_nx_meta_volume") * 100;
+        $post['position']       = $this->get("_sa_meta_conversion_position");
+        $post['size']           = $this->get("_sa_meta_conversion_size");
+        $post['close_button']   = (bool) $this->get("_sa_meta_close_button");
+        $post['hide_on_mobile'] = (bool) $this->get("_sa_meta_hide_on_mobile");
+        $post['global_queue']   = (bool) $this->get("_sa_meta_global_queue_active");
+        $post['delay_before']   = $this->get("_sa_meta_delay_before");
+        $post['initial_delay']  = $this->get("_sa_meta_initial_delay");
+        $post['auto_hide']      = $this->get("_sa_meta_auto_hide");
+        $post['hide_after']     = $this->get("_sa_meta_hide_after");
+        $post['display_for']    = $this->get("_sa_meta_display_for");
+        $post['delay_between']  = $this->get("_sa_meta_delay_between");
+        $post['display_last']   = $this->get("_sa_meta_display_last");
+        $post['display_from']   = $this->get("_sa_meta_display_from");
+        $post['loop']           = (bool) $this->get("_sa_meta_loop");
+        $post['link_open']      = (bool) $this->get("_sa_meta_link_open");
+        $post['custom_ids']     = $this->get("_sa_meta_custom_ids");
+        if ($this->get("_sa_meta_sound_checkbox")) {
+            $post['volume']     = $this->get("_sa_meta_volume") * 100;
         }
 
         // Display Tab
-        $post['show_notification_image'] = $this->get("_nx_meta_show_notification_image");
-        $post['show_default_image']      = (bool) $this->get("_nx_meta_show_default_image");
-        $post['default_avatar']          = $this->get("_nx_meta_default_avatar");
-        $post['image_url']               = $this->get("_nx_meta_image_url");
+        $post['show_notification_image'] = $this->get("_sa_meta_show_notification_image");
+        $post['show_default_image']      = (bool) $this->get("_sa_meta_show_default_image");
+        $post['default_avatar']          = $this->get("_sa_meta_default_avatar");
+        $post['image_url']               = $this->get("_sa_meta_image_url");
 
 
         switch ($post['type']) {
             case 'conversions':
                 // Source Tab
-                $post['source']                  = $this->get("_nx_meta_conversion_from");
+                $post['source']                  = $this->get("_sa_meta_conversion_from");
 
                 // Theme Tab
-                $post['themes']                  = $this->get("_nx_meta_theme");
-                $post['advance_edit']            = $this->get("_nx_meta_advance_edit");
-                $post['bg_color']                = $this->get("_nx_meta_bg_color");
-                $post['text_color']              = $this->get("_nx_meta_text_color");
-                $post['border']                  = $this->get("_nx_meta_border");
-                $post['border_size']             = $this->get("_nx_meta_border_size");
-                $post['border_style']            = $this->get("_nx_meta_border_style");
-                $post['border_color']            = $this->get("_nx_meta_border_color");
-                $post['image_shape']             = $this->get("_nx_meta_image_shape");
-                $post['image_position']          = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape']      = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']         = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size']        = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']         = $this->get("_nx_meta_third_font_size");
+                $post['themes']                  = $this->get("_sa_meta_theme");
+                $post['advance_edit']            = $this->get("_sa_meta_advance_edit");
+                $post['bg_color']                = $this->get("_sa_meta_bg_color");
+                $post['text_color']              = $this->get("_sa_meta_text_color");
+                $post['border']                  = $this->get("_sa_meta_border");
+                $post['border_size']             = $this->get("_sa_meta_border_size");
+                $post['border_style']            = $this->get("_sa_meta_border_style");
+                $post['border_color']            = $this->get("_sa_meta_border_color");
+                $post['image_shape']             = $this->get("_sa_meta_image_shape");
+                $post['image_position']          = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape']      = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']         = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size']        = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']         = $this->get("_sa_meta_third_font_size");
 
                 // Content Tab
-                $post['notification-template']   = $this->get("_nx_meta_woo_template_new");
-                if($post['template_adv'] = $this->get("_nx_meta_woo_template_adv")){
-                    $post['advanced_template']   = $this->get("_nx_meta_woo_template");
+                $post['notification-template']   = $this->get("_sa_meta_woo_template_new");
+                if($post['template_adv'] = $this->get("_sa_meta_woo_template_adv")){
+                    $post['advanced_template']   = $this->get("_sa_meta_woo_template");
                 }
 
-                $post['combine_multiorder']      = $this->get("_nx_meta_combine_multiorder");
-                $post['combine_multiorder_text'] = $this->get("_nx_meta_combine_multiorder_text");
-                $post['random_order']            = $this->get("_nx_meta_random_order");
+                $post['combine_multiorder']      = $this->get("_sa_meta_combine_multiorder");
+                $post['combine_multiorder_text'] = $this->get("_sa_meta_combine_multiorder_text");
+                $post['random_order']            = $this->get("_sa_meta_random_order");
 
-                $post['link_type']          = $this->get("_nx_meta_conversion_url");
-                $post['custom_url']  = $this->get("_nx_meta_conversions_custom_url");
+                $post['link_type']          = $this->get("_sa_meta_conversion_url");
+                $post['custom_url']  = $this->get("_sa_meta_conversions_custom_url");
 
-                $post['sound']   = $this->get("_nx_meta_conversions_sound");
+                $post['sound']   = $this->get("_sa_meta_conversions_sound");
 
 
                 switch ($post['source']) {
                     case 'woocommerce':
-                        $post['product_control']         = $this->get("_nx_meta_product_control");
-                        $post['category_list']           = $this->get("_nx_meta_category_list");
-                        $post['product_list']            = $this->get("_nx_meta_product_list");
-                        $post['product_exclude_by']      = $this->get("_nx_meta_product_exclude_by");
-                        $post['exclude_categories']      = $this->get("_nx_meta_exclude_categories");
-                        $post['exclude_products']        = $this->get("_nx_meta_exclude_products");
+                        $post['product_control']         = $this->get("_sa_meta_product_control");
+                        $post['category_list']           = $this->get("_sa_meta_category_list");
+                        $post['product_list']            = $this->get("_sa_meta_product_list");
+                        $post['product_exclude_by']      = $this->get("_sa_meta_product_exclude_by");
+                        $post['exclude_categories']      = $this->get("_sa_meta_exclude_categories");
+                        $post['exclude_products']        = $this->get("_sa_meta_exclude_products");
                         break;
                     case 'edd':
-                        $post['product_control']         = $this->get("_nx_meta_edd_product_control");
-                        $post['category_list']           = $this->get("_nx_meta_edd_category_list");
-                        $post['product_list']            = $this->get("_nx_meta_edd_product_list");
-                        $post['product_exclude_by']      = $this->get("_nx_meta_edd_product_exclude_by");
-                        $post['exclude_categories']      = $this->get("_nx_meta_edd_exclude_categories");
-                        $post['exclude_products']        = $this->get("_nx_meta_edd_exclude_products");
+                        $post['product_control']         = $this->get("_sa_meta_edd_product_control");
+                        $post['category_list']           = $this->get("_sa_meta_edd_category_list");
+                        $post['product_list']            = $this->get("_sa_meta_edd_product_list");
+                        $post['product_exclude_by']      = $this->get("_sa_meta_edd_product_exclude_by");
+                        $post['exclude_categories']      = $this->get("_sa_meta_edd_exclude_categories");
+                        $post['exclude_products']        = $this->get("_sa_meta_edd_exclude_products");
                         break;
                     case 'surecart':
-                        $post['product_control']         = $this->get("_nx_meta_surecart_product_control");
-                        $post['category_list']           = $this->get("_nx_meta_surecart_category_list");
-                        $post['product_list']            = $this->get("_nx_meta_surecart_product_list");
-                        $post['product_exclude_by']      = $this->get("_nx_meta_surecart_product_exclude_by");
-                        $post['exclude_categories']      = $this->get("_nx_meta_surecart_exclude_categories");
-                        $post['exclude_products']        = $this->get("_nx_meta_surecart_exclude_products");
+                        $post['product_control']         = $this->get("_sa_meta_surecart_product_control");
+                        $post['category_list']           = $this->get("_sa_meta_surecart_category_list");
+                        $post['product_list']            = $this->get("_sa_meta_surecart_product_list");
+                        $post['product_exclude_by']      = $this->get("_sa_meta_surecart_product_exclude_by");
+                        $post['exclude_categories']      = $this->get("_sa_meta_surecart_exclude_categories");
+                        $post['exclude_products']        = $this->get("_sa_meta_surecart_exclude_products");
                         break;
                     case 'freemius':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_freemius_interval');
                         }
                         $post['source']             = 'freemius_conversions';
-                        $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
-                        $post['freemius_themes']    = $this->get("_nx_meta_freemius_themes");
-                        $post['freemius_plugins']   = $this->get("_nx_meta_freemius_plugins");
+                        $post['freemius_item_type'] = $this->get("_sa_meta_freemius_item_type");
+                        $post['freemius_themes']    = $this->get("_sa_meta_freemius_themes");
+                        $post['freemius_plugins']   = $this->get("_sa_meta_freemius_plugins");
 
-                        $sales    = $this->get("_nx_meta_freemius_content");
+                        $sales    = $this->get("_sa_meta_freemius_content");
                         $freemius = FreemiusConversions::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $freemius->id,
                                     'entry_key'  => $sale['id'],
                                     'data'       => $sale,
@@ -364,14 +364,14 @@ class Migration {
                         break;
                     case 'envato':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_envato_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_envato_interval');
                         }
-                        $sales  = $this->get('_nx_meta_envato_content');
+                        $sales  = $this->get('_sa_meta_envato_content');
                         $envato = Envato::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $envato->id,
                                     'entry_key'  => $sale['id'],
                                     'data'       => $sale,
@@ -382,14 +382,14 @@ class Migration {
 
                         break;
                     case 'custom_notification':
-                        // $post['themes'] = $this->get("_nx_meta_theme");
-                        $post['sound'] = $this->get("_nx_meta_custom_sound");
+                        // $post['themes'] = $this->get("_sa_meta_theme");
+                        $post['sound'] = $this->get("_sa_meta_custom_sound");
                         $custom_notification = CustomNotificationConversions::get_instance();
                         $post['source'] = $custom_notification->id;
-                        $post['custom_contents']  = $this->get('_nx_meta_custom_contents');
+                        $post['custom_contents']  = $this->get('_sa_meta_custom_contents');
                         if(is_array($post['custom_contents'])){
                             foreach($post['custom_contents'] as &$entry){
-                                if((empty($entry['name']) || $entry['name'] == __('Someone', 'notificationx')) && isset($entry['first_name']) || isset($entry['last_name'])){
+                                if((empty($entry['name']) || $entry['name'] == __('Someone', 'surfalert')) && isset($entry['first_name']) || isset($entry['last_name'])){
                                     $entry['name'] = Helper::name($entry['first_name'], $entry['last_name']);
                                 }
                                 if(!empty($entry['name']) && empty($entry['first_name']) && empty($entry['last_name'])){
@@ -406,40 +406,40 @@ class Migration {
                 break;
             case 'comments':
                 // Source Tab
-                $post['source']       = $this->get('_nx_meta_comments_source');
-                $post['themes']        = $this->get('_nx_meta_comment_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_comment_advance_edit');
+                $post['source']       = $this->get('_sa_meta_comments_source');
+                $post['themes']        = $this->get('_sa_meta_comment_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_comment_advance_edit');
 
 
                 // Theme Tab
-                $post['bg_color']           = $this->get('_nx_meta_comment_bg_color');
-                $post['text_color']         = $this->get('_nx_meta_comment_text_color');
-                $post['border']             = $this->get('_nx_meta_comment_border');
-                $post['border_size']        = $this->get('_nx_meta_comment_border_size');
-                $post['border_style']       = $this->get('_nx_meta_comment_border_style');
-                $post['border_color']       = $this->get('_nx_meta_comment_border_color');
-                $post['image_shape']        = $this->get("_nx_meta_comment_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_comment_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_comment_image_custom_shape");
-                $post['first_font_size']    = $this->get("_nx_meta_comment_first_font_size");
-                $post['second_font_size']   = $this->get("_nx_meta_comment_second_font_size");
-                $post['third_font_size']    = $this->get("_nx_meta_comment_third_font_size");
+                $post['bg_color']           = $this->get('_sa_meta_comment_bg_color');
+                $post['text_color']         = $this->get('_sa_meta_comment_text_color');
+                $post['border']             = $this->get('_sa_meta_comment_border');
+                $post['border_size']        = $this->get('_sa_meta_comment_border_size');
+                $post['border_style']       = $this->get('_sa_meta_comment_border_style');
+                $post['border_color']       = $this->get('_sa_meta_comment_border_color');
+                $post['image_shape']        = $this->get("_sa_meta_comment_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_comment_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_comment_image_custom_shape");
+                $post['first_font_size']    = $this->get("_sa_meta_comment_first_font_size");
+                $post['second_font_size']   = $this->get("_sa_meta_comment_second_font_size");
+                $post['third_font_size']    = $this->get("_sa_meta_comment_third_font_size");
 
                 // Content Tab
-                $post['notification-template'] = $this->get("_nx_meta_comments_template_new");
-                if($post['template_adv'] = $this->get("_nx_meta_comments_template_adv")){
-                    $post['advanced_template']  = $this->get("_nx_meta_comments_template");
+                $post['notification-template'] = $this->get("_sa_meta_comments_template_new");
+                if($post['template_adv'] = $this->get("_sa_meta_comments_template_adv")){
+                    $post['advanced_template']  = $this->get("_sa_meta_comments_template");
                 }
 
-                $post['content_trim_length'] = $this->get('_nx_meta_content_trim_length');
-                $post['link_type']           = $this->get("_nx_meta_comments_url");
-                $post['custom_url']          = $this->get("_nx_meta_comments_custom_url");
-                $show_avatar                 = $this->get("_nx_meta_show_avatar");
+                $post['content_trim_length'] = $this->get('_sa_meta_content_trim_length');
+                $post['link_type']           = $this->get("_sa_meta_comments_url");
+                $post['custom_url']          = $this->get("_sa_meta_comments_custom_url");
+                $show_avatar                 = $this->get("_sa_meta_show_avatar");
                 if($show_avatar){
                     $post['show_notification_image'] = 'gravatar';
                 }
 
-                $post['sound']              = $this->get("_nx_meta_comments_sound");
+                $post['sound']              = $this->get("_sa_meta_comments_sound");
 
                 switch ($post['source']) {
                     case 'wp_comments':
@@ -452,48 +452,48 @@ class Migration {
                 break;
             case 'reviews':
                 // Source Tab
-                $post['source'] = $this->get('_nx_meta_reviews_source');
-                $post['themes'] = $this->get('_nx_meta_wporg_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_wporg_advance_edit');
+                $post['source'] = $this->get('_sa_meta_reviews_source');
+                $post['themes'] = $this->get('_sa_meta_wporg_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_wporg_advance_edit');
 
                 // Theme Tab
-                $post['bg_color']         = $this->get('_nx_meta_wporg_bg_color');
-                $post['text_color']       = $this->get('_nx_meta_wporg_text_color');
-                $post['border']           = $this->get('_nx_meta_wporg_border');
-                $post['border_size']      = $this->get('_nx_meta_wporg_border_size');
-                $post['border_style']     = $this->get('_nx_meta_wporg_border_style');
-                $post['border_color']     = $this->get('_nx_meta_wporg_border_color');
-                $post['image_shape']      = $this->get("_nx_meta_wporg_image_shape");
-                $post['image_position']   = $this->get("_nx_meta_wporg_image_position");
-                $post['first_font_size']  = $this->get("_nx_meta_wporg_first_font_size");
-                $post['second_font_size'] = $this->get("_nx_meta_wporg_second_font_size");
-                $post['third_font_size']  = $this->get("_nx_meta_wporg_third_font_size");
+                $post['bg_color']         = $this->get('_sa_meta_wporg_bg_color');
+                $post['text_color']       = $this->get('_sa_meta_wporg_text_color');
+                $post['border']           = $this->get('_sa_meta_wporg_border');
+                $post['border_size']      = $this->get('_sa_meta_wporg_border_size');
+                $post['border_style']     = $this->get('_sa_meta_wporg_border_style');
+                $post['border_color']     = $this->get('_sa_meta_wporg_border_color');
+                $post['image_shape']      = $this->get("_sa_meta_wporg_image_shape");
+                $post['image_position']   = $this->get("_sa_meta_wporg_image_position");
+                $post['first_font_size']  = $this->get("_sa_meta_wporg_first_font_size");
+                $post['second_font_size'] = $this->get("_sa_meta_wporg_second_font_size");
+                $post['third_font_size']  = $this->get("_sa_meta_wporg_third_font_size");
 
                 // Content Tab
-                $post['wp_reviews_product_type'] = $this->get("_nx_meta_wp_reviews_product_type");
-                $post['wp_reviews_slug']         = $this->get("_nx_meta_wp_reviews_slug");
+                $post['wp_reviews_product_type'] = $this->get("_sa_meta_wp_reviews_product_type");
+                $post['wp_reviews_slug']         = $this->get("_sa_meta_wp_reviews_slug");
                 if ($post['themes'] == 'review_saying') {
-                    $post['notification-template'] = $this->get("_nx_meta_review_saying_template_new");
+                    $post['notification-template'] = $this->get("_sa_meta_review_saying_template_new");
                 } else {
-                    $post['notification-template'] = $this->get("_nx_meta_wp_reviews_template_new");
+                    $post['notification-template'] = $this->get("_sa_meta_wp_reviews_template_new");
                 }
-                if($post['template_adv'] = $this->get("_nx_meta_wp_reviews_template_adv")){
-                    $post['advanced_template']  = $this->get("_nx_meta_wp_reviews_template");
+                if($post['template_adv'] = $this->get("_sa_meta_wp_reviews_template_adv")){
+                    $post['advanced_template']  = $this->get("_sa_meta_wp_reviews_template");
                 }
 
-                $post['content_trim_length'] = $this->get('_nx_meta_content_trim_length');
-                $post['link_type']          = $this->get("_nx_meta_rs_url");
-                $post['custom_url']         = $this->get("_nx_meta_rs_custom_url");
+                $post['content_trim_length'] = $this->get('_sa_meta_content_trim_length');
+                $post['link_type']          = $this->get("_sa_meta_rs_url");
+                $post['custom_url']         = $this->get("_sa_meta_rs_custom_url");
 
-                $post['sound']              = $this->get("_nx_meta_reviews_sound");
+                $post['sound']              = $this->get("_sa_meta_reviews_sound");
 
                 switch ($post['source']) {
                     case 'wp_reviews':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_wp_review_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_wp_review_interval');
                         }
 
-                        $plugin_data = $this->get('_nx_meta_wporg_review_content');
+                        $plugin_data = $this->get('_sa_meta_wporg_review_content');
                         if (!empty($plugin_data['reviews'])) {
                             $reviews = $plugin_data['reviews'];
                             unset($plugin_data['reviews']);
@@ -501,7 +501,7 @@ class Migration {
                             if(is_array($reviews)){
                                 foreach ($reviews as $key => $review) {
                                     $reviews[$key] = [
-                                        'nx_id'      => $_post['nx_id'],
+                                        'sa_id'      => $_post['sa_id'],
                                         'source'     => $WPR->id,
                                         'entry_key'  => $review['username'],
                                         'data'       => array_merge($review, $plugin_data),
@@ -532,21 +532,21 @@ class Migration {
                         break;
                     case 'freemius':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_freemius_interval');
                         }
                         // Content Tab
                         $post['source']             = 'freemius_reviews';
-                        $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
-                        $post['freemius_themes']    = $this->get("_nx_meta_freemius_themes");
-                        $post['freemius_plugins']   = $this->get("_nx_meta_freemius_plugins");
+                        $post['freemius_item_type'] = $this->get("_sa_meta_freemius_item_type");
+                        $post['freemius_themes']    = $this->get("_sa_meta_freemius_themes");
+                        $post['freemius_plugins']   = $this->get("_sa_meta_freemius_plugins");
 
 
-                        $sales    = $this->get("_nx_meta_freemius_content");
+                        $sales    = $this->get("_sa_meta_freemius_content");
                         $freemius = FreemiusReviews::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $freemius->id,
                                     'entry_key'  => $sale['id'],
                                     'data'       => $sale,
@@ -566,41 +566,41 @@ class Migration {
                 break;
             case 'download_stats':
                 // Source Tab
-                $post['source']       = $this->get('_nx_meta_stats_source');
-                $post['themes']       = $this->get('_nx_meta_wpstats_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_wpstats_advance_edit');
+                $post['source']       = $this->get('_sa_meta_stats_source');
+                $post['themes']       = $this->get('_sa_meta_wpstats_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_wpstats_advance_edit');
 
 
 
                 // Theme Tab
-                $post['bg_color']         = $this->get('_nx_meta_wpstats_bg_color');
-                $post['text_color']       = $this->get('_nx_meta_wpstats_text_color');
-                $post['border']           = $this->get('_nx_meta_wpstats_border');
-                $post['border_size']      = $this->get('_nx_meta_wpstats_border_size');
-                $post['border_style']     = $this->get('_nx_meta_wpstats_border_style');
-                $post['border_color']     = $this->get('_nx_meta_wpstats_border_color');
-                $post['image_position']   = $this->get("_nx_meta_wpstats_image_position");
-                $post['first_font_size']  = $this->get("_nx_meta_wpstats_first_font_size");
-                $post['second_font_size'] = $this->get("_nx_meta_wpstats_second_font_size");
-                $post['third_font_size']  = $this->get("_nx_meta_wpstats_third_font_size");
+                $post['bg_color']         = $this->get('_sa_meta_wpstats_bg_color');
+                $post['text_color']       = $this->get('_sa_meta_wpstats_text_color');
+                $post['border']           = $this->get('_sa_meta_wpstats_border');
+                $post['border_size']      = $this->get('_sa_meta_wpstats_border_size');
+                $post['border_style']     = $this->get('_sa_meta_wpstats_border_style');
+                $post['border_color']     = $this->get('_sa_meta_wpstats_border_color');
+                $post['image_position']   = $this->get("_sa_meta_wpstats_image_position");
+                $post['first_font_size']  = $this->get("_sa_meta_wpstats_first_font_size");
+                $post['second_font_size'] = $this->get("_sa_meta_wpstats_second_font_size");
+                $post['third_font_size']  = $this->get("_sa_meta_wpstats_third_font_size");
 
                 // Content Tab
-                $post['wp_stats_product_type']              = $this->get("_nx_meta_wp_stats_product_type");
-                $post['wp_stats_slug']                      = $this->get("_nx_meta_wp_stats_slug");
+                $post['wp_stats_product_type']              = $this->get("_sa_meta_wp_stats_product_type");
+                $post['wp_stats_slug']                      = $this->get("_sa_meta_wp_stats_slug");
                 //
                 if ($post['themes'] == 'actively_using') {
-                    $post['notification-template']              = $this->get("_nx_meta_actively_using_template_new");
+                    $post['notification-template']              = $this->get("_sa_meta_actively_using_template_new");
                     if(!empty($post['notification-template']['third_param']) && $post['notification-template']['third_param'] == 'tag_name'){
                         $post['notification-template']['third_param'] = 'tag_plugin_theme_name';
                     }
                 } else {
-                    $post['notification-template']              = $this->get("_nx_meta_wp_stats_template_new");
+                    $post['notification-template']              = $this->get("_sa_meta_wp_stats_template_new");
                     if(!empty($post['notification-template']['first_param']) && $post['notification-template']['first_param'] == 'tag_name'){
                         $post['notification-template']['first_param'] = 'tag_plugin_theme_name';
                     }
                 }
-                if($post['template_adv'] = $this->get("_nx_meta_wp_stats_template_adv")){
-                    $post['advanced_template']  = $this->get("_nx_meta_wp_stats_template");
+                if($post['template_adv'] = $this->get("_sa_meta_wp_stats_template_adv")){
+                    $post['advanced_template']  = $this->get("_sa_meta_wp_stats_template");
                     if(!empty($post['advanced_template']) && is_array($post['advanced_template'])){
                         foreach ($post['advanced_template'] as $key => &$value) {
                             $value = str_replace('{{name}}', '{{plugin_theme_name}} ', $value);
@@ -608,26 +608,26 @@ class Migration {
                     }
                 }
 
-                $post['link_type']          = $this->get("_nx_meta_rs_url");
+                $post['link_type']          = $this->get("_sa_meta_rs_url");
                 if($post['link_type'] == 'product_page'){
                     $post['link_type'] = 'stats_page';
                 }
-                $post['custom_url']         = $this->get("_nx_meta_rs_custom_url");
-                $post['sound']              = $this->get("_nx_meta_download_stats_sound");
+                $post['custom_url']         = $this->get("_sa_meta_rs_custom_url");
+                $post['sound']              = $this->get("_sa_meta_download_stats_sound");
 
                 switch ($post['source']) {
                     case 'wp_stats':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_wp_stats_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_wp_stats_interval');
                         }
-                        $plugin_data = $this->get('_nx_meta_wporg_stats_content');
+                        $plugin_data = $this->get('_sa_meta_wporg_stats_content');
                         if (!empty($plugin_data)) {
                             $WPS = WPOrgStats::get_instance();
                             $reviews = [];
                             if(is_array($plugin_data)){
                                 foreach ($plugin_data as $key => $stats) {
                                     $reviews[$key] = [
-                                        'nx_id'      => $_post['nx_id'],
+                                        'sa_id'      => $_post['sa_id'],
                                         'source'     => $WPS->id,
                                         'entry_key'  => '',
                                         'data'       => $stats,
@@ -640,19 +640,19 @@ class Migration {
                         break;
                     case 'freemius':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_freemius_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_freemius_interval');
                         }
                         $post['source']             = 'freemius_stats';
-                        $post['freemius_item_type'] = $this->get("_nx_meta_freemius_item_type");
-                        $post['freemius_themes']    = $this->get("_nx_meta_freemius_themes");
-                        $post['freemius_plugins']   = $this->get("_nx_meta_freemius_plugins");
+                        $post['freemius_item_type'] = $this->get("_sa_meta_freemius_item_type");
+                        $post['freemius_themes']    = $this->get("_sa_meta_freemius_themes");
+                        $post['freemius_plugins']   = $this->get("_sa_meta_freemius_plugins");
 
-                        $sales    = $this->get("_nx_meta_freemius_content");
+                        $sales    = $this->get("_sa_meta_freemius_content");
                         $freemius = FreemiusStats::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $freemius->id,
                                     'entry_key'  => $sale['id'],
                                     'data'       => $sale,
@@ -669,47 +669,47 @@ class Migration {
                 break;
             case 'elearning':
                 // Source Tab
-                $post['source'] = $this->get('_nx_meta_elearning_source');
-                $post['themes'] = $this->get('_nx_meta_elearning_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_elearning_advance_edit');
+                $post['source'] = $this->get('_sa_meta_elearning_source');
+                $post['themes'] = $this->get('_sa_meta_elearning_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_elearning_advance_edit');
 
 
                 // Theme Tab
-                $post['bg_color']           = $this->get("_nx_meta_bg_color");
-                $post['text_color']         = $this->get("_nx_meta_text_color");
-                $post['border']             = $this->get("_nx_meta_border");
-                $post['border_size']        = $this->get("_nx_meta_border_size");
-                $post['border_style']       = $this->get("_nx_meta_border_style");
-                $post['border_color']       = $this->get("_nx_meta_border_color");
-                $post['image_shape']        = $this->get("_nx_meta_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']    = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size']   = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']    = $this->get("_nx_meta_third_font_size");
+                $post['bg_color']           = $this->get("_sa_meta_bg_color");
+                $post['text_color']         = $this->get("_sa_meta_text_color");
+                $post['border']             = $this->get("_sa_meta_border");
+                $post['border_size']        = $this->get("_sa_meta_border_size");
+                $post['border_style']       = $this->get("_sa_meta_border_style");
+                $post['border_color']       = $this->get("_sa_meta_border_color");
+                $post['image_shape']        = $this->get("_sa_meta_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']    = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size']   = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']    = $this->get("_sa_meta_third_font_size");
 
                 // Content Tab
                 // $post['elearning_template']            = $this->get("");
-                $post['notification-template']        = $this->get("_nx_meta_elearning_template_new");
-                if($post['template_adv'] = $this->get("_nx_meta_elearning_template_adv")){
-                    $post['advanced_template']  = $this->get("_nx_meta_elearning_template");
+                $post['notification-template']        = $this->get("_sa_meta_elearning_template_new");
+                if($post['template_adv'] = $this->get("_sa_meta_elearning_template_adv")){
+                    $post['advanced_template']  = $this->get("_sa_meta_elearning_template");
                 }
-                $post['link_type']                 = $this->get("_nx_meta_elearning_url");
+                $post['link_type']                 = $this->get("_sa_meta_elearning_url");
                 if($post['link_type'] == 'product_page'){
                     $post['link_type'] = 'course_page';
                 }
-                $post['custom_url']          = $this->get("_nx_meta_elearning_custom_url");
+                $post['custom_url']          = $this->get("_sa_meta_elearning_custom_url");
 
-                $post['sound']              = $this->get("_nx_meta_comments_sound");
+                $post['sound']              = $this->get("_sa_meta_comments_sound");
 
                 switch ($post['source']) {
                     case 'tutor':
-                        $post['ld_product_control'] = $this->get("_nx_meta_tutor_product_control");
-                        $post['ld_course_list']     = $this->get("_nx_meta_tutor_course_list");
+                        $post['ld_product_control'] = $this->get("_sa_meta_tutor_product_control");
+                        $post['ld_course_list']     = $this->get("_sa_meta_tutor_course_list");
                         break;
                     case 'learndash':
-                        $post['ld_product_control'] = $this->get("_nx_meta_ld_product_control");
-                        $post['ld_course_list']     = $this->get("_nx_meta_ld_course_list");
+                        $post['ld_product_control'] = $this->get("_sa_meta_ld_product_control");
+                        $post['ld_course_list']     = $this->get("_sa_meta_ld_course_list");
                         break;
                     default:
                         # code...
@@ -718,39 +718,39 @@ class Migration {
                 break;
             case 'donation':
                 // Source Tab
-                $post['source'] = $this->get('_nx_meta_donation_source');
-                $post['themes'] = $this->get('_nx_meta_donation_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_donation_advance_edit');
+                $post['source'] = $this->get('_sa_meta_donation_source');
+                $post['themes'] = $this->get('_sa_meta_donation_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_donation_advance_edit');
 
                 // Theme Tab
-                $post['bg_color']     = $this->get("_nx_meta_bg_color");
-                $post['text_color']   = $this->get("_nx_meta_text_color");
-                $post['border']       = $this->get("_nx_meta_border");
-                $post['border_size']  = $this->get("_nx_meta_border_size");
-                $post['border_style'] = $this->get("_nx_meta_border_style");
-                $post['border_color'] = $this->get("_nx_meta_border_color");
-                $post['image_shape']        = $this->get("_nx_meta_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']  = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size'] = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']  = $this->get("_nx_meta_third_font_size");
+                $post['bg_color']     = $this->get("_sa_meta_bg_color");
+                $post['text_color']   = $this->get("_sa_meta_text_color");
+                $post['border']       = $this->get("_sa_meta_border");
+                $post['border_size']  = $this->get("_sa_meta_border_size");
+                $post['border_style'] = $this->get("_sa_meta_border_style");
+                $post['border_color'] = $this->get("_sa_meta_border_color");
+                $post['image_shape']        = $this->get("_sa_meta_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']  = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size'] = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']  = $this->get("_sa_meta_third_font_size");
 
                 // Content Tab
-                $post['notification-template']        = $this->get("_nx_meta_donation_template_new");
-                if($post['template_adv'] = $this->get("_nx_meta_donation_template_adv")){
-                    $post['advanced_template']  = $this->get("_nx_meta_donation_template");
+                $post['notification-template']        = $this->get("_sa_meta_donation_template_new");
+                if($post['template_adv'] = $this->get("_sa_meta_donation_template_adv")){
+                    $post['advanced_template']  = $this->get("_sa_meta_donation_template");
                 }
-                $post['give_forms_control']           = $this->get("_nx_meta_give_forms_control");
-                $post['give_form_list']               = $this->get("_nx_meta_give_form_list");
+                $post['give_forms_control']           = $this->get("_sa_meta_give_forms_control");
+                $post['give_form_list']               = $this->get("_sa_meta_give_form_list");
 
-                $post['link_type']                 = $this->get("_nx_meta_donation_url");
+                $post['link_type']                 = $this->get("_sa_meta_donation_url");
                 if($post['link_type'] == 'product_page'){
                     $post['link_type'] = 'donation_page';
                 }
-                $post['custom_url']          = $this->get("_nx_meta_donation_custom_url");
+                $post['custom_url']          = $this->get("_sa_meta_donation_custom_url");
 
-                $post['sound']              = $this->get("_nx_meta_comments_sound");
+                $post['sound']              = $this->get("_sa_meta_comments_sound");
 
                 switch ($post['source']) {
                     case 'give':
@@ -765,95 +765,95 @@ class Migration {
                 // Source Tab
                 $post['type']         = 'notification_bar';
                 $post['source']       = 'press_bar';
-                $post['themes']       = $this->get('_nx_meta_bar_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_bar_advance_edit');
+                $post['themes']       = $this->get('_sa_meta_bar_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_bar_advance_edit');
 
                 // Theme Tab
-                $post['bg_color']            = $this->get('_nx_meta_bar_bg_color');
-                $post['text_color']          = $this->get('_nx_meta_bar_text_color');
-                $post['btn_bg']              = $this->get('_nx_meta_bar_btn_bg');
-                $post['btn_text_color']      = $this->get('_nx_meta_bar_btn_text_color');
-                $post['counter_bg']          = $this->get('_nx_meta_bar_counter_bg');
-                $post['counter_text_color']  = $this->get('_nx_meta_bar_counter_text_color');
-                $post['close_color']         = $this->get('_nx_meta_bar_close_color');
-                $post['close_position']      = $this->get('_nx_meta_bar_close_position');
-                $post['bar_font_size']       = $this->get('_nx_meta_bar_font_size');
-                $post['press_content']       = $this->get('_nx_meta_press_content');
-                $post['button_text']         = $this->get('_nx_meta_button_text');
-                $post['button_url']          = $this->get('_nx_meta_button_url');
-                $post['content_trim_length'] = $this->get('_nx_meta_content_trim_length');
+                $post['bg_color']            = $this->get('_sa_meta_bar_bg_color');
+                $post['text_color']          = $this->get('_sa_meta_bar_text_color');
+                $post['btn_bg']              = $this->get('_sa_meta_bar_btn_bg');
+                $post['btn_text_color']      = $this->get('_sa_meta_bar_btn_text_color');
+                $post['counter_bg']          = $this->get('_sa_meta_bar_counter_bg');
+                $post['counter_text_color']  = $this->get('_sa_meta_bar_counter_text_color');
+                $post['close_color']         = $this->get('_sa_meta_bar_close_color');
+                $post['close_position']      = $this->get('_sa_meta_bar_close_position');
+                $post['bar_font_size']       = $this->get('_sa_meta_bar_font_size');
+                $post['press_content']       = $this->get('_sa_meta_press_content');
+                $post['button_text']         = $this->get('_sa_meta_button_text');
+                $post['button_url']          = $this->get('_sa_meta_button_url');
+                $post['content_trim_length'] = $this->get('_sa_meta_content_trim_length');
 
                 // Content Tab
-                $post['enable_countdown']       = $this->get('_nx_meta_enable_countdown');
-                $post['evergreen_timer']        = $this->get('_nx_meta_evergreen_timer');
-                $post['countdown_text']         = $this->get('_nx_meta_countdown_text');
-                $post['countdown_expired_text'] = $this->get('_nx_meta_countdown_expired_text');
-                $post['countdown_start_date']   = $this->get('_nx_meta_countdown_start_date');
-                $post['countdown_end_date']     = $this->get('_nx_meta_countdown_end_date');
-                $post['time_rotation']          = $this->get('_nx_meta_time_rotation');
+                $post['enable_countdown']       = $this->get('_sa_meta_enable_countdown');
+                $post['evergreen_timer']        = $this->get('_sa_meta_evergreen_timer');
+                $post['countdown_text']         = $this->get('_sa_meta_countdown_text');
+                $post['countdown_expired_text'] = $this->get('_sa_meta_countdown_expired_text');
+                $post['countdown_start_date']   = $this->get('_sa_meta_countdown_start_date');
+                $post['countdown_end_date']     = $this->get('_sa_meta_countdown_end_date');
+                $post['time_rotation']          = $this->get('_sa_meta_time_rotation');
                 $post['countdown_rand']         = time();
-                $post['time_randomize']         = $this->get('_nx_meta_time_randomize');
-                $post['time_randomize_between'] = $this->get('_nx_meta_time_randomize_between');
+                $post['time_randomize']         = $this->get('_sa_meta_time_randomize');
+                $post['time_randomize_between'] = $this->get('_sa_meta_time_randomize_between');
                 // $post['start_time']             = $this->get('start_time');
                 // $post['end_time']               = $this->get('end_time');
-                $post['time_reset']             = $this->get('_nx_meta_time_reset');
-                $post['close_forever']          = $this->get('_nx_meta_close_forever');
-                if(empty($post['close_forever']) && !empty($this->get('_nx_meta_close_forever_2'))){
-                    $post['close_forever']      = $this->get('_nx_meta_close_forever_2');
+                $post['time_reset']             = $this->get('_sa_meta_time_reset');
+                $post['close_forever']          = $this->get('_sa_meta_close_forever');
+                if(empty($post['close_forever']) && !empty($this->get('_sa_meta_close_forever_2'))){
+                    $post['close_forever']      = $this->get('_sa_meta_close_forever_2');
                 }
 
-                $post['position']      = $this->get('_nx_meta_pressbar_position');
-                $post['sticky_bar']    = $this->get('_nx_meta_sticky_bar');
-                $post['pressbar_body'] = $this->get('_nx_meta_pressbar_body');
-                $post['elementor_id']  = (int) $this->get('_nx_bar_elementor_type_id');
-                // if($post['nx_id'] == 4386){
+                $post['position']      = $this->get('_sa_meta_pressbar_position');
+                $post['sticky_bar']    = $this->get('_sa_meta_sticky_bar');
+                $post['pressbar_body'] = $this->get('_sa_meta_pressbar_body');
+                $post['elementor_id']  = (int) $this->get('_sa_bar_elementor_type_id');
+                // if($post['sa_id'] == 4386){
                 //     wp_send_json([$post, $_post]);
                 // }
 
                 break;
             case 'form':
                 // Source Tab
-                $post['source'] = $this->get('_nx_meta_form_source');
-                $post['themes'] = $this->get('_nx_meta_form_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_form_advance_edit');
+                $post['source'] = $this->get('_sa_meta_form_source');
+                $post['themes'] = $this->get('_sa_meta_form_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_form_advance_edit');
 
                 // Theme Tab
-                $post['bg_color']           = $this->get("_nx_meta_bg_color");
-                $post['text_color']         = $this->get("_nx_meta_text_color");
-                $post['border']             = $this->get("_nx_meta_border");
-                $post['border_size']        = $this->get("_nx_meta_border_size");
-                $post['border_style']       = $this->get("_nx_meta_border_style");
-                $post['border_color']       = $this->get("_nx_meta_border_color");
-                $post['image_shape']        = $this->get("_nx_meta_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']    = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size']   = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']    = $this->get("_nx_meta_third_font_size");
+                $post['bg_color']           = $this->get("_sa_meta_bg_color");
+                $post['text_color']         = $this->get("_sa_meta_text_color");
+                $post['border']             = $this->get("_sa_meta_border");
+                $post['border_size']        = $this->get("_sa_meta_border_size");
+                $post['border_style']       = $this->get("_sa_meta_border_style");
+                $post['border_color']       = $this->get("_sa_meta_border_color");
+                $post['image_shape']        = $this->get("_sa_meta_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']    = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size']   = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']    = $this->get("_sa_meta_third_font_size");
 
-                $post['sound']              = $this->get("_nx_meta_comments_sound");
+                $post['sound']              = $this->get("_sa_meta_comments_sound");
 
                 switch ($post['source']) {
                     case 'cf7':
 
                         // Content Tab
-                        $post['form_list']             = "{$post['source']}_" . $this->get('_nx_meta_cf7_form');
-                        $post['notification-template'] = $this->get('_nx_meta_form_template_new');
+                        $post['form_list']             = "{$post['source']}_" . $this->get('_sa_meta_cf7_form');
+                        $post['notification-template'] = $this->get('_sa_meta_form_template_new');
                         break;
                     case 'wpf':
                         // Content Tab
-                        $post['form_list']             = "{$post['source']}_" . $this->get('_nx_meta_wpf_form');
-                        $post['notification-template'] = $this->get('_nx_meta_wpf_template_new');
+                        $post['form_list']             = "{$post['source']}_" . $this->get('_sa_meta_wpf_form');
+                        $post['notification-template'] = $this->get('_sa_meta_wpf_template_new');
                         break;
                     case 'njf':
                         // Content Tab
-                        $post['form_list']             = "{$post['source']}_" . $this->get('_nx_meta_njf_form');
-                        $post['notification-template'] = $this->get('_nx_meta_njf_template_new');
+                        $post['form_list']             = "{$post['source']}_" . $this->get('_sa_meta_njf_form');
+                        $post['notification-template'] = $this->get('_sa_meta_njf_template_new');
                         break;
                     case 'grvf':
                         // Content Tab
-                        $post['form_list']             = "{$post['source']}_" . $this->get('_nx_meta_grvf_form');
-                        $post['notification-template'] = $this->get('_nx_meta_grvf_template_new');
+                        $post['form_list']             = "{$post['source']}_" . $this->get('_sa_meta_grvf_form');
+                        $post['notification-template'] = $this->get('_sa_meta_grvf_template_new');
                         break;
                     default:
                         # code...
@@ -862,46 +862,46 @@ class Migration {
                 break;
             case 'email_subscription':
                 // Source Tab
-                $post['source'] = $this->get('_nx_meta_subscription_source');
-                $post['themes'] = $this->get('_nx_meta_mailchimp_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_mailchimp_advance_edit');
+                $post['source'] = $this->get('_sa_meta_subscription_source');
+                $post['themes'] = $this->get('_sa_meta_mailchimp_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_mailchimp_advance_edit');
 
 
 
                 // Theme Tab
-                $post['bg_color']         = $this->get('_nx_meta_mailchimp_bg_color');
-                $post['text_color']       = $this->get('_nx_meta_mailchimp_text_color');
-                $post['border']           = $this->get('_nx_meta_mailchimp_border');
-                $post['border_size']      = $this->get('_nx_meta_mailchimp_border_size');
-                $post['border_style']     = $this->get('_nx_meta_mailchimp_border_style');
-                $post['border_color']     = $this->get('_nx_meta_mailchimp_border_color');
-                $post['first_font_size']  = $this->get("_nx_meta_mailchimp_first_font_size");
-                $post['second_font_size'] = $this->get("_nx_meta_mailchimp_second_font_size");
-                $post['third_font_size']  = $this->get("_nx_meta_mailchimp_third_font_size");
+                $post['bg_color']         = $this->get('_sa_meta_mailchimp_bg_color');
+                $post['text_color']       = $this->get('_sa_meta_mailchimp_text_color');
+                $post['border']           = $this->get('_sa_meta_mailchimp_border');
+                $post['border_size']      = $this->get('_sa_meta_mailchimp_border_size');
+                $post['border_style']     = $this->get('_sa_meta_mailchimp_border_style');
+                $post['border_color']     = $this->get('_sa_meta_mailchimp_border_color');
+                $post['first_font_size']  = $this->get("_sa_meta_mailchimp_first_font_size");
+                $post['second_font_size'] = $this->get("_sa_meta_mailchimp_second_font_size");
+                $post['third_font_size']  = $this->get("_sa_meta_mailchimp_third_font_size");
 
                 // Content Tab
-                $post['notification-template'] = $this->get("_nx_meta_mailchimp_template_new");
-                if($post['template_adv'] = $this->get("_nx_meta_mailchimp_template_adv")){
-                    $post['advanced_template'] = $this->get("_nx_meta_mailchimp_template");
+                $post['notification-template'] = $this->get("_sa_meta_mailchimp_template_new");
+                if($post['template_adv'] = $this->get("_sa_meta_mailchimp_template_adv")){
+                    $post['advanced_template'] = $this->get("_sa_meta_mailchimp_template");
                 }
-                $show_avatar = $this->get("_nx_meta_show_avatar");
+                $show_avatar = $this->get("_sa_meta_show_avatar");
                 if($show_avatar){
                     $post['show_notification_image'] = 'gravatar';
                 }
-                $post['sound'] = $this->get("_nx_meta_email_subscription_sound");
+                $post['sound'] = $this->get("_sa_meta_email_subscription_sound");
 
                 switch ($post['source']) {
                     case 'mailchimp':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_mailchimp_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_mailchimp_interval');
                         }
-                        $post['mailchimp_list']                   = $this->get("_nx_meta_mailchimp_list");
-                        $sales  = $this->get("_nx_meta_mailchimp_content");
+                        $post['mailchimp_list']                   = $this->get("_sa_meta_mailchimp_list");
+                        $sales  = $this->get("_sa_meta_mailchimp_content");
                         $mailchimp = MailChimp::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $mailchimp->id,
                                     'entry_key'  => isset($sale['timestamp']) ? $sale['timestamp'] : '',
                                     'data'       => $sale,
@@ -913,15 +913,15 @@ class Migration {
                         break;
                     case 'convertkit':
                         if( boolval( $post['enabled'] ) ) {
-                            Cron::get_instance()->set_cron($nx_id, 'nx_convertkit_interval');
+                            Cron::get_instance()->set_cron($sa_id, 'sa_convertkit_interval');
                         }
-                        $post['convertkit_form']             = $this->get("_nx_meta_convertkit_form");
-                        $sales  = $this->get("_nx_meta_convertkit_content");
+                        $post['convertkit_form']             = $this->get("_sa_meta_convertkit_form");
+                        $sales  = $this->get("_sa_meta_convertkit_content");
                         $convertkit = ConvertKit::get_instance();
                         if(is_array($sales)){
                             foreach ($sales as $key => $sale) {
                                 $sales[$key] = [
-                                    'nx_id'      => $_post['nx_id'],
+                                    'sa_id'      => $_post['sa_id'],
                                     'source'     => $convertkit->id,
                                     'entry_key'  => isset($sale['timestamp']) ? $sale['timestamp'] : '',
                                     'data'       => $sale,
@@ -940,28 +940,28 @@ class Migration {
                 break;
             case 'page_analytics':
                 if( boolval( $post['enabled'] ) ) {
-                    Cron::get_instance()->set_cron($nx_id, 'nx_ga_cache_duration');
+                    Cron::get_instance()->set_cron($sa_id, 'sa_ga_cache_duration');
                 }
                 // Source Tab
-                $post['source']       = $this->get('_nx_meta_page_analytics_source');
-                $post['themes']        = $this->get('_nx_meta_page_analytics_theme');
+                $post['source']       = $this->get('_sa_meta_page_analytics_source');
+                $post['themes']        = $this->get('_sa_meta_page_analytics_theme');
 
                 // Theme Tab
-                $post['bg_color']           = $this->get("_nx_meta_bg_color");
-                $post['text_color']         = $this->get("_nx_meta_text_color");
-                $post['border']             = $this->get("_nx_meta_border");
-                $post['border_size']        = $this->get("_nx_meta_border_size");
-                $post['border_style']       = $this->get("_nx_meta_border_style");
-                $post['border_color']       = $this->get("_nx_meta_border_color");
-                $post['image_shape']        = $this->get("_nx_meta_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']    = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size']   = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']    = $this->get("_nx_meta_third_font_size");
+                $post['bg_color']           = $this->get("_sa_meta_bg_color");
+                $post['text_color']         = $this->get("_sa_meta_text_color");
+                $post['border']             = $this->get("_sa_meta_border");
+                $post['border_size']        = $this->get("_sa_meta_border_size");
+                $post['border_style']       = $this->get("_sa_meta_border_style");
+                $post['border_color']       = $this->get("_sa_meta_border_color");
+                $post['image_shape']        = $this->get("_sa_meta_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']    = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size']   = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']    = $this->get("_sa_meta_third_font_size");
 
                 // Content Tab
-                $template = $this->get("_nx_meta_page_analytics_template_new");
+                $template = $this->get("_sa_meta_page_analytics_template_new");
                 $post['notification-template']['first_param'] = $this->get('first_param', '', $template);
                 $post['notification-template']['second_param'] = $this->get('second_param', '', $template);
                 $post['notification-template']['third_param'] = $this->get('page_third_param', '', $template);
@@ -975,21 +975,21 @@ class Migration {
                 $post['notification-template']['ga_fifth_param'] = $this->get('fifth_param', '', $template);
                 $post['notification-template']['sixth_param'] = $this->get('sixth_param', '', $template);
 
-                $post['advance_edit']          = $this->get('_nx_meta_page_analytics_advance_edit');
+                $post['advance_edit']          = $this->get('_sa_meta_page_analytics_advance_edit');
 
-                $post['sound']   = $this->get("_nx_meta_conversions_sound");
+                $post['sound']   = $this->get("_sa_meta_conversions_sound");
 
                 // @todo check with new version.
-                $sales  = $this->get("_nx_meta_custom_contents");
+                $sales  = $this->get("_sa_meta_custom_contents");
                 if( boolval( $post['enabled'] ) ) {
-                    Cron::get_instance()->set_cron($nx_id, 'nx_ga_cache_duration');
+                    Cron::get_instance()->set_cron($sa_id, 'sa_ga_cache_duration');
                 }
 
                 $ga = Google_Analytics::get_instance();
                 if(is_array($sales)){
                     foreach ($sales as $key => $sale) {
                         $sales[$key] = [
-                            'nx_id'      => $_post['nx_id'],
+                            'sa_id'      => $_post['sa_id'],
                             'source'     => $ga->id,
                             'data'       => $sale,
                         ];
@@ -1001,27 +1001,27 @@ class Migration {
             case 'custom':
                 // Source Tab
                 $post['source']       = 'custom_notification';
-                $post['themes']       = $this->get('_nx_meta_custom_theme');
-                $post['advance_edit'] = $this->get('_nx_meta_custom_advance_edit');
+                $post['themes']       = $this->get('_sa_meta_custom_theme');
+                $post['advance_edit'] = $this->get('_sa_meta_custom_advance_edit');
 
                 // Theme Tab
-                $post['bg_color']           = $this->get("_nx_meta_bg_color");
-                $post['text_color']         = $this->get("_nx_meta_text_color");
-                $post['border']             = $this->get("_nx_meta_border");
-                $post['border_size']        = $this->get("_nx_meta_border_size");
-                $post['border_style']       = $this->get("_nx_meta_border_style");
-                $post['border_color']       = $this->get("_nx_meta_border_color");
-                $post['image_shape']        = $this->get("_nx_meta_image_shape");
-                $post['image_position']     = $this->get("_nx_meta_image_position");
-                $post['custom_image_shape'] = $this->get("_nx_meta_image_custom_shape");
-                $post['first_font_size']    = $this->get("_nx_meta_first_font_size");
-                $post['second_font_size']   = $this->get("_nx_meta_second_font_size");
-                $post['third_font_size']    = $this->get("_nx_meta_third_font_size");
+                $post['bg_color']           = $this->get("_sa_meta_bg_color");
+                $post['text_color']         = $this->get("_sa_meta_text_color");
+                $post['border']             = $this->get("_sa_meta_border");
+                $post['border_size']        = $this->get("_sa_meta_border_size");
+                $post['border_style']       = $this->get("_sa_meta_border_style");
+                $post['border_color']       = $this->get("_sa_meta_border_color");
+                $post['image_shape']        = $this->get("_sa_meta_image_shape");
+                $post['image_position']     = $this->get("_sa_meta_image_position");
+                $post['custom_image_shape'] = $this->get("_sa_meta_image_custom_shape");
+                $post['first_font_size']    = $this->get("_sa_meta_first_font_size");
+                $post['second_font_size']   = $this->get("_sa_meta_second_font_size");
+                $post['third_font_size']    = $this->get("_sa_meta_third_font_size");
 
                 // Content Tab
                 $custom = CustomNotification::get_instance()->supported_themes();
                 $conv_themes = array_keys(Conversions::get_instance()->get_themes());
-                $temp_meta_key = '_nx_meta_type_custom_contents';
+                $temp_meta_key = '_sa_meta_type_custom_contents';
                 $_themes = $post['themes'] = str_replace([
                     'comments-',
                     'reviews-',
@@ -1067,10 +1067,10 @@ class Migration {
                 }
 
 
-                $post['notification-template']   = $this->get("_nx_meta_woo_template_new");
+                $post['notification-template']   = $this->get("_sa_meta_woo_template_new");
 
-                if (in_array($this->get('_nx_meta_custom_theme'), array('maps_theme', 'subs-maps_theme', 'comments-maps_theme'))) {
-                    $template = $this->get('_nx_meta_maps_theme_template_new');
+                if (in_array($this->get('_sa_meta_custom_theme'), array('maps_theme', 'subs-maps_theme', 'comments-maps_theme'))) {
+                    $template = $this->get('_sa_meta_maps_theme_template_new');
                     if(!empty($template)){
                         $p_template = &$post['notification-template'];
                         $p_template['first_param']         = $template['first_param'];
@@ -1082,50 +1082,50 @@ class Migration {
                         $p_template['fifth_param']         = $template['fifth_param'];
                         $p_template['custom_fourth_param'] = $template['custom_fourth_param'];
                     }
-                    if($post['template_adv'] = $this->get("_nx_meta_maps_theme_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_maps_theme_template");
+                    if($post['template_adv'] = $this->get("_sa_meta_maps_theme_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_maps_theme_template");
                     }
                 }
 
-                if (in_array($this->get('_nx_meta_custom_theme'), array('reviews-review-comment-3', 'reviews-review-comment-2', 'reviews-review-comment', 'reviews-reviewed', 'reviews-total-rated'))) {
-                    $post['notification-template'] = $this->get('_nx_meta_wp_reviews_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_wp_reviews_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_wp_reviews_template");
+                if (in_array($this->get('_sa_meta_custom_theme'), array('reviews-review-comment-3', 'reviews-review-comment-2', 'reviews-review-comment', 'reviews-reviewed', 'reviews-total-rated'))) {
+                    $post['notification-template'] = $this->get('_sa_meta_wp_reviews_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_wp_reviews_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_wp_reviews_template");
                     }
                 }
 
-                if ($this->get('_nx_meta_custom_theme') === 'reviews-review_saying') {
-                    $post['notification-template'] = $this->get('_nx_meta_review_saying_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_wp_reviews_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_wp_reviews_template");
+                if ($this->get('_sa_meta_custom_theme') === 'reviews-review_saying') {
+                    $post['notification-template'] = $this->get('_sa_meta_review_saying_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_wp_reviews_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_wp_reviews_template");
                     }
                 }
 
-                if (in_array($this->get('_nx_meta_custom_theme'), array('stats-today-download', 'stats-total-download', 'stats-7day-download'))) {
-                    $post['notification-template'] = $this->get('_nx_meta_wp_stats_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_wp_stats_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_wp_stats_template");
+                if (in_array($this->get('_sa_meta_custom_theme'), array('stats-today-download', 'stats-total-download', 'stats-7day-download'))) {
+                    $post['notification-template'] = $this->get('_sa_meta_wp_stats_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_wp_stats_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_wp_stats_template");
                     }
                 }
 
-                if ($this->get('_nx_meta_custom_theme') === 'stats-actively_using') {
-                    $post['notification-template'] = $this->get('_nx_meta_actively_using_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_wp_stats_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_wp_stats_template");
+                if ($this->get('_sa_meta_custom_theme') === 'stats-actively_using') {
+                    $post['notification-template'] = $this->get('_sa_meta_actively_using_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_wp_stats_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_wp_stats_template");
                     }
                 }
 
-                if (in_array($this->get('_nx_meta_custom_theme'), array('subs-theme-one', 'subs-theme-two', 'subs-theme-three'))) {
-                    $post['notification-template'] = $this->get('_nx_meta_mailchimp_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_mailchimp_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_mailchimp_template");
+                if (in_array($this->get('_sa_meta_custom_theme'), array('subs-theme-one', 'subs-theme-two', 'subs-theme-three'))) {
+                    $post['notification-template'] = $this->get('_sa_meta_mailchimp_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_mailchimp_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_mailchimp_template");
                     }
                 }
 
-                if (in_array($this->get('_nx_meta_custom_theme'), array('comments-theme-one', 'comments-theme-two', 'comments-theme-three', 'comments-theme-six-free', 'comments-theme-seven-free', 'comments-theme-eight-free', 'comments-theme-four', 'comments-theme-five'))) {
-                    $post['notification-template'] = $this->get('_nx_meta_mailchimp_template_new');
-                    if($post['template_adv'] = $this->get("_nx_meta_mailchimp_template_adv")){
-                        $post['advanced_template']  = $this->get("_nx_meta_mailchimp_template");
+                if (in_array($this->get('_sa_meta_custom_theme'), array('comments-theme-one', 'comments-theme-two', 'comments-theme-three', 'comments-theme-six-free', 'comments-theme-seven-free', 'comments-theme-eight-free', 'comments-theme-four', 'comments-theme-five'))) {
+                    $post['notification-template'] = $this->get('_sa_meta_mailchimp_template_new');
+                    if($post['template_adv'] = $this->get("_sa_meta_mailchimp_template_adv")){
+                        $post['advanced_template']  = $this->get("_sa_meta_mailchimp_template");
                     }
                 }
 
@@ -1142,7 +1142,7 @@ class Migration {
 
 
 
-                $post['sound']              = $this->get("_nx_meta_custom_sound");
+                $post['sound']              = $this->get("_sa_meta_custom_sound");
 
                 break;
 
@@ -1151,7 +1151,7 @@ class Migration {
         }
 
         if(in_array($post['themes'], ['conv-theme-six', 'maps_theme'])){
-            $template = $this->get('_nx_meta_maps_theme_template_new');
+            $template = $this->get('_sa_meta_maps_theme_template_new');
             if(!empty($template)){
                 $p_template = &$post['notification-template'];
                 $p_template['first_param']         = $template['first_param'];
@@ -1163,8 +1163,8 @@ class Migration {
                 $p_template['fifth_param']         = $template['fifth_param'];
                 $p_template['custom_fourth_param'] = $template['custom_fourth_param'];
             }
-            if($post['template_adv'] = $this->get("_nx_meta_maps_theme_template_adv")){
-                $post['advanced_template']  = $this->get("_nx_meta_maps_theme_template");
+            if($post['template_adv'] = $this->get("_sa_meta_maps_theme_template_adv")){
+                $post['advanced_template']  = $this->get("_sa_meta_maps_theme_template");
             }
         }
 
@@ -1193,7 +1193,7 @@ class Migration {
     }
 
     public function migrate_entries($posts) {
-        $notifications = get_option('notificationx_data', []);
+        $notifications = get_option('surfalert_data', []);
         if(is_array($notifications)){
             foreach ($notifications as $source => $entries) {
                 // @todo review later if it covers all case.
@@ -1224,9 +1224,9 @@ class Migration {
             'cf7',
         ];
         if (strpos($source, 'zapier') === 0) {
-            $nx_id = str_replace('zapier_', '', $source);
-            if(!empty($posts[$nx_id])){
-                return $posts[$nx_id]['source'];
+            $sa_id = str_replace('zapier_', '', $source);
+            if(!empty($posts[$sa_id])){
+                return $posts[$sa_id]['source'];
             }
 
         }
@@ -1239,15 +1239,15 @@ class Migration {
     }
 
     public function migrate_stats($post) {
-        $nx_id      = $post['ID'];
-        if (!empty($post['_nx_meta_impression_per_day'])) {
-            $impression = $post['_nx_meta_impression_per_day'];
+        $sa_id      = $post['ID'];
+        if (!empty($post['_sa_meta_impression_per_day'])) {
+            $impression = $post['_sa_meta_impression_per_day'];
             if(is_array($impression)){
                 $stats = [];
                 foreach ($impression as $_impressions) {
                     foreach ($_impressions as $date => $value) {
                         $data = [
-                            'nx_id'      => $nx_id,
+                            'sa_id'      => $sa_id,
                             'clicks'     => !empty($value['clicks']) ? $value['clicks'] : 0,
                             'views'      => !empty($value['impressions']) ? $value['impressions'] : 0,
                             'created_at' => date(Analytics::$date_format, strtotime($date)),

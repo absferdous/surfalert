@@ -3,15 +3,15 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
-use NotificationX\NotificationX;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
+use SurfAlert\SurfAlert;
 
 /**
  * Extension Abstract for all Extension.
@@ -38,33 +38,33 @@ class OfferAnnouncement extends Types {
     public function __construct() {
         parent::__construct();
         
-        // add_filter('nx_link_types', [$this, 'link_types']);
+        // add_filter('sa_link_types', [$this, 'link_types']);
     }
 
     public function init()
     {
         parent::init();
-        $this->title = __('Discount Alert', 'notificationx');
+        $this->title = __('Discount Alert', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/configure-discount-alert/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
-                <span>Discount Alert by NotificationX will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>
+                <span>Discount Alert by SurfAlert will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        // add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+        // add_filter('sa_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
 
     }
 
@@ -76,7 +76,7 @@ class OfferAnnouncement extends Types {
      */
     public function link_types($options){
         $_options = GlobalFields::get_instance()->normalize_fields([
-            'comment_url'      => __('Comment URL', 'notificationx'),
+            'comment_url'      => __('Comment URL', 'surfalert'),
         ], 'type', $this->id);
 
         return array_merge($options, $_options);

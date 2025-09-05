@@ -3,16 +3,16 @@
 /**
  * Tutor Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Tutor;
+namespace SurfAlert\Extensions\Tutor;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
 
 /**
  * Tutor Extension
@@ -28,8 +28,8 @@ class Tutor extends Extension {
 
     public $priority        = 5;
     public $id              = 'tutor';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/tutor.png';
-    public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/tutor.png';
+    public $doc_link        = 'https://surfalert.com/docs/tutor-lms/';
     public $types           = 'elearning';
     public $module          = 'modules_tutor';
     public $module_priority = 7;
@@ -44,14 +44,14 @@ class Tutor extends Extension {
 
     public function init_extension()
     {
-        $this->title        = __('Tutor', 'notificationx');
-        $this->module_title = __('Tutor LMS', 'notificationx');
+        $this->title        = __('Tutor', 'surfalert');
+        $this->module_title = __('Tutor LMS', 'surfalert');
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
@@ -83,7 +83,7 @@ class Tutor extends Extension {
     /**
      * This functions is hooked
      *
-     * @hooked nx_admin_action
+     * @hooked sa_admin_action
      * @return void
      */
     public function admin_actions() {
@@ -126,10 +126,10 @@ class Tutor extends Extension {
             $url = admin_url('plugin-install.php?s=tutor&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'Tutor LMS', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'Tutor LMS', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -459,8 +459,8 @@ class Tutor extends Extension {
         return $buyer_data;
     }
 
-    public function saved_post($post, $data, $nx_id) {
-        $this->delete_notification(null, $nx_id);
+    public function saved_post($post, $data, $sa_id) {
+        $this->delete_notification(null, $sa_id);
         $this->get_notification_ready($data);
     }
 
@@ -478,7 +478,7 @@ class Tutor extends Extension {
             $entries = [];
             foreach ($enrollments as $key => $enrollment) {
                 $entries[] = array(
-                        'nx_id'     => $data['nx_id'],
+                        'sa_id'     => $data['sa_id'],
                         'source'    => $this->id,
                         'entry_key' => $key,
                         'data'      => $enrollment,
@@ -528,10 +528,10 @@ class Tutor extends Extension {
      * @return array
      */
     public function fallback_data($data, $saved_data, $settings) {
-        $data['name']            = __('Someone', 'notificationx');
-        $data['first_name']      = __('Someone', 'notificationx');
-        $data['last_name']       = __('Someone', 'notificationx');
-        $data['anonymous_title'] = __('Anonymous Product', 'notificationx');
+        $data['name']            = __('Someone', 'surfalert');
+        $data['first_name']      = __('Someone', 'surfalert');
+        $data['last_name']       = __('Someone', 'surfalert');
+        $data['anonymous_title'] = __('Anonymous Product', 'surfalert');
         $data['course_title']    = $saved_data['title'];
         return $data;
     }
@@ -539,11 +539,11 @@ class Tutor extends Extension {
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Tutor LMS</a></p>', 'notificationx'),
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with Tutor LMS</a></p>', 'surfalert'),
         'https://wordpress.org/plugins/tutor/',
-        'https://notificationx.com/docs/tutor-lms/',
+        'https://surfalert.com/docs/tutor-lms/',
         'https://www.youtube.com/watch?v=EMrjLfL563Q',
-        'https://notificationx.com/integrations/tutor-lms/'
+        'https://surfalert.com/integrations/tutor-lms/'
         );
     }
 }

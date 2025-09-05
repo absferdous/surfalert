@@ -2,13 +2,13 @@
 /**
  * Freemius Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Freemius;
+namespace SurfAlert\Extensions\Freemius;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * FreemiusStats Extension
@@ -26,8 +26,8 @@ class FreemiusStats extends Extension {
     public $priority = 10;
     public $id       = 'freemius_stats';
     public $types    = 'download_stats';
-    public $img      = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/freemius.png';
-    public $doc_link = 'https://notificationx.com/docs/freemius-sales-notification/';
+    public $img      = SURFALERT_ADMIN_URL . 'images/extensions/sources/freemius.png';
+    public $doc_link = 'https://surfalert.com/docs/freemius-sales-notification/';
     public $module   = 'modules_freemius';
     public $is_pro   = true;
     public $module_priority = 12;
@@ -41,18 +41,18 @@ class FreemiusStats extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Freemius', 'notificationx');
-        $this->module_title = __('Freemius', 'notificationx');
+        $this->title = __('Freemius', 'surfalert');
+        $this->module_title = __('Freemius', 'surfalert');
         $this->popup = [
             "showCloseButton" => false,
             "denyButtonText" => '',
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Amazing platform to display download statistics to urge visitors to trust your items.</span>
                 <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
                 src="https://www.youtube.com/embed/0uANsOSFmtw">
                 </iframe>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 

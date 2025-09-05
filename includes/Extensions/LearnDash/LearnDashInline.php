@@ -3,10 +3,10 @@
 /**
  * EDD Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\LearnDash;
+namespace SurfAlert\Extensions\LearnDash;
 
 /**
  * EDD Extension
@@ -16,8 +16,8 @@ class LearnDashInline extends LearnDash {
 
     public $priority        = 20;
     public $id              = 'learndash_inline';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learndash.png';
-    public $doc_link        = 'https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/learndash.png';
+    public $doc_link        = 'https://surfalert.com/docs/how-to-display-learndash-course-enrollment-alert-using-surfalert/';
     public $types           = 'inline';
     public $module          = 'modules_learndash';
     public $module_priority = 18;
@@ -30,7 +30,7 @@ class LearnDashInline extends LearnDash {
      */
     public function __construct() {
         parent::__construct();
-        add_filter( 'nx_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
+        add_filter( 'sa_show_on_exclude', array( $this, 'show_on_exclude' ), 10, 4 );
     }
 
     public function init_extension()
@@ -38,31 +38,31 @@ class LearnDashInline extends LearnDash {
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/learndash-inline.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/learndash-inline.png',
                 'image_shape' => 'rounded',
                 'inline_location' => ['learndash_content'],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
-                    'second_param'        => __('people enrolled', 'notificationx'),
+                    'second_param'        => __('people enrolled', 'surfalert'),
                     'third_param'         => 'tag_custom',
                     'custom_third_param'  => ' ',
                     'fourth_param'        => 'tag_7days',
-                    'custom_fourth_param' => __('in last {{day:7}}', 'notificationx'),
+                    'custom_fourth_param' => __('in last {{day:7}}', 'surfalert'),
                 ],
             ),
         ];
         $this->templates = [
             'learndash_inline_template_sales_count' => [
                 'first_param'  => [
-                    'tag_sales_count' => __( 'Sales Count', 'notificationx' ),
+                    'tag_sales_count' => __( 'Sales Count', 'surfalert' ),
                 ],
                 'third_param' => [
-                    'tag_course_title' => __('Course Title', 'notificationx'),
+                    'tag_course_title' => __('Course Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_1day'   => __( 'In last 1 day', 'notificationx' ),
-                    'tag_7days'  => __( 'In last 7 days', 'notificationx' ),
-                    'tag_30days' => __( 'In last 30 days', 'notificationx' ),
+                    'tag_1day'   => __( 'In last 1 day', 'surfalert' ),
+                    'tag_7days'  => __( 'In last 7 days', 'surfalert' ),
+                    'tag_30days' => __( 'In last 30 days', 'surfalert' ),
                 ],
                 '_themes' => [
                     'learndash_inline_conv-theme-seven',
@@ -98,8 +98,8 @@ class LearnDashInline extends LearnDash {
     public static function get_instance($args = null){
         if ( is_null( static::$instance ) ) {
             $class = __CLASS__;
-            if(strpos($class, "NotificationX\\") === 0){
-                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+            if(strpos($class, "SurfAlert\\") === 0){
+                $pro_class = str_replace("SurfAlert\\", "NotificationXPro\\", $class);
                 if(class_exists($pro_class)){
                     $class = $pro_class;
                 }

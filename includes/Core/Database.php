@@ -3,12 +3,12 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\GetInstance;
+use SurfAlert\GetInstance;
 use WPDeveloper\QueryBuilder\Query as QueryBuilder;
 
 /**
@@ -41,9 +41,9 @@ class Database {
     public function __construct() {
         global $wpdb;
         $this->wpdb          = $wpdb;
-        self::$table_entries = $wpdb->prefix . 'nx_entries';
-        self::$table_posts   = $wpdb->prefix . 'nx_posts';
-        self::$table_stats   = $wpdb->prefix . 'nx_stats';
+        self::$table_entries = $wpdb->prefix . 'sa_entries';
+        self::$table_posts   = $wpdb->prefix . 'sa_posts';
+        self::$table_stats   = $wpdb->prefix . 'sa_stats';
     }
 
     public static function query() {
@@ -61,7 +61,7 @@ class Database {
 
         $sql = "CREATE TABLE {$table_entries} (
                 entry_id bigint(20) unsigned NOT NULL auto_increment,
-                nx_id bigint(20) unsigned NULL,
+                sa_id bigint(20) unsigned NULL,
                 source varchar(55) default NULL,
                 entry_key varchar(255) default NULL,
                 data longtext,
@@ -69,14 +69,14 @@ class Database {
                 updated_at TIMESTAMP NOT NULL,
                 PRIMARY KEY (entry_id),
                 KEY source (source),
-                KEY nx_id (nx_id)
+                KEY sa_id (sa_id)
             ) $charset_collate ;";
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         $entries_db = dbDelta( $sql );
 
         $sql     = "CREATE TABLE {$table_posts} (
-                nx_id bigint(20) unsigned NOT NULL auto_increment,
+                sa_id bigint(20) unsigned NOT NULL auto_increment,
                 title text default NULL,
                 type varchar(55) default NULL,
                 source varchar(55) default NULL,
@@ -87,7 +87,7 @@ class Database {
                 data longtext,
                 created_at TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP NOT NULL,
-                PRIMARY KEY  (nx_id),
+                PRIMARY KEY  (sa_id),
                 KEY type (type),
                 KEY source (source),
                 KEY theme (theme)
@@ -96,12 +96,12 @@ class Database {
 
         $sql      = "CREATE TABLE {$table_stats} (
                 stat_id bigint(20) unsigned NOT NULL auto_increment,
-                nx_id bigint(20) unsigned default NULL,
+                sa_id bigint(20) unsigned default NULL,
                 views varchar(55) default 0,
                 clicks varchar(55) default 0,
                 created_at DATE NOT NULL,
                 PRIMARY KEY (stat_id),
-                KEY nx_id (nx_id)
+                KEY sa_id (sa_id)
             ) $charset_collate ;";
         $stats_db = dbDelta( $sql );
 
@@ -114,7 +114,7 @@ class Database {
         return $this->wpdb->query( $this->wpdb->prepare( '
             UPDATE %1$s
             SET `%2$s` = `%3$s` + %4$s
-            WHERE nx_id = "%5$s"
+            WHERE sa_id = "%5$s"
             AND created_at = "%6$s"',
             $table_name, esc_sql( $col ), esc_sql( $col ), $_data, intval( $id ), $date
         )
@@ -176,7 +176,7 @@ class Database {
     public function get_posts( $table_name, $select = '*', $wheres = [], $join_table = '', $group_by_col = '', $join_type = 'LEFT JOIN', $extra_query = '' ) {
         $query = "SELECT $select FROM $table_name";
         if ( ! empty( $join_table ) ) {
-            $query .= " AS a $join_type `$join_table` AS b ON a.nx_id = b.nx_id";
+            $query .= " AS a $join_type `$join_table` AS b ON a.sa_id = b.sa_id";
         }
         $query .= $this->get_where_query( $wheres );
         if ( ! empty( $group_by_col ) ) {
@@ -251,7 +251,7 @@ class Database {
 
     public function get_primary_col( $table_name ) {
         if ( $table_name == self::$table_posts ) {
-            return 'nx_id';
+            return 'sa_id';
         } elseif ( $table_name == self::$table_entries ) {
             return 'entry_id';
         } elseif ( $table_name == self::$table_stats ) {

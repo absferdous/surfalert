@@ -3,14 +3,14 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Rules;
 
 /**
  * Extension Abstract for all Extension.
@@ -46,15 +46,15 @@ class DownloadStats extends Types {
     public function init()
     {
         parent::init();
-        $this->title = __('Download Stats', 'notificationx');
+        $this->title = __('Download Stats', 'surfalert');
         $this->themes = [
             'today-download' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/today-download.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/today-download.png',
                 'image_shape' => 'square',
                 'template'  => [
                     'first_param'  => 'tag_plugin_theme_name',
                     'custom_first_param' => '',
-                    'second_param' => __('has been downloaded' , 'notificationx'),
+                    'second_param' => __('has been downloaded' , 'surfalert'),
                     'third_param'  => 'tag_today',
                     'custom_third_param' => '',
                     'fourth_param' => 'tag_today_text',
@@ -62,12 +62,12 @@ class DownloadStats extends Types {
                 ],
             ],
             '7day-download'  => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/7day-download.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/7day-download.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'  => 'tag_plugin_theme_name',
                     'custom_first_param' => '',
-                    'second_param' => __('has been downloaded', 'notificationx'),
+                    'second_param' => __('has been downloaded', 'surfalert'),
                     'third_param'  => 'tag_last_week',
                     'custom_third_param' => '',
                     'fourth_param' => 'tag_last_week_text',
@@ -75,23 +75,23 @@ class DownloadStats extends Types {
                 ],
             ],
             'actively_using' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/actively-using.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/actively-using.png',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param' => 'tag_active_installs',
                     'custom_first_param' => '',
-                    'second_param' => __('people are actively using' , 'notificationx'),
+                    'second_param' => __('people are actively using' , 'surfalert'),
                     'third_param' => 'tag_plugin_theme_name',
                     'custom_third_param' => '',
                 ],
             ],
             'total-download' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-download.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/total-download.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'  => 'tag_plugin_theme_name',
                     'custom_first_param' => '',
-                    'second_param' => __('has been downloaded', 'notificationx'),
+                    'second_param' => __('has been downloaded', 'surfalert'),
                     'third_param'  => 'tag_all_time',
                     'custom_third_param' => '',
                     'fourth_param' => 'tag_all_time_text',
@@ -101,25 +101,25 @@ class DownloadStats extends Types {
         ];
         $this->res_themes = [
             'res-today-download' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-1.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-1.png',
                 'image_shape' => 'square',
                 '_template'  => 'wp_stats_template_new',
                 'is_pro'    => true,
             ],
             'res-7day-download'  => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-2.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-2.png',
                 'image_shape' => 'rounded',
                 '_template'  => 'wp_stats_template_new',
                 'is_pro'    => true,
             ],
             'res-actively_using' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-3.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-3.png',
                 'image_shape' => 'rounded',
                 '_template'  => 'actively_using_template_new',
                 'is_pro'    => true,
             ],
             'res-total-download' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-4.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_wporg/wporg-res-theme-4.png',
                 'image_shape' => 'circle',
                 '_template'  => 'wp_stats_template_new',
                 'is_pro'    => true,
@@ -128,21 +128,21 @@ class DownloadStats extends Types {
         $this->templates = [
             'wp_stats_template_new' => [
                 'first_param' => [
-                    'tag_plugin_theme_name' => __('Plugin/Theme Name', 'notificationx'),
+                    'tag_plugin_theme_name' => __('Plugin/Theme Name', 'surfalert'),
 
                 ],
                 'third_param' => [
-                    'tag_today'           => __('Today', 'notificationx'),
-                    'tag_last_week'       => __('In last 7 days', 'notificationx'),
-                    'tag_all_time'        => __('Total', 'notificationx'),
-                    'tag_active_installs' => __('Total Active Install', 'notificationx'),
+                    'tag_today'           => __('Today', 'surfalert'),
+                    'tag_last_week'       => __('In last 7 days', 'surfalert'),
+                    'tag_all_time'        => __('Total', 'surfalert'),
+                    'tag_active_installs' => __('Total Active Install', 'surfalert'),
 
                 ],
                 'fourth_param' => [
-                    'tag_today_text'           => __('Try it out', 'notificationx'),
-                    'tag_last_week_text'       => __('Get Started for Free.', 'notificationx'),
-                    'tag_all_time_text'        => __('Why Don\'t You?', 'notificationx'),
-                    'tag_active_installs_text' => __('in total active', 'notificationx'),
+                    'tag_today_text'           => __('Try it out', 'surfalert'),
+                    'tag_last_week_text'       => __('Get Started for Free.', 'surfalert'),
+                    'tag_all_time_text'        => __('Why Don\'t You?', 'surfalert'),
+                    'tag_active_installs_text' => __('in total active', 'surfalert'),
                 ],
                 '_themes' => [
                     'download_stats_today-download',
@@ -152,13 +152,13 @@ class DownloadStats extends Types {
             ],
             'actively_using_template_new' => [
                 'first_param' => [
-                    'tag_today'           => __('Today', 'notificationx'),
-                    'tag_last_week'       => __('In last 7 days', 'notificationx'),
-                    'tag_all_time'        => __('Total', 'notificationx'),
-                    'tag_active_installs' => __('Total Active Install', 'notificationx'),
+                    'tag_today'           => __('Today', 'surfalert'),
+                    'tag_last_week'       => __('In last 7 days', 'surfalert'),
+                    'tag_all_time'        => __('Total', 'surfalert'),
+                    'tag_active_installs' => __('Total Active Install', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_plugin_theme_name' => __('Plugin/Theme Name', 'notificationx'),
+                    'tag_plugin_theme_name' => __('Plugin/Theme Name', 'surfalert'),
                 ],
                 '_themes' => [
                     'download_stats_actively_using',
@@ -168,14 +168,14 @@ class DownloadStats extends Types {
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_link_types', [$this, 'link_types']);
-        add_filter('nx_content_fields', [$this, 'content_fields'], 20);
+        add_filter('sa_link_types', [$this, 'link_types']);
+        add_filter('sa_content_fields', [$this, 'content_fields'], 20);
     }
     /**
      * Content Fields function
@@ -196,7 +196,7 @@ class DownloadStats extends Types {
      */
     public function link_types($options) {
         $_options = GlobalFields::get_instance()->normalize_fields([
-            'stats_page' => __('Product Page', 'notificationx'),
+            'stats_page' => __('Product Page', 'surfalert'),
         ], 'type', $this->id);
 
         return array_merge($options, $_options);
@@ -204,7 +204,7 @@ class DownloadStats extends Types {
 
     public function preview_entry($entry, $settings){
         $entry['image_data'] = array(
-            'url'     => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+            'url'     => "https://ps.w.org/surfalert/assets/icon-256x256.gif?rev=2783824",
             'alt'     => '',
             'classes' => 'greview_icon',
         );

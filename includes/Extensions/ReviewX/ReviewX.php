@@ -2,20 +2,20 @@
 /**
  * ReviewX Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\ReviewX;
+namespace SurfAlert\Extensions\ReviewX;
 
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\WooCommerce\Woo;
-use NotificationX\Extensions\WooCommerce\WooReviews;
-use NotificationX\NotificationX;
-use NotificationX\Types\Conversions;
-use NotificationX\Types\CustomNotification;
-use NotificationX\Types\DownloadStats;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\WooCommerce\Woo;
+use SurfAlert\Extensions\WooCommerce\WooReviews;
+use SurfAlert\SurfAlert;
+use SurfAlert\Types\Conversions;
+use SurfAlert\Types\CustomNotification;
+use SurfAlert\Types\DownloadStats;
 
 /**
  * ReviewX Extension Class
@@ -25,8 +25,8 @@ class ReviewX extends WooReviews {
 
     public $priority              = 15;
     public $id                    = 'reviewx';
-    public $img                   = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/reviewx.png';
-    public $doc_link              = 'https://notificationx.com/docs/reviewx-notification-alerts/';
+    public $img                   = SURFALERT_ADMIN_URL . 'images/extensions/sources/reviewx.png';
+    public $doc_link              = 'https://surfalert.com/docs/reviewx-notification-alerts/';
     public $types                 = 'reviews';
     public $module                = 'modules_reviewx';
     public $module_priority       = 4;
@@ -43,8 +43,8 @@ class ReviewX extends WooReviews {
     public static function get_instance($args = null){
         if ( is_null( static::$instance ) || ! static::$instance instanceof self ) {
             $class = __CLASS__;
-            if(strpos($class, "NotificationX\\") === 0){
-                $pro_class = str_replace("NotificationX\\", "NotificationXPro\\", $class);
+            if(strpos($class, "SurfAlert\\") === 0){
+                $pro_class = str_replace("SurfAlert\\", "NotificationXPro\\", $class);
                 if(class_exists($pro_class)){
                     $class = $pro_class;
                 }
@@ -69,98 +69,98 @@ class ReviewX extends WooReviews {
 
     public function init_extension()
     {
-        $this->title = __('ReviewX', 'notificationx');
-        $this->module_title = __('ReviewX', 'notificationx');
+        $this->title = __('ReviewX', 'surfalert');
+        $this->module_title = __('ReviewX', 'surfalert');
         $this->themes = [
             'total-rated'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
                 'image_shape' => 'square',
                 'template'  => [
                     'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('people rated', 'surfalert'),
                     'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'reviewed'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         =>  'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_product_title',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review_saying' => [
-                'source'               => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
+                'source'               => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('saying', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('saying', 'surfalert'),
                     'third_param'         => 'tag_title',
-                    'custom_third_param'  => __('Excellent', 'notificationx'),
-                    'review_fourth_param' => __('about', 'notificationx'),
+                    'custom_third_param'  => __('Excellent', 'surfalert'),
+                    'review_fourth_param' => __('about', 'surfalert'),
                     'fifth_param'         => 'tag_product_title',
                     'sixth_param'         => 'tag_custom',
-                    'custom_sixth_param'  => __('Try it now', 'notificationx'),
+                    'custom_sixth_param'  => __('Try it now', 'surfalert'),
                 ]
             ],
             'review-comment' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment-2' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment-3' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
         ];
         $this->templates = [
             'reviewx_template_new'  => [
                 'first_param' => [
-                    'tag_username' => __('Username', 'notificationx'),
-                    'tag_rated'    => __('Rated', 'notificationx'),
+                    'tag_username' => __('Username', 'surfalert'),
+                    'tag_rated'    => __('Rated', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_product_title' => __('Product Title', 'notificationx'),
-                    'tag_plugin_review'   => __('Review', 'notificationx'),
-                    'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                    'tag_product_title' => __('Product Title', 'surfalert'),
+                    'tag_plugin_review'   => __('Review', 'surfalert'),
+                    'tag_anonymous_title' => __('Anonymous Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_rating'   => __('Rating', 'notificationx'),
-                    'tag_time'     => __('Definite Time', 'notificationx'),
+                    'tag_rating'   => __('Rating', 'surfalert'),
+                    'tag_time'     => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'reviewx_total-rated',
@@ -172,14 +172,14 @@ class ReviewX extends WooReviews {
             ],
             'reviewx_saying_template_new' => [
                 'first_param' => [
-                    'tag_username' => __('Username', 'notificationx'),
+                    'tag_username' => __('Username', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_title'           => __('Review Title', 'notificationx'),
-                    'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                    'tag_title'           => __('Review Title', 'surfalert'),
+                    'tag_anonymous_title' => __('Anonymous Title', 'surfalert'),
                 ],
                 'fifth_param' => [
-                    'tag_plugin_name' => __('Plugin Name', 'notificationx'),
+                    'tag_plugin_name' => __('Plugin Name', 'surfalert'),
                 ],
                 'sixth_param' => [
                     // @todo maybe add some predefined texts.
@@ -197,8 +197,8 @@ class ReviewX extends WooReviews {
      */
     public function admin_actions() {
         parent::admin_actions();
-        if(NotificationX::get_instance()->is_pro()){
-            add_filter("nx_can_entry_{$this->id}", array(Conversions::get_instance(), 'nx_can_entry'), 10, 3);
+        if(SurfAlert::get_instance()->is_pro()){
+            add_filter("sa_can_entry_{$this->id}", array(Conversions::get_instance(), 'sa_can_entry'), 10, 3);
         }
     }
 
@@ -207,10 +207,10 @@ class ReviewX extends WooReviews {
             $url = admin_url('plugin-install.php?s=ReviewX&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s.',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'ReviewX', 'notificationx' ),
-                    __( 'plugin.', 'notificationx' )
+                    __( 'ReviewX', 'surfalert' ),
+                    __( 'plugin.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -278,10 +278,10 @@ class ReviewX extends WooReviews {
     public function doc(){
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce</a> & <a target="_blank" href="%2$s">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%3$s">documentation</a>.</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🚀 How to <a target="_blank" href="%4$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),
+		<p>🚀 How to <a target="_blank" href="%4$s">boost WooCommerce Sales</a> Using SurfAlert</p>', 'surfalert'),
         'https://wordpress.org/plugins/woocommerce/',
         'https://wordpress.org/plugins/reviewx/',
-        'https://notificationx.com/docs/reviewx-notification-alerts',
+        'https://surfalert.com/docs/reviewx-notification-alerts',
         'https://wpdeveloper.com/ecommerce-sales-social-proof/'
         );
     }

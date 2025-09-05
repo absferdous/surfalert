@@ -1,12 +1,12 @@
 <?php
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\Core\PostType;
-use NotificationX\GetInstance;
+use SurfAlert\Core\PostType;
+use SurfAlert\GetInstance;
 
 /**
  * This class is responsible for Cron Jobs
- * for NotificationX & NotificationX Pro
+ * for SurfAlert & SurfAlert Pro
  * @method static Cron get_instance($args = null)
  */
 class Cron {
@@ -21,12 +21,12 @@ class Cron {
      * Cron hook.
      * @var string $hook
      */
-    public $hook = 'nx_cron_update_data';
+    public $hook = 'sa_cron_update_data';
 
     public function __construct(){
         add_filter('cron_schedules', [$this, 'cron_schedule'], 10, 1);
         add_action($this->hook, array($this, 'update_data'), 10, 1);
-        add_action('nx_delete_post', array($this, 'delete_post'), 10, 1);
+        add_action('sa_delete_post', array($this, 'delete_post'), 10, 1);
 
     }
 
@@ -35,7 +35,7 @@ class Cron {
      * @param int $post_id
      * @param string $cache_key
      */
-    public function set_cron($post_id, $cache_key = 'nx_cache_interval') {
+    public function set_cron($post_id, $cache_key = 'sa_cache_interval') {
         if (!$post_id || empty($post_id)) {
             return;
         }
@@ -87,19 +87,19 @@ class Cron {
         $download_stats_cache_duration = Settings::get_instance()->get('settings.download_stats_cache_duration', 3);
         $reviews_cache_duration = Settings::get_instance()->get('settings.reviews_cache_duration', 3);
 
-        $schedules['nx_wp_stats_interval'] = array(
+        $schedules['sa_wp_stats_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $download_stats_cache_duration,
             // translators: %s: no of minutes
-            'display'    => sprintf(__('Every %s minutes', 'notificationx'), $download_stats_cache_duration)
+            'display'    => sprintf(__('Every %s minutes', 'surfalert'), $download_stats_cache_duration)
         );
 
-        $schedules['nx_wp_review_interval'] = array(
+        $schedules['sa_wp_review_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $reviews_cache_duration,
             // translators: %s: no of minutes
-            'display'    => sprintf(__('Every %s minutes', 'notificationx'), $reviews_cache_duration)
+            'display'    => sprintf(__('Every %s minutes', 'surfalert'), $reviews_cache_duration)
         );
 
-        $schedules = apply_filters('nx_cron_schedules', $schedules);
+        $schedules = apply_filters('sa_cron_schedules', $schedules);
 
         return $schedules;
     }

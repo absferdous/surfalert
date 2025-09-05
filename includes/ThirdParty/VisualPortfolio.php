@@ -1,7 +1,7 @@
 <?php
-namespace NotificationX\ThirdParty;
+namespace SurfAlert\ThirdParty;
 
-use NotificationX\GetInstance;
+use SurfAlert\GetInstance;
 
 /**
  * Visual Portfolio, Posts & Image Gallery
@@ -13,10 +13,10 @@ class VisualPortfolio {
     use GetInstance;
 
     public function __construct() {
-        add_filter( 'nx_before_enqueue_scripts', array( $this, 'nx_before_enqueue_scripts' ) );
+        add_filter( 'sa_before_enqueue_scripts', array( $this, 'sa_before_enqueue_scripts' ) );
     }
 
-    public function nx_before_enqueue_scripts($result) {
+    public function sa_before_enqueue_scripts($result) {
         if(!empty($_GET['vp_preview'])){
             return ['total' => 0];
         }

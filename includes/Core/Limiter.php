@@ -1,11 +1,11 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Database;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Database;
+use SurfAlert\GetInstance;
 
 
 /**
@@ -20,8 +20,8 @@ class Limiter {
     public function __construct() {
     }
 
-    public function remove($nx_id, $new) {
-        $count = Entries::get_instance()->count($nx_id, 'nx_id');
+    public function remove($sa_id, $new) {
+        $count = Entries::get_instance()->count($sa_id, 'sa_id');
         $limit = Settings::get_instance()->get('settings.cache_limit', 100);
         if ($limit <= 0) {
             $limit = 100;
@@ -29,7 +29,7 @@ class Limiter {
 
         if ($new + $count > $limit) {
             $overflow = ($new + $count) - $limit;
-            Entries::get_instance()->delete_entries($nx_id, $overflow);
+            Entries::get_instance()->delete_entries($sa_id, $overflow);
         }
     }
 }

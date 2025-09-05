@@ -22,7 +22,7 @@
  * @link       https://wpdeveloper.com
  * @since      1.0.0
  *
- * @package    NotificationX
+ * @package    SurfAlert
  */
 
 // If uninstall not called from WordPress, then exit.

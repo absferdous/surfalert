@@ -6,5 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'SurfAlert\\LibUtility\\' => array($baseDir . '/includes/libraries/utility/src'),
+    'SurfAlert\\LibSettings\\' => array($baseDir . '/includes/libraries/settings/src'),
+    'SurfAlert\\Blocks\\' => array($baseDir . '/assets/Blocks'),
     'SurfAlert\\' => array($baseDir . '/includes'),
+    'PriyoMukul\\WPNotice\\' => array($baseDir . '/includes/libraries/wp-notice/src'),
 );

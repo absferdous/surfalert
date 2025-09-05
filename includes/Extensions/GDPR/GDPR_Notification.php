@@ -2,15 +2,15 @@
 /**
  * Wistia Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\GDPR;
+namespace SurfAlert\Extensions\GDPR;
 
-use NotificationX\GetInstance;
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Extensions\Extension;
 
 /**
  * GDPR Extension
@@ -26,25 +26,25 @@ class GDPR_Notification extends Extension {
 
     public $priority        = 15;
     public $id              = 'gdpr_notification';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://surfalert.com/docs/google-reviews-with-surfalert/';
     public $types           = 'gdpr';
     public $module          = 'modules_gdpr';
-    // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/GDPR.png';
+    // public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/GDPR.png';
 
     /**
      * Initially Invoked when initialized.
      */
     public function __construct(){
         parent::__construct();
-        add_filter('nx_design_tab_fields', [$this, 'design_fields'], 99);
-        add_filter('nx_content_fields', array($this, 'content_fields'), 999);
-        add_filter('nx_customize_fields', array($this, 'customize_fields'), 999);
+        add_filter('sa_design_tab_fields', [$this, 'design_fields'], 99);
+        add_filter('sa_content_fields', array($this, 'content_fields'), 999);
+        add_filter('sa_customize_fields', array($this, 'customize_fields'), 999);
     }
 
     public function init_extension()
     {
-        $this->title = __('GDPR', 'notificationx');
-        $this->module_title = __('Cookie Notice', 'notificationx');
+        $this->title = __('GDPR', 'surfalert');
+        $this->module_title = __('Cookie Notice', 'surfalert');
     }
 
     public function design_fields( $fields ) {
@@ -62,7 +62,7 @@ class GDPR_Notification extends Extension {
 		}
 
         $fields['advance_design_section']['fields']['gdpr_design'] = [
-            'label'    => __("Design", 'notificationx'),
+            'label'    => __("Design", 'surfalert'),
             'name'     => "gdpr_design",
             'type'     => "section",
             'priority' => 5,
@@ -72,47 +72,47 @@ class GDPR_Notification extends Extension {
             ]),
             'fields' => [
                 [
-                    'label' => __("Background Color", 'notificationx'),
+                    'label' => __("Background Color", 'surfalert'),
                     'name'  => "gdpr_design_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Footer Background Color", 'notificationx'),
+                    'label' => __("Footer Background Color", 'surfalert'),
                     'name'  => "gdpr_design_ft_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Title Color", 'notificationx'),
+                    'label' => __("Title Color", 'surfalert'),
                     'name'  => "title_text_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label'       => __('Title Font Size', 'notificationx'),
+                    'label'       => __('Title Font Size', 'surfalert'),
                     'name'        => "title_font_size",
                     'type'        => "number",
                     'default'     => '20',
                     'description' => 'px',
-                    'help'        => __('This font size will be applied for <mark>Title</mark> only', 'notificationx'),
+                    'help'        => __('This font size will be applied for <mark>Title</mark> only', 'surfalert'),
                 ],
                 [
-                    'label' => __("Description Color", 'notificationx'),
+                    'label' => __("Description Color", 'surfalert'),
                     'name'  => "description_text_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label'       => __('Description Font Size', 'notificationx'),
+                    'label'       => __('Description Font Size', 'surfalert'),
                     'name'        => "description_font_size",
                     'type'        => "number",
                     'default'     => '14',
                     'description' => 'px',
-                    'help'        => __('This font size will be applied for <mark>Description</mark> only', 'notificationx'),
+                    'help'        => __('This font size will be applied for <mark>Description</mark> only', 'surfalert'),
                 ],
                 [
-                    'label' => __("Close Button Color", 'notificationx'),
+                    'label' => __("Close Button Color", 'surfalert'),
                     'name'  => "close_btn_color",
                     'type'  => "colorpicker",
                     'default'  => "",
@@ -126,7 +126,7 @@ class GDPR_Notification extends Extension {
                     ]),
                 ],
                 [
-                    'label'       => __('Close Button Size', 'notificationx'),
+                    'label'       => __('Close Button Size', 'surfalert'),
                     'name'        => "close_btn_size",
                     'type'        => "number",
                     'default'     => '18',
@@ -144,7 +144,7 @@ class GDPR_Notification extends Extension {
         ];
 
         $fields['advance_design_section']['fields']['gdpr_accept_btn'] = [
-            'label'    => __("Accept Button", 'notificationx'),
+            'label'    => __("Accept Button", 'surfalert'),
             'name'     => "gdpr_accept_btn",
             'type'     => "section",
             'priority' => 6,
@@ -154,25 +154,25 @@ class GDPR_Notification extends Extension {
             ]),
             'fields' => [
                 [
-                    'label' => __("Background Color", 'notificationx'),
+                    'label' => __("Background Color", 'surfalert'),
                     'name'  => "gdpr_accept_btn_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Border Color", 'notificationx'),
+                    'label' => __("Border Color", 'surfalert'),
                     'name'  => "gdpr_accept_btn_border_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Text Color", 'notificationx'),
+                    'label' => __("Text Color", 'surfalert'),
                     'name'  => "gdpr_accept_btn_text_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label'       => __('Font Size', 'notificationx'),
+                    'label'       => __('Font Size', 'surfalert'),
                     'name'        => "gdpr_accept_btn_font_size",
                     'type'        => "number",
                     'default'     => '14',
@@ -182,7 +182,7 @@ class GDPR_Notification extends Extension {
         ];
 
         $fields['advance_design_section']['fields']['gdpr_reject_btn'] = [
-            'label'    => __("Reject Button", 'notificationx'),
+            'label'    => __("Reject Button", 'surfalert'),
             'name'     => "gdpr_reject_btn",
             'type'     => "section",
             'priority' => 7,
@@ -198,25 +198,25 @@ class GDPR_Notification extends Extension {
             ]),
             'fields' => [
                 [
-                    'label' => __("Background Color", 'notificationx'),
+                    'label' => __("Background Color", 'surfalert'),
                     'name'  => "gdpr_reject_btn_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Border Color", 'notificationx'),
+                    'label' => __("Border Color", 'surfalert'),
                     'name'  => "gdpr_reject_btn_border_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Text Color", 'notificationx'),
+                    'label' => __("Text Color", 'surfalert'),
                     'name'  => "gdpr_reject_btn_text_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label'       => __('Font Size', 'notificationx'),
+                    'label'       => __('Font Size', 'surfalert'),
                     'name'        => "gdpr_reject_btn_font_size",
                     'type'        => "number",
                     'default'     => '14',
@@ -226,7 +226,7 @@ class GDPR_Notification extends Extension {
         ];
 
         $fields['advance_design_section']['fields']['gdpr_customize_btn'] = [
-            'label'    => __("Customize Button", 'notificationx'),
+            'label'    => __("Customize Button", 'surfalert'),
             'name'     => "gdpr_customize_btn",
             'type'     => "section",
             'priority' => 8,
@@ -236,25 +236,25 @@ class GDPR_Notification extends Extension {
             ]),
             'fields' => [
                 [
-                    'label' => __("Background Color", 'notificationx'),
+                    'label' => __("Background Color", 'surfalert'),
                     'name'  => "gdpr_customize_btn_bg_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Border Color", 'notificationx'),
+                    'label' => __("Border Color", 'surfalert'),
                     'name'  => "gdpr_customize_btn_border_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label' => __("Text Color", 'notificationx'),
+                    'label' => __("Text Color", 'surfalert'),
                     'name'  => "gdpr_customize_btn_text_color",
                     'type'  => "colorpicker",
                     'default'  => "",
                 ],
                 [
-                    'label'       => __('Font Size', 'notificationx'),
+                    'label'       => __('Font Size', 'surfalert'),
                     'name'        => "gdpr_customize_btn_font_size",
                     'type'        => "number",
                     'default'     => '14',
@@ -302,12 +302,12 @@ class GDPR_Notification extends Extension {
         return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>
         <p>🎦 Watch the video <a target="_blank" href="%2$s">tutorial</a> for a quick guide.</p>
         <p><strong>Recommended Blogs:</strong></p>
-        <p>🔥 <a target="_blank" href="%3$s">How to Display WordPress Cookie Notice Using NotificationX?</a></p>
+        <p>🔥 <a target="_blank" href="%3$s">How to Display WordPress Cookie Notice Using SurfAlert?</a></p>
         <p><strong>Recommended Plugins:</strong></p>
-        <p>🔌 <a target="_blank" href="%4$s">WP Consent API</a> - Centralize cookie handling with a unified consent solution.</p>', 'notificationx'),
-        'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/',
+        <p>🔌 <a target="_blank" href="%4$s">WP Consent API</a> - Centralize cookie handling with a unified consent solution.</p>', 'surfalert'),
+        'https://surfalert.com/docs/how-to-configure-cookies-policy-for-website/',
         'https://youtu.be/xMiRgH436SE',
-        'https://notificationx.com/blog/display-wordpress-cookie-notice/',
+        'https://surfalert.com/blog/display-wordpress-cookie-notice/',
         'https://wordpress.org/plugins/wp-consent-api/'
     );
     }

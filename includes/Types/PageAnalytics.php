@@ -2,12 +2,12 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+namespace SurfAlert\Types;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -42,27 +42,27 @@ class PageAnalytics extends Types {
      */
     public function init(){
         parent::init();
-        $this->title = __('Page Analytics', 'notificationx');
+        $this->title = __('Page Analytics', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-analytics/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/google-analytics/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Connect Google Analytics to display the total number of real-time site visitors</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-NotificationX-How-To-Show-Active-Users-Traffic-in-WordPress.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-SurfAlert-How-To-Show-Active-Users-Traffic-in-WordPress.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
         $this->themes = [
             'pa-theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/ga-theme-one.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/analytics/ga-theme-one.jpg',
                 'template' => [
                     'first_param'        => 'tag_siteview',
-                    'second_param'       => __('marketers', 'notificationx'),
+                    'second_param'       => __('marketers', 'surfalert'),
                     'third_param'        => 'ga_title',
-                    'custom_third_param' => __('Surfed this page', 'notificationx'),
-                    'ga_fourth_param'    => __('in last ', 'notificationx'),
-                    'ga_fifth_param'     => __('30', 'notificationx'),
+                    'custom_third_param' => __('Surfed this page', 'surfalert'),
+                    'ga_fourth_param'    => __('in last ', 'surfalert'),
+                    'ga_fifth_param'     => __('30', 'surfalert'),
                     'sixth_param'        => 'tag_day',
                 ],
                 'defaults'                => [
@@ -72,15 +72,15 @@ class PageAnalytics extends Types {
                 ],
             ],
             'pa-theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-one.png',
                 'image_shape' => 'rounded',
                 'template' => [
                     'first_param'        => 'tag_siteview',
-                    'second_param'       => __('people visited', 'notificationx'),
+                    'second_param'       => __('people visited', 'surfalert'),
                     'third_param'        => 'ga_title',
-                    'custom_third_param' => __('this page', 'notificationx'),
-                    'ga_fourth_param'    => __('in last ', 'notificationx'),
-                    'ga_fifth_param'     => __('1', 'notificationx'),
+                    'custom_third_param' => __('this page', 'surfalert'),
+                    'ga_fourth_param'    => __('in last ', 'surfalert'),
+                    'ga_fifth_param'     => __('1', 'surfalert'),
                     'sixth_param'        => 'tag_day',
                 ],
                 'defaults'                => [
@@ -90,16 +90,16 @@ class PageAnalytics extends Types {
                 ],
             ],
             'pa-theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-two.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-two.png',
                 'image_shape' => 'circle',
                 'template' => [
                     'first_param'        => 'tag_realtime_siteview',
-                    'second_param'       => __('people looking', 'notificationx'),
+                    'second_param'       => __('people looking', 'surfalert'),
                     'third_param'        => 'ga_title',
-                    'custom_third_param' => __('this deal', 'notificationx'),
-                    'ga_fourth_param'    => __('right now', 'notificationx'),
+                    'custom_third_param' => __('this deal', 'surfalert'),
+                    'ga_fourth_param'    => __('right now', 'surfalert'),
                     // need to set this two param unless they won't show up when changing the first param.
-                    'ga_fifth_param'     => __('30', 'notificationx'),
+                    'ga_fifth_param'     => __('30', 'surfalert'),
                     'sixth_param'        => 'tag_day',
                 ],
                 'defaults'                => [
@@ -109,20 +109,20 @@ class PageAnalytics extends Types {
                 ],
             ],
             'pa-theme-four' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-four.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/analytics/pa-theme-four.png',
                 'image_shape' => 'circle',
                 'template' => [
                     'first_param'        => 'tag_current_page_view',
-                    'second_param'       => __('People Is Now Visiting', 'notificationx'),
+                    'second_param'       => __('People Is Now Visiting', 'surfalert'),
                     'third_param'        => 'tag_custom',
-                    'custom_third_param' => __('Holiday Deal Page', 'notificationx'),
-                    'ga_fourth_param'    => __('Check out now & grab exceptional deals', 'notificationx'),
+                    'custom_third_param' => __('Holiday Deal Page', 'surfalert'),
+                    'ga_fourth_param'    => __('Check out now & grab exceptional deals', 'surfalert'),
                     // need to set this two param unless they won't show up when changing the first param.
-                    'ga_fifth_param'     => __('30', 'notificationx'),
+                    'ga_fifth_param'     => __('30', 'surfalert'),
                     'sixth_param'        => 'tag_day',
                 ],
                 'defaults'                => [
-                    'link_button_text'   => __('Grab Now','notificationx'),
+                    'link_button_text'   => __('Grab Now','surfalert'),
                     'link_button'        => true,
                     'link_type'          => 'custom',
                     'custom_url'         => '#',
@@ -132,35 +132,35 @@ class PageAnalytics extends Types {
         ];
         $this->res_themes = [
             'res-pa-theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-1.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-1.png',
                 'is_pro' => true,
             ],
             'res-pa-theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-2.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-2.png',
                 'is_pro' => true,
             ],
             'res-pa-theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-3.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-3.png',
                 'is_pro' => true,
             ],
             'res-pa-theme-four' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-4.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_analytics/ga-res-theme-4.png',
                 'is_pro' => true,
             ],
         ];
         $this->templates = [
             'pa_template_new' => [
                 'first_param' => [
-                    'tag_siteview'          => __('Total Site View', 'notificationx'),
-                    'tag_realtime_siteview' => __('Realtime site view', 'notificationx')
+                    'tag_siteview'          => __('Total Site View', 'surfalert'),
+                    'tag_realtime_siteview' => __('Realtime site view', 'surfalert')
                 ],
                 'third_param' => [
-                    'ga_title'  => __('Site Title', 'notificationx'),
+                    'ga_title'  => __('Site Title', 'surfalert'),
                 ],
                 'sixth_param' => [
-                    'tag_day'   => __('Day', 'notificationx'),
-                    'tag_month' => __('Month', 'notificationx'),
-                    'tag_year'  => __('Year', 'notificationx'),
+                    'tag_day'   => __('Day', 'surfalert'),
+                    'tag_month' => __('Month', 'surfalert'),
+                    'tag_year'  => __('Year', 'surfalert'),
                 ],
                 '_themes' => [
                     'page_analytics_pa-theme-one',
@@ -170,15 +170,15 @@ class PageAnalytics extends Types {
             ],
             'pa_template_current_page_view' => [
                 'first_param' => [
-                    'tag_current_page_view' => __('Current Page View', 'notificationx')
+                    'tag_current_page_view' => __('Current Page View', 'surfalert')
                 ],
                 'third_param' => [
-                    'tag_ga_page_title'  => __('Page Title', 'notificationx'),
+                    'tag_ga_page_title'  => __('Page Title', 'surfalert'),
                 ],
                 'sixth_param' => [
-                    'tag_day'   => __('Day', 'notificationx'),
-                    'tag_month' => __('Month', 'notificationx'),
-                    'tag_year'  => __('Year', 'notificationx'),
+                    'tag_day'   => __('Day', 'surfalert'),
+                    'tag_month' => __('Month', 'surfalert'),
+                    'tag_year'  => __('Year', 'surfalert'),
                 ],
                 '_themes' => [
                     'page_analytics_pa-theme-four',

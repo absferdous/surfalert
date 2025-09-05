@@ -1,6 +1,6 @@
-=== NotificationX – FOMO, Live Sales Notification, WooCommerce Sales Popup, GDPR, Social Proof, Announcement Banner & Floating Notification Bar ===
+=== SurfAlert – FOMO, Live Sales Notification, WooCommerce Sales Popup, GDPR, Social Proof, Announcement Banner & Floating Notification Bar ===
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
-Donate link: https://notificationx.com
+Donate link: https://surfalert.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
 Tested up to: 6.8
@@ -26,17 +26,17 @@ https://youtu.be/6A4OLJjRW_g
 
 ## 🌟 USE FOMO TO INCREASE YOUR LEADS, SALES & ENGAGEMENTS ##
 
-[NotificationX](https://notificationx.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales notifications and engagement. It creates urgency among your visitors to purchase your products right now. No one wants to be left out, after all.
+[SurfAlert](https://surfalert.com) helps you to grab the attention of your website visitors and gain their trust instantly by showing real-time sales notifications and engagement. It creates urgency among your visitors to purchase your products right now. No one wants to be left out, after all.
 
 **Sales Notification & Popup Solution for WooCommerce, EDD, Freemius, Envato & More.**
 
 https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
-## Get Faster, Lighter & Best Fomo Solution With NotificationX 2.0 Updates 🔥 ##
+## Get Faster, Lighter & Best Fomo Solution With SurfAlert 2.0 Updates 🔥 ##
 
-[NotificationX 2.0](https://notificationx.com/blog/update-notificationx-2-0/)  has been introduced with a fully revamped user interface to keep an excellent user experience than before. It ensures faster performance, even lighter and best fomo marketing solution on latest.
+[SurfAlert 2.0](https://surfalert.com/blog/update-surfalert-2-0/)  has been introduced with a fully revamped user interface to keep an excellent user experience than before. It ensures faster performance, even lighter and best fomo marketing solution on latest.
 
-## Powerful Features of NotificationX 2.0  🚀 ##
+## Powerful Features of SurfAlert 2.0  🚀 ##
 
 - Get a completely revamped & faster user interface
 - Redesigned Quick Builder to create instant notifications
@@ -48,7 +48,7 @@ https://youtu.be/6XJ2lLmH3w8?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 📌 BEST NOTIFICATION BAR PLUGIN FOR WORDPRESS ##
 
-Let the visitors know about your special offers, deals, announcements, etc. with a call to action. **NotificationX** brings the [best notification bar](https://notificationx.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, and start time, you will get detailed analytics on how your notification bar performed as well.
+Let the visitors know about your special offers, deals, announcements, etc. with a call to action. **SurfAlert** brings the [best notification bar](https://surfalert.com/features/) solution for WordPress, and it's absolutely free. You could turn on the end, and start time, you will get detailed analytics on how your notification bar performed as well.
 
 https://youtu.be/xMiRgH436SE
 
@@ -61,8 +61,8 @@ https://youtu.be/xMiRgH436SE
 - Display cookie notification banner on your website for seamless cookie consent and GDPR compliance from users/visitors
 - Get notifications that are perfectly mobile responsive with bunch of customization options based on your needs
 - Advanced **19+ integrations** to power up your social-proof marketing strategies
-- Connect NotificationX with **Zapier** to build absolutely anything [PRO]
-- Showcase live notifications to any other WordPress or non-WordPress websites with [Cross Domain Notice](https://notificationx.com/docs/notificationx-cross-domain-notice/) [PRO]
+- Connect SurfAlert with **Zapier** to build absolutely anything [PRO]
+- Showcase live notifications to any other WordPress or non-WordPress websites with [Cross Domain Notice](https://surfalert.com/docs/surfalert-cross-domain-notice/) [PRO]
 - Global Queue Management to get full control over your popup notifications [PRO]
 - Advanced Role Management to decide who can create or edit notifications & check Analytics reports [PRO]
 - Check the results from **Analytics tool** [PRO] and see how many times a certain notification popup has been viewed, clicked or even its Click-through Rate
@@ -75,7 +75,7 @@ https://youtu.be/zZPF5nJD4mo?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🚀 BOOST CONVERSIONS WITH DIFFERENT NOTIFICATIONS ##
 
-- **Sales Notifications:** With NotificationX, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchase activity by other customers to influence the website visitors. [More sources in Pro: LearnDash, Envato, Themeforest, CodeCanyon)]
+- **Sales Notifications:** With SurfAlert, you can easily design attention-grabbing Sales Notifications to increase your sales rate. If you have WooCommerce or Easy Digital Downloads installed, you can display the recent purchase activity by other customers to influence the website visitors. [More sources in Pro: LearnDash, Envato, Themeforest, CodeCanyon)]
 
 - **WP Comments:** Let you shows the recent comments made by users on your WordPress posts as a notification alert. This is helpful to gain immediate attention from your visitors to check out the specified posts.
 
@@ -95,27 +95,27 @@ https://youtu.be/AGaq1wtdd00?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🔥 POWER UP WITH ADVANCED INTEGRATIONS ##
 
-- **[WooCommerce](https://notificationx.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversion rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
+- **[WooCommerce](https://surfalert.com/integrations/woocommerce/):** Showcase your product sales alert and customer activities live on the website with an automated process to increase your eCommerce site conversion rates. **From V 1.7.0 we now support WooCommerce Product reviews as well.**
 
     https://youtu.be/bHuaOs9JWvI?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
-- **[Easy Digital Downloads](https://notificationx.com/integrations/easy-digital-downloads/):** Display your clients’ live sales updates on the website to build credibility and gather more traffic to boost business growth.
+- **[Easy Digital Downloads](https://surfalert.com/integrations/easy-digital-downloads/):** Display your clients’ live sales updates on the website to build credibility and gather more traffic to boost business growth.
 
-- **[Freemius [PRO]](https://notificationx.com/integrations/freemius/):** Lets you showcase your customers' real-time sales and review activities through live notification pop ups from the Freemius account to your website.
+- **[Freemius [PRO]](https://surfalert.com/integrations/freemius/):** Lets you showcase your customers' real-time sales and review activities through live notification pop ups from the Freemius account to your website.
 
-- **[GiveWP](https://notificationx.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
+- **[GiveWP](https://surfalert.com/integrations/givewp/):** Showcase your donor live notification popup on the website to influence others to make more donations.
 
-- **[Zapier [PRO]](https://notificationx.com/integrations/zapier/):** Integrate Zapier with NotificationX to pull data from supported apps and display custom popups of users' real-time notifications to convert your visitors into your permanent clients.
+- **[Zapier [PRO]](https://surfalert.com/integrations/zapier/):** Integrate Zapier with SurfAlert to pull data from supported apps and display custom popups of users' real-time notifications to convert your visitors into your permanent clients.
 
-- **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup for your email list to get updates and increase your overall engagement rates.
+- **[MailChimp [PRO]](https://surfalert.com/integrations/mailchimp/):** Create urgency among your visitors to signup for your email list to get updates and increase your overall engagement rates.
 
-- **[ConvertKit [PRO]](https://notificationx.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
+- **[ConvertKit [PRO]](https://surfalert.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
 
-- **[LearnDash [PRO]](https://notificationx.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
+- **[LearnDash [PRO]](https://surfalert.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
 
-- **[Envato [PRO]](https://notificationx.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.
+- **[Envato [PRO]](https://surfalert.com/integrations/envato/):** Display your download or sales notification from Envato (Themeforest/CodeCanyon) and increase conversion rates.
 
-- **[Google Analytics[PRO]](https://notificationx.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
+- **[Google Analytics[PRO]](https://surfalert.com/integrations/google-analytics/):** Display Google Analytics insights and visitor counts with more marketing insight to engage your potential buyers.
 
 - **[ReviewX](https://reviewx.io/):** Display beautiful reviews from ReviewX. Currently it supports WooCommerce, and you can showcase your multi-criteria reviews.
 
@@ -128,30 +128,30 @@ https://youtu.be/lWLY72HrqDM?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 https://youtu.be/ZpnXpb6QD04?si=nlVY2IBSWD5TNdE2
 
-[WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/):
-> 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
+[WPMayor](https://wpmayor.com/surfalert-review-add-fomo-inducing-notifications-to-wordpress/):
+> 'SurfAlert is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
 
-[BobWP](https://bobwp.com/notification-display-woocommerce-notificationx-plugin/):
-> 'The power of NotificationX lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
+[BobWP](https://bobwp.com/notification-display-woocommerce-surfalert-plugin/):
+> 'The power of SurfAlert lies in its integrations. The integration with WordPress.org makes it slick to pull in download numbers and reviews. This is a perfect option if you are selling freemium plugins and themes. The plugin is intuitive and easy to set up. With the various notifications, you can get creative and go beyond product sales with your WooCommerce store.'
 
 **Thanks:** This project is inspired by WPFomify, Puneet & his team did amazing work, and we are very thankful to them. They are one of the first to do Fomo in WordPress right way, we are passionately taking it to a whole different level and love to see we are inspiring them as well, that's the beauty of OpenSource!
 
 
 ### Documentation and Support ###
 
-- For documentation and tutorials go to our [Documentation](https://notificationx.com/docs)
-- If you have any more questions, visit our support on the [Plugin’s Forum](https://wordpress.org/support/plugin/notificationx/)
-- For more information about features, FAQs and documentation, check out our website at [NotificationX](https://notificationx.com)
+- For documentation and tutorials go to our [Documentation](https://surfalert.com/docs)
+- If you have any more questions, visit our support on the [Plugin’s Forum](https://wordpress.org/support/plugin/surfalert/)
+- For more information about features, FAQs and documentation, check out our website at [SurfAlert](https://surfalert.com)
 
-### Loving NotificationX? ###
+### Loving SurfAlert? ###
 
-- Join our [Facebook Group](https://www.facebook.com/groups/NotificationX.Community/)
+- Join our [Facebook Group](https://www.facebook.com/groups/SurfAlert.Community/)
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.com/go/youtube-channel)
-- Or [rate us](https://notificationx.com/go/review-nx) on WordPress
+- Or [rate us](https://surfalert.com/go/review-nx) on WordPress
 
 ### 🎁 GET FREEBIES FOR YOUR WORDPRESS SITE ###
 
-NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 Million users. Consider checking out our other WordPress solutions & boost your WordPress website:
+SurfAlert is backed by WPDeveloper, a dedicated team trusted by more than 6 Million users. Consider checking out our other WordPress solutions & boost your WordPress website:
 
 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/): Most popular Elementor extensions with 2+ Million active users & 95+ advanced widgets.
 
@@ -165,38 +165,38 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 
 
 = Modern Way: =
 1. Go to the WordPress Dashboard "Add New Plugin" section.
-2. Search For "NotificationX".
+2. Search For "SurfAlert".
 3. Install, then Activate it.
-4. Follow the [Documentation](https://notificationx.com/docs/)
+4. Follow the [Documentation](https://surfalert.com/docs/)
 
 = Old Way: =
-1. Upload `notificationx` to the `/wp-content/plugins/` directory
+1. Upload `surfalert` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Follow the [Documentation](https://notificationx.com/docs/)
+3. Follow the [Documentation](https://surfalert.com/docs/)
 
 
 
 == Frequently Asked Questions ==
 
-= Do I need coding skills to use NotificationX? =
+= Do I need coding skills to use SurfAlert? =
 
-Not at all! NotificationX has simple and super user-friendly setup wizard to help you configure the notification without any need of code intervention.
+Not at all! SurfAlert has simple and super user-friendly setup wizard to help you configure the notification without any need of code intervention.
 
-= Can I use NotificationX on non eCommerce websites?
+= Can I use SurfAlert on non eCommerce websites?
 
-Yes, NotificationX can be used to display comment activity, promotional announcements and more which can be use on any website.
+Yes, SurfAlert can be used to display comment activity, promotional announcements and more which can be use on any website.
 
 = Do I need to edit my current WordPress theme?
 
-No, NotificationX works seamlessly with any WordPress themes. You just need to install the plugin and you will get the direction for the rest.
+No, SurfAlert works seamlessly with any WordPress themes. You just need to install the plugin and you will get the direction for the rest.
 
-= Is our website’s data legally safe with NotificationX?
+= Is our website’s data legally safe with SurfAlert?
 
 Yes. Your data is legally safe and we guarantee to not make use of your data under any circumstances. And your data stays at your site, so zero risk, its not like other SaaS based solution.
 
 == Screenshots ==
 
-1. All NotificationX Overview
+1. All SurfAlert Overview
 2. Analytics Dashboard
 3. Quick Builder Overview
 4. Overview of few notification
@@ -211,7 +211,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 = 3.1.3 - 26/08/2025 =
 Added: Separate sets of designs for responsive mode.
-Fixed: Recursive call issue in notificationx_pro_write_block_css action.
+Fixed: Recursive call issue in surfalert_pro_write_block_css action.
 Fixed: Email reporting was not working.
 Fixed: Conflict with Dokan plugin.
 Few minor bug fixes and improvements.
@@ -257,10 +257,10 @@ Few minor bug fixes and improvements.
 = 3.0.2 - 02/03/2025 =
 Fixed: Ninja Forms – Previous notifications were not showing.
 Added: Bulk image and URL update feature for Custom Notifications.
-Improved: Website loading performance with NotificationX.
+Improved: Website loading performance with SurfAlert.
 Few minor bug fixes and improvements.
 
-[See changelog for all versions](https://notificationx.com/changelog)
+[See changelog for all versions](https://surfalert.com/changelog)
 
 
 == Upgrade Notice ==

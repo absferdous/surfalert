@@ -2,19 +2,19 @@
 .wpnotice-thumbnail-wrapper img {
     display: block;
 }
-.wpnotice-wrapper.notificationx .wpnotice-thumbnail-wrapper img {
+.wpnotice-wrapper.surfalert .wpnotice-thumbnail-wrapper img {
     width: 45px;
 }
 
-.button.button-primary.btn-nx-cta {
+.button.button-primary.btn-sa-cta {
     background-color: #6A4BFF;
 }
 
-.button.button-primary.btn-nx-cta:hover {
+.button.button-primary.btn-sa-cta:hover {
     background-color: #5414d0;
 }
 
-.btn-nx-cta:focus {
+.btn-sa-cta:focus {
     outline: none;
     box-shadow: none;
 }
@@ -23,11 +23,11 @@
     margin-top: 0px;
 }
 
-.notice-notificationx-opt_in {
+.notice-surfalert-opt_in {
     display: block !important;
 }
 
-.notice-notificationx-review {
+.notice-surfalert-review {
     padding: 10px;
     background-color: #fff;
     border-radius: 3px;
@@ -41,11 +41,11 @@
     align-items: center;
 }
 
-.notice-notificationx-review .wpnotice-thumbnail-wrapper img{
+.notice-surfalert-review .wpnotice-thumbnail-wrapper img{
     height: 50px;
 }
 
-.notice-notificationx-review:after {
+.notice-surfalert-review:after {
     content: "";
     display: table;
     clear: both;
@@ -134,18 +134,18 @@ span.coupon-code {
     margin: 0 0 5px;
 }
 
-.notificationx-notice-links {
+.surfalert-notice-links {
     margin: 8px 0 0 0;
     padding: 0;
 }
 
-.notificationx-notice-links li {
+.surfalert-notice-links li {
     display: inline-flex;
     margin-right: 15px;
     align-items: center;
 }
 
-.notificationx-notice-links li a {
+.surfalert-notice-links li a {
     display: inline-block;
     color: #10738b;
     text-decoration: none;
@@ -220,43 +220,43 @@ span.coupon-code {
     width: 50px;
 }
 
-.notice-notificationx-black_friday_notice {
+.notice-surfalert-black_friday_notice {
     padding: 16px 0;
     display: flex !important;
 }
 
-#wpnotice-notificationx-black_friday_notice.notice-info {
+#wpnotice-surfalert-black_friday_notice.notice-info {
     border-left-color: #5614d5;
 }
 
-#wpnotice-notificationx-black_friday_notice .wpnotice-thumbnail-wrapper {
+#wpnotice-surfalert-black_friday_notice .wpnotice-thumbnail-wrapper {
     padding-left: 30px !important;
     padding-right: 28px !important;
 }
 
-#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper a {
+#wpnotice-surfalert-black_friday_notice .wpnotice-content-wrapper a {
     text-transform: capitalize;
     margin-right: 16px;
 }
 
-#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper button {
+#wpnotice-surfalert-black_friday_notice .wpnotice-content-wrapper button {
     text-transform: capitalize;
 }
 
-#wpnotice-notificationx-black_friday_notice .wpnotice-content-wrapper button:hover {
+#wpnotice-surfalert-black_friday_notice .wpnotice-content-wrapper button:hover {
     background-color: transparent;
 }
-.notice-notificationx-6th_anniversary.is-dismissible {
+.notice-surfalert-6th_anniversary.is-dismissible {
     gap: 40px !important;
     padding: 6px 0;
 }
-.notice-notificationx-6th_anniversary.is-dismissible .wpnotice-thumbnail-wrapper img {
+.notice-surfalert-6th_anniversary.is-dismissible .wpnotice-thumbnail-wrapper img {
     width: auto !important;
     max-width: 160px !important;
     padding-left: 12px;
 }
 
-.notice-notificationx-6th_anniversary.is-dismissible .wpnotice-content-wrapper {
+.notice-surfalert-6th_anniversary.is-dismissible .wpnotice-content-wrapper {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -265,17 +265,17 @@ span.coupon-code {
     padding-right: 16px;
 }
 
-.notice-notificationx-6th_anniversary.is-dismissible .wpnotice-content-wrapper p {
+.notice-surfalert-6th_anniversary.is-dismissible .wpnotice-content-wrapper p {
     margin: 0;
     font-size: 14px;
 }
 
 @media all and (max-width: 1024px) {
-    .notice-notificationx-6th_anniversary.is-dismissible {
+    .notice-surfalert-6th_anniversary.is-dismissible {
         gap: 24px !important;
     }
 
-    .notice-notificationx-6th_anniversary.is-dismissible .wpnotice-content-wrapper {
+    .notice-surfalert-6th_anniversary.is-dismissible .wpnotice-content-wrapper {
         flex-wrap: wrap;
         gap: 8px;
     }
@@ -284,37 +284,37 @@ span.coupon-code {
 /*
 * Halloween Notice css
 */
-#wpnotice-notificationx-nx_halloween_2024, #wpnotice-notificationx-nx_black_friday_2024 {
+#wpnotice-surfalert-sa_halloween_2024, #wpnotice-surfalert-sa_black_friday_2024 {
     border-left-color: #1E1E1E;
     padding: 10px 40px 10px 20px;
 }
-#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary,
-#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary:focus,
-#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper > a.button-primary:hover,
-#wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper > a.button-primary,
-#wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper > a.button-primary:focus,
-#wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper > a.button-primary:hover
+#wpnotice-surfalert-sa_halloween_2024 .wpnotice-content-wrapper > a.button-primary,
+#wpnotice-surfalert-sa_halloween_2024 .wpnotice-content-wrapper > a.button-primary:focus,
+#wpnotice-surfalert-sa_halloween_2024 .wpnotice-content-wrapper > a.button-primary:hover,
+#wpnotice-surfalert-sa_black_friday_2024 .wpnotice-content-wrapper > a.button-primary,
+#wpnotice-surfalert-sa_black_friday_2024 .wpnotice-content-wrapper > a.button-primary:focus,
+#wpnotice-surfalert-sa_black_friday_2024 .wpnotice-content-wrapper > a.button-primary:hover
 {
     background-color: #593dbd;
     border-color: #593dbd;
 }
-#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper, #wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper {
+#wpnotice-surfalert-sa_halloween_2024 .wpnotice-content-wrapper, #wpnotice-surfalert-sa_black_friday_2024 .wpnotice-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-#wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper p, #wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper p {
+#wpnotice-surfalert-sa_halloween_2024 .wpnotice-content-wrapper p, #wpnotice-surfalert-sa_black_friday_2024 .wpnotice-content-wrapper p {
     font-size: 15px;
     margin: 0;
 }
-.notice-notificationx-nx_halloween_2024.is-dismissible .wpnotice-thumbnail-wrapper img, .notice-notificationx-nx_black_friday_2024.is-dismissible .wpnotice-thumbnail-wrapper img {
+.notice-surfalert-sa_halloween_2024.is-dismissible .wpnotice-thumbnail-wrapper img, .notice-surfalert-sa_black_friday_2024.is-dismissible .wpnotice-thumbnail-wrapper img {
     width: auto !important;
     max-width: 160px !important;
     padding-left: 12px;
 }
 @media screen and (max-width: 574px) {
-    #wpnotice-notificationx-nx_halloween_2024, #wpnotice-notificationx-nx_black_friday_2024 {
+    #wpnotice-surfalert-sa_halloween_2024, #wpnotice-surfalert-sa_black_friday_2024 {
         display: none !important;
     }
 }
@@ -322,48 +322,48 @@ span.coupon-code {
 /*
 * Holidays Deal css
 */
-#wpnotice-notificationx-nx_holidays_deal, #wpnotice-notificationx-nx_black_friday_2024 {
+#wpnotice-surfalert-sa_holidays_deal, #wpnotice-surfalert-sa_black_friday_2024 {
     border-left: 1px solid #c3c4c7;
     padding: 10px 40px 10px 20px;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary,
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:focus,
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:hover
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper .sa-notice-action-button > a.button-primary,
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper .sa-notice-action-button > a.button-primary:focus,
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper .sa-notice-action-button > a.button-primary:hover
 {
     background-color: #5626E7;
     border-color: #5626E7;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button {
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper .sa-notice-action-button {
     display: flex;
     align-items: center;
     justify-content: start;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper .nx-notice-action-button .nx-notice-action-dismiss {
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper .sa-notice-action-button .sa-notice-action-dismiss {
     color: #5626E7;
     font-size: 14px;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper {
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper {
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper {
     align-items: start;
     flex-direction: column;
     gap: 5px;
 }
-#wpnotice-notificationx-nx_holidays_deal .wpnotice-content-wrapper p {
+#wpnotice-surfalert-sa_holidays_deal .wpnotice-content-wrapper p {
     font-size: 15px;
     margin: 0;
 }
-.notice-notificationx-nx_holidays_deal.is-dismissible .wpnotice-thumbnail-wrapper img {
+.notice-surfalert-sa_holidays_deal.is-dismissible .wpnotice-thumbnail-wrapper img {
     width: auto !important;
     max-width: 160px !important;
     padding-left: 12px;
 }
 @media screen and (max-width: 574px) {
-#wpnotice-notificationx-nx_holidays_deal {
+#wpnotice-surfalert-sa_holidays_deal {
         display: none !important;
     }
 }

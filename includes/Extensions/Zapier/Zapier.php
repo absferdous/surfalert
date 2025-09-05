@@ -3,10 +3,10 @@
 /**
  * Zapier Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Zapier;
+namespace SurfAlert\Extensions\Zapier;
 
 /**
  * Common functions for Zapier

@@ -2,13 +2,13 @@
 /**
  * GoogleReviews Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Google;
+namespace SurfAlert\Extensions\Google;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * GoogleReviews Extension
@@ -24,8 +24,8 @@ class GoogleReviews extends Extension {
 
     public $priority        = 5;
     public $id              = 'google_reviews';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/google-rating.png';
+    public $doc_link        = 'https://surfalert.com/docs/google-reviews-with-surfalert/
     ';
     public $types           = 'reviews';
     public $module          = 'modules_google_reviews';
@@ -43,92 +43,92 @@ class GoogleReviews extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Google Reviews', 'notificationx');
-        $this->module_title = __('Google Reviews', 'notificationx');
+        $this->title = __('Google Reviews', 'surfalert');
+        $this->module_title = __('Google Reviews', 'surfalert');
         $this->themes = [
             'total-rated'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'greview_icon',
                 'template'  => [
                     'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('people rated', 'surfalert'),
                     'third_param'         => 'tag_place_name',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'reviewed'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
                 'image_shape' => 'circle',
                 'show_notification_image' => 'greview_avatar',
                 'template'  => [
                     'first_param'         =>  'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_place_name',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
                 'image_shape' => 'rounded',
                 'show_notification_image' => 'greview_avatar',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_place_review',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment-2' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
                 'image_shape' => 'circle',
                 'show_notification_image' => 'greview_avatar',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_place_review',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_time',
                     'custom_fourth_param' => '',
                 ]
             ],
             'review-comment-3' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
                 'image_shape' => 'circle',
                 'show_notification_image' => 'greview_avatar',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_place_review',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'maps_theme' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/google-review-map.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/google-review-map.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'greview_map_image',
                 'template'  => [
                     'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('people rated', 'surfalert'),
                     'third_param'         => 'tag_place_name',
-                    'custom_third_param'  => __('Anonymous Place', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Place', 'surfalert'),
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ),
         ];
@@ -136,16 +136,16 @@ class GoogleReviews extends Extension {
         $this->templates = [
             "{$this->id}_template_new"  => [
                 'first_param' => [
-                    'tag_username' => __('Username', 'notificationx'),
-                    'tag_rated'    => __('Rated', 'notificationx'),
+                    'tag_username' => __('Username', 'surfalert'),
+                    'tag_rated'    => __('Rated', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_place_name'     => __('Place Name', 'notificationx'),
-                    'tag_place_review'   => __('Review', 'notificationx'),
+                    'tag_place_name'     => __('Place Name', 'surfalert'),
+                    'tag_place_review'   => __('Review', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_rating'   => __('Rating', 'notificationx'),
-                    'tag_time'     => __('Definite Time', 'notificationx'),
+                    'tag_rating'   => __('Rating', 'surfalert'),
+                    'tag_time'     => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     "{$this->id}_maps_theme",
@@ -158,12 +158,12 @@ class GoogleReviews extends Extension {
             ],
         ];
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-reviews-with-notificationx/
-            ' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/google-reviews-with-surfalert/
+            ' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Google reviews provide helpful information and make your business stand out.</span>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 
@@ -181,13 +181,13 @@ class GoogleReviews extends Extension {
     }
 
     public function doc(){
-        $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_reviews_settings_section');
+        $url = admin_url('admin.php?page=sa-settings&tab=tab-api-integrations#google_reviews_settings_section');
         return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 
-		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),
+		<p>👉SurfAlert <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'surfalert'),
         $url,
-        'https://notificationx.com/docs/collect-api-key-from-google-console',
-        'https://notificationx.com/docs/google-reviews-with-notificationx/'
+        'https://surfalert.com/docs/collect-api-key-from-google-console',
+        'https://surfalert.com/docs/google-reviews-with-surfalert/'
         );
     }
 }

@@ -2,13 +2,13 @@
 /**
  * DashboardWidget
  *
- * @package NotificationX\Admin
+ * @package SurfAlert\Admin
  */
 
-namespace NotificationX\Admin;
+namespace SurfAlert\Admin;
 
-use NotificationX\GetInstance;
-use NotificationX\Core\Helper;
+use SurfAlert\GetInstance;
+use SurfAlert\Core\Helper;
 /**
  * Class for Dashboard Widget for Analytics.
  * @method static DashboardWidget get_instance($args = null)
@@ -25,9 +25,9 @@ class DashboardWidget {
      *
      * @constant string
      */
-    const WIDGET_ID = 'nx_analytics_dashboard_widget';
-    const ASSET_URL  = NOTIFICATIONX_ASSETS . 'admin/';
-    const VIEWS_PATH = NOTIFICATIONX_INCLUDES . 'Admin/views/';
+    const WIDGET_ID = 'sa_analytics_dashboard_widget';
+    const ASSET_URL  = SURFALERT_ASSETS . 'admin/';
+    const VIEWS_PATH = SURFALERT_INCLUDES . 'Admin/views/';
     /**
      * Widget Title
      *
@@ -46,12 +46,12 @@ class DashboardWidget {
         if( ! Settings::get_instance()->get('settings.enable_analytics', true) ) {
             return;
         }
-        $this->widget_name = __( 'NotificationX Analytics', 'notificationx' );
+        $this->widget_name = __( 'SurfAlert Analytics', 'surfalert' );
         add_action( 'wp_dashboard_setup', array( $this, 'widget_action' ) );
         add_action('admin_enqueue_scripts', [ $this, 'enqueue'] );
     }
     public function enqueue( $hook ){
-        wp_register_style( 'nx-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), false, 'all' );
+        wp_register_style( 'sa-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), false, 'all' );
     }
     /**
      * Admin Action callback
@@ -71,13 +71,13 @@ class DashboardWidget {
         global $wpdb;
 
         $results = $wpdb->get_row(
-            "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}nx_stats ) AS STATS",
+            "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}sa_stats ) AS STATS",
             ARRAY_A
         );
 
-        $views_link = admin_url( 'admin.php?page=nx-analytics&comparison=views' );
-        $clicks_link = admin_url( 'admin.php?page=nx-analytics&comparison=clicks' );
-        $ctr_link = admin_url( 'admin.php?page=nx-analytics&comparison=ctr' );
+        $views_link = admin_url( 'admin.php?page=sa-analytics&comparison=views' );
+        $clicks_link = admin_url( 'admin.php?page=sa-analytics&comparison=clicks' );
+        $ctr_link = admin_url( 'admin.php?page=sa-analytics&comparison=ctr' );
 
         $default = [
             'views_link'  => $views_link,
@@ -110,9 +110,9 @@ class DashboardWidget {
      */
     public function widget_output(){
         extract( $this->analytics_counter() );
-        $class = 'nx-analytics-widget';
+        $class = 'sa-analytics-widget';
         if( file_exists( self::VIEWS_PATH . 'analytics.views.php' ) ) {
-            wp_enqueue_style('nx-analytics-dashboard-widget');
+            wp_enqueue_style('sa-analytics-dashboard-widget');
             return include_once self::VIEWS_PATH . 'analytics.views.php';
         }
     }

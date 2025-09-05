@@ -2,13 +2,13 @@
 /**
  * CCPA_Notification Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\CCPA;
+namespace SurfAlert\Extensions\CCPA;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * CCPA_Notification Extension
@@ -24,9 +24,9 @@ class CCPA_Notification extends Extension {
 
     public $priority        = 20;
     public $id              = 'ccpa_notification';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://surfalert.com/docs/google-reviews-with-surfalert/';
     public $types           = 'gdpr';
-    // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/vimeo.png';
+    // public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/vimeo.png';
     public $show_on_module  = false;
     public $show_on_type     = false;
 
@@ -39,6 +39,6 @@ class CCPA_Notification extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('CCPA', 'notificationx');
+        $this->title = __('CCPA', 'surfalert');
     }
 }

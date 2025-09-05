@@ -2,15 +2,15 @@
 /**
  * Rule
  *
- * @package NotificationX\Core
+ * @package SurfAlert\Core
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
 use ArrayIterator;
 use ArrayObject;
 use JsonSerializable;
-use NotificationX\Admin\Settings;
+use SurfAlert\Admin\Settings;
 use Serializable;
 
 class Rule implements JsonSerializable {
@@ -27,7 +27,7 @@ class Rule implements JsonSerializable {
         if(!is_array($this->value)){
             $this->value = [$this->value];
         }
-        if(is_a($value, 'NotificationX\Core\Rule')){
+        if(is_a($value, 'SurfAlert\Core\Rule')){
             $value = $value->value;
         }
         if(is_array($value)){

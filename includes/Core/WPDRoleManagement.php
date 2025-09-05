@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
 
 /**
@@ -9,21 +9,21 @@ namespace NotificationX\Core;
 class WPDRoleManagement {
     /**
      *  [
-     *      'read_notificationx' => [
+     *      'read_surfalert' => [
      *          'roles' => ['administrator'],
      *          'map'   => [],
      *      ],
-     *      'edit_notificationx' => [
+     *      'edit_surfalert' => [
      *          'roles' => ['administrator'],
-     *          'map'   => ['read_notificationx'],
+     *          'map'   => ['read_surfalert'],
      *      ],
-     *      'edit_notificationx_settings' => [
+     *      'edit_surfalert_settings' => [
      *          'roles' => ['administrator'],
-     *          'map'   => ['read_notificationx'],
+     *          'map'   => ['read_surfalert'],
      *      ],
-     *      'read_notificationx_analytics' => [
+     *      'read_surfalert_analytics' => [
      *          'roles' => ['administrator'],
-     *          'map'   => ['read_notificationx'],
+     *          'map'   => ['read_surfalert'],
      *      ],
      *  ];
      *

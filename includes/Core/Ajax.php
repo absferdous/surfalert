@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\GetInstance;
+use SurfAlert\GetInstance;
 
 /**
  * @method static Ajax get_instance($args = null)

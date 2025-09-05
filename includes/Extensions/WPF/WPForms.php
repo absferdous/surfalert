@@ -3,17 +3,17 @@
 /**
  * CF7 Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\WPF;
+namespace SurfAlert\Extensions\WPF;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Admin\Entries;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Admin\Entries;
 
 /**
  * WPForms Extension
@@ -30,7 +30,7 @@ class WPForms extends Extension {
     public $priority        = 10;
     public $id              = 'wpf';
     public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $doc_link        = 'https://surfalert.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
     public $module          = 'modules_wpf';
     public $module_priority = 9;
@@ -46,8 +46,8 @@ class WPForms extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('WPForms', 'notificationx');
-        $this->module_title = __('WPForms', 'notificationx');
+        $this->title = __('WPForms', 'surfalert');
+        $this->module_title = __('WPForms', 'surfalert');
     }
 
     public function init() {
@@ -57,7 +57,7 @@ class WPForms extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_form_list', [$this, 'nx_form_list'], 9);
+        add_filter('sa_form_list', [$this, 'sa_form_list'], 9);
 
     }
 
@@ -68,18 +68,18 @@ class WPForms extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
 
-        add_filter("nx_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
+        add_filter("sa_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
     }
 
     public function source_error_message($messages) {
@@ -87,10 +87,10 @@ class WPForms extends Extension {
             $url = admin_url('plugin-install.php?s=WPForms&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'WP Forms', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'WP Forms', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -100,7 +100,7 @@ class WPForms extends Extension {
         return $messages;
     }
 
-    public function nx_form_list($forms) {
+    public function sa_form_list($forms) {
         $forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id, $forms);
         return $forms;
     }
@@ -216,7 +216,7 @@ class WPForms extends Extension {
         return $key;
     }
 
-    public function saved_post($post, $data, $nx_id) {
+    public function saved_post($post, $data, $sa_id) {
         $this->get_notification_ready($data);
     }
 
@@ -269,15 +269,15 @@ class WPForms extends Extension {
                             }
                             $entry_data['title'] = $form_data->post_title ? $form_data->post_title : '';
                             $entry_data['timestamp'] = time();
-                            $entry_data['id'] = $data['nx_id'];
+                            $entry_data['id'] = $data['sa_id'];
                             $entry_data['entry__id'] = $entry->entry_id;
-                            if( $this->is_entry_exists( (int) $data['nx_id'], $entry->entry_id ) ) {
+                            if( $this->is_entry_exists( (int) $data['sa_id'], $entry->entry_id ) ) {
                                 continue;
                             }
                             if (!empty($entry_data)) {
                                 $key = $this->key($form_list[1]);
                                 $entries[] = [
-                                    'nx_id'      => $data['nx_id'],
+                                    'sa_id'      => $data['sa_id'],
                                     'source'    => $this->id,
                                     'entry_key' => $key,
                                     'data'      => $entry_data,
@@ -292,8 +292,8 @@ class WPForms extends Extension {
         }
     }
 
-    public function is_entry_exists( $nx_id, $entry_id ) {
-        $entries = Entries::get_instance()->get_entries($nx_id);
+    public function is_entry_exists( $sa_id, $entry_id ) {
+        $entries = Entries::get_instance()->get_entries($sa_id);
         $filteredData = array_filter($entries, function ($item) use ($entry_id) {
             return $item['entry__id'] === $entry_id;
         });
@@ -341,14 +341,14 @@ class WPForms extends Extension {
     public function doc() {
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
-		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with WPForms</a></p>
+		<p>👉 SurfAlert <a target="_blank" href="%4$s">Integration with WPForms</a></p>
 		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>', 'notificationx'),
+		<p>🔥Hacks to Increase Your <a target="_blank" href="%5$s">WordPress Contact Forms Submission Rate</a> Using SurfAlert</p>', 'surfalert'),
         'https://wordpress.org/plugins/wpforms-lite/',
-        'https://notificationx.com/docs/wpforms/',
+        'https://surfalert.com/docs/wpforms/',
         'https://www.youtube.com/watch?v=8tk7_ZawJN8',
-        'https://notificationx.com/integrations/wpforms/',
-        'https://notificationx.com/blog/wordpress-contact-forms/'
+        'https://surfalert.com/integrations/wpforms/',
+        'https://surfalert.com/blog/wordpress-contact-forms/'
         );
     }
 }

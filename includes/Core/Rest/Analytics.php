@@ -1,11 +1,11 @@
 <?php
 
-namespace NotificationX\Core\Rest;
+namespace SurfAlert\Core\Rest;
 
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Analytics as CoreAnalytics;
-use NotificationX\GetInstance;
-use NotificationX\NotificationX;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Analytics as CoreAnalytics;
+use SurfAlert\GetInstance;
+use SurfAlert\SurfAlert;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -40,7 +40,7 @@ class Analytics {
      * @param string $post_type Post type.
      */
     public function __construct() {
-        $this->namespace = 'notificationx/v1';
+        $this->namespace = 'surfalert/v1';
         $this->rest_base = 'analytics';
         add_action('rest_api_init', [$this, 'register_routes']);
     }
@@ -66,14 +66,14 @@ class Analytics {
                 'callback'            => array($this, 'insert_analytics'),
                 'permission_callback' => [$this, 'can_insert_analytics'],
                 'args'                => array(
-                    'nx_id' => array(
+                    'sa_id' => array(
                         'required'    => true,
-                        'description' => __( 'Unique identifier for the object.', 'notificationx' ),
+                        'description' => __( 'Unique identifier for the object.', 'surfalert' ),
                         'type'        => 'integer',
                     ),
                     'type' => array(
                         'required'    => false,
-                        'description' => __( 'Click or View', 'notificationx' ),
+                        'description' => __( 'Click or View', 'surfalert' ),
                         'type'        => 'string',
                     ),
                 ),
@@ -91,12 +91,12 @@ class Analytics {
                 'args' => array(
                     'startDate' => array(
                         'required' => true,
-                        'description' => __( 'Start of the date range.', 'notificationx' ),
+                        'description' => __( 'Start of the date range.', 'surfalert' ),
                         'type'        => 'string',
                     ),
                     'endDate' => array(
                         'required' => true,
-                        'description' => __( 'End of the date range.', 'notificationx' ),
+                        'description' => __( 'End of the date range.', 'surfalert' ),
                         'type'        => 'string',
                     ),
                 ),
@@ -106,7 +106,7 @@ class Analytics {
     }
 
     public function can_read_analytics( $request ) {
-        return current_user_can('read_notificationx_analytics') && Settings::get_instance()->get('settings.enable_analytics', true);
+        return current_user_can('read_surfalert_analytics') && Settings::get_instance()->get('settings.enable_analytics', true);
     }
 
     public function can_insert_analytics( $request ) {
@@ -122,7 +122,7 @@ class Analytics {
     public function insert_analytics($request){
         $params = $request->get_params();
         $type = !empty( $params['type'] ) && in_array( $params['type'], ['clicks', 'views', 'ctr'] ) ? esc_sql( $params['type'] ) : 'clicks';
-        $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), $type );
+        $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['sa_id'] ), $type );
         return ['success' => true];
     }
 }

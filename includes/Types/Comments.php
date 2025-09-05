@@ -3,15 +3,15 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
-use NotificationX\NotificationX;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
+use SurfAlert\SurfAlert;
 
 /**
  * Extension Abstract for all Extension.
@@ -37,173 +37,173 @@ class Comments extends Types {
     public function __construct() {
         parent::__construct();
 
-        add_filter('nx_link_types', [$this, 'link_types']);
+        add_filter('sa_link_types', [$this, 'link_types']);
     }
 
     public function init()
     {
         parent::init();
-        $this->title = __('Comments', 'notificationx');
-        // nx_comment_colored_themes
+        $this->title = __('Comments', 'surfalert');
+        // sa_comment_colored_themes
         $this->themes = [
             'theme-one'        => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-2.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-2.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_title',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-two'        => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-1.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-1.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_title',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-three'      => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-3.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-3.jpg',
                 'image_shape' => 'square',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_title',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-six-free'   => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-4.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-4.jpg',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_comment',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-seven-free' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-5.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-5.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_comment',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-eight-free' => [
-                'source'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-comment-theme-6.jpg',
+                'source'  => SURFALERT_ADMIN_URL . 'images/extensions/themes/sa-comment-theme-6.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_comment',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ],
             'theme-four'       => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-comment-theme-four.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-comment-theme-four.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_title',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ),
             'theme-five' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-comment-theme-five.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/sa-comment-theme-five.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_name',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('commented on', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('commented on', 'surfalert'),
                     'third_param'         => 'tag_post_title',
-                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'custom_third_param'  => __('Anonymous Post', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ],
             ),
             // @todo pro fix
             'maps_theme' => array(
                 'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/maps-theme-comments.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/pro/maps-theme-comments.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
         ];
         $this->res_themes = [
             'res-theme-one'        => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-1.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-1.png',
                 '_template' => 'comments_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-two'        => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-2.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-2.png',
                 '_template' => 'comments_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-three'      => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-3.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-3.png',
                 '_template' => 'comments_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-four'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-4.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-4.png',
                 '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-five' => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-5.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-5.png',
                 '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-six' => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-6.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-6.png',
                 '_template' => 'comments_template_with_comments',
                 'is_pro'    => true,
             ],
             'res-theme-seven'       => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-7.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-7.png',
                 '_template' => 'comments_template_new',
                 'is_pro'    => true,
             ),
             'res-theme-eight' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-8.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-8.png',
                 '_template' => 'comments_template_new',
                 'is_pro'    => true,
             ),
             // @todo pro fix
             'res-theme-nine' => array(
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_themes/nx-comment-theme-9.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_themes/sa-comment-theme-9.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ),
@@ -212,10 +212,10 @@ class Comments extends Types {
             'comments_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(true),
                 'third_param' => [
-                    'tag_post_title'     => __('Post Title', 'notificationx'),
+                    'tag_post_title'     => __('Post Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx'),
+                    'tag_time' => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'comments_theme-one',
@@ -228,11 +228,11 @@ class Comments extends Types {
             'comments_template_with_comments' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(true),
                 'third_param' => [
-                    'tag_post_title'     => __('Post Title', 'notificationx'),
-                    'tag_post_comment'   => __('Post Comment', 'notificationx'),
+                    'tag_post_title'     => __('Post Title', 'surfalert'),
+                    'tag_post_comment'   => __('Post Comment', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx'),
+                    'tag_time' => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'comments_theme-six-free',
@@ -244,13 +244,13 @@ class Comments extends Types {
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+        add_filter('sa_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
 
     }
 
@@ -262,7 +262,7 @@ class Comments extends Types {
      */
     public function link_types($options){
         $_options = GlobalFields::get_instance()->normalize_fields([
-            'comment_url'      => __('Comment URL', 'notificationx'),
+            'comment_url'      => __('Comment URL', 'surfalert'),
         ], 'type', $this->id);
 
         return array_merge($options, $_options);

@@ -2,22 +2,22 @@
 /**
  * WooCommerce Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\WooCommerce;
+namespace SurfAlert\Extensions\WooCommerce;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\Extensions\GlobalFields;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\Extensions\GlobalFields;
 
 trait Woo {
     public $post_type = 'product';
 
 
     public function _init_fields(){
-        add_filter('nx_conversion_product_list', [$this, 'products']);
-        add_filter('nx_conversion_category_list', [$this, 'categories']);
+        add_filter('sa_conversion_product_list', [$this, 'products']);
+        add_filter('sa_conversion_category_list', [$this, 'categories']);
     }
 
 

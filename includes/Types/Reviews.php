@@ -3,16 +3,16 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Core\Rules;
-use NotificationX\Types\Traits\Reviews as TraitsReviews;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+use SurfAlert\Core\Rules;
+use SurfAlert\Types\Traits\Reviews as TraitsReviews;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -46,147 +46,147 @@ class Reviews extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        add_filter('nx_link_types', [$this, 'link_types']);
+        add_filter('sa_link_types', [$this, 'link_types']);
         parent::__construct();
         $this->id    = 'reviews';
     }
 
     public function init() {
         parent::init();
-        $this->title = __('Reviews', 'notificationx');
+        $this->title = __('Reviews', 'surfalert');
         $this->themes = [
             'total-rated'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
                 'image_shape' => 'square',
                 'template'  => [
                     'first_param'         => 'tag_rated',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('people rated', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('people rated', 'surfalert'),
                     'third_param'         => 'tag_plugin_name',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'reviewed'     => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         =>  'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_name',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review_saying' => [
-                'source'               => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
+                'source'               => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/saying-review.png',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('saying', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('saying', 'surfalert'),
                     'third_param'         => 'tag_title',
-                    'custom_third_param'  => __('Excellent', 'notificationx'),
-                    'review_fourth_param' => __('about', 'notificationx'),
+                    'custom_third_param'  => __('Excellent', 'surfalert'),
+                    'review_fourth_param' => __('about', 'surfalert'),
                     'fifth_param'         => 'tag_plugin_name',
                     'sixth_param'         => 'tag_custom',
-                    'custom_sixth_param'  => __('Try it now', 'notificationx'),
+                    'custom_sixth_param'  => __('Try it now', 'surfalert'),
                 ]
             ],
             'review-comment' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
                 'image_shape' => 'rounded',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment-2' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_rating',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
             'review-comment-3' => [
-                'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
+                'source'                => SURFALERT_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-3.jpg',
                 'image_shape' => 'circle',
                 'template'  => [
                     'first_param'         => 'tag_username',
-                    'custom_first_param'  => __('Someone', 'notificationx'),
-                    'second_param'        => __('just reviewed', 'notificationx'),
+                    'custom_first_param'  => __('Someone', 'surfalert'),
+                    'second_param'        => __('just reviewed', 'surfalert'),
                     'third_param'         => 'tag_plugin_review',
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                    'custom_fourth_param' => __('Some time ago', 'surfalert'),
                 ]
             ],
         ];
         $this->res_themes = [
             'res-theme-one'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-1.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-1.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_rated',
-                    'res_second_param' => __('people rated', 'notificationx'),
+                    'res_second_param' => __('people rated', 'surfalert'),
                     'res_third_param'  => 'tag_plugin_name',
                 ],
                 'is_pro' => true,
             ],
             'res-theme-two'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-2.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-2.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_username',
-                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_second_param' => __('just reviewed', 'surfalert'),
                     'res_third_param'  => 'tag_plugin_name',
                 ],
                 'is_pro' => true,
             ],
             'res-theme-three'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-3.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-3.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_username',
-                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_second_param' => __('just reviewed', 'surfalert'),
                     'res_third_param'  => 'tag_plugin_name',
                 ],
                 'is_pro' => true,
             ],
             'rating-res-theme-four'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-4.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-4.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_username',
-                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_second_param' => __('just reviewed', 'surfalert'),
                     'res_third_param'  => 'tag_rating',
                 ],
                 'is_pro' => true,
             ],
             'rating-res-theme-five'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-5.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-5.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_username',
-                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_second_param' => __('just reviewed', 'surfalert'),
                     'res_third_param'  => 'tag_rating',
                 ],
                 'is_pro' => true,
             ],
             'rating-res-theme-six'     => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_reviews/nx-review-res-theme-6.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_reviews/sa-review-res-theme-6.png',
                 'image_shape' => 'square',
                 'template'    => [
                     'res_first_param'  => 'tag_username',
-                    'res_second_param' => __('just reviewed', 'notificationx'),
+                    'res_second_param' => __('just reviewed', 'surfalert'),
                     'res_third_param'  => 'tag_rating',
                 ],
                 'is_pro' => true,
@@ -196,17 +196,17 @@ class Reviews extends Types {
         $this->templates = [
             'wp_reviews_template_new'  => [
                 'first_param' => [
-                    'tag_username' => __('Username', 'notificationx'),
-                    'tag_rated'    => __('Rated', 'notificationx'),
+                    'tag_username' => __('Username', 'surfalert'),
+                    'tag_rated'    => __('Rated', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_plugin_name'     => __('Plugin Name', 'notificationx'),
-                    'tag_plugin_review'   => __('Review', 'notificationx'),
-                    'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                    'tag_plugin_name'     => __('Plugin Name', 'surfalert'),
+                    'tag_plugin_review'   => __('Review', 'surfalert'),
+                    'tag_anonymous_title' => __('Anonymous Title', 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_rating'   => __('Rating', 'notificationx'),
-                    'tag_time'     => __('Definite Time', 'notificationx'),
+                    'tag_rating'   => __('Rating', 'surfalert'),
+                    'tag_time'     => __('Definite Time', 'surfalert'),
                 ],
                 '_themes' => [
                     'reviews_total-rated',
@@ -218,14 +218,14 @@ class Reviews extends Types {
             ],
             'review_saying_template_new' => [
                 'first_param' => [
-                    'tag_username' => __('Username', 'notificationx'),
+                    'tag_username' => __('Username', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_title'           => __('Review Title', 'notificationx'),
-                    'tag_anonymous_title' => __('Anonymous Title', 'notificationx'),
+                    'tag_title'           => __('Review Title', 'surfalert'),
+                    'tag_anonymous_title' => __('Anonymous Title', 'surfalert'),
                 ],
                 'fifth_param' => [
-                    'tag_plugin_name' => __('Plugin Name', 'notificationx'),
+                    'tag_plugin_name' => __('Plugin Name', 'surfalert'),
                 ],
                 'sixth_param' => [
                     // @todo maybe add some predefined texts.
@@ -235,18 +235,18 @@ class Reviews extends Types {
                 ],
             ],
         ];
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
+        add_filter("sa_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
     }
 
     /**
-     * Hooked to nx_before_metabox_load action.
+     * Hooked to sa_before_metabox_load action.
      *
      * @return void
      */
     public function init_fields() {
         parent::init_fields();
-        add_filter('nx_notification_template', [$this, 'review_templates'], 7);
-        add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
+        add_filter('sa_notification_template', [$this, 'review_templates'], 7);
+        add_filter('sa_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
     }
 
 }

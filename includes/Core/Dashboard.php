@@ -1,9 +1,9 @@
 <?php
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Admin;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Admin;
+use SurfAlert\GetInstance;
 
 /**
  * @method static Dashboard get_instance($args = null)
@@ -28,12 +28,12 @@ class Dashboard {
 
     /**
      * This method is responsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
     public function menu() {
-        add_submenu_page( 'nx-admin', __( 'Dashboard', 'notificationx' ), __( 'Dashboard', 'notificationx' ), 'read_notificationx', 'nx-dashboard', [ Admin::get_instance(), 'views' ], 0 );
+        add_submenu_page( 'sa-admin', __( 'Dashboard', 'surfalert' ), __( 'Dashboard', 'surfalert' ), 'read_surfalert', 'sa-dashboard', [ Admin::get_instance(), 'views' ], 0 );
     }
 
 }

@@ -2,13 +2,13 @@
 /**
  * Extension Factory
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Core;
+namespace SurfAlert\Core;
 
-use NotificationX\Admin\Settings;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Settings;
+use SurfAlert\GetInstance;
 
 /**
  * Modules Class
@@ -29,7 +29,7 @@ class Modules {
 	 */
 	public function __construct(){
 		// echo 'ExtensionFactory';
-        add_filter('nx_settings_page_settings', [$this, 'modules_defaults']);
+        add_filter('sa_settings_page_settings', [$this, 'modules_defaults']);
     }
 
     /**

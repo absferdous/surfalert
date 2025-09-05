@@ -1,13 +1,13 @@
 <?php
 
-namespace NotificationX\ThirdParty;
+namespace SurfAlert\ThirdParty;
 
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Helper;
-use NotificationX\Core\PostType;
-use NotificationX\Core\REST;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\GetInstance;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\REST;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\GetInstance;
 use WP_Error;
 use WP_REST_Server;
 use UsabilityDynamics\Settings as UsabilityDynamicsSettings;
@@ -56,12 +56,12 @@ class WPML {
         add_action('wpml_st_loaded', [$this, 'st_loaded'], 10);
         // localize moment even without wpml;
         // can't load moment locale in admin. it cause problem in date picker.
-        // add_action('notificationx_admin_scripts', [$this, 'localize_moment'], 10);
+        // add_action('surfalert_admin_scripts', [$this, 'localize_moment'], 10);
     }
 
     /**
      * This method is reponsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
@@ -69,14 +69,14 @@ class WPML {
 
         add_action('init', [$this, 'init'], 10);
 
-        add_action('nx_saved_post', [$this, 'register_package'], 10, 3);
-        add_action('nx_delete_post', [$this, 'delete_translation'], 10, 2);
-        add_filter('nx_get_post', [$this, 'translate_values'], 10);
+        add_action('sa_saved_post', [$this, 'register_package'], 10, 3);
+        add_action('sa_delete_post', [$this, 'delete_translation'], 10, 2);
+        add_filter('sa_get_post', [$this, 'translate_values'], 10);
 
-        add_filter('nx_rest_data', [$this, 'rest_data']);
-        add_filter('nx_builder_configs', [$this, 'builder_configs']);
-        add_filter('nx_check_location', [$this, 'check_location'], 10, 3);
-        add_action( 'wp_ajax_nx-translate', [$this, 'translate'] );
+        add_filter('sa_rest_data', [$this, 'rest_data']);
+        add_filter('sa_builder_configs', [$this, 'builder_configs']);
+        add_filter('sa_check_location', [$this, 'check_location'], 10, 3);
+        add_action( 'wp_ajax_sa-translate', [$this, 'translate'] );
 
     }
 
@@ -113,30 +113,30 @@ class WPML {
                 $meta['link_button_text'] = ['Link Button Text', 'LINE'];
             }
         }
-        return apply_filters('nx_wpml_translate_field', $meta, $post);
+        return apply_filters('sa_wpml_translate_field', $meta, $post);
     }
 
-    public function localize_moment($nx_ids = null, $return_url = false){
+    public function localize_moment($sa_ids = null, $return_url = false){
         return null;
     }
 
-    public function generate_package($post, $nx_id){
+    public function generate_package($post, $sa_id){
         return array(
-            'kind'      => 'NotificationX',
-            'name'      => "$nx_id",
-            'title'     => isset($post['title']) ? $post['title'] : '', // ($nx_id)
-            'edit_link' => PostType::get_instance()->get_edit_link($nx_id),
-            'view_link' => PostType::get_instance()->get_edit_link($nx_id),
+            'kind'      => 'SurfAlert',
+            'name'      => "$sa_id",
+            'title'     => isset($post['title']) ? $post['title'] : '', // ($sa_id)
+            'edit_link' => PostType::get_instance()->get_edit_link($sa_id),
+            'view_link' => PostType::get_instance()->get_edit_link($sa_id),
         );
     }
 
-    public function register_package($post, $data, $nx_id){
+    public function register_package($post, $data, $sa_id){
         $data = array_merge($post, $data);
         if(empty($data['is_translated'])){
             return;
         }
 
-        $package = $this->generate_package($data, $nx_id);
+        $package = $this->generate_package($data, $sa_id);
 
         $settings = new UsabilityDynamicsSettings(['data' => $post]);
 
@@ -178,14 +178,14 @@ class WPML {
     }
 
     public function translate_values($post){
-        if(empty($_GET['frontend']) && !did_action( "nx_inline" )){
+        if(empty($_GET['frontend']) && !did_action( "sa_inline" )){
             // checking if request came from frontend.
             return $post;
         }
 
         $settings = new UsabilityDynamicsSettings(['data' => $post]);
 
-        $package = $this->generate_package($post, $post['nx_id']);
+        $package = $this->generate_package($post, $post['sa_id']);
 
         foreach ($this->get_meta($post) as $key => $param) {
             $_key = isset($param[2]) ? $param[2] : $key;
@@ -207,8 +207,8 @@ class WPML {
         return $settings->get();
     }
 
-    public function delete_translation($nx_id, $post){
-        $package = $this->generate_package($post, $nx_id);
+    public function delete_translation($sa_id, $post){
+        $package = $this->generate_package($post, $sa_id);
         do_action( 'wpml_delete_package', $package['name'], $package['kind'] );
     }
 
@@ -220,11 +220,11 @@ class WPML {
      */
     public function translate($request){
         if(!empty($_GET['id'])){
-            $nx_id = sanitize_text_field( $_GET['id'] );
-            $post = PostType::get_instance()->get_post($nx_id);
+            $sa_id = sanitize_text_field( $_GET['id'] );
+            $post = PostType::get_instance()->get_post($sa_id);
             if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
 		        $cookie = new \WPML_Cookie();
-				$cookie_data = filter_var( http_build_query( ['type' => 'nx_bar'] ), FILTER_SANITIZE_URL );
+				$cookie_data = filter_var( http_build_query( ['type' => 'sa_bar'] ), FILTER_SANITIZE_URL );
 				$cookie->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
 
                 wp_redirect(admin_url("admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard"));
@@ -234,10 +234,10 @@ class WPML {
                 $post['is_translated'] = true;
                 PostType::get_instance()->update_post([
                     'data' => $post,
-                ], $nx_id);
+                ], $sa_id);
 
-                $this->register_package($post, [], $nx_id);
-                wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
+                $this->register_package($post, [], $sa_id);
+                wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=surfalert-$sa_id"));
                 die;
             }
         }

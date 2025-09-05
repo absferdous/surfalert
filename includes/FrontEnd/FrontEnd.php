@@ -3,25 +3,25 @@
 /**
  * FrontEnd Class
  *
- * @package NotificationX\FrontEnd
+ * @package SurfAlert\FrontEnd
  */
 
-namespace NotificationX\FrontEnd;
+namespace SurfAlert\FrontEnd;
 
-use NotificationX\Admin\Entries;
-use NotificationX\Admin\Settings;
-use NotificationX\Core\Analytics;
-use NotificationX\Core\Database;
-use NotificationX\Core\GetData;
-use NotificationX\NotificationX;
-use NotificationX\Core\Locations;
-use NotificationX\Core\PostType;
-use NotificationX\Core\REST;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\PressBar\PressBar;
-use NotificationX\Core\Helper;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Types\GDPR;
+use SurfAlert\Admin\Entries;
+use SurfAlert\Admin\Settings;
+use SurfAlert\Core\Analytics;
+use SurfAlert\Core\Database;
+use SurfAlert\Core\GetData;
+use SurfAlert\SurfAlert;
+use SurfAlert\Core\Locations;
+use SurfAlert\Core\PostType;
+use SurfAlert\Core\REST;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\PressBar\PressBar;
+use SurfAlert\Core\Helper;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Types\GDPR;
 
 /**
  * This class is responsible for all Front-End actions.
@@ -37,8 +37,8 @@ class FrontEnd {
     /**
      * Assets Path and URL
      */
-    const ASSET_URL  = NOTIFICATIONX_ASSETS . 'public/';
-    const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'public/';
+    const ASSET_URL  = SURFALERT_ASSETS . 'public/';
+    const ASSET_PATH = SURFALERT_ASSETS_PATH . 'public/';
     protected $notificationXArr = [];
 
     /**
@@ -50,21 +50,21 @@ class FrontEnd {
         if (!is_admin() || !empty($_GET['frontend'])) {
             add_action('init', [$this, 'init'], 10);
         }
-        add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
+        add_filter('sa_frontend_localize_data', [$this, 'get_localize_data']);
         Preview::get_instance();
     }
 
     /**
      * This method is reponsible for Admin Menu of
-     * NotificationX
+     * SurfAlert
      *
      * @return void
      */
     public function init() {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 10);
-        add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
-        add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
-        add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
+        add_filter('sa_fallback_data', [$this, 'fallback_data'], 10, 3);
+        add_filter('sa_filtered_data', [$this, 'filtered_data'], 9999, 3);
+        add_filter('sa_filtered_post', [$this, 'filtered_post'], 9999, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
 
     }
@@ -76,37 +76,37 @@ class FrontEnd {
      */
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
-        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
-        // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        wp_register_script('surfalert-public', Helper::file('public/js/frontend.js', true), [], apply_filters('sa_frontend_js_version', SURFALERT_VERSION ), true);
+        wp_register_style('surfalert-public', Helper::file('public/css/frontend.css', true), [], apply_filters('sa_frontend_css_version', SURFALERT_VERSION ), 'all');
+        // wp_register_style('surfalert-icon-pack', Helper::file('public/icon/style.css', true), [], SURFALERT_VERSION, 'all');
         // Localize scripts for frontend
         wp_localize_script(
-            'notificationx-public',
-            'notificationxPublic',
+            'surfalert-public',
+            'surfalertPublic',
             array(
                 'necessary_tab_info'   => [
-                    'title' => __('Necessary', 'notificationx'),
-                    'desc' => __('Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.', 'notificationx'),
+                    'title' => __('Necessary', 'surfalert'),
+                    'desc' => __('Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.', 'surfalert'),
                 ],
                 'functional_tab_info'   => [
-                    'title' => __('Functional', 'notificationx'),
-                    'desc' => __('Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.', 'notificationx'),
+                    'title' => __('Functional', 'surfalert'),
+                    'desc' => __('Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.', 'surfalert'),
                 ],
                 'analytics_tab_info'   => [
-                    'title' => __('Analytics', 'notificationx'),
-                    'desc' => __('Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.', 'notificationx'),
+                    'title' => __('Analytics', 'surfalert'),
+                    'desc' => __('Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.', 'surfalert'),
                 ],
                 'performance_tab_info'   => [
-                    'title' => __('Performance', 'notificationx'),
-                    'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                    'title' => __('Performance', 'surfalert'),
+                    'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'surfalert'),
                 ],
                 'advertising_tab_info'   => [
-                    'title' => __('Advertisement', 'notificationx'),
-                    'desc' => __("Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                    'title' => __('Advertisement', 'surfalert'),
+                    'desc' => __("Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors.", 'surfalert'),
                 ],
                 'uncategorized_tab_info'   => [
-                    'title' => __('Uncategorized', 'notificationx'),
-                    'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'notificationx'),
+                    'title' => __('Uncategorized', 'surfalert'),
+                    'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'surfalert'),
                 ],
                 'is_enabled_wp_consent_api' => is_plugin_active('wp-consent-api/wp-consent-api.php'),
             )
@@ -117,7 +117,7 @@ class FrontEnd {
             $exit = ['total' => 0];
         }
 
-        $exit = apply_filters('nx_before_enqueue_scripts', $exit);
+        $exit = apply_filters('sa_before_enqueue_scripts', $exit);
         if(!empty($exit)){
             $this->notificationXArr = $exit;
             return;
@@ -133,21 +133,21 @@ class FrontEnd {
                 if ($lang !== "en" && $lang !== "en-us") {
                     $script = Helper::file("public/locale/$lang.js", false);
                     if (file_exists($script)) {
-                        wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
+                        wp_enqueue_script('surfalert-moment-locale', Helper::file("public/locale/$lang.js", true), [], SURFALERT_VERSION, true);
                     } else if (!empty($_lang[1])) {
                         $lang = $_lang[0];
                         $script = Helper::file("public/locale/$lang.js", false);
                         if (file_exists($script)) {
-                            wp_enqueue_script('notificationx-moment-locale', Helper::file("public/locale/$lang.js", true), [], NOTIFICATIONX_VERSION, true);
+                            wp_enqueue_script('surfalert-moment-locale', Helper::file("public/locale/$lang.js", true), [], SURFALERT_VERSION, true);
                         }
                     }
                 }
 
-                wp_enqueue_style('notificationx-public');
-                wp_enqueue_script('notificationx-public');
+                wp_enqueue_style('surfalert-public');
+                wp_enqueue_script('surfalert-public');
                 wp_enqueue_style('dashicons');
-                do_action('notificationx_scripts', $this->notificationXArr);
-                wp_add_inline_style( 'notificationx-public', $custom_css );
+                do_action('surfalert_scripts', $this->notificationXArr);
+                wp_add_inline_style( 'surfalert-public', $custom_css );
             }
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
@@ -183,7 +183,7 @@ class FrontEnd {
         $posts     = Database::get_instance()->get_posts(Database::$table_posts, '*', ['enabled' => true] );
         $combine_css = "";
         foreach ($posts as $post) {
-            if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['nx_id'] ) ) {
+            if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['sa_id'] ) ) {
                 $separatedCss = $this->separate_css($post['data']['add_custom_css']);
                 if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
                     $combine_css .= "{$separatedCss['normal_css']} {$separatedCss['media_css']} ";
@@ -200,7 +200,7 @@ class FrontEnd {
 
     public function footer_scripts() {
         if (!empty($this->notificationXArr['total']) && $this->notificationXArr['total'] > 0) {
-            $this->notificationXArr = apply_filters('nx_frontend_localize_data', $this->notificationXArr);
+            $this->notificationXArr = apply_filters('sa_frontend_localize_data', $this->notificationXArr);
             ?>
             <script data-no-optimize="1">
                 (function() {
@@ -223,14 +223,14 @@ class FrontEnd {
         $data['is_pro']        = false;
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
-        $data['common_assets'] = NOTIFICATIONX_COMMON_URL;
+        $data['common_assets'] = SURFALERT_COMMON_URL;
         $data['extra']         = [
             'is_singular' => is_singular(),
             'query'       => $GLOBALS['wp_query']->query,
             'queried_id'  => get_queried_object_id(),
             'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
-        $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
+        $data['localeData'] = load_script_textdomain('surfalert-public', 'surfalert');
         return $data;
     }
 
@@ -265,11 +265,11 @@ class FrontEnd {
         $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
             'none'            => '',
-            'name'            => __('Someone', 'notificationx'),
-            'first_name'      => __('Someone', 'notificationx'),
-            'last_name'       => __('Someone', 'notificationx'),
-            'anonymous_title' => __('Anonymous Title', 'notificationx'),
-            'sometime'        => __('Some time ago', 'notificationx'),
+            'name'            => __('Someone', 'surfalert'),
+            'first_name'      => __('Someone', 'surfalert'),
+            'last_name'       => __('Someone', 'surfalert'),
+            'anonymous_title' => __('Anonymous Title', 'surfalert'),
+            'sometime'        => __('Some time ago', 'surfalert'),
         );
 
         // foreach (['global', 'active'] as $key => $type) {
@@ -284,8 +284,8 @@ class FrontEnd {
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
-                $nx_id    = $entry['nx_id'];
-                $settings = $notifications[$nx_id];
+                $sa_id    = $entry['sa_id'];
+                $settings = $notifications[$sa_id];
 
                 $type   = $settings['type'];
                 $source = $settings['source'];
@@ -298,14 +298,14 @@ class FrontEnd {
                         $entry['timestamp'] = $timestamp = strtotime($timestamp);
                     }
                     if ($timestamp && $display_from > $timestamp) {
-                        if (apply_filters("nx_entry_display_$source", true, $entry, $settings)) {
+                        if (apply_filters("sa_entry_display_$source", true, $entry, $settings)) {
                             continue;
                         }
                     }
                 }
 
-                $defaults = apply_filters("nx_fallback_data_$source", $_defaults, $entry, $settings);
-                $defaults = apply_filters('nx_fallback_data', $defaults, $entry, $settings);
+                $defaults = apply_filters("sa_fallback_data_$source", $_defaults, $entry, $settings);
+                $defaults = apply_filters('sa_fallback_data', $defaults, $entry, $settings);
 
                 $entry               = $this->apply_defaults($entry, $defaults);
                 $entry['image_data'] = $this->get_image_url($entry, $settings);
@@ -313,20 +313,20 @@ class FrontEnd {
                     $entry['title'] = strip_tags(html_entity_decode($entry['title']));
                 }
 
-                $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
-                $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
-                $entry = apply_filters('nx_filtered_entry', $entry, $settings);
+                $entry = apply_filters("sa_filtered_entry_$type", $entry, $settings);
+                $entry = apply_filters("sa_filtered_entry_$source", $entry, $settings);
+                $entry = apply_filters('sa_filtered_entry', $entry, $settings);
                 $entry = $this->link_url($entry, $settings, $params);
 
                 // @todo shortcode
                 // @todo check if the current page have shortcode.
-                if (in_array($nx_id, $shortcode)) {
+                if (in_array($sa_id, $shortcode)) {
                     $position             = $settings['position'];
-                    $settings['position'] = "notificationx-shortcode-$nx_id";
-                    if (empty($result['shortcode'][$nx_id]['post'])) {
-                        $result['shortcode'][$nx_id]['post'] = $settings;
+                    $settings['position'] = "surfalert-shortcode-$sa_id";
+                    if (empty($result['shortcode'][$sa_id]['post'])) {
+                        $result['shortcode'][$sa_id]['post'] = $settings;
                     }
-                    $result['shortcode'][$nx_id]['entries'][] = $entry;
+                    $result['shortcode'][$sa_id]['entries'][] = $entry;
                     $settings['position']                       = $position;
                     if ($settings['show_on'] === 'only_shortcode' || 'inline' === $settings['type'] || 'woocommerce_sales_inline' == $settings['source']) {
                         continue;
@@ -337,33 +337,33 @@ class FrontEnd {
                 }
 
                 if (!empty($settings['global_queue'])) {
-                    if (empty($result['global'][$nx_id]['post'])) {
-                        $result['global'][$nx_id]['post'] = $settings;
+                    if (empty($result['global'][$sa_id]['post'])) {
+                        $result['global'][$sa_id]['post'] = $settings;
                     }
-                    $result['global'][$nx_id]['entries'][] = $entry;
+                    $result['global'][$sa_id]['entries'][] = $entry;
                 } else {
-                    if (empty($result['active'][$nx_id]['post'])) {
-                        $result['active'][$nx_id]['post'] = $settings;
+                    if (empty($result['active'][$sa_id]['post'])) {
+                        $result['active'][$sa_id]['post'] = $settings;
                     }
-                    $result['active'][$nx_id]['entries'][] = $entry;
+                    $result['active'][$sa_id]['entries'][] = $entry;
                 }
             }
 
             foreach ($result as &$group) {
                 foreach ($group as &$value) {
-                    $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params);
-                    $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params);
-                    $value['entries'] = apply_filters('nx_filtered_data', $value['entries'], $value['post'], $params);
-                    $value['post']    = apply_filters('nx_filtered_post', $value['post'], $params);
+                    $value['entries'] = apply_filters("sa_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params);
+                    $value['entries'] = apply_filters("sa_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params);
+                    $value['entries'] = apply_filters('sa_filtered_data', $value['entries'], $value['post'], $params);
+                    $value['post']    = apply_filters('sa_filtered_post', $value['post'], $params);
                 }
             }
-            $result = apply_filters('nx_filtered_notice', $result, $params);
+            $result = apply_filters('sa_filtered_notice', $result, $params);
         }
 
         if (!empty($pressbar)) {
             $notifications = $this->get_notifications($pressbar, $device);
             foreach ($notifications as $key => $settings) {
-                $_nx_id            = $settings['nx_id'];
+                $_sa_id            = $settings['sa_id'];
                 // check if position is bottom_left then modify it to top 
                 if($settings['position'] == 'bottom_left'){
                     $settings['position'] = 'top';
@@ -376,35 +376,35 @@ class FrontEnd {
                     continue;
                 }
 
-                // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
-                $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
+                // $settings['button_url'] = apply_filters("sa_notification_link_{$settings['source']}", $settings['button_url'], $settings);
+                $settings['button_url'] = apply_filters('sa_notification_link', $settings['button_url'], $settings);
                 if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false && strpos($settings['button_url'], './') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings, false, $params);
                 if ($bar_content !== '&nbsp;' || !empty($settings['enable_countdown'])) {
-                    $settings = apply_filters('nx_filtered_post', $settings, $params);
-                    $result['pressbar'][$_nx_id]['post']    = $settings;
-                    $result['pressbar'][$_nx_id]['content'] = $bar_content;
+                    $settings = apply_filters('sa_filtered_post', $settings, $params);
+                    $result['pressbar'][$_sa_id]['post']    = $settings;
+                    $result['pressbar'][$_sa_id]['content'] = $bar_content;
                 }
 
-                unset($_nx_id);
+                unset($_sa_id);
             }
         }
 
         if (!empty($gdpr)) {
             $notifications = $this->get_notifications($gdpr);
             foreach ($notifications as $key => $settings) {
-                $_nx_id            = $settings['nx_id'];
+                $_sa_id            = $settings['sa_id'];
                 if (!empty($_params['all_active'])) {
                     continue;
                 }
 
-                $settings = apply_filters('nx_filtered_post', $settings, $params);
+                $settings = apply_filters('sa_filtered_post', $settings, $params);
 
-                $result['gdpr'][$_nx_id]['post']    = $settings;
-                $result['gdpr'][$_nx_id]['content'] = "";
-                unset($_nx_id);
+                $result['gdpr'][$_sa_id]['post']    = $settings;
+                $result['gdpr'][$_sa_id]['content'] = "";
+                unset($_sa_id);
             }
         }
 
@@ -414,7 +414,7 @@ class FrontEnd {
 
     public function get_settings(){
 
-        $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
+        $branding_url       = apply_filters('sa_branding_url', SURFALERT_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=surfalert');
         $settings = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
             'affiliate_link'     => $branding_url,
@@ -441,20 +441,20 @@ class FrontEnd {
         $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = array();
 
         foreach ($notifications as $key => $settings) {
-            // $settings        = NotificationX::get_instance()->normalize_post($post);
+            // $settings        = SurfAlert::get_instance()->normalize_post($post);
 
             // IF PRESSBAR TIME RE_CONFIG THEN REMOVE COOKIE
             // if( $settings['source'] == 'press_bar'){
             // if( $_settings->enable_countdown && ( Helper::current_timestamp($_settings->countdown_start_date) < time() || Helper::current_timestamp($_settings->countdown_end_date) > time() ) ) {
-            // unset( $_COOKIE["notificationx_{$settings['nx_id']}"] );
-            // \setcookie("notificationx_{$settings['nx_id']}", null);
+            // unset( $_COOKIE["surfalert_{$settings['sa_id']}"] );
+            // \setcookie("surfalert_{$settings['sa_id']}", null);
             // }
             // }
 
             /**
              * Check if it's a pro source and pro plugin is disabled.
              */
-            if(!NotificationX::is_pro()){
+            if(!SurfAlert::is_pro()){
                 $ext = ExtensionFactory::get_instance()->get($settings['source']);
                 if($ext && $ext->is_pro){
                     continue;
@@ -463,7 +463,7 @@ class FrontEnd {
 
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
-            if (!empty($_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"]) && $_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"] == true) {
+            if (!empty($_COOKIE["surfalert_{$settings['sa_id']}$countdown_rand"]) && $_COOKIE["surfalert_{$settings['sa_id']}$countdown_rand"] == true) {
                 unset($notifications[$key]);
                 continue;
             }
@@ -487,7 +487,7 @@ class FrontEnd {
             //     continue;
             // }
 
-            $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
+            $show_on_exclude = apply_filters('sa_show_on_exclude', false, $settings);
             if ($show_on_exclude) {
                 continue;
             }
@@ -511,22 +511,22 @@ class FrontEnd {
                 // continue;
                 // }
 
-                $bar_notifications[] = $return_posts ? $settings : $settings['nx_id'];
+                $bar_notifications[] = $return_posts ? $settings : $settings['sa_id'];
                 if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     // @todo Find a function to only load css instead of building content.
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
                 }
             } elseif($settings['source'] == 'gdpr_notification') {
-                $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
-            } elseif ($active_global_queue && NotificationX::is_pro()) {
-                $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
+                $gdpr_notification[] = $return_posts ? $settings : $settings['sa_id'];
+            } elseif ($active_global_queue && SurfAlert::is_pro()) {
+                $global_notifications[] = $return_posts ? $settings : $settings['sa_id'];
             } else {
-                $active_notifications[] = $return_posts ? $settings : $settings['nx_id'];
+                $active_notifications[] = $return_posts ? $settings : $settings['sa_id'];
             }
 
             unset($notifications[$key]);
         }
-        // do_action('nx_active_notificationx', $notifications);
+        // do_action('sa_active_surfalert', $notifications);
 
         // @todo maybe combine two hooks.
 
@@ -566,7 +566,7 @@ class FrontEnd {
             $check_location = Locations::get_instance()->check_location($locations, $custom_ids, $taxonomy_ids);
         }
 
-        $check_location = apply_filters('nx_check_location', $check_location, $custom_ids, $show_on);
+        $check_location = apply_filters('sa_check_location', $check_location, $custom_ids, $show_on);
 
         if ($show_on == 'on_selected') {
             // show if the page is on selected
@@ -613,14 +613,14 @@ class FrontEnd {
             /**
              * Check if it's a pro source and pro plugin is disabled.
              */
-            if(!NotificationX::is_pro()){
+            if(!SurfAlert::is_pro()){
                 $ext = ExtensionFactory::get_instance()->get($value['source']);
                 if($ext && $ext->is_pro){
                     continue;
                 }
             }
 
-            $results[$value['nx_id']] = $value;
+            $results[$value['sa_id']] = $value;
         }
         return $results;
     }
@@ -632,8 +632,8 @@ class FrontEnd {
             foreach ($ids as $id) {
                 if (!empty($notifications[$id])) {
                     $post         = $notifications[$id];
-                    $global_query =  " nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "'";
-                    $_q = apply_filters("nx_get_entries_query_part_{$notifications[$id]['source']}",$global_query, $notifications[$id], $params );
+                    $global_query =  " sa_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "'";
+                    $_q = apply_filters("sa_get_entries_query_part_{$notifications[$id]['source']}",$global_query, $notifications[$id], $params );
                     $query[$id] = " (" . $_q . ")";
                 }
             }
@@ -650,7 +650,7 @@ class FrontEnd {
         if (!is_array($entries)) {
             $entries = [];
         }
-        $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications,$params);
+        $entries = apply_filters('sa_frontend_get_entries', $entries, $ids, $notifications,$params);
         return $entries;
     }
 
@@ -670,8 +670,8 @@ class FrontEnd {
             $link = '';
         }
 
-        $link          = apply_filters("nx_notification_link_{$post['source']}", $link, $post, $entry, $params);
-        $entry['link'] = apply_filters('nx_notification_link', $link, $post, $entry, $params);
+        $link          = apply_filters("sa_notification_link_{$post['source']}", $link, $post, $entry, $params);
+        $entry['link'] = apply_filters('sa_notification_link', $link, $post, $entry, $params);
         return $entry;
     }
 
@@ -709,7 +709,7 @@ class FrontEnd {
                 $image_data['url'] = $image[0];
             } else {
                 $default_avatar    = $settings['default_avatar'];
-                $image_data['url'] = NOTIFICATIONX_PUBLIC_URL . 'image/icons/' . $default_avatar;
+                $image_data['url'] = SURFALERT_PUBLIC_URL . 'image/icons/' . $default_avatar;
             }
         } else {
             if ($image_type === 'gravatar') {
@@ -721,8 +721,8 @@ class FrontEnd {
         }
 
         $image_data['classes'] = $image_type;
-        $image_data            = apply_filters("nx_notification_image_$source", $image_data, $data, $settings);
-        $image_data            = apply_filters('nx_notification_image', $image_data, $data, $settings);
+        $image_data            = apply_filters("sa_notification_image_$source", $image_data, $data, $settings);
+        $image_data            = apply_filters('sa_notification_image', $image_data, $data, $settings);
 
         if (!empty($image_data['url'])) {
             return $image_data;
@@ -744,7 +744,7 @@ class FrontEnd {
     }
 
     public function fallback_data($data, $saved_data, $settings) {
-        if ((empty($saved_data['name']) || $data['name'] == __('Someone', 'notificationx')) && isset($saved_data['first_name']) || isset($saved_data['last_name'])) {
+        if ((empty($saved_data['name']) || $data['name'] == __('Someone', 'surfalert')) && isset($saved_data['first_name']) || isset($saved_data['last_name'])) {
             $first_name   = isset($saved_data['first_name']) ? $saved_data['first_name'] : '';
             $last_name    = isset($saved_data['last_name']) ? $saved_data['last_name'] : '';
             $data['name'] = Helper::name($first_name, $last_name);
@@ -757,7 +757,7 @@ class FrontEnd {
     }
 
     /**
-     * Add NotificationX in Footer
+     * Add SurfAlert in Footer
      *
      * @return void
      */
@@ -767,8 +767,8 @@ class FrontEnd {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
-                $_entry = apply_filters("nx_frontend_keep_entry_{$post['source']}", [
-                    'nx_id'      => $entry['nx_id'],
+                $_entry = apply_filters("sa_frontend_keep_entry_{$post['source']}", [
+                    'sa_id'      => $entry['sa_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
                     'updated_at' => isset( $entry['updated_at'] ) ? $entry['updated_at'] : '',
                     'image_data' => $entry['image_data'],
@@ -851,9 +851,9 @@ class FrontEnd {
                 'ld_product_control',
                 'mailchimp_list',
                 'max_stock',
-                'nx-bar_with_elementor',
-                'nx-bar_with_elementor-remove',
-                'nx-bar_with_elementor_install',
+                'sa-bar_with_elementor',
+                'sa-bar_with_elementor-remove',
+                'sa-bar_with_elementor_install',
                 'order_status',
                 'press_content',
                 'preview',
@@ -897,7 +897,7 @@ class FrontEnd {
     public function get_bar_content($settings, $suppress_filters = false, $params = []){
         $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
         if(!$suppress_filters){
-            $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings, $params);
+            $bar_content  = apply_filters("sa_filtered_data_{$settings['source']}", $bar_content, $settings, $params);
         }
 
         // checking if content is empty

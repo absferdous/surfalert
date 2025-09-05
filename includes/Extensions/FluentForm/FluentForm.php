@@ -3,17 +3,17 @@
 /**
  * Fluent_Form Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\FluentForm;
+namespace SurfAlert\Extensions\FluentForm;
 
-use NotificationX\Core\Helper;
-use NotificationX\Core\Rules;
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Admin\Entries;
+use SurfAlert\Core\Helper;
+use SurfAlert\Core\Rules;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Admin\Entries;
 
 /**
  * Fluent_Form Extension
@@ -30,7 +30,7 @@ class FluentForm extends Extension {
     public $priority        = 20;
     public $id              = 'fluentform';
     public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $doc_link        = 'https://surfalert.com/docs/contact-form-submission-alert/';
     public $types           = 'form';
     public $module          = 'modules_fluentform';
     public $module_priority = 10;
@@ -45,8 +45,8 @@ class FluentForm extends Extension {
 
     public function init_extension()
     {
-        $this->title        = __('Fluent Forms', 'notificationx');
-        $this->module_title = __('Fluent Forms', 'notificationx');
+        $this->title        = __('Fluent Forms', 'surfalert');
+        $this->module_title = __('Fluent Forms', 'surfalert');
     }
 
     public function init() {
@@ -56,7 +56,7 @@ class FluentForm extends Extension {
 
     public function init_fields(){
         parent::init_fields();
-        add_filter('nx_form_list', [$this, 'nx_form_list'], 9);
+        add_filter('sa_form_list', [$this, 'sa_form_list'], 9);
     }
 
     /**
@@ -67,19 +67,19 @@ class FluentForm extends Extension {
     public function admin_actions() {
         parent::admin_actions();
 
-        add_filter("nx_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
+        add_filter("sa_can_entry_{$this->id}", array($this, 'can_entry'), 10, 3);
     }
 
     /**
      * This functions is hooked
      *
-     * @hooked nx_public_action
+     * @hooked sa_public_action
      * @return void
      */
     public function public_actions() {
         parent::public_actions();
 
-        add_filter("nx_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
+        add_filter("sa_filtered_data_{$this->id}", array($this, 'filter_by_form'), 11, 3);
     }
 
     public function source_error_message($messages) {
@@ -87,10 +87,10 @@ class FluentForm extends Extension {
             $url = admin_url('plugin-install.php?s=fluent-forms&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
+                    __( 'You have to install', 'surfalert' ),
                     $url,
-                    __( 'Fluent Forms', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
+                    __( 'Fluent Forms', 'surfalert' ),
+                    __( 'plugin first.', 'surfalert' )
                 ),
                 'html' => true,
                 'type' => 'error',
@@ -100,7 +100,7 @@ class FluentForm extends Extension {
         return $messages;
     }
 
-    public function nx_form_list($forms) {
+    public function sa_form_list($forms) {
         $_forms = GlobalFields::get_instance()->normalize_fields($this->get_forms(), 'source', $this->id);
         return array_merge($forms, $_forms);
     }
@@ -259,7 +259,7 @@ class FluentForm extends Extension {
         return $key;
     }
 
-    public function saved_post($post, $data, $nx_id) {
+    public function saved_post($post, $data, $sa_id) {
         $this->get_notification_ready($data);
     }
 
@@ -326,13 +326,13 @@ class FluentForm extends Extension {
                         $entry_data['ip'] = $sub->ip;
                         $entry_data['timestamp'] = Helper::get_utc_time($sub->created_at);
                         $entry_data['submission_id'] = $submission->id;
-                        if( $this->is_submission_exists((int) $data['nx_id'], $submission->id) ) {
+                        if( $this->is_submission_exists((int) $data['sa_id'], $submission->id) ) {
                             continue;
                         }
                         $_key = $this->key($form->id);
                         if (!empty($data)) {
                             $entries[] = [
-                                'nx_id'      => $data['nx_id'],
+                                'sa_id'      => $data['sa_id'],
                                 'source'     => $this->id,
                                 'entry_key'  => $_key,
                                 'data'       => $entry_data,
@@ -345,8 +345,8 @@ class FluentForm extends Extension {
         }
     }
 
-    public function is_submission_exists( $nx_id, $submission_id ) {
-        $entries = Entries::get_instance()->get_entries($nx_id);
+    public function is_submission_exists( $sa_id, $submission_id ) {
+        $entries = Entries::get_instance()->get_entries($sa_id);
         $filteredData = array_filter($entries, function ($item) use ($submission_id) {
             return $item['submission_id'] == $submission_id;
         });
@@ -406,15 +406,15 @@ class FluentForm extends Extension {
 
         <p>🎥 Learn quickly from the <a target="_blank" href="%3$s">video tutorial</a>.</p>
 
-        <p>⚙️ NotificationX integration with Fluent Forms</p>
+        <p>⚙️ SurfAlert integration with Fluent Forms</p>
 
         <p>📖 Recommended Reading: </p>
-        <p>🔥How To <a target="_blank" href="%4$s">Display Fluent Forms Submission Alert</a> Using NotificationX?</p>
-        ', 'notificationx'),
+        <p>🔥How To <a target="_blank" href="%4$s">Display Fluent Forms Submission Alert</a> Using SurfAlert?</p>
+        ', 'surfalert'),
         'https://wordpress.org/plugins/fluentform/',
-        'https://notificationx.com/docs/fluent-forms-submission-alert-notificationx',
+        'https://surfalert.com/docs/fluent-forms-submission-alert-surfalert',
         'https://youtu.be/cl0WEazGflU',
-        'https://notificationx.com/blog/display-fluent-forms-submission-alert/'
+        'https://surfalert.com/blog/display-fluent-forms-submission-alert/'
         );
     }
 }

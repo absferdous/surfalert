@@ -2,14 +2,14 @@
 /**
  * Extension Abstract
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Types;
+namespace SurfAlert\Types;
 
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\GetInstance;
-use NotificationX\Modules;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\GetInstance;
+use SurfAlert\Modules;
 
 /**
  * Extension Abstract for all Extension.
@@ -48,46 +48,46 @@ class EmailSubscription extends Types {
      */
     public function init(){
         parent::init();
-        $this->title = __('Email Subscription', 'notificationx');
+        $this->title = __('Email Subscription', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span>Show popups to display which users subscribed to your Newsletter.</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
-                    <source src="https://notificationx.com/wp-content/uploads/2024/01/How-to-Display-Email-Subscription-Alerts-using-NotificationX.mp4" type="video/mp4">
+                    <source src="https://surfalert.com/wp-content/uploads/2024/01/How-to-Display-Email-Subscription-Alerts-using-SurfAlert.mp4" type="video/mp4">
                 </video>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
 
         $common_fields = [
             'first_param'         => 'tag_first_name',
-            'custom_first_param'  => __('Someone' , 'notificationx'),
-            'second_param'        => __('just subscribed to', 'notificationx'),
+            'custom_first_param'  => __('Someone' , 'surfalert'),
+            'second_param'        => __('just subscribed to', 'surfalert'),
             'third_param'         => 'tag_title',
-            'custom_third_param'  => __('Anonymous Title', 'notificationx'),
+            'custom_third_param'  => __('Anonymous Title', 'surfalert'),
             'fourth_param'        => 'tag_time',
-            'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+            'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
         ];
 
         $this->themes = [
             'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-1.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-1.jpg',
                 'image_shape' => 'rounded',
                 'template' => $common_fields,
             ],
             'theme-two'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-2.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-2.png',
                 'template' => $common_fields,
                 'image_shape' => 'circle',
             ],
             'theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-three.jpg',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/subscriptions/mailchimp-theme-three.jpg',
                 'image_shape' => 'square',
                 'template' => $common_fields,
             ],
             'maps_theme'  => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/subscriptions/maps-theme-subscribed.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/subscriptions/maps-theme-subscribed.png',
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ],
@@ -95,22 +95,22 @@ class EmailSubscription extends Types {
 
         $this->res_themes = [
             'res-theme-one'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-1.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-1.png',
                 '_template' => 'mailchimp_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-two'   => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-2.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-2.png',
                 '_template' => 'mailchimp_template_new',
                 'is_pro'    => true,
             ],
             'res-theme-three' => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-3.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-3.png',
                 '_template' => 'mailchimp_template_new',
                 'is_pro'    => true,
             ],
             'subscriptions-res-theme-four'  => [
-                'source'    => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-4.png',
+                'source'    => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_subscriptions/mailchimp-res-theme-4.png',
                 '_template' => 'maps_template_new',
                 'is_pro'    => true,
             ],
@@ -120,12 +120,12 @@ class EmailSubscription extends Types {
             'mailchimp_template_new' => [
                 'first_param' => GlobalFields::get_instance()->common_name_fields(),
                 'third_param' => [
-                    'tag_title'           => __('List Title', 'notificationx'),
-                    // 'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                    'tag_title'           => __('List Title', 'surfalert'),
+                    // 'tag_anonymous_title' => __('Anonymous Title' , 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time' => __('Definite Time', 'notificationx'),
-                    'tag_sometime' => __('Some time ago', 'notificationx'),
+                    'tag_time' => __('Definite Time', 'surfalert'),
+                    'tag_sometime' => __('Some time ago', 'surfalert'),
                 ],
                 '_themes' => [
                     "{$this->id}_theme-one",
@@ -139,12 +139,12 @@ class EmailSubscription extends Types {
 
     public function preview_entry($entry, $settings){
         $entry = array_merge($entry, [
-            "title"             => "NotificationX Pro",
+            "title"             => "SurfAlert Pro",
         ]);
 
         if('email_subscription_maps_theme' !== $settings['theme']){
             $entry['image_data'] = array(
-                'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
+                'url'     => SURFALERT_PUBLIC_URL . 'image/icons/pink-face-looped.gif',
                 'alt'     => '',
                 'classes' => 'greview_icon',
             );

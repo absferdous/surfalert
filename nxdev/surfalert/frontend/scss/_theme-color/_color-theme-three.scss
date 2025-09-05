@@ -1,0 +1,26 @@
+// color theme three
+.themes-comments_theme-one,
+.themes-comments_theme-two,
+.themes-comments_theme-three {
+    .surfalert-content {
+        & > p {
+            &.sa-first-row {
+                font-size: 14px;
+                color: #7c8db5;
+                font-weight: 400;
+                .sa-first-word {
+                    font-weight: 500;
+                }
+            }
+            &.sa-second-row {
+                font-size: 12px;
+                font-weight: 500;
+                color: #000;
+            }
+            &.sa-third-row {
+                font-size: 10px;
+                color: #7c8db5;
+            }
+        }
+    }
+}

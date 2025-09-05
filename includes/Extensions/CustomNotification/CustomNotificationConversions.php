@@ -2,13 +2,13 @@
 /**
  * CustomNotification Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\CustomNotification;
+namespace SurfAlert\Extensions\CustomNotification;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * CustomNotification Extension
@@ -24,8 +24,8 @@ class CustomNotificationConversions extends Extension {
 
     public $priority        = 30;
     public $id              = 'custom_notification_conversions';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/custom.png';
-    public $doc_link        = 'https://notificationx.com/docs/custom-notification';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/custom.png';
+    public $doc_link        = 'https://surfalert.com/docs/custom-notification';
     public $types           = 'conversions';
     public $module          = 'modules_custom_notification';
     public $module_priority = 13;
@@ -40,17 +40,17 @@ class CustomNotificationConversions extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Custom Notification', 'notificationx');
-        $this->module_title = __('Custom Notification', 'notificationx');
+        $this->title = __('Custom Notification', 'surfalert');
+        $this->module_title = __('Custom Notification', 'surfalert');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://surfalert.com/docs/custom-notification/' target='_blank'>More Info</a>", "surfalert"),
+            "confirmButtonText" => __("<a href='https://surfalert.com/#pricing' target='_blank'>Upgrade to PRO</a>", "surfalert"),
             "html"=> __('
                 <span style="text-align:left;">Display custom conversion notifications as pop up.</span>
                 <iframe id="custom_notification_video" type="text/html" allowfullscreen width="450" height="235"
                 src="https://www.youtube.com/embed/OuTmDZ0_TEw">
                 </iframe>
-            ', 'notificationx')
+            ', 'surfalert')
         ];
     }
 
@@ -68,10 +68,10 @@ class CustomNotificationConversions extends Extension {
         return sprintf(__('<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>', 'notificationx'),
-        'https://notificationx.com/docs/custom-notification/',
+		<p>🔥 How to <a target="_blank" href="%3$s">Display Custom Notification Alerts</a> On Your Website Using SurfAlert</p>', 'surfalert'),
+        'https://surfalert.com/docs/custom-notification/',
         'https://www.youtube.com/watch?v=OuTmDZ0_TEw',
-        'https://wpdeveloper.com/custom-notificationx-alert-fomo/'
+        'https://wpdeveloper.com/custom-surfalert-alert-fomo/'
         );
     }
 }

@@ -1,10 +1,10 @@
 <wpml-config>
 
     <custom-types>
-        <custom-type translate="1">nx_bar</custom-type>
+        <custom-type translate="1">sa_bar</custom-type>
     </custom-types>
     <admin-texts>
-        <key name="notificationx">
+        <key name="surfalert">
             <key name="settings">
                 <key name="affiliate_link" />
                 <key name="reporting_email" />

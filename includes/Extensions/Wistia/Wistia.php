@@ -2,13 +2,13 @@
 /**
  * Wistia Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\Wistia;
+namespace SurfAlert\Extensions\Wistia;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * Wistia Extension
@@ -24,9 +24,9 @@ class Wistia extends Extension {
 
     public $priority        = 15;
     public $id              = 'wistia';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://surfalert.com/docs/google-reviews-with-surfalert/';
     public $types           = 'video';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/wistia.png';
+    public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/wistia.png';
     public $show_on_module  = false;
     public $show_on_type     = false;
     /**
@@ -38,7 +38,7 @@ class Wistia extends Extension {
     
     public function init_extension()
     {
-        $this->title = __('Wistia', 'notificationx');
+        $this->title = __('Wistia', 'surfalert');
     }
 
 }

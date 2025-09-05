@@ -2,16 +2,16 @@
 /**
  * Announcements Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\OfferAnnouncement;
+namespace SurfAlert\Extensions\OfferAnnouncement;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
-use NotificationX\Extensions\ExtensionFactory;
-use NotificationX\Extensions\GlobalFields;
-use NotificationX\Types\Conversions;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
+use SurfAlert\Extensions\ExtensionFactory;
+use SurfAlert\Extensions\GlobalFields;
+use SurfAlert\Types\Conversions;
 
 /**
  * Announcements Extension
@@ -27,8 +27,8 @@ class Announcements extends Extension {
 
     public $priority        = 10;
     public $id              = 'announcements';
-    // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/custom.png';
-    // public $doc_link        = 'https://notificationx.com/docs/custom-notification';
+    // public $img             = SURFALERT_ADMIN_URL . 'images/extensions/sources/custom.png';
+    // public $doc_link        = 'https://surfalert.com/docs/custom-notification';
     public $types           = 'offer_announcement';
     public $module          = 'modules_announcements';
     public $module_priority = 18;
@@ -44,182 +44,182 @@ class Announcements extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Discount Announcement', 'notificationx');
-        $this->module_title = __('Discount Announcement', 'notificationx');
+        $this->title = __('Discount Announcement', 'surfalert');
+        $this->module_title = __('Discount Announcement', 'surfalert');
         $this->themes = [
             'theme-1'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',
                 'image_shape' => 'rounded',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                     // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
+                    // 'custom_fifth_param'  => __( 'Some time ago', 'surfalert' ),
                 ],
                 'defaults' => [
                     // 'announcement_link_button'      => false,
                     'link'                          => '#',
-                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
-                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx' ),
-                    'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'surfalert' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert' ),
+                    'announcement_link_button_text' => __( 'Grab Now', 'surfalert' ),
                 ],
             ],
             'theme-2'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-2.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                     // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                    // 'custom_fifth_param'  => __( '25% OFF', 'surfalert' ),
                 ],
                 'defaults' => [
                     // 'announcement_link_button'      => false,
                     'link'                          => '#',
-                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
-                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx' ),
-                    'announcement_link_button_text' => __( 'Grab Now', 'notificationx' ),
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'surfalert' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert' ),
+                    'announcement_link_button_text' => __( 'Grab Now', 'surfalert' ),
                 ],
                 'image_shape' => 'circle',
             ],
             'theme-12'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-12.png',
+                'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-12.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                     // 'fifth_param'         => 'tag_offer_discount',
-                    // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                    // 'custom_fifth_param'  => __( '25% OFF', 'surfalert' ),
                 ],
                 'defaults' => [
                     // 'announcement_link_button'      => true,
-                    'announcement_link_button_text' => __( 'Buy Now', 'notificationx' ),
+                    'announcement_link_button_text' => __( 'Buy Now', 'surfalert' ),
                     'link'                          => '#',
-                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'notificationx' ),
+                    'offer_title'                   => __( 'Flash Sale: Limited Time Offer!', 'surfalert' ),
                     'link_button'                   => true,
                 ],
                 'image_shape' => 'rounded',
             ],
             // 'theme-13'   => [
-            //     'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
+            //     'source' => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-13.png',
             //     'template' => [
             //         'first_param'         => 'tag_offer_title',
-            //         'custom_first_param'  => __('How Does It Works' , 'notificationx'),
+            //         'custom_first_param'  => __('How Does It Works' , 'surfalert'),
             //     ],
             //     'defaults' => [
             //         // 'announcement_link_button'      => false,
-            //         'announcement_link_button_text' => __( 'Watch Now', 'notificationx' ),
-            //         'offer_title'                   => __( 'How Does It Works', 'notificationx' ),
+            //         'announcement_link_button_text' => __( 'Watch Now', 'surfalert' ),
+            //         'offer_title'                   => __( 'How Does It Works', 'surfalert' ),
             //         'link'                          => '#',
             //     ],
             // ],
             'theme-14'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-14.png',
                 'image_shape' => 'circle',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'custom_first_param'  => __('Hi There!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                       // 'fifth_param'         => 'tag_offer_discount',
-                      // 'custom_fifth_param'  => __( 'Some time ago', 'notificationx' ),
+                      // 'custom_fifth_param'  => __( 'Some time ago', 'surfalert' ),
                 ],
                 'defaults' => [
                       // 'announcement_link_button'      => false,
-                    'announcement_link_button_text' => __( 'Get It Now', 'notificationx' ),
-                    'offer_title'                   => __( 'Hi There!', 'notificationx' ),
+                    'announcement_link_button_text' => __( 'Get It Now', 'surfalert' ),
+                    'offer_title'                   => __( 'Hi There!', 'surfalert' ),
                     'link'                          => '#',
                 ],
             ],
             'theme-15'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-15.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/announcements/theme-15.png',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'custom_first_param'  => __('Hi There!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO', 'surfalert'),
                 ],
                 'defaults' => [
                     // 'announcement_link_button'      => false,
-                    'announcement_link_button_text' => __( 'Book Now', 'notificationx' ),
-                    'offer_title'                   => __( 'Hi There!', 'notificationx' ),
-                    'offer_description'             => __( 'Enjoy flat 50% Off on NotificationX PRO', 'notificationx' ),
+                    'announcement_link_button_text' => __( 'Book Now', 'surfalert' ),
+                    'offer_title'                   => __( 'Hi There!', 'surfalert' ),
+                    'offer_description'             => __( 'Enjoy flat 50% Off on SurfAlert PRO', 'surfalert' ),
                     'link'                          => '#',
                 ],
             ],
         ];
         $this->res_themes = [
             'res-theme-one'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-1.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-1.png',
                 'image_shape' => 'rounded',
                 'template'    => [
                     'first_param'        => 'tag_offer_title',
-                    'custom_first_param' => __('Flash Sale:' , 'notificationx'),
+                    'custom_first_param' => __('Flash Sale:' , 'surfalert'),
                     'third_param'        => 'tag_offer_description',
                     'fourth_param'       => 'tag_time',
                 ],
                 'is_pro' => true,
             ],
             'res-theme-two'   => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-2.png',
+                'source'   => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-2.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                       // 'fifth_param'         => 'tag_offer_discount',
-                      // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                      // 'custom_fifth_param'  => __( '25% OFF', 'surfalert' ),
                 ],
                 'is_pro' => true,
             ],
             'res-theme-three'   => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-3.png',
+                'source'   => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-3.png',
                 'template' => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'notificationx'),
+                    'custom_first_param'  => __('Flash Sale: Limited Time Offer!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                       // 'fifth_param'         => 'tag_offer_discount',
-                      // 'custom_fifth_param'  => __( '25% OFF', 'notificationx' ),
+                      // 'custom_fifth_param'  => __( '25% OFF', 'surfalert' ),
                 ],
                 'is_pro' => true,
             ],
             'res-theme-four'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-4.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-4.png',
                 'image_shape' => 'circle',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'custom_first_param'  => __('Hi There!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO Valid till this week', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO Valid till this week', 'surfalert'),
                     'fourth_param'        => 'tag_time',
-                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                    'custom_fourth_param' => __( 'Some time ago', 'surfalert' ),
                 ],
                 'is_pro'    => true,
             ],
             'res-theme-five'   => [
-                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-5.png',
+                'source'      => SURFALERT_ADMIN_URL . 'images/extensions/themes/res_announcements/announcements-res-theme-5.png',
                 'template'    => [
                     'first_param'         => 'tag_offer_title',
-                    'custom_first_param'  => __('Hi There!' , 'notificationx'),
+                    'custom_first_param'  => __('Hi There!' , 'surfalert'),
                     'third_param'         => 'tag_offer_description',
-                    'custom_third_param'  => __('Enjoy flat 50% Off on NotificationX PRO', 'notificationx'),
+                    'custom_third_param'  => __('Enjoy flat 50% Off on SurfAlert PRO', 'surfalert'),
                 ],
                 'is_pro'    => true,
             ],
@@ -228,19 +228,19 @@ class Announcements extends Extension {
         $this->templates = [
             'announcements_template_new' => [
                 'first_param' => [
-                    'tag_offer_title' => __('Offer Title', 'notificationx'),
+                    'tag_offer_title' => __('Offer Title', 'surfalert'),
                 ],
                 'third_param' => [
-                    'tag_offer_description' => __('Offer Description', 'notificationx'),
-                    // 'tag_anonymous_title' => __('Anonymous Title' , 'notificationx'),
+                    'tag_offer_description' => __('Offer Description', 'surfalert'),
+                    // 'tag_anonymous_title' => __('Anonymous Title' , 'surfalert'),
                 ],
                 'fourth_param' => [
-                    'tag_time'     => __('Definite Time', 'notificationx'),
-                    'tag_sometime' => __('Some time ago', 'notificationx'),
+                    'tag_time'     => __('Definite Time', 'surfalert'),
+                    'tag_sometime' => __('Some time ago', 'surfalert'),
                 ],
                 'fifth_param' => [
-                    'tag_offer_discount' => __('Discount', 'notificationx'),
-                    'tag_offer_image'    => __('Image', 'notificationx'),
+                    'tag_offer_discount' => __('Discount', 'surfalert'),
+                    'tag_offer_image'    => __('Image', 'surfalert'),
                 ],
                 '_themes' => [
                     "{$this->id}_theme-1",
@@ -268,9 +268,9 @@ class Announcements extends Extension {
     public function doc(){
         return sprintf(__('<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target="_blank" href="%1$s">documentation</a>.</p>
 		<p><strong>Recommended Blog:</strong></p>
-		<p>🔥Introducing Discount Alert By NotificationX <a target="_blank" href="%2$s">Guide To Notify Customers About On-Sale Products</a> </p>', 'notificationx'),
-        'https://notificationx.com/docs/configure-discount-alert/',
-        'https://notificationx.com/discount-alerts/'
+		<p>🔥Introducing Discount Alert By SurfAlert <a target="_blank" href="%2$s">Guide To Notify Customers About On-Sale Products</a> </p>', 'surfalert'),
+        'https://surfalert.com/docs/configure-discount-alert/',
+        'https://surfalert.com/discount-alerts/'
         );
     }
 }

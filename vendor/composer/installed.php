@@ -3,7 +3,7 @@
         'name' => 'surfalert/surfalert',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b805b73ebdc16d11365f0fe69bf1925a375b78c9',
+        'reference' => '07a743aba63e74eab39ea376894e71e0d9b14ff7',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'surfalert/surfalert' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b805b73ebdc16d11365f0fe69bf1925a375b78c9',
+            'reference' => '07a743aba63e74eab39ea376894e71e0d9b14ff7',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

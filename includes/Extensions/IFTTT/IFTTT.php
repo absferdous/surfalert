@@ -2,13 +2,13 @@
 /**
  * IFTTT Extension
  *
- * @package NotificationX\Extensions
+ * @package SurfAlert\Extensions
  */
 
-namespace NotificationX\Extensions\IFTTT;
+namespace SurfAlert\Extensions\IFTTT;
 
-use NotificationX\GetInstance;
-use NotificationX\Extensions\Extension;
+use SurfAlert\GetInstance;
+use SurfAlert\Extensions\Extension;
 
 /**
  * IFTTT Extension
@@ -24,7 +24,7 @@ class IFTTT extends Extension {
 
     public $id = 'ifttt';
     public $img = '';
-    public $doc_link = 'https://notificationx.com/docs/ifttt-notification-alert/';
+    public $doc_link = 'https://surfalert.com/docs/ifttt-notification-alert/';
     public $types = 'email_subscription';
     public $module = 'modules_ifttt';
     public $is_pro = true;
@@ -38,8 +38,8 @@ class IFTTT extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('IFTTT', 'notificationx');
-        $this->module_title = __('IFTTT', 'notificationx');
+        $this->title = __('IFTTT', 'surfalert');
+        $this->module_title = __('IFTTT', 'surfalert');
     }
 
     /**

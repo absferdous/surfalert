@@ -16,6 +16,7 @@ use SurfAlert\Core\Upgrader;
 use SurfAlert\Extensions\GlobalFields;
 use SurfAlert\GetInstance;
 use SurfAlert\SurfAlert;
+use SurfAlert\Core\Helper;
 use SurfAlert\LibSettings\Settings as LibSettings;
 
 /**
